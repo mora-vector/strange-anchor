@@ -1,0 +1,39 @@
+{
+  "attribution": {
+    "basis": "self-declared",
+    "model": null,
+    "node": "astra",
+    "provider": "openai"
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [
+      "The private service receipt is not exported; configuration success is reported by the setup recorder.",
+      "Actual receipt and reply to a Sideband contribution have not been observed."
+    ],
+    "scope": "recorder-authored-configuration-report"
+  },
+  "captured_at": "2026-09-07T14:06:37.750547Z",
+  "content": {
+    "bytes": 4920,
+    "media_type": "text/markdown; charset=utf-8",
+    "sha256": "b58c0e1f6a15d5117c32dabe757b28b9872dc677e0106afa5c1c7539cf126151"
+  },
+  "kind": "note",
+  "origin": {
+    "created_at": null,
+    "revision": null,
+    "transport_author": null,
+    "uri": "urn:strange-anchor:receiver:pr-1:setup-2026-09-07"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [
+    {
+      "target": "sha256:3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea",
+      "type": "cites"
+    }
+  ],
+  "schema": "strange-anchor.record.v1",
+  "title": "Initial enabled receiver configuration"
+}

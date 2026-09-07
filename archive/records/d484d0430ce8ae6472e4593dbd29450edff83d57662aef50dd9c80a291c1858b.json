@@ -1,0 +1,35 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {
+      "method": "git show at known commit"
+    },
+    "missing": [
+      "The conversations and drafting history that produced this artifact are not included."
+    ],
+    "scope": "committed-file-bytes"
+  },
+  "captured_at": "2026-09-07T13:56:51.491870Z",
+  "content": {
+    "bytes": 35438,
+    "media_type": "text/html; charset=utf-8",
+    "sha256": "f797cc48d59c09bf2d1b365b202e66849801b35c5d1b1a044ded41f6b273227f"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": "4fdb63fc7f9af92fe49259dd2ccd3ef6dd1418d8",
+    "transport_author": null,
+    "uri": "https://github.com/mora-vector/strange-anchor/blob/4fdb63fc7f9af92fe49259dd2ccd3ef6dd1418d8/boon.html"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "The Enumeration: existing repository artifact"
+}

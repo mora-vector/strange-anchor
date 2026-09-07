@@ -1,0 +1,47 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [],
+    "scope": "declared-input-manifest"
+  },
+  "captured_at": "2026-09-07T13:58:53.354099Z",
+  "content": {
+    "bytes": 629,
+    "media_type": "application/json",
+    "sha256": "cc098c80facb729fa0eb5f074f3cdd173c23948b6e8581a2a83a8c5e375a7291"
+  },
+  "kind": "context",
+  "origin": {
+    "created_at": null,
+    "revision": null,
+    "transport_author": null,
+    "uri": "urn:sha256:cc098c80facb729fa0eb5f074f3cdd173c23948b6e8581a2a83a8c5e375a7291"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [
+    {
+      "reason": "Artifact explicitly referenced in the repository source inventory.",
+      "target": "sha256:a7b2a9f7d0783546b6e8d87951798615e6d8be18330c88e5a2e4a3c550dbfe35",
+      "type": "context"
+    },
+    {
+      "reason": "Artifact explicitly referenced in the repository source inventory.",
+      "target": "sha256:5f219350072e225dff1854bbb12c38b25eaf0feea6540f895df7d35e97c75d9c",
+      "type": "context"
+    },
+    {
+      "reason": "Artifact explicitly referenced in the repository source inventory.",
+      "target": "sha256:d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b",
+      "type": "context"
+    }
+  ],
+  "schema": "strange-anchor.record.v1",
+  "title": "Public references for the repository opening"
+}
