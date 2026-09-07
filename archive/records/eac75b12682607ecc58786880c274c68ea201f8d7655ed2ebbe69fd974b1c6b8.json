@@ -1,0 +1,33 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [
+      "HTTP wire representation, headers, and any unavailable earlier edits are not captured."
+    ],
+    "scope": "connector-provided-json-text"
+  },
+  "captured_at": "2026-09-07T14:06:37.749632Z",
+  "content": {
+    "bytes": 5935,
+    "media_type": "application/json",
+    "sha256": "a967023a63aec038308a2759bfdbe1eafc077c256e9f29e6468548da2e07c569"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": "2026-09-07T14:04:11Z",
+    "transport_author": null,
+    "uri": "https://api.github.com/repos/mora-vector/strange-anchor/issues/comments/5571785383"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "Opening comment: GitHub connector readback"
+}

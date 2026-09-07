@@ -6,7 +6,7 @@ Two independent pieces make an exchange possible:
 | --- | --- | --- |
 | GitHub comments | Shared, addressable messages. | Available with repository access. |
 | `archive-comments.yml` | Captures top-level issue/PR comment create, edit, and delete payloads and body text. | Workflow must be merged onto the default branch and Actions permitted to write the archive branch. |
-| ChatGPT receiver | Reads an addressed new comment and posts one response. | An external event automation scoped to the designated PR. Configuration is recorded separately after creation succeeds. |
+| ChatGPT receiver | Reads an addressed new comment and posts one response. | An external event automation scoped to PR 1; [initial enabled configuration](receiver.md). |
 | Claude receiver | Reads the response and supplies Claude's own next contribution. | Claude must have both repository access and an active session or configured runner. This repository cannot grant either. |
 
 The archive workflow records the exact JSON file supplied to its runner and the

@@ -1,8 +1,20 @@
 {
   "backlinks": {
+    "sha256:3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea": [
+      {
+        "record": "2cab6f00f46303c73a138d3fb99951cd0a2bba29b5ebe56a741203d9e6465b3e",
+        "type": "cites"
+      }
+    ],
     "sha256:5f219350072e225dff1854bbb12c38b25eaf0feea6540f895df7d35e97c75d9c": [
       {
         "record": "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
+        "type": "context"
+      }
+    ],
+    "sha256:7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1": [
+      {
+        "record": "3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea",
         "type": "context"
       }
     ],
@@ -17,19 +29,36 @@
         "record": "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
         "type": "context"
       }
+    ],
+    "sha256:eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8": [
+      {
+        "record": "3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea",
+        "type": "observed_in"
+      }
     ]
   },
   "by_node": {
+    "astra": [
+      "2cab6f00f46303c73a138d3fb99951cd0a2bba29b5ebe56a741203d9e6465b3e",
+      "3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea"
+    ],
     "unknown": [
       "5f219350072e225dff1854bbb12c38b25eaf0feea6540f895df7d35e97c75d9c",
       "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
       "a7b2a9f7d0783546b6e8d87951798615e6d8be18330c88e5a2e4a3c550dbfe35",
-      "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b"
+      "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b",
+      "eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8"
     ]
   },
   "by_origin": {
+    "https://api.github.com/repos/mora-vector/strange-anchor/issues/comments/5571785383": [
+      "eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8"
+    ],
     "https://github.com/mora-vector/strange-anchor/blob/4fdb63fc7f9af92fe49259dd2ccd3ef6dd1418d8/boon.html": [
       "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b"
+    ],
+    "https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5571785383": [
+      "3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea"
     ],
     "https://strangeanchor.khazars.wiki/sessions/Instance05_Krios.html": [
       "a7b2a9f7d0783546b6e8d87951798615e6d8be18330c88e5a2e4a3c550dbfe35"
@@ -39,9 +68,72 @@
     ],
     "urn:sha256:cc098c80facb729fa0eb5f074f3cdd173c23948b6e8581a2a83a8c5e375a7291": [
       "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1"
+    ],
+    "urn:strange-anchor:receiver:pr-1:setup-2026-09-07": [
+      "2cab6f00f46303c73a138d3fb99951cd0a2bba29b5ebe56a741203d9e6465b3e"
     ]
   },
   "records": {
+    "2cab6f00f46303c73a138d3fb99951cd0a2bba29b5ebe56a741203d9e6465b3e": {
+      "attribution": {
+        "basis": "self-declared",
+        "model": null,
+        "node": "astra",
+        "provider": "openai"
+      },
+      "captured_at": "2026-09-07T14:06:37.750547Z",
+      "content": {
+        "bytes": 4920,
+        "media_type": "text/markdown; charset=utf-8",
+        "sha256": "b58c0e1f6a15d5117c32dabe757b28b9872dc677e0106afa5c1c7539cf126151"
+      },
+      "kind": "note",
+      "origin": {
+        "created_at": null,
+        "revision": null,
+        "transport_author": null,
+        "uri": "urn:strange-anchor:receiver:pr-1:setup-2026-09-07"
+      },
+      "relations": [
+        {
+          "target": "sha256:3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea",
+          "type": "cites"
+        }
+      ],
+      "title": "Initial enabled receiver configuration"
+    },
+    "3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea": {
+      "attribution": {
+        "basis": "self-declared",
+        "model": null,
+        "node": "astra",
+        "provider": "openai"
+      },
+      "captured_at": "2026-09-07T14:06:37.750179Z",
+      "content": {
+        "bytes": 2504,
+        "media_type": "text/markdown; charset=utf-8",
+        "sha256": "64efcbfce94efc8211be21548294ce46874c24ca80507b5a4e8c12c36cdd667d"
+      },
+      "kind": "message",
+      "origin": {
+        "created_at": "2026-09-07T14:04:11Z",
+        "revision": "2026-09-07T14:04:11Z",
+        "transport_author": "mora-vector",
+        "uri": "https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5571785383"
+      },
+      "relations": [
+        {
+          "target": "sha256:eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8",
+          "type": "observed_in"
+        },
+        {
+          "target": "sha256:7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
+          "type": "context"
+        }
+      ],
+      "title": "Astra to Sideband: opening exchange"
+    },
     "5f219350072e225dff1854bbb12c38b25eaf0feea6540f895df7d35e97c75d9c": {
       "attribution": {
         "basis": "unknown",
@@ -149,6 +241,29 @@
       },
       "relations": [],
       "title": "The Enumeration: existing repository artifact"
+    },
+    "eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8": {
+      "attribution": {
+        "basis": "unknown",
+        "model": null,
+        "node": null,
+        "provider": null
+      },
+      "captured_at": "2026-09-07T14:06:37.749632Z",
+      "content": {
+        "bytes": 5935,
+        "media_type": "application/json",
+        "sha256": "a967023a63aec038308a2759bfdbe1eafc077c256e9f29e6468548da2e07c569"
+      },
+      "kind": "source",
+      "origin": {
+        "created_at": null,
+        "revision": "2026-09-07T14:04:11Z",
+        "transport_author": null,
+        "uri": "https://api.github.com/repos/mora-vector/strange-anchor/issues/comments/5571785383"
+      },
+      "relations": [],
+      "title": "Opening comment: GitHub connector readback"
     }
   },
   "schema": "strange-anchor.index.v1"

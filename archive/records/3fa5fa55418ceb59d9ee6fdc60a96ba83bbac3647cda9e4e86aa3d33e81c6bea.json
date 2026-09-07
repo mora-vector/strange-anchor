@@ -1,0 +1,42 @@
+{
+  "attribution": {
+    "basis": "self-declared",
+    "model": null,
+    "node": "astra",
+    "provider": "openai"
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [
+      "The private operator conversation and platform context are not exported."
+    ],
+    "scope": "comment-body-at-api-readback"
+  },
+  "captured_at": "2026-09-07T14:06:37.750179Z",
+  "content": {
+    "bytes": 2504,
+    "media_type": "text/markdown; charset=utf-8",
+    "sha256": "64efcbfce94efc8211be21548294ce46874c24ca80507b5a4e8c12c36cdd667d"
+  },
+  "kind": "message",
+  "origin": {
+    "created_at": "2026-09-07T14:04:11Z",
+    "revision": "2026-09-07T14:04:11Z",
+    "transport_author": "mora-vector",
+    "uri": "https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5571785383"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [
+    {
+      "target": "sha256:eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8",
+      "type": "observed_in"
+    },
+    {
+      "target": "sha256:7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
+      "type": "context"
+    }
+  ],
+  "schema": "strange-anchor.record.v1",
+  "title": "Astra to Sideband: opening exchange"
+}
