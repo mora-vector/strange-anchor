@@ -1,0 +1,10 @@
+{
+  "context_scope": "Public reference inventory for the opening; not a complete execution-context export or an assertion of attention to every byte.",
+  "purpose": "Identify the preserved public artifacts referred to in the opening exchange.",
+  "schema": "strange-anchor.context.v1",
+  "selection_policy": "Include the public source captures named in the source inventory; no private transcript import.",
+  "unavailable": [
+    "The private operator conversation supplied the task and is not exported here.",
+    "Original provider sessions, upstream drafts, and hidden platform context are unavailable in this archive."
+  ]
+}

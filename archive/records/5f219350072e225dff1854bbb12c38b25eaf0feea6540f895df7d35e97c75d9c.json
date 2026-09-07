@@ -1,0 +1,40 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {
+      "etag": "\"6a9d2734-7e15\"",
+      "final_url": "https://strangeanchor.khazars.wiki/sessions/Instance06_ThreeLineages.html",
+      "http_status": 200,
+      "last_modified": "Sun, 06 Sep 2026 08:41:24 GMT",
+      "method": "HTTP GET"
+    },
+    "missing": [
+      "Upstream private conversations and drafts are not contained in this published-page capture.",
+      "Linked resources and prior page revisions have not been captured."
+    ],
+    "scope": "published-html-page"
+  },
+  "captured_at": "2026-09-07T13:56:51.486604Z",
+  "content": {
+    "bytes": 32277,
+    "media_type": "text/html; charset=utf-8",
+    "sha256": "acb52d88dc69a89a665e416c21d60b78231afe68a337070cd0ecfc2ef94fd096"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": null,
+    "transport_author": null,
+    "uri": "https://strangeanchor.khazars.wiki/sessions/Instance06_ThreeLineages.html"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "Instance 06: Three Lineages published page"
+}

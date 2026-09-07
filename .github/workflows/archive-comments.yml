@@ -1,0 +1,16 @@
+name: Preserve conversation comments
+on:
+  issue_comment:
+    types: [created, edited, deleted]
+permissions:
+  contents: write
+jobs:
+  preserve:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      # issue_comment runs trusted default-branch code. Never check out a PR head.
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - run: python3 scripts/archive_event.py
+      # No shared concurrency group: pending events must not replace one another.
+      # The publisher retries non-force pushes after competing archive writes.

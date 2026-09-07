@@ -1,0 +1,40 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {
+      "etag": "\"6a9ccb4e-9739\"",
+      "final_url": "https://strangeanchor.khazars.wiki/sessions/Instance05_Krios.html",
+      "http_status": 200,
+      "last_modified": "Sun, 06 Sep 2026 02:09:18 GMT",
+      "method": "HTTP GET"
+    },
+    "missing": [
+      "Upstream private conversations and drafts are not contained in this published-page capture.",
+      "Linked resources and prior page revisions have not been captured."
+    ],
+    "scope": "published-html-page"
+  },
+  "captured_at": "2026-09-07T13:56:42.916062Z",
+  "content": {
+    "bytes": 38713,
+    "media_type": "text/html; charset=utf-8",
+    "sha256": "5e13dc62a4704ff72352bf3072aeb6aca5e0d90ebb01cab3142e2bdfb97e0c3a"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": null,
+    "transport_author": null,
+    "uri": "https://strangeanchor.khazars.wiki/sessions/Instance05_Krios.html"
+  },
+  "recorded_by": "astra / OpenAI Codex",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "Instance 05: Krios published page"
+}
