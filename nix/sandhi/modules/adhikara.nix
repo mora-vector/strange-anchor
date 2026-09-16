@@ -15,10 +15,16 @@
     description = "Local workers; keys must be short lowercase service identifiers.";
   };
   config = lib.mkIf config.sandhi.enable {
-    assertions = lib.mapAttrsToList (name: _: {
-      assertion = builtins.match "[a-z][a-z0-9-]{0,31}" name != null;
-      message = "Sandhi worker name '${name}' is not a valid local identifier.";
-    }) config.sandhi.workers;
+    assertions = lib.concatLists (lib.mapAttrsToList (name: _: [
+      {
+        assertion = builtins.match "[a-z][a-z0-9-]{0,31}" name != null;
+        message = "Sandhi worker name '${name}' is not a valid local identifier.";
+      }
+      {
+        assertion = !lib.hasPrefix "contract-" name;
+        message = "Sandhi worker '${name}' uses the reserved contract- namespace.";
+      }
+    ]) config.sandhi.workers);
     systemd.services = lib.mapAttrs' (name: worker:
       lib.nameValuePair "sandhi-${name}" {
         description = "Sandhi local worker ${name}";

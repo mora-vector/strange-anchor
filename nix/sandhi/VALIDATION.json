@@ -1,26 +1,34 @@
 {
   "release": "0.3-development",
-  "status": "evaluation-realized; CI-runtime-pending",
+  "status": "evaluation-realized; runtime-passed-on-prior-commit",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
-  "evaluationAssertionsPassed": 35,
+  "evaluationAssertionsPassed": 38,
   "assertionGroups": {
-    "contractTests": 12,
+    "contractTests": 15,
     "evalTests": 12,
     "integrationTests": 11
   },
   "flakeCheckNoBuild": "passed",
   "evaluationArtifactBuilt": true,
-  "vmBooted": false,
-  "packetProbesExecuted": false,
-  "runtimeBlocker": "Prior local guest launch denied with EPERM. CI is being added to run the strengthened guest test.",
   "independentBuildsVerified": false,
   "productionDeployed": false,
   "canonical": false,
   "checkpoint": "e62ad416524fe07d7d9b12d8d9d96eb1b2609a20",
   "evidence": [
     "evidence/repository-evaluation-001/report.json",
-    "evidence/v0.2-validation.json"
-  ]
+    "evidence/v0.2-validation.json",
+    "evidence/repository-evaluation-002/report.json",
+    "evidence/ci-35144567261/ORIGIN.json",
+    "evidence/ci-35144567261/reachability.json"
+  ],
+  "runtimeValidation": {
+    "status": "passed",
+    "sourceHead": "f63a02dee5c1cf190a68da2d00c2d623795bd6d9",
+    "testedMerge": "854727109d762cec14867d0c76ae62d2027ab3c4",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35144567261",
+    "archiveRecord": "68bcad16b3fe50d65392aeab2b1e458c83693505f7c35c2fc0d04fa8e3fc7139",
+    "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem. Namespace regression pending updated CI."
+  }
 }

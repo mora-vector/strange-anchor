@@ -58,6 +58,8 @@ escaping. No shell interpolation of contract values is used.
 Named peers and inputs must exist; each contract needs a budget and the local
 locus. Duplicate runtime agents or state-directory ownership are rejected.
 Unknown references produce evaluation assertions rather than permissive defaults.
+Legacy `sandhi.workers` names beginning with `contract-` are rejected: that
+namespace belongs to compiled contract units and their state directories.
 The compiler checks declared references; it cannot discover arbitrary references
 hidden in program code or opaque arguments.
 

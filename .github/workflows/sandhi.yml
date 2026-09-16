@@ -1,10 +1,22 @@
 name: Validate Sandhi
 on:
   pull_request:
-    paths: ['nix/sandhi/**', '.github/workflows/sandhi.yml']
+    paths:
+      - 'nix/sandhi/**'
+      - '.github/workflows/sandhi.yml'
+      - '!nix/sandhi/evidence/**'
+      - '!nix/sandhi/docs/**'
+      - '!nix/sandhi/README.md'
+      - '!nix/sandhi/VALIDATION.json'
   push:
     branches: [main]
-    paths: ['nix/sandhi/**', '.github/workflows/sandhi.yml']
+    paths:
+      - 'nix/sandhi/**'
+      - '.github/workflows/sandhi.yml'
+      - '!nix/sandhi/evidence/**'
+      - '!nix/sandhi/docs/**'
+      - '!nix/sandhi/README.md'
+      - '!nix/sandhi/VALIDATION.json'
   workflow_dispatch:
 permissions:
   contents: read
