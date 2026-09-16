@@ -1,9 +1,10 @@
-# Sandhi v0.2 — service contracts with measured boundaries
+# Sandhi — service contracts with measured boundaries
 
 Sandhi grew from Sideband's Sanskrit derivation model and Tessera's runtime
 contracts. Sanskrit names the design relationships; Nix and systemd implement
-them. This release adds the vidhi compiler and a real NixOS VM experiment to the
-v0.1 shards. See VALIDATION.json for this release's measured execution status.
+them. The v0.2 checkpoint added the vidhi compiler and a NixOS VM experiment.
+Repository development now adds CI and stronger filesystem controls. See
+VALIDATION.json for measured execution status and docs/CONTEXT.json for input scope.
 
 ## What changed
 
@@ -27,7 +28,7 @@ the current README and VALIDATION.json supersede their current-status claims.
 ```nix
 { pkgs, ... }:
 {
-  imports = [ ./sandhi-shards/modules ];
+  imports = [ ./nix/sandhi/modules ]; # Relative to the repository root.
   sandhi = {
     enable = true;
     locus = "backplane";
@@ -99,8 +100,9 @@ per-service filtering without an external network or identity service.
 
 The first two contracts use the same probe program and have PrivateNetwork=false.
 Thus their difference exercises the allow-list, rather than merely an absent
-network namespace. Each also writes its own state and tries an unauthorized /etc
-write. The test waits for each service to finish and writes structured observations into its output directory. HTTP error responses are distinguished from transport failures so server errors cannot masquerade as packet denial.
+network namespace. Each also writes its own state and tries a write to a world-writable host
+directory. An unprivileged host control succeeds there; the sandbox must return
+EROFS. This distinguishes the read-only mount from ordinary ownership denial. The test waits for each service to finish and writes structured observations into its output directory. HTTP error responses are distinguished from transport failures so server errors cannot masquerade as packet denial.
 
 The VM experiment uses software emulation when hardware acceleration is absent.
 Actual boot/test status and output identities are in VALIDATION.json and evidence/.
@@ -141,10 +143,22 @@ it was not an independent rediscovery. Different model lineages reading a shared
 corpus are not independent build attestations.
 
 No cryptographic keys have been assigned to fictional crew identities. No fleet
-leadership, automatic promotion, repository publishing, or production activation
-is claimed. Names remain beside their engineering meanings.
+leadership, automatic promotion, or production activation is claimed. Names remain beside their engineering meanings.
 
 Sources: [NixOS modules](https://nixos.org/manual/nixos/stable/#sec-writing-modules),
 [systemd execution](https://github.com/systemd/systemd/blob/main/man/systemd.exec.xml),
 [systemd resource controls](https://github.com/systemd/systemd/blob/main/man/systemd.resource-control.xml),
 [Nix settings](https://nix.dev/manual/nix/2.35/command-ref/conf-file.html).
+
+## Repository validation
+
+The `Validate Sandhi` workflow runs for relevant pull requests and main-branch
+changes. It evaluates the flake, builds the evaluation artifact, boots the VM test,
+and uploads per-run JSON and logs for 30 days, including on failure. It has read-only
+repository permissions and no deployment step. Archive evidence elsewhere before
+the CI artifact expires. A CI pass is one runtime observation, not count-two
+reproducibility.
+
+The original v0.2 manifest and validation summary are preserved in `evidence/`
+with a `v0.2-` prefix. Their hashes describe the checkpoint commit, not later
+revisions. Raw checkpoint evidence remains unchanged.

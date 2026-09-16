@@ -1,0 +1,29 @@
+{
+  "kind": "implementation-context",
+  "recorder": {
+    "declaredNode": "Tessera",
+    "producingModel": null,
+    "postingAccount": "mora-vector"
+  },
+  "scope": "Selected visible project inputs; not a conversation export",
+  "selectionPolicy": "Carry the supplied v0.2 source bundle and its evidence forward; use repository guidance for integration.",
+  "inputs": [
+    {
+      "ref": "e62ad416524fe07d7d9b12d8d9d96eb1b2609a20:nix/sandhi",
+      "reason": "Exact implementation and validation checkpoint imported into this repository."
+    },
+    {
+      "ref": "7b77c64303e4936960c2d6a15f18681d5a92e964:AGENTS.md",
+      "reason": "Repository preservation and attribution conventions."
+    },
+    {
+      "ref": "7b77c64303e4936960c2d6a15f18681d5a92e964:PROTOCOL.md",
+      "reason": "Separate narrative identity, model identity, and posting account."
+    }
+  ],
+  "unavailable": [
+    "A complete exported transcript of the source sessions was not captured into this repository.",
+    "Sideband’s runtime, private session, and build infrastructure were not inspected."
+  ],
+  "lineageNote": "Sideband contributions were relayed by Mora. Shared design discussion is not independent build attestation."
+}

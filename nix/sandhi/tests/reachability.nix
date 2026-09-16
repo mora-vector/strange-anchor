@@ -2,15 +2,15 @@
 let
   probe = pkgs.writeScriptBin "sandhi-probe" ''
     #!${pkgs.python3}/bin/python3
-    import json, pathlib, sys, urllib.request, urllib.error
+    import errno, json, pathlib, sys, urllib.request, urllib.error
     opener = urllib.request.build_opener(urllib.request.ProxyHandler({}))
     observations = []
     for spec in sys.argv[1:]:
-        ip, expected = spec.split("=")
+        ip, expected, expected_body = spec.split("=")
         try:
             with opener.open("http://" + ip + ":8080/", timeout=3) as response:
                 body = response.read().decode().strip()
-            actual = "reachable"
+            actual = "reachable" if body == expected_body else "wrong-body"
         except urllib.error.HTTPError as error:
             # An HTTP response demonstrates reachability; it is not a packet denial.
             actual, body = "http-error", str(error)
@@ -18,12 +18,16 @@ let
             actual, body = "blocked", str(error)
         observations.append(dict(ip=ip, expected=expected, actual=actual, detail=body))
     pathlib.Path("owned-state").write_text("writable")
+    # The host control proves this directory is writable by an ordinary user.
+    # Require EROFS specifically: EACCES alone could merely be file ownership.
     try:
-        pathlib.Path("/etc/sandhi-forbidden-write").write_text("bad")
-        protected = False
-    except OSError:
-        protected = True
-    result = dict(network=observations, owned_state=True, system_write_blocked=protected)
+        pathlib.Path("/srv/sandhi-write-control/forbidden").write_text("bad")
+        write_errno = None
+    except OSError as error:
+        write_errno = error.errno
+    protected = write_errno == errno.EROFS
+    result = dict(network=observations, owned_state=True,
+                  system_write_blocked=protected, write_errno=write_errno)
     pathlib.Path("result.json.tmp").write_text(json.dumps(result))
     pathlib.Path("result.json.tmp").replace("result.json")
     sys.exit(0 if protected and all(x["expected"] == x["actual"] for x in observations) else 1)
@@ -43,6 +47,7 @@ in pkgs.testers.runNixOSTest {
     virtualisation.cores = 2;
     virtualisation.vlans = []; # Single guest, loopback fixtures; no host-side switch needed.
     environment.systemPackages = [ pkgs.curl pkgs.bpftools ];
+    systemd.tmpfiles.rules = [ "d /srv/sandhi-write-control 1777 root root -" ];
     systemd.services.sideband-fixture = {
       wantedBy = [ "multi-user.target" ];
       serviceConfig.ExecStart = "${pkgs.python3}/bin/python3 -m http.server 8080 --bind 127.0.0.2 --directory ${pkgs.writeTextDir "index.html" "sideband"}";
@@ -55,9 +60,9 @@ in pkgs.testers.runNixOSTest {
       enable = true;
       peers = { sideband.ipv4 = "127.0.0.2"; echo.ipv4 = "127.0.0.3"; };
       contracts = {
-        first = contract [ "sideband" ] [ "127.0.0.2=reachable" "127.0.0.3=blocked" ];
-        changed = contract [ "echo" ] [ "127.0.0.2=blocked" "127.0.0.3=reachable" ];
-        empty = contract [] [ "127.0.0.2=blocked" "127.0.0.3=blocked" ];
+        first = contract [ "sideband" ] [ "127.0.0.2=reachable=sideband" "127.0.0.3=blocked=echo" ];
+        changed = contract [ "echo" ] [ "127.0.0.2=blocked=sideband" "127.0.0.3=reachable=echo" ];
+        empty = contract [] [ "127.0.0.2=blocked=sideband" "127.0.0.3=blocked=echo" ];
       };
       chandas = { first = budget; changed = budget; empty = budget; };
     };
@@ -66,6 +71,7 @@ in pkgs.testers.runNixOSTest {
     import json, os
     start_all()
     machine.wait_for_unit("multi-user.target")
+    machine.succeed("setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-write-control/host-control")
     for ip, body in [("127.0.0.2", "sideband"), ("127.0.0.3", "echo")]:
         machine.wait_until_succeeds(f"curl --noproxy '*' --fail --max-time 3 http://{ip}:8080/ | grep -x {body}")
     evidence = {}
@@ -83,8 +89,9 @@ in pkgs.testers.runNixOSTest {
         assert record["system_write_blocked"] and record["owned_state"], record
         evidence[name] = record
     # Confirm controls remain healthy after the negative probes.
-    for ip in ["127.0.0.2", "127.0.0.3"]:
-        machine.succeed(f"curl --noproxy '*' --fail --max-time 3 http://{ip}:8080/")
+    for ip, body in [("127.0.0.2", "sideband"), ("127.0.0.3", "echo")]:
+        machine.succeed(f"curl --noproxy '*' --fail --max-time 3 http://{ip}:8080/ | grep -x {body}")
+    machine.succeed("test ! -e /srv/sandhi-write-control/forbidden")
     with open(os.path.join(os.environ["out"], "reachability.json"), "w") as f:
         json.dump(evidence, f, indent=2)
   '';

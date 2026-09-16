@@ -1,6 +1,6 @@
 {
-  "release": "0.2",
-  "status": "evaluation-realized; test-driver-built; runtime-unverified",
+  "release": "0.3-development",
+  "status": "evaluation-realized; CI-runtime-pending",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
@@ -12,25 +12,15 @@
   },
   "flakeCheckNoBuild": "passed",
   "evaluationArtifactBuilt": true,
-  "evaluationDerivation": "/nix/store/d7gmi8b178yjqn6ri5yjfk6bf0v4z2zv-sandhi-evaluation.drv",
-  "vmImageAndDriverBuilt": true,
-  "finalDriver": {
-    "drvPath": "/nix/store/lc69nsvg0sgwlh1hp0pkzcva83jgbfz2-nixos-test-driver-sandhi-declared-reach.drv",
-    "outputs": {
-      "out": "/nix/store/lzd1hlpd7rvkmgxzl68lqnh7v10yjzl3-nixos-test-driver-sandhi-declared-reach"
-    }
-  },
   "vmBooted": false,
   "packetProbesExecuted": false,
-  "runtimeBlocker": "Earlier development guest launch denied with EPERM before probes. Final refined driver built; guest launch not retried.",
+  "runtimeBlocker": "Prior local guest launch denied with EPERM. CI is being added to run the strengthened guest test.",
   "independentBuildsVerified": false,
   "productionDeployed": false,
   "canonical": false,
+  "checkpoint": "e62ad416524fe07d7d9b12d8d9d96eb1b2609a20",
   "evidence": [
-    "evidence/final-evaluation/report.json",
-    "evidence/final-evaluation/assertions.json",
-    "evidence/final-driver-build.json",
-    "evidence/final-driver-path-info.json",
-    "evidence/earlier-vm-attempt.json"
+    "evidence/repository-evaluation-001/report.json",
+    "evidence/v0.2-validation.json"
   ]
 }

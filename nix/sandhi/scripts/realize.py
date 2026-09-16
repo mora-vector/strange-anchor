@@ -4,7 +4,6 @@ import argparse
 import datetime
 import hashlib
 import json
-import os
 from pathlib import Path
 import platform
 import shutil
@@ -32,10 +31,10 @@ def main():
     destination.mkdir(parents=True)
     sources = {}
     for path in sorted(ROOT.rglob("*")):
-        if path.is_file() and (path.suffix == ".nix" or path.name == "flake.lock"):
+        if path.is_file() and (path.suffix in {".nix", ".py"} or path.name == "flake.lock"):
             sources[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
     report = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "startedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "platform": platform.platform(),
         "sourceFilesSha256": sources,
@@ -61,13 +60,21 @@ def main():
 
     save()
     try:
+        if shutil.which("git"):
+            revision = subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT,
+                                      capture_output=True, text=True)
+            if revision.returncode == 0:
+                report["repositoryCommit"] = revision.stdout.strip()
+                changes = subprocess.run(["git", "status", "--porcelain", "--", "."],
+                                         cwd=ROOT, capture_output=True, text=True)
+                report["sourceChanges"] = changes.stdout.splitlines() if changes.returncode == 0 else None
         report["nixVersion"] = execute("nix-version", [nix, "--version"]).strip()
         execute("evaluate", command_base + ["flake", "check", "--no-build", "path:" + str(ROOT)])
         targets = ["evaluation"] if args.evaluation_only else ["evaluation", "reachability"]
         for target in targets:
             ref = f"path:{ROOT}#checks.x86_64-linux.{target}"
             raw = execute("build-" + target, command_base + [
-                "build", "--json", "--out-link", str(destination / (target + "-result")), ref])
+                "build", "--print-build-logs", "--json", "--out-link", str(destination / (target + "-result")), ref])
             records = json.loads(raw)
             outputs = [p for r in records for p in r["outputs"].values()]
             execute("paths-" + target, command_base + ["path-info", "--json"] + outputs)

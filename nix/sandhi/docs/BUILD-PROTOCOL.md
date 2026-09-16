@@ -80,3 +80,20 @@ and (on success) the packet observations. Its result links retain built outputs.
 Use `--evaluation-only` when deliberately collecting only evaluation evidence.
 A failed VM launch remains a failed step; the recorder never promotes it to a
 successful runtime test or an independent attestation.
+
+## Repository CI
+
+The `Validate Sandhi` workflow executes this recorder on Ubuntu for relevant
+pull requests and main-branch changes. It pins checkout, the Nix installer
+action, and the evidence uploader to commit SHAs, and installs Nix 2.35.2. The
+installer enables KVM when available; this is a facility request, not proof that
+a guest ran. A job passes only if the recorder completes both builds and finds
+the guest observation file. Logs are printed during builds and retained even
+when a step fails. Artifacts expire after 30 days; copy evidence to a durable
+archive before expiry.
+
+Source digests include Nix files, the lock, and the recorder. When available,
+the report records the Git commit and any source changes. GitHub may test a
+synthetic PR merge commit; use the recorded commit and file digests when
+identifying the exact input. CI neither signs builder claims nor promotes
+canonical status.
