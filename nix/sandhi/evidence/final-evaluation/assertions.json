@@ -1,0 +1,43 @@
+{
+  "contractTests": {
+    "emptyRecipientsUsePrivateNetwork": true,
+    "missingBudgetBlocked": true,
+    "missingInputBlocked": true,
+    "missingPeerBlocked": true,
+    "nonemptyPeersRequireFilterInspection": true,
+    "nonemptyPeersUseAddressFilter": true,
+    "retriesIncludeInitialAttempt": true,
+    "selectedRecipeEnablesOutputRetention": true,
+    "selectedRecipeInSystemClosure": true,
+    "unknownNeedsNoRecoveryClaim": true,
+    "validContractAccepted": true,
+    "wrongLocusBlocked": true
+  },
+  "evalTests": {
+    "agreement": true,
+    "agreementIsNotAuthentication": true,
+    "differentDerivationHeld": true,
+    "duplicateBuilderHeld": true,
+    "emptyHeld": true,
+    "invalidClaimRejected": true,
+    "malformedHeld": true,
+    "ordinaryConflictRejected": true,
+    "overrideLimitationVisible": true,
+    "retainedOrigins": true,
+    "samePathDifferentBytesHeld": true,
+    "separateClaims": true
+  },
+  "integrationTests": {
+    "claimsExported": true,
+    "gapsExported": true,
+    "noImportFromDerivation": true,
+    "noScheduledGC": true,
+    "recipesRetained": true,
+    "retainedPackageInClosure": true,
+    "unknownPrerequisiteFailsAssertion": true,
+    "workerHasBoundedRestarts": true,
+    "workerIsNetworkIsolated": true,
+    "workerOwnsState": true,
+    "workerUsesPackagedCommand": true
+  }
+}

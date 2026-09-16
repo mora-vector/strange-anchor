@@ -1,0 +1,12 @@
+{
+  "status": "evaluation-tested-not-deployed",
+  "nixVersion": "2.35.2",
+  "system": "x86_64-linux",
+  "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
+  "pureAssertionsPassed": 12,
+  "nixosEvaluationAssertionsPassed": 11,
+  "flakeCheckNoBuild": "passed",
+  "systemBuilt": false,
+  "vmBooted": false,
+  "independentBuildsVerified": false
+}

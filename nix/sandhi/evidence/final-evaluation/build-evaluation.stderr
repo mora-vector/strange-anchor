@@ -1,0 +1,4 @@
+error (ignored): SQLite database '/root/.cache/nix/eval-cache-v6/535ade2f113ce75fefbc239e6128be4e8867f8d72e51f8e15d82cd4ff19389ed.sqlite' is busy
+this derivation will be built:
+  /nix/store/d7gmi8b178yjqn6ri5yjfk6bf0v4z2zv-sandhi-evaluation.drv
+building '/nix/store/d7gmi8b178yjqn6ri5yjfk6bf0v4z2zv-sandhi-evaluation.drv'...
