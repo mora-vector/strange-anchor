@@ -17,6 +17,7 @@
         inherit evalTests integrationTests contractTests;
       };
       checks.${system} = {
+      recovery = import ./tests/recovery.nix { inherit pkgs; };
       reachability = import ./tests/reachability.nix { inherit pkgs; };
       evaluation = pkgs.runCommand "sandhi-evaluation" {} ''
         cat > "$out" <<'JSON'

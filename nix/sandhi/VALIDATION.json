@@ -1,6 +1,6 @@
 {
   "release": "0.3-development",
-  "status": "evaluation-realized; runtime-passed-on-prior-commit",
+  "status": "evaluation-realized; service-boundaries-passed; recovery-runtime-pending",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
@@ -21,14 +21,21 @@
     "evidence/v0.2-validation.json",
     "evidence/repository-evaluation-002/report.json",
     "evidence/ci-35144567261/ORIGIN.json",
-    "evidence/ci-35144567261/reachability.json"
+    "evidence/ci-35144567261/reachability.json",
+    "evidence/ci-35145130501/ORIGIN.json",
+    "evidence/ci-35145130501/reachability.json",
+    "evidence/recovery-evaluation-001/report.json"
   ],
   "runtimeValidation": {
     "status": "passed",
-    "sourceHead": "f63a02dee5c1cf190a68da2d00c2d623795bd6d9",
-    "testedMerge": "854727109d762cec14867d0c76ae62d2027ab3c4",
-    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35144567261",
-    "archiveRecord": "68bcad16b3fe50d65392aeab2b1e458c83693505f7c35c2fc0d04fa8e3fc7139",
-    "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem. Namespace regression pending updated CI."
+    "sourceHead": "1b86e73beeee0d9ef29ed8f6c52b603bf7ae1dd0",
+    "testedMerge": "388bfffd4da9bbb5b2c68117fe6254958202822a",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35145130501",
+    "archiveRecord": "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d",
+    "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem; includes namespace regression."
+  },
+  "recoveryValidation": {
+    "status": "awaiting-ci",
+    "scope": "Synthetic fixture only; no general or off-host recovery claim."
   }
 }

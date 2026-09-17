@@ -37,3 +37,16 @@ evaluation constraints; the CI guest test remains the runtime instrument.
 Documentation and evidence changes do not schedule another VM run. Changes to
 code, the lock, or the workflow do. Capturing a passing run therefore does not
 create an endless evidence/build cycle.
+
+## 2026-09-17: retention is separated from realization
+
+The offline recovery experiment exposed a distinction hidden by evaluation-only
+checks: `.drvPath` carries deep output dependencies. Recipe retention now uses
+a constant derivation reference, keeping the recipe and its input reference
+closure without requiring its outputs to build. A deliberately unavailable
+fixture must remain retainable and must fail when realization is attempted.
+
+The new guest experiment tests actual collection, realized-output retention,
+controlled output loss, offline reconstruction, and a missing-input failure.
+Its status is recorded separately from the already passing service-boundary
+experiment. Neither fixture is a claim about general disaster recovery.

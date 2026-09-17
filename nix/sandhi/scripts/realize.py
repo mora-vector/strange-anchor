@@ -34,12 +34,12 @@ def main():
         if path.is_file() and (path.suffix in {".nix", ".py"} or path.name == "flake.lock"):
             sources[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
     report = {
-        "schemaVersion": 2,
+        "schemaVersion": 3,
         "startedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "platform": platform.platform(),
         "sourceFilesSha256": sources,
         "evidenceScope": "one local run; no builder independence or canonical promotion asserted",
-        "steps": [], "canonical": False, "status": "running",
+        "steps": [], "completedChecks": [], "canonical": False, "status": "running",
     }
     command_base = [nix, "--extra-experimental-features", "nix-command flakes"]
 
@@ -70,7 +70,7 @@ def main():
                 report["sourceChanges"] = changes.stdout.splitlines() if changes.returncode == 0 else None
         report["nixVersion"] = execute("nix-version", [nix, "--version"]).strip()
         execute("evaluate", command_base + ["flake", "check", "--no-build", "path:" + str(ROOT)])
-        targets = ["evaluation"] if args.evaluation_only else ["evaluation", "reachability"]
+        targets = ["evaluation"] if args.evaluation_only else ["evaluation", "reachability", "recovery"]
         for target in targets:
             ref = f"path:{ROOT}#checks.x86_64-linux.{target}"
             raw = execute("build-" + target, command_base + [
@@ -78,10 +78,12 @@ def main():
             records = json.loads(raw)
             outputs = [p for r in records for p in r["outputs"].values()]
             execute("paths-" + target, command_base + ["path-info", "--json"] + outputs)
-            if target == "reachability":
-                observation = Path(records[0]["outputs"]["out"]) / "reachability.json"
-                shutil.copyfile(observation, destination / "reachability.json")
-        report["status"] = "evaluation-only-passed" if args.evaluation_only else "vm-test-passed"
+            if target != "evaluation":
+                observation = Path(records[0]["outputs"]["out"]) / (target + ".json")
+                shutil.copyfile(observation, destination / (target + ".json"))
+            report["completedChecks"].append(target)
+            save()
+        report["status"] = "evaluation-only-passed" if args.evaluation_only else "runtime-tests-passed"
     except (OSError, RuntimeError, ValueError, KeyError) as error:
         report["status"] = "failed"
         report["error"] = str(error)

@@ -1,9 +1,11 @@
 # Named objects, separate evidence
 
-The implemented checks are `checks.x86_64-linux.evaluation` and
-`checks.x86_64-linux.reachability`. The latter builds and boots a test VM, executes
-probes inside generated services, and writes `reachability.json` into its output.
-Neither check is a production vessel deployment.
+The implemented checks are `checks.x86_64-linux.evaluation`,
+`checks.x86_64-linux.reachability`, and `checks.x86_64-linux.recovery`. The latter
+two boot disposable guests and produce `reachability.json` and `recovery.json`.
+The recovery experiment demonstrates a limited offline restoration and carries
+an unavailable-input counterexample; see [RECOVERY.md](RECOVERY.md).
+None of these checks is a production vessel deployment.
 
 ## One realization
 
@@ -13,7 +15,9 @@ With Nix installed and flakes enabled:
 nix flake check --no-build .
 nix build --out-link result-evaluation .#checks.x86_64-linux.evaluation
 nix build --out-link result-reachability .#checks.x86_64-linux.reachability
+nix build --out-link result-recovery .#checks.x86_64-linux.recovery
 cat result-reachability/reachability.json
+cat result-recovery/recovery.json
 ```
 
 The test permits software emulation where KVM is unavailable. Nix may require
@@ -56,7 +60,8 @@ build or safety/correctness from hash agreement alone.
 `keep-outputs`. This can significantly enlarge retention beyond the named set.
 A retaining system generation must remain rooted. An unavailable source is not
 recreated by rooting its recipe. Back up retained bytes and references off-host;
-record successful restoration separately. No archive restoration has been run.
+record successful restoration separately. The synthetic recovery check is not an
+off-host archive restoration; no such restoration has been run.
 
 ## Evidence archive
 
@@ -78,7 +83,7 @@ Choose a new directory outside the source tree for each run. The recorder saves
 source-file digests, commands, exit codes, build output identities, NAR metadata,
 and (on success) the packet observations. Its result links retain built outputs.
 Use `--evaluation-only` when deliberately collecting only evaluation evidence.
-A failed VM launch remains a failed step; the recorder never promotes it to a
+A failed VM launch remains a failed step; the recorder lists completed checks and never promotes failure to a
 successful runtime test or an independent attestation.
 
 ## Repository CI
@@ -87,8 +92,8 @@ The `Validate Sandhi` workflow executes this recorder on Ubuntu for relevant
 pull requests and main-branch changes. It pins checkout, the Nix installer
 action, and the evidence uploader to commit SHAs, and installs Nix 2.35.2. The
 installer enables KVM when available; this is a facility request, not proof that
-a guest ran. A job passes only if the recorder completes both builds and finds
-the guest observation file. Logs are printed during builds and retained even
+a guest ran. A job passes only if the recorder completes all three builds and finds
+both guest observation files. Logs are captured during builds and retained even
 when a step fails. Artifacts expire after 30 days; copy evidence to a durable
 archive before expiry.
 

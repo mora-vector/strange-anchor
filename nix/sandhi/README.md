@@ -128,7 +128,7 @@ VM behavior, independent reproduction, and adoption are different evidence objec
 
 ## Use and verification
 
-The flake exports `nixosModules.default`, `lib` helpers, and two checks. It pins
+The flake exports `nixosModules.default`, `lib` helpers, and three checks. It pins
 Nixpkgs through flake.lock. It does not export a production host: supply actual
 hardware, storage, secrets, backup destinations, and host assignments separately.
 Keep the established `system.stateVersion` on existing hosts.
@@ -157,7 +157,9 @@ Sources: [NixOS modules](https://nixos.org/manual/nixos/stable/#sec-writing-modu
 The `Validate Sandhi` workflow runs for relevant pull requests and main-branch
 changes. It evaluates the flake, builds the evaluation artifact, boots the VM test,
 and uploads per-run JSON and logs for 30 days, including on failure. It has read-only
-repository permissions and no deployment step. Archive evidence elsewhere before
+repository permissions and no deployment step. It also runs the offline recovery
+experiment described in [RECOVERY.md](docs/RECOVERY.md), including an unavailable
+input that must fail to build. Archive evidence elsewhere before
 the CI artifact expires. A CI pass is one runtime observation, not count-two
 reproducibility.
 

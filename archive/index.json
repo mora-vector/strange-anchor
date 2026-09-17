@@ -43,6 +43,7 @@
       "3fa5fa55418ceb59d9ee6fdc60a96ba83bbac3647cda9e4e86aa3d33e81c6bea"
     ],
     "unknown": [
+      "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d",
       "5f219350072e225dff1854bbb12c38b25eaf0feea6540f895df7d35e97c75d9c",
       "68bcad16b3fe50d65392aeab2b1e458c83693505f7c35c2fc0d04fa8e3fc7139",
       "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
@@ -57,6 +58,9 @@
     ],
     "https://github.com/mora-vector/strange-anchor/actions/runs/35144567261/artifacts/10466498598": [
       "68bcad16b3fe50d65392aeab2b1e458c83693505f7c35c2fc0d04fa8e3fc7139"
+    ],
+    "https://github.com/mora-vector/strange-anchor/actions/runs/35145130501/artifacts/10466531571": [
+      "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d"
     ],
     "https://github.com/mora-vector/strange-anchor/blob/4fdb63fc7f9af92fe49259dd2ccd3ef6dd1418d8/boon.html": [
       "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b"
@@ -78,6 +82,29 @@
     ]
   },
   "records": {
+    "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d": {
+      "attribution": {
+        "basis": "unknown",
+        "model": null,
+        "node": null,
+        "provider": "GitHub Actions"
+      },
+      "captured_at": "2026-09-17T10:31:39.742928Z",
+      "content": {
+        "bytes": 68051,
+        "media_type": "application/zip",
+        "sha256": "2740d34f9d7cafc5ba11017cea193c545536feadbaf0c316eaa57c752958d244"
+      },
+      "kind": "source",
+      "origin": {
+        "created_at": null,
+        "revision": "PR head 1b86e73beeee0d9ef29ed8f6c52b603bf7ae1dd0",
+        "transport_author": null,
+        "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/35145130501/artifacts/10466531571"
+      },
+      "relations": [],
+      "title": "Sandhi namespace regression and VM boundary test: CI run 35145130501"
+    },
     "2cab6f00f46303c73a138d3fb99951cd0a2bba29b5ebe56a741203d9e6465b3e": {
       "attribution": {
         "basis": "self-declared",
