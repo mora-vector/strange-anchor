@@ -73,7 +73,7 @@ in pkgs.testers.runNixOSTest {
     )
     bad = machine.succeed("readlink -f /nix/var/nix/gcroots/sandhi-test-unavailable").strip()
     bad_out = query(f"--query --outputs {bad}")
-    machine.succeed(f"test -f {out}", f"test ! -e {bad_out}",
+    machine.succeed(f"test ! -e {bad_out}",
                     "test ! -e /sandhi-intentionally-missing-input")
     closure = query("--query --requisites /run/current-system").splitlines()
     assert good in closure and source in closure and out not in closure, closure
@@ -89,6 +89,11 @@ in pkgs.testers.runNixOSTest {
     assert [link["ifname"] for link in links] == ["lo"], links
     routes = json.loads(machine.succeed(f"nsenter -t {pid} -n ip -j route show"))
     assert routes == [], routes
+
+    # A host build dependency need not be copied into the guest store. Establish
+    # the baseline through the isolated daemon before testing GC and output loss.
+    query(f"--realise {good} --option substitute false --option builders {no_builders}")
+    machine.succeed(f"test -f {out}")
 
     orphan = query("--add-text sandhi-unrooted-control disposable-fixture")
     machine.succeed(f"{store} --gc")
@@ -116,7 +121,7 @@ in pkgs.testers.runNixOSTest {
         "scope": "Synthetic fixed-output fixture in one disposable guest; no off-host or independent restoration claim",
         "canonical": False,
         "recipe": good, "source": source, "output": out,
-        "retentionMechanism": "system closure recipe reference; output prebuilt for image packaging",
+        "retentionMechanism": "system closure recipe reference; baseline realized in isolated guest",
         "gc": {"unrootedControlCollected": True, "recipesAndInputRetained": True,
                "realizedOutputRetainedUnderNormalPolicy": True},
         "offline": {"daemonPrivateNetwork": True, "interfaces": ["lo"],

@@ -26,7 +26,8 @@
     "evidence/ci-35145130501/reachability.json",
     "evidence/recovery-evaluation-001/report.json",
     "evidence/ci-35211657016/ORIGIN.json",
-    "evidence/recovery-evaluation-002/report.json"
+    "evidence/recovery-evaluation-002/report.json",
+    "evidence/ci-35212778802/SUMMARY.json"
   ],
   "runtimeValidation": {
     "status": "passed",
@@ -37,9 +38,9 @@
     "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem; includes namespace regression."
   },
   "recoveryValidation": {
-    "status": "awaiting-ci-after-image-export-fix",
-    "previousFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35211657016",
-    "archiveRecord": "fc5b114e02f5ad0e4bc6ea5945e203620cda17a3055490f0606d70685a467dcb",
-    "scope": "Synthetic fixture only; no general or off-host recovery claim."
+    "status": "awaiting-ci-after-guest-baseline-fix",
+    "previousFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35212778802",
+    "scope": "Synthetic fixture only; no general or off-host recovery claim.",
+    "evidence": "evidence/ci-35212778802/SUMMARY.json"
   }
 }

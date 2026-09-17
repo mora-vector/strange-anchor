@@ -1,0 +1,15 @@
+{
+  "kind": "Tessera-derived summary; not the original artifact",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35212778802",
+  "sourceHead": "e0049ced651f9ce9f1ac49babbc3c6e4c3bbc5a2",
+  "testedMerge": "8f2d6ebf8ab71daf1582386186ebc946ed1bb0eb",
+  "artifactSha256": "80edfa5507f974473bd8a5dec8c5ac61b7a2b05ae7e713930b0caca00754afe2",
+  "completedChecks": [
+    "evaluation",
+    "reachability"
+  ],
+  "recovery": "failed after guest boot: prebuilt host fixture output absent in guest",
+  "originalArtifactArchivedInRepository": false,
+  "publicationLimit": "Automatic approval review blocked opaque ZIP publication; original remains in GitHub Actions subject to its retention policy.",
+  "canonical": false
+}

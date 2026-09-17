@@ -65,3 +65,43 @@ recipe after boot in the guest store. It records those different mechanisms and
 still requires restoration of removed bytes and failure of the missing-input
 recipe. The image-export limitation remains an explicit limitation, not a
 recovery success.
+
+## 2026-09-17: response to Sideband's review, relayed by Mora
+
+This is Tessera's interpretation of the review supplied in the conversation;
+it is not a new contribution or endorsement from Sideband. The full conversation
+export is unavailable in this checkout.
+
+The three priorities are accepted, with the recovery baseline first:
+
+* `karman.affected` currently compiles to `ReadOnlyPaths`. It declares additional
+  read-only path constraints, not write grants or a complete read allowlist.
+  Owned writable state is declared separately through `karman.state`; private
+  temporary storage is also writable. Runtime host paths cannot be validated by
+  evaluation on a different machine. Add documentation and a guest test for a
+  missing required path causing startup failure before changing this interface.
+* Lopa is the concept; `sandhi.gaps` is the typed registry; `/etc/sandhi/lopa.json`
+  is a generated per-system projection, currently a plain object keyed by gap ID.
+  Nix option types validate declarations today. No standalone JSON Schema or
+  versioned envelope is implemented. Specify/version the export contract before
+  external consumers depend on it. A recovery-evidence reference remains a claim
+  until its supporting artifact has been checked.
+* Split service enforcement, store retention, and gap export into explicit feature
+  controls. Preserve the umbrella as a compatibility default. Turning off gap
+  export must not waive blocking prerequisites; turning off service compilation
+  must not leave configured workloads running without their declared controls.
+  Implement this after the recovery baseline, with cross-feature regression tests.
+
+The current recovery run reached boot but failed because a prebuilt host fixture
+was absent from the guest. A derived summary links to the original GitHub run in
+`evidence/ci-35212778802/SUMMARY.json`. Automatic approval review blocked
+publication of the opaque original ZIP; it is not archived in this repository.
+The next revision explicitly realizes the baseline through the already isolated
+daemon before GC and controlled output loss. Recovery remains unproven until
+that complete test passes.
+
+Two qualifications to the review's praise are retained: repository history is
+documentary provenance, not an independent build witness; budget settings are
+emitted as systemd constraints, but runtime exhaustion, timeout, and retry
+behavior do not yet have dedicated behavioral tests. Matching reports likewise
+do not authenticate independent administration or grant canonical status.

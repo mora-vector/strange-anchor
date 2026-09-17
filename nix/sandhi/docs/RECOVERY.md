@@ -8,7 +8,8 @@ Its result is written to `recovery.json` only after every assertion passes.
 The experiment checks these distinct propositions:
 
 1. The system closure contains the available fixture's recipe and input, without
-   a direct reference to its output. That output is prebuilt for image packaging.
+   a direct reference to its output. That output is prebuilt for image packaging;
+   the guest explicitly realizes its own baseline through the isolated daemon.
    The missing-input recipe is instantiated after boot and given its own explicit
    test GC root; its output is absent.
 2. Collection removes an unrooted control while preserving those recipes and
@@ -58,6 +59,12 @@ These two retention mechanisms are recorded separately. This test does **not**
 claim that an image containing an unbuildable retained recipe can be packaged by
 the stock exporter. Live-store retention and image transport have different
 requirements.
+
+The next run reached guest boot but disproved a second assumption: a host-side
+`system.checks` build does not guarantee that its output is present in the guest.
+The test now realizes the baseline through the isolated daemon before collection
+and deliberate loss. This initial realization and subsequent restoration have
+the same network restrictions. Neither is an independent second-builder claim.
 
 ## Limits
 
