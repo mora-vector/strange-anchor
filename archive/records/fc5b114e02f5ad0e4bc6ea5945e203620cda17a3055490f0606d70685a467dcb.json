@@ -1,0 +1,33 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": "GitHub Actions"
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [
+      "No successful recovery observation in this run"
+    ],
+    "scope": "Exact GitHub Actions artifact ZIP as received; evaluation and reachability passed, recovery guest did not build"
+  },
+  "captured_at": "2026-09-17T10:44:41.696687Z",
+  "content": {
+    "bytes": 69448,
+    "media_type": "application/zip",
+    "sha256": "87732c075efb3f4cc3dadb1071bef3e71654ac69fd0c2f958bc537fb12b30c18"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": "PR head 3f813c3b4bf06931a6cd8b8f8365557df4211f81; tested merge 51b083d8fdb5a8b338491867d6d4d5d6c9407924",
+    "transport_author": null,
+    "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/35211657016/artifacts/10491828711"
+  },
+  "recorded_by": "Tessera",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "Sandhi recovery experiment: first CI failure before guest boot"
+}

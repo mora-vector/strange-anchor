@@ -50,3 +50,18 @@ The new guest experiment tests actual collection, realized-output retention,
 controlled output loss, offline reconstruction, and a missing-input failure.
 Its status is recorded separately from the already passing service-boundary
 experiment. Neither fixture is a claim about general disaster recovery.
+
+## 2026-09-17: image export is a separate constraint
+
+The first recovery CI run passed evaluation and service boundaries but stopped
+before guest boot: the stock exportReferencesGraph implementation walks outputs
+of every derivation it encounters. Constant evaluation context alone does not
+change that exporter. The previous proposal to package an unavailable recipe
+in the guest image therefore does not work. The failed run is preserved.
+
+The corrected experiment prebuilds the available fixture with system.checks
+without adding a direct output root. It instantiates and roots the unavailable
+recipe after boot in the guest store. It records those different mechanisms and
+still requires restoration of removed bytes and failure of the missing-input
+recipe. The image-export limitation remains an explicit limitation, not a
+recovery success.

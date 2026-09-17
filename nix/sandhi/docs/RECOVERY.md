@@ -7,14 +7,17 @@ Its result is written to `recovery.json` only after every assertion passes.
 
 The experiment checks these distinct propositions:
 
-1. The system closure contains two recipes and the available fixture's input.
-   Neither output is present at the start.
+1. The system closure contains the available fixture's recipe and input, without
+   a direct reference to its output. That output is prebuilt for image packaging.
+   The missing-input recipe is instantiated after boot and given its own explicit
+   test GC root; its output is absent.
 2. Collection removes an unrooted control while preserving those recipes and
    the declared input. This demonstrates that collection actually ran.
 3. The Nix daemon has its own network namespace, containing only loopback and
    no IPv4 route. Every store command explicitly uses that daemon. Substitution
    and remote builders are disabled for realization.
-4. The available fixture builds, and ordinary collection keeps its output.
+4. The available fixture contains the expected bytes, and ordinary collection
+   keeps its output through the retained derivation and keep-outputs policy.
 5. One test-only deletion, with `keep-outputs=false` scoped to that command,
    removes this synthetic output. Its recipe and source remain. Realization
    restores the expected payload and the same NAR hash.
@@ -35,9 +38,26 @@ its outputs need not build merely to retain it. Global `keep-outputs` separately
 protects realized outputs while their derivations remain live.
 
 This distinction is described in the [Nix builtin documentation](https://nix.dev/manual/nix/2.35/language/builtins.html#builtins-unsafeDiscardOutputDependency).
-The fixture with an unavailable input checks that packaging the guest does not
-accidentally require that output. [Targeted deletion](https://nix.dev/manual/nix/2.35/command-ref/nix-store/delete.html)
+The fixture with an unavailable input tests retention in the guest's live store.
+[Targeted deletion](https://nix.dev/manual/nix/2.35/command-ref/nix-store/delete.html)
 is used for the controlled-loss step; liveness checks remain enabled.
+
+## Image-export limitation, observed
+
+The first CI attempt failed before boot: `exportReferencesGraph`, used by the
+NixOS image builder, expands encountered derivations to their outputs, even when
+the evaluation context contains only a constant recipe reference. This behavior
+is explicit in [Nix's exportReferences implementation](https://github.com/NixOS/nix/blob/2.35.2/src/libstore/store-api.cc).
+The original failure is retained as archive record
+`fc5b114e02f5ad0e4bc6ea5945e203620cda17a3055490f0606d70685a467dcb`.
+
+The test therefore prebuilds the available fixture through `system.checks`, which
+adds a build dependency without an output root. It creates the unavailable recipe
+after boot, using the same fixture expression and an explicit guest GC root.
+These two retention mechanisms are recorded separately. This test does **not**
+claim that an image containing an unbuildable retained recipe can be packaged by
+the stock exporter. Live-store retention and image transport have different
+requirements.
 
 ## Limits
 

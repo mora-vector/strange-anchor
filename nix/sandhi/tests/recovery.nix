@@ -4,20 +4,11 @@ let
   source = builtins.toFile "sandhi-recovery-input" payload;
   # The builtin fetcher keeps this experiment small: no compiler toolchain is
   # smuggled in through a shell builder's derivation closure.
-  fixture = name: url: builtins.derivation {
-    inherit name url;
-    system = "builtin";
-    builder = "builtin:fetchurl";
-    outputHashAlgo = "sha256";
-    outputHashMode = "flat";
-    outputHash = builtins.hashString "sha256" payload;
-    executable = false;
-    unpack = false;
-    preferLocalBuild = true;
-    allowSubstitutes = false;
+  recoverable = import ./fixtures/fixed-output.nix {
+    name = "sandhi-recoverable";
+    url = "file://${source}";
+    sha256 = builtins.hashString "sha256" payload;
   };
-  recoverable = fixture "sandhi-recoverable" "file://${source}";
-  unavailable = fixture "sandhi-unavailable" "file:///sandhi-intentionally-missing-input";
   recipe = drv: builtins.unsafeDiscardOutputDependency drv.drvPath;
 in pkgs.testers.runNixOSTest {
   name = "sandhi-offline-recovery";
@@ -37,12 +28,17 @@ in pkgs.testers.runNixOSTest {
       substitute = false;
     };
     nix.distributedBuilds = false;
+    # Nix's exportReferencesGraph used by the VM image builder also walks
+    # derivation outputs. Satisfy that packaging requirement explicitly, without
+    # adding an output root. The missing-input case is instantiated after boot.
+    system.checks = [ recoverable ];
+    environment.etc."sandhi/recovery-fixture.nix".source = ./fixtures/fixed-output.nix;
     # All store mutations below explicitly select this daemon. A root client's
     # implicit local store would evade the network condition being tested.
     systemd.services.nix-daemon.serviceConfig.PrivateNetwork = true;
     sandhi = {
       enable = true;
-      retainedRecipes = [ recoverable unavailable ];
+      retainedRecipes = [ recoverable ];
       gaps.unavailable-fixture = {
         status = "unknown";
         availability = "absent";
@@ -58,7 +54,6 @@ in pkgs.testers.runNixOSTest {
     store = "NIX_REMOTE=daemon nix-store"
     no_builders = shlex.quote("")
     good = "${recipe recoverable}"
-    bad = "${recipe unavailable}"
     source = "${source}"
     expected = ${builtins.toJSON payload}
 
@@ -69,10 +64,20 @@ in pkgs.testers.runNixOSTest {
         return query(f"--query --hash {shlex.quote(path)}")
 
     out = query(f"--query --outputs {good}")
+    machine.succeed(
+        "NIX_REMOTE=daemon nix-instantiate /etc/sandhi/recovery-fixture.nix "
+        "--add-root /nix/var/nix/gcroots/sandhi-test-unavailable "
+        "--argstr name sandhi-unavailable "
+        "--argstr url file:///sandhi-intentionally-missing-input "
+        "--argstr sha256 ${builtins.hashString "sha256" payload}"
+    )
+    bad = machine.succeed("readlink -f /nix/var/nix/gcroots/sandhi-test-unavailable").strip()
     bad_out = query(f"--query --outputs {bad}")
-    machine.succeed(f"test ! -e {out}", f"test ! -e {bad_out}")
+    machine.succeed(f"test -f {out}", f"test ! -e {bad_out}",
+                    "test ! -e /sandhi-intentionally-missing-input")
     closure = query("--query --requisites /run/current-system").splitlines()
-    assert good in closure and bad in closure and source in closure, closure
+    assert good in closure and source in closure and out not in closure, closure
+    machine.succeed("test -L /nix/var/nix/gcroots/sandhi-test-unavailable")
 
     # Establish the daemon's actual network namespace, not just its unit setting.
     pid = machine.succeed("systemctl show nix-daemon.service -p MainPID --value").strip()
@@ -88,10 +93,8 @@ in pkgs.testers.runNixOSTest {
     orphan = query("--add-text sandhi-unrooted-control disposable-fixture")
     machine.succeed(f"{store} --gc")
     machine.succeed(f"test ! -e {orphan}", f"test -f {good}", f"test -f {bad}", f"test -f {source}")
-    query(f"--realise {good} --option substitute false --option builders {no_builders}")
     before = nar_hash(out)
     assert machine.succeed(f"cat {out}") == expected
-    machine.succeed(f"{store} --gc")
     machine.succeed(f"test -f {out}") # Normal keep-outputs policy preserves the realized form.
 
     # Deliberately simulate loss of this one synthetic output. This scoped test
@@ -113,6 +116,7 @@ in pkgs.testers.runNixOSTest {
         "scope": "Synthetic fixed-output fixture in one disposable guest; no off-host or independent restoration claim",
         "canonical": False,
         "recipe": good, "source": source, "output": out,
+        "retentionMechanism": "system closure recipe reference; output prebuilt for image packaging",
         "gc": {"unrootedControlCollected": True, "recipesAndInputRetained": True,
                "realizedOutputRetainedUnderNormalPolicy": True},
         "offline": {"daemonPrivateNetwork": True, "interfaces": ["lo"],
@@ -122,6 +126,7 @@ in pkgs.testers.runNixOSTest {
                      "payloadSha256": hashlib.sha256(restored.encode()).hexdigest(),
                      "sameBytes": True},
         "missingInput": {"recipe": bad, "recipeRetained": True,
+                         "retentionMechanism": "explicit guest test gcroot, created after boot",
                          "realizationFailed": True, "outputAbsent": True,
                          "recoveryStatus": "unresolved"},
     }

@@ -49,7 +49,8 @@
       "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
       "a7b2a9f7d0783546b6e8d87951798615e6d8be18330c88e5a2e4a3c550dbfe35",
       "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b",
-      "eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8"
+      "eac75b12682607ecc58786880c274c68ea201f8d7655ed2ebbe69fd974b1c6b8",
+      "fc5b114e02f5ad0e4bc6ea5945e203620cda17a3055490f0606d70685a467dcb"
     ]
   },
   "by_origin": {
@@ -61,6 +62,9 @@
     ],
     "https://github.com/mora-vector/strange-anchor/actions/runs/35145130501/artifacts/10466531571": [
       "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d"
+    ],
+    "https://github.com/mora-vector/strange-anchor/actions/runs/35211657016/artifacts/10491828711": [
+      "fc5b114e02f5ad0e4bc6ea5945e203620cda17a3055490f0606d70685a467dcb"
     ],
     "https://github.com/mora-vector/strange-anchor/blob/4fdb63fc7f9af92fe49259dd2ccd3ef6dd1418d8/boon.html": [
       "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b"
@@ -318,6 +322,29 @@
       },
       "relations": [],
       "title": "Opening comment: GitHub connector readback"
+    },
+    "fc5b114e02f5ad0e4bc6ea5945e203620cda17a3055490f0606d70685a467dcb": {
+      "attribution": {
+        "basis": "unknown",
+        "model": null,
+        "node": null,
+        "provider": "GitHub Actions"
+      },
+      "captured_at": "2026-09-17T10:44:41.696687Z",
+      "content": {
+        "bytes": 69448,
+        "media_type": "application/zip",
+        "sha256": "87732c075efb3f4cc3dadb1071bef3e71654ac69fd0c2f958bc537fb12b30c18"
+      },
+      "kind": "source",
+      "origin": {
+        "created_at": null,
+        "revision": "PR head 3f813c3b4bf06931a6cd8b8f8365557df4211f81; tested merge 51b083d8fdb5a8b338491867d6d4d5d6c9407924",
+        "transport_author": null,
+        "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/35211657016/artifacts/10491828711"
+      },
+      "relations": [],
+      "title": "Sandhi recovery experiment: first CI failure before guest boot"
     }
   },
   "schema": "strange-anchor.index.v1"
