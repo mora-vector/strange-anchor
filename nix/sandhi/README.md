@@ -78,6 +78,12 @@ hidden in program code or opaque arguments.
 - `ProtectSystem=strict` restricts writes. `ReadOnlyPaths` does not hide every
   unlisted readable file. This is not a full confidentiality sandbox or a VM-strength
   boundary against hostile workloads.
+- `karman.affected` lists required host paths constrained read-only. It grants no
+  writes and does not override ordinary read permissions. Missing required paths
+  prevent service startup on the runtime host; Nix evaluation cannot check a
+  different machine's filesystem. `karman.state` separately declares owned writable
+  state; the private temporary directory is also writable. A dedicated missing-path
+  behavioral test is pending; the current packet/write test does not establish it.
 - State directories are separately owned; resource limits and bounded retries
   are emitted as service settings. `retries` excludes the initial attempt.
 - Ancillary DNS is not silently allowed. Use explicit addresses, or design and
@@ -116,6 +122,13 @@ A registry entry can be `unknown` or `withheld` without claiming recovery eviden
 Availability defaults to `unassessed`. Recovery evidence is a list of typed
 references; these references are statements to audit, not self-verifying proofs.
 A blocking prerequisite remains an explicit assertion.
+
+Lopa names the concept. `sandhi.gaps` is its typed registry and
+`/etc/sandhi/lopa.json` is a generated snapshot for one system generation: a plain
+JSON object keyed by gap ID. It is not a writable database, a fleet-wide canonical
+record, or an independently authenticated evidence archive. Nix option types
+validate declarations; no standalone JSON Schema or stable versioned export API
+exists yet. External consumers should wait for that contract to be specified.
 
 Selected output and recipe retention lasts while the retaining system generation
 stays rooted. Recipe retention enables global keep-outputs and may retain much

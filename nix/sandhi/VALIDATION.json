@@ -1,6 +1,6 @@
 {
   "release": "0.3-development",
-  "status": "evaluation-realized; service-boundaries-passed; recovery-runtime-pending",
+  "status": "evaluation-realized; service-boundaries-historically-passed; recovery-fix-awaiting-capable-builder",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
@@ -27,7 +27,10 @@
     "evidence/recovery-evaluation-001/report.json",
     "evidence/ci-35211657016/ORIGIN.json",
     "evidence/recovery-evaluation-002/report.json",
-    "evidence/ci-35212778802/SUMMARY.json"
+    "evidence/ci-35212778802/SUMMARY.json",
+    "evidence/ci-35271564455/SUMMARY.json",
+    "evidence/local-recovery-006/report.json",
+    "evidence/local-evaluation-007/report.json"
   ],
   "runtimeValidation": {
     "status": "passed",
@@ -38,9 +41,19 @@
     "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem; includes namespace regression."
   },
   "recoveryValidation": {
-    "status": "awaiting-ci-after-guest-baseline-fix",
-    "previousFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35212778802",
-    "scope": "Synthetic fixture only; no general or off-host recovery claim.",
-    "evidence": "evidence/ci-35212778802/SUMMARY.json"
+    "status": "correction-evaluated-and-driver-built; guest-launch-denied",
+    "latestCiFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35271564455",
+    "ciEvidence": "evidence/ci-35271564455/SUMMARY.json",
+    "localEvidence": "evidence/local-recovery-006/report.json",
+    "scope": "Synthetic fixture; repair-mode baseline still unverified; no general/off-host recovery claim."
+  },
+  "localContinuation": {
+    "evaluationEvidence": "evidence/local-evaluation-007/report.json",
+    "recorderTestsPassed": 6,
+    "archiveTestsPassed": 15,
+    "archiveRecordsVerified": 10,
+    "publication": "blocked-by-automatic-approval-review",
+    "affectedPaths": "invariant documented; new behavioral test pending",
+    "featureControls": "split deferred until recovery baseline passes"
   }
 }

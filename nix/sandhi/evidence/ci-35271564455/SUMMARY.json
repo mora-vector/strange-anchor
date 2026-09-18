@@ -1,0 +1,14 @@
+{
+  "kind": "Tessera-derived summary with original report and selected log excerpt",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35271564455",
+  "sourceHead": "70f5659d3655b3505d49379024c82897db1c5f95",
+  "testedMerge": "25631fd6dcd873f6167702c70323d64796f8b252",
+  "artifactSha256": "5013930e0944d0e744caa5d0dc45ee5e8750e7b61b79a63129ebef001691bf5a",
+  "completedChecks": [
+    "evaluation",
+    "reachability"
+  ],
+  "recovery": "failed: ordinary realization returned success but fixture output was absent",
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false
+}

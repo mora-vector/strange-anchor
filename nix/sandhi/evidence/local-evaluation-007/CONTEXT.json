@@ -1,0 +1,11 @@
+{
+  "scope": "Evaluation artifact and flake evaluation only",
+  "localBuildSettings": {
+    "build-users-group": "",
+    "sandbox": false,
+    "extra-system-features": [
+      "nixos-test"
+    ]
+  },
+  "canonical": false
+}

@@ -3,7 +3,7 @@
 The implemented checks are `checks.x86_64-linux.evaluation`,
 `checks.x86_64-linux.reachability`, and `checks.x86_64-linux.recovery`. The latter
 two boot disposable guests and produce `reachability.json` and `recovery.json`.
-The recovery experiment demonstrates a limited offline restoration and carries
+The recovery experiment tests limited offline restoration and carries
 an unavailable-input counterexample; see [RECOVERY.md](RECOVERY.md).
 None of these checks is a production vessel deployment.
 
@@ -85,6 +85,24 @@ and (on success) the packet observations. Its result links retain built outputs.
 Use `--evaluation-only` when deliberately collecting only evaluation evidence.
 A failed VM launch remains a failed step; the recorder lists completed checks and never promotes failure to a
 successful runtime test or an independent attestation.
+
+For a bounded follow-up, select the unresolved experiment explicitly:
+
+```sh
+python3 scripts/realize.py --check recovery --output-dir ../sandhi-recovery-002
+```
+
+`--check` may be repeated; omitting it still runs all three checks. A selected
+subset gets `selected-checks-passed`, never the full-suite success label. Reports
+record requested and completed checks separately, and print a compact status plus
+the failed step's final 40 stderr lines into the job log. The complete logs remain
+in the evidence directory. This reduces artifact-download dependence during a
+handoff without substituting a summary for original evidence.
+
+The recorder also compares source digests at the start and end. A difference
+leaves the individual observations intact but fails the aggregate report, with
+both digest maps retained. Run against a fixed checkout: endpoint comparison is
+not a filesystem lock and cannot detect a transient edit that was reverted.
 
 ## Repository CI
 

@@ -66,6 +66,13 @@ The test now realizes the baseline through the isolated daemon before collection
 and deliberate loss. This initial realization and subsequent restoration have
 the same network restrictions. Neither is an independent second-builder claim.
 
+Run 35271564455 then reported successful ordinary realization while `test -f`
+still found no output bytes. The revised baseline records initial database
+registration and file presence separately, and uses `nix-store --realise --repair`
+to check actual contents before collection. The later controlled-loss experiment
+still requires ordinary realization to restore the deleted output. See the
+[repair option](https://nix.dev/manual/nix/2.35/command-ref/nix-store/realise.html).
+
 ## Limits
 
 A pass demonstrates restoration of this fixture under the recorded conditions.

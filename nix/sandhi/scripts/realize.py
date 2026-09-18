@@ -13,13 +13,27 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 
 
+def source_hashes():
+    return {
+        str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
+        for path in sorted(ROOT.rglob("*"))
+        if path.is_file() and (path.suffix in {".nix", ".py"} or path.name == "flake.lock")
+    }
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, required=True,
                         help="New directory for this run; existing paths are refused")
     parser.add_argument("--evaluation-only", action="store_true",
                         help="Build only the evaluation artifact; no VM claim")
+    parser.add_argument("--check", action="append", choices=["evaluation", "reachability", "recovery"],
+                        help="Run only named checks; repeat for multiple checks (default: all)")
     args = parser.parse_args()
+    if args.evaluation_only and args.check:
+        parser.error("Use either --evaluation-only or --check, not both.")
+    targets = (["evaluation"] if args.evaluation_only else
+               list(dict.fromkeys(args.check or ["evaluation", "reachability", "recovery"])))
     destination = args.output_dir.resolve()
     if destination == ROOT or ROOT in destination.parents:
         parser.error("Place evidence outside the source tree so recording does not change the input.")
@@ -29,16 +43,14 @@ def main():
     if nix is None:
         parser.error("Nix must be installed and available on PATH.")
     destination.mkdir(parents=True)
-    sources = {}
-    for path in sorted(ROOT.rglob("*")):
-        if path.is_file() and (path.suffix in {".nix", ".py"} or path.name == "flake.lock"):
-            sources[str(path.relative_to(ROOT))] = hashlib.sha256(path.read_bytes()).hexdigest()
+    sources = source_hashes()
     report = {
-        "schemaVersion": 3,
+        "schemaVersion": 4,
         "startedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "platform": platform.platform(),
         "sourceFilesSha256": sources,
         "evidenceScope": "one local run; no builder independence or canonical promotion asserted",
+        "requestedChecks": targets,
         "steps": [], "completedChecks": [], "canonical": False, "status": "running",
     }
     command_base = [nix, "--extra-experimental-features", "nix-command flakes"]
@@ -55,6 +67,11 @@ def main():
         report["steps"].append({"name": name, "command": command, "exitCode": result.returncode})
         save()
         if result.returncode:
+            # Keep a useful diagnosis in the CI job log even when downloading
+            # its separate artifact is unavailable. The full log stays on disk.
+            print(f"Sandhi step failed: {name} (exit {result.returncode})", file=sys.stderr)
+            tail = (destination / (name + ".stderr")).read_text(errors="replace").splitlines()[-40:]
+            print("\n".join(tail), file=sys.stderr)
             raise RuntimeError(f"{name} exited {result.returncode}")
         return (destination / (name + ".stdout")).read_text()
 
@@ -70,7 +87,6 @@ def main():
                 report["sourceChanges"] = changes.stdout.splitlines() if changes.returncode == 0 else None
         report["nixVersion"] = execute("nix-version", [nix, "--version"]).strip()
         execute("evaluate", command_base + ["flake", "check", "--no-build", "path:" + str(ROOT)])
-        targets = ["evaluation"] if args.evaluation_only else ["evaluation", "reachability", "recovery"]
         for target in targets:
             ref = f"path:{ROOT}#checks.x86_64-linux.{target}"
             raw = execute("build-" + target, command_base + [
@@ -83,13 +99,28 @@ def main():
                 shutil.copyfile(observation, destination / (target + ".json"))
             report["completedChecks"].append(target)
             save()
-        report["status"] = "evaluation-only-passed" if args.evaluation_only else "runtime-tests-passed"
+        report["status"] = ("runtime-tests-passed" if set(targets) == {"evaluation", "reachability", "recovery"}
+                            else "evaluation-only-passed" if targets == ["evaluation"]
+                            else "selected-checks-passed")
     except (OSError, RuntimeError, ValueError, KeyError) as error:
         report["status"] = "failed"
         report["error"] = str(error)
     finally:
+        try:
+            after = source_hashes()
+            report["sourceFilesSha256After"] = after
+            report["sourceStableAtEnd"] = sources == after
+            if sources != after:
+                report["status"] = "failed"
+                report["sourceError"] = "Source files changed during this run; do not combine its checks as one revision."
+        except OSError as error:
+            report["status"] = "failed"
+            report["sourceStableAtEnd"] = False
+            report["sourceError"] = str(error)
         report["finishedAt"] = datetime.datetime.now(datetime.timezone.utc).isoformat()
         save()
+    print(json.dumps({key: report[key] for key in
+                      ["status", "requestedChecks", "completedChecks", "canonical"]}))
     print(destination / "report.json")
     return 0 if report["status"].endswith("passed") else 1
 

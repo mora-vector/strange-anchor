@@ -1,0 +1,12 @@
+{
+  "scope": "Image and driver built; guest launch denied; no recovery observation",
+  "localBuildSettings": {
+    "build-users-group": "",
+    "sandbox": false,
+    "extra-system-features": [
+      "nixos-test"
+    ]
+  },
+  "sourceQualification": "karaka.nix option descriptions changed during build; report includes original source digests. This attempt predates end-of-run drift detection.",
+  "canonical": false
+}

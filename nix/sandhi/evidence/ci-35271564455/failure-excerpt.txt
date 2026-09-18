@@ -1,0 +1,18 @@
+Selected contiguous excerpt from build-recovery.stderr; complete original remains in Actions.
+vm-test-run-sandhi-offline-recovery> machine: must succeed: NIX_REMOTE=daemon nix-store --realise /nix/store/i0bzjrvsnbwirx7yin57x84v9gq9rsh4-sandhi-recoverable.drv --option substitute false --option builders ''
+vm-test-run-sandhi-offline-recovery> machine # [   15.344537] nix-daemon[780]: accepted connection from pid 833, user root (trusted)
+vm-test-run-sandhi-offline-recovery> machine # warning: you did not specify '--add-root'; the result might be removed by the garbage collector
+vm-test-run-sandhi-offline-recovery> machine: (finished: must succeed: NIX_REMOTE=daemon nix-store --realise /nix/store/i0bzjrvsnbwirx7yin57x84v9gq9rsh4-sandhi-recoverable.drv --option substitute false --option builders '', in 0.16 seconds)
+vm-test-run-sandhi-offline-recovery> machine: must succeed: test -f /nix/store/7dsp7k7zyxzbqckrx523w5ja3k2avdlr-sandhi-recoverable
+vm-test-run-sandhi-offline-recovery> machine: output:
+vm-test-run-sandhi-offline-recovery> !!! Traceback (most recent call last):
+vm-test-run-sandhi-offline-recovery> !!!   File "<string>", line 46, in <module>
+vm-test-run-sandhi-offline-recovery> !!!     machine.succeed(f"test -f {out}")
+vm-test-run-sandhi-offline-recovery> !!! 
+vm-test-run-sandhi-offline-recovery> !!! RequestedAssertionFailed: command `test -f /nix/store/7dsp7k7zyxzbqckrx523w5ja3k2avdlr-sandhi-recoverable` failed (exit code 1)
+vm-test-run-sandhi-offline-recovery> cleanup
+vm-test-run-sandhi-offline-recovery> kill QemuMachine (pid 9)
+vm-test-run-sandhi-offline-recovery> machine # qemu-system-x86_64: terminating on signal 15 from pid 6 (/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3.13)
+vm-test-run-sandhi-offline-recovery> (finished: cleanup, in 0.11 seconds)
+error: Cannot build '/nix/store/br91jz5ffc2cnp5lccgjcbxgj58qqh13-vm-test-run-sandhi-offline-recovery.drv'.
+       Reason: builder failed with exit code 1.

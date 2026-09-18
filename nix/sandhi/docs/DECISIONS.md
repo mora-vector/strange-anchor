@@ -105,3 +105,35 @@ documentary provenance, not an independent build witness; budget settings are
 emitted as systemd constraints, but runtime exhaustion, timeout, and retry
 behavior do not yet have dedicated behavioral tests. Matching reports likewise
 do not authenticate independent administration or grant canonical status.
+
+## 2026-09-17: realization reports and file presence are separate observations
+
+Run 35271564455 passed evaluation and reachability, then failed after an ordinary
+realization returned success but the fixture file was absent. The next baseline
+records initial database validity and file presence and uses repair mode before
+GC. Its result remains pending. This is a test-harness correction, not a new
+recovery guarantee. The source report and selected failure lines are retained
+as text in evidence/ci-35271564455; the original ZIP remains in Actions.
+
+## 2026-09-17: handoffs need bounded work and stable inputs
+
+The recorder now accepts explicit check selection and distinguishes selected
+success from full-suite success. It prints the last 40 stderr lines of a failed
+command in the job log, alongside the retained full log. A collaborator should
+not have to repeat all builds or obtain an artifact download merely to locate
+a failing step. Six Python tests cover scope, missing observations, failure
+diagnostics, compatibility, and source drift; these are recorder tests, not Nix
+or runtime attestations.
+
+Source digests are compared again at the end. If they differ, completed
+observations remain available but the aggregate report fails. This is a drift
+detector, not a lock or proof that no transient/reverted edit occurred. Use fixed
+checkouts for independent collaboration.
+
+Local recovery attempt 006 built the corrected VM image and driver, including
+type/lint checks, but guest launch was denied with EPERM before any recovery
+probe ran. During that attempt an option-description edit changed karaka.nix;
+its initial source digest names the pre-edit version. That run used the recorder
+before drift detection was added. It is retained as build/launch evidence only.
+No successful recovery result is claimed. Feature splitting and new runtime
+experiments stay deferred until the baseline can run on a capable builder.

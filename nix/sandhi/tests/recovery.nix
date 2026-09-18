@@ -92,7 +92,12 @@ in pkgs.testers.runNixOSTest {
 
     # A host build dependency need not be copied into the guest store. Establish
     # the baseline through the isolated daemon before testing GC and output loss.
-    query(f"--realise {good} --option substitute false --option builders {no_builders}")
+    initially_present = machine.execute(f"test -f {out}")[0] == 0
+    initially_registered = machine.execute(f"{store} --check-validity {out}")[0] == 0
+    # Image registration can describe bytes absent from the guest's mounted
+    # store. Normal realization trusts that registration. Repair checks bytes.
+    realized = query(f"--realise {good} --repair --option substitute false --option builders {no_builders}")
+    assert realized == out, (realized, out)
     machine.succeed(f"test -f {out}")
 
     orphan = query("--add-text sandhi-unrooted-control disposable-fixture")
@@ -122,6 +127,9 @@ in pkgs.testers.runNixOSTest {
         "canonical": False,
         "recipe": good, "source": source, "output": out,
         "retentionMechanism": "system closure recipe reference; baseline realized in isolated guest",
+        "baseline": {"initiallyPresent": initially_present,
+                     "initiallyRegistered": initially_registered,
+                     "establishedWithRepair": True},
         "gc": {"unrootedControlCollected": True, "recipesAndInputRetained": True,
                "realizedOutputRetainedUnderNormalPolicy": True},
         "offline": {"daemonPrivateNetwork": True, "interfaces": ["lo"],

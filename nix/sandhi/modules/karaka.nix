@@ -22,8 +22,17 @@ in {
       type = t.attrsOf (t.submodule ({ name, ... }: { options = {
         kartr = lib.mkOption { type = t.strMatching "[a-z][a-z0-9-]{0,27}"; default = name; };
         karman = {
-          state = lib.mkOption { type = identifier; default = name; };
-          affected = lib.mkOption { type = t.listOf absolute; default = []; };
+          state = lib.mkOption {
+            type = identifier; default = name;
+            description = "Owned writable state under /var/lib/sandhi-contract-<state>; not an arbitrary host write grant.";
+          };
+          affected = lib.mkOption {
+            type = t.listOf absolute; default = [];
+            description = ''Required host paths constrained read-only by systemd.
+              Missing paths prevent service startup. These are not write grants
+              or a complete read allowlist; ordinary permissions still apply.
+              Existence is checked on the runtime host, not by Nix evaluation.'';
+          };
         };
         karana = lib.mkOption { type = t.package; };
         arguments = lib.mkOption { type = t.listOf t.str; default = []; };
