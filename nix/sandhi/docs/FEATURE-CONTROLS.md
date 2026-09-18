@@ -46,10 +46,18 @@ detect policy leakage. The services-only guest exercises the packet/write
 experiment without registry export; the retention-only guest exercises recovery
 and requires no Sandhi units despite nonempty worker/contract declarations.
 
-The next affected-path experiment should run the same unit first with a missing
-required path and then with that path present. Require the first attempt to fail
-before the workload writes its execution marker, and the second to execute.
-Also inspect the namespace failure status; a generic nonzero return is not enough.
+The affected-path experiment in `tests/reachability.nix` runs the same unit first
+with a missing required path and then with that path present. It requires namespace
+exit status 226, a journal diagnostic naming the missing path, and no workload
+execution marker. Once the path exists, the unchanged unit must execute, read the
+reference payload, and receive EROFS when trying to write there. An unprivileged
+host write control rules out ordinary directory ownership as the cause. This tests
+the full generated sandbox, where ReadOnlyPaths and ProtectSystem overlap.
+
+Type=simple start-job success is not accepted as evidence of execution: the test
+waits for the actual process status. It explicitly stops the failed attempt and
+resets the failure/start-limit state before the second run. Dedicated retry-budget
+and timeout behavior remains a separate future experiment.
 
 An export-schema change is separate from this toggle split. Preserve the current
 gap-ID-keyed JSON shape unless a versioned migration is explicitly documented.

@@ -204,3 +204,27 @@ The evaluation matrix uses deliberately different host defaults to detect leaks.
 The two VM experiments now exercise services-only and retention-only operation.
 Runtime evidence for this revision must be checked separately from the earlier
 umbrella-enabled recovery baseline; the affected-path experiment is the next change.
+
+## 2026-09-18: required paths are tested before workload execution
+
+The reachability guest now carries a separate required-path contract. The test
+first requires namespace exit 226 and a journal diagnostic naming the absent
+path, with no execution marker. It then creates a readable, host-writable fixture,
+resets the unit's failure state, and runs the identical unit definition. The
+workload must read the exact reference, write owned state, and receive EROFS on
+the required path. Evidence preserves the first journal and a unit-definition
+digest. A successful Type=simple start job alone is not treated as execution.
+
+The namespace status is documented by [systemd](https://github.com/systemd/systemd/blob/main/man/systemd.exec.xml);
+the observed result remains a property of our pinned NixOS guest. The write check
+tests the full generated sandbox, including ProtectSystem=strict, rather than
+attributing the overlapping write denial exclusively to ReadOnlyPaths. No arbitrary
+read allowlist, evaluation-time host-path check, or budget-exhaustion proof is claimed.
+
+Run 35397280379 passed evaluation and the services-only guest, then stopped at
+the retention guest's unit-inventory harness: systemctl returned 1 for an unmatched
+pattern, with empty output. The correction queries all service units, positively
+identifies nix-daemon.service, and asserts no Sandhi unit names are present.
+Absence is measured against a working inventory, not inferred from a failed query.
+The next run includes this correction and the separately committed path experiment;
+the earlier failed recovery check remains failed.

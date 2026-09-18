@@ -99,8 +99,10 @@ apply when the umbrella, services, or retention is enabled. See
   writes and does not override ordinary read permissions. Missing required paths
   prevent service startup on the runtime host; Nix evaluation cannot check a
   different machine's filesystem. `karman.state` separately declares owned writable
-  state; the private temporary directory is also writable. A dedicated missing-path
-  behavioral test is pending; the current packet/write test does not establish it.
+  state; the private temporary directory is also writable. The required-path
+  experiment checks namespace failure before workload execution, then successful
+  reading and EROFS on writes once that path exists. See VALIDATION.json for its
+  observed status; the older packet-only results do not establish this behavior.
 - State directories are separately owned; resource limits and bounded retries
   are emitted as service settings. `retries` excludes the initial attempt.
 - Ancillary DNS is not silently allowed. Use explicit addresses, or design and

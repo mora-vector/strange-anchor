@@ -55,8 +55,12 @@ in pkgs.testers.runNixOSTest {
     import hashlib, json, os, shlex
     start_all()
     machine.wait_for_unit("multi-user.target")
-    units = machine.succeed("systemctl list-unit-files 'sandhi-*.service' --no-legend --no-pager").strip()
-    assert units == "", units
+    inventory = machine.succeed("systemctl list-unit-files --type=service --no-legend --no-pager")
+    units = {line.split()[0] for line in inventory.splitlines() if line.strip()}
+    # An unmatched pattern can return 1. Query the complete inventory and use a
+    # known service as a positive control before asserting the managed set empty.
+    assert "nix-daemon.service" in units, units
+    assert not any(unit.startswith("sandhi-") for unit in units), units
     for snapshot in ["claims", "lopa", "contracts"]:
         machine.succeed(f"test ! -e /etc/sandhi/{snapshot}.json")
     store = "NIX_REMOTE=daemon nix-store"
