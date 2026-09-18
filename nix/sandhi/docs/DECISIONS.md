@@ -249,3 +249,11 @@ before execution. The original negative test is retained; its result must be
 measured again. A compiler assertion also checks that affected paths get required
 binds. The additional mount is an intentional enforcement change, not an assertion
 relaxation. The earlier failed run remains the counterexample that prompted it.
+
+Run 35398917376 confirmed namespace exit 226, the missing-path diagnostic, and no
+execution marker with the required bind. The harness then stopped the unit, which
+allowed systemd to unload it; reset-failed subsequently failed on that unloaded
+unit. The correction waits for the already bounded failed state without stopping
+it, then resets that state before the second start. The negative assertions and
+unchanged-unit positive control remain intact. The full experiment still needs
+its completed rerun; the successful negative leg alone is not a suite pass.

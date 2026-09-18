@@ -57,8 +57,8 @@ ProtectSystem overlap. Required binds enforce source existence: run 35398323774
 showed that ReadOnlyPaths alone allowed workload execution with the path absent.
 
 Type=simple start-job success is not accepted as evidence of execution: the test
-waits for the actual process status. It explicitly stops the failed attempt and
-resets the failure/start-limit state before the second run. Dedicated retry-budget
+waits for the actual process status and the bounded failed state, then resets
+the failure/start-limit state before the second run. Dedicated retry-budget
 and timeout behavior remains a separate future experiment.
 
 An export-schema change is separate from this toggle split. Preserve the current

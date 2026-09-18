@@ -127,8 +127,11 @@ in pkgs.testers.runNixOSTest {
     start_code, _ = machine.execute(f"systemctl start {unit}")
     machine.wait_until_succeeds(
         f"test $(systemctl show {unit} -p ExecMainStatus --value) = 226", timeout=30)
+    # With retries=0 the unit reaches failed after its first bounded attempt.
+    # Keep that failed unit loaded until reset-failed; stop would let GC unload it.
+    machine.wait_until_succeeds(
+        f"test $(systemctl show {unit} -p ActiveState --value) = failed", timeout=30)
     failure_result = machine.succeed(f"systemctl show {unit} -p Result --value").strip()
-    machine.succeed(f"systemctl stop {unit}") # Cancel any pending automatic retry.
     journal = machine.succeed(f"journalctl -b -u {unit} --no-pager -o cat")
     assert "/srv/sandhi-required-path" in journal and "No such file or directory" in journal, journal
     assert "NAMESPACE" in journal, journal
