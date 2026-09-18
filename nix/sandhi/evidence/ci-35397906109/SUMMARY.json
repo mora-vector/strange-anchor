@@ -1,0 +1,14 @@
+{
+  "kind": "Tessera-derived summary; original report retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35397906109",
+  "sourceHead": "ea4d6de373a6e7626800ca3c6928060301db56bb",
+  "testedMerge": "dac898b85b0a6f12e22ccc867070121f649c32de",
+  "artifactSha256": "3757c466848a92e464cd5c232b40610d346f00c996082724c68462b1732f2549",
+  "completedChecks": ["evaluation"],
+  "failure": "Driver type check rejected assigning the heterogeneous requiredPath observation to an evidence dictionary inferred as dict[str, dict[str, bool]]",
+  "correction": "Declare the evidence container as dict[str, object]; keep type checking enabled",
+  "runtimeExperimentsExecuted": false,
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35397906109/artifacts/10570005631"
+}

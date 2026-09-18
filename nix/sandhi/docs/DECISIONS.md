@@ -228,3 +228,9 @@ identifies nix-daemon.service, and asserts no Sandhi unit names are present.
 Absence is measured against a working inventory, not inferred from a failed query.
 The next run includes this correction and the separately committed path experiment;
 the earlier failed recovery check remains failed.
+
+Run 35397906109 stopped before guest boot because the driver's type checker inferred
+the evidence dictionary from its initial boolean feature record. The path record
+contains strings and nested observations as well. Its container is now explicitly
+`dict[str, object]`; the type check remains enabled. No runtime result is attributed
+to that run beyond its completed evaluation check.

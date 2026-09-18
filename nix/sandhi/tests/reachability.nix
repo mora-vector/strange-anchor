@@ -97,8 +97,9 @@ in pkgs.testers.runNixOSTest {
     machine.succeed("setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-write-control/host-control")
     for ip, body in [("127.0.0.2", "sideband"), ("127.0.0.3", "echo")]:
         machine.wait_until_succeeds(f"curl --noproxy '*' --fail --max-time 3 http://{ip}:8080/ | grep -x {body}")
-    evidence = {"features": {"services": True, "retention": False, "registryExport": False,
-                             "diagnosticSnapshotsAbsent": True}}
+    evidence: dict[str, object] = {
+        "features": {"services": True, "retention": False, "registryExport": False,
+                     "diagnosticSnapshotsAbsent": True}}
     for name in ["first", "changed", "empty"]:
         unit = f"sandhi-contract-{name}.service"
         machine.succeed(f"systemctl start {unit}")
