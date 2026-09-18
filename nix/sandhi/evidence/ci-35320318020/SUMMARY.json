@@ -1,0 +1,18 @@
+{
+  "kind": "Tessera-derived summary; selected original artifact members retained without rewriting",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35320318020",
+  "sourceHead": "6deae6ebb28b800a335c42f6c2ce724775cf9377",
+  "testedMerge": "d7251e5a36c7acec1cac603d60afd69fffea4a3c",
+  "artifactSha256": "7694662d4b12102784334e132afbb0ff90601ebdba9527c4354bbc268aad3682",
+  "completedChecks": ["evaluation", "reachability", "recovery"],
+  "sourceStableAtEnd": true,
+  "recovery": "Full experiment passed: repair baseline, effective offline daemon, actual GC, controlled output loss, identical restored NAR hash/payload, and unavailable-input counterexample",
+  "missingInput": "Fetch failed for the missing file; Nix validity check rejected the output; an empty residual file remained and did not match the payload",
+  "canonical": false,
+  "independentBuildsVerified": false,
+  "productionDeployed": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalMembersPreserved": ["report.json", "reachability.json", "recovery.json", "paths-evaluation.stdout", "paths-reachability.stdout", "paths-recovery.stdout"],
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35320318020/artifacts/10536926496",
+  "originalArtifactExpiresAt": "2026-10-18T07:40:59Z"
+}

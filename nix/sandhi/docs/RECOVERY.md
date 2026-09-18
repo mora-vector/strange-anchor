@@ -86,6 +86,15 @@ run is not retrospectively promoted to a passing suite.
 
 ## Limits
 
+The complete experiment first passed in
+[run 35320318020](https://github.com/mora-vector/strange-anchor/actions/runs/35320318020).
+Original structured observations are in `../evidence/ci-35320318020/recovery.json`.
+The failed fetch left an empty, invalid file; the available fixture was restored
+with identical payload and NAR hash. The summary identifies the branch head and
+tested merge; the report records an unchanged start/end source inventory.
+Earlier failures remain evidence of
+the assumptions corrected on the way to this baseline.
+
 A pass demonstrates restoration of this fixture under the recorded conditions.
 It does not demonstrate off-host backups, restoration after storage corruption,
 availability of every compiler/source dependency, database rollback, or recovery

@@ -18,6 +18,10 @@ VALIDATION.json for measured execution status and docs/CONTEXT.json for input sc
   closure, alongside existing output retention.
 - `tests/reachability.nix`: boots one guest and runs probes inside generated
   units against two healthy loopback-address HTTP fixtures.
+- `tests/recovery.nix`: collects an unrooted control, retains recipes/input,
+  restores a deliberately deleted fixture offline, and measures an unavailable-
+  input counterexample. The complete baseline passed in CI; see
+  [RECOVERY.md](docs/RECOVERY.md) for scope and original evidence.
 
 Original documentary-claim and reported-output comparison shards are retained.
 `docs/v0.1-README.md` and `evidence/v0.1-validation.json` preserve the earlier state;

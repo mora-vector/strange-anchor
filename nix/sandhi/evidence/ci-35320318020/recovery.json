@@ -1,0 +1,48 @@
+{
+  "schemaVersion": 2,
+  "scope": "Synthetic fixed-output fixture in one disposable guest; no off-host or independent restoration claim",
+  "canonical": false,
+  "recipe": "/nix/store/i0bzjrvsnbwirx7yin57x84v9gq9rsh4-sandhi-recoverable.drv",
+  "source": "/nix/store/8sjij9zkg1vy7p10lpm14y1rjrhjlf62-sandhi-recovery-input",
+  "output": "/nix/store/7dsp7k7zyxzbqckrx523w5ja3k2avdlr-sandhi-recoverable",
+  "retentionMechanism": "system closure recipe reference; baseline realized in isolated guest",
+  "baseline": {
+    "initiallyPresent": false,
+    "initiallyRegistered": true,
+    "establishedWithRepair": true
+  },
+  "gc": {
+    "unrootedControlCollected": true,
+    "recipesAndInputRetained": true,
+    "realizedOutputRetainedUnderNormalPolicy": true
+  },
+  "offline": {
+    "daemonPrivateNetwork": true,
+    "interfaces": [
+      "lo"
+    ],
+    "routes": [],
+    "substitutionEnabled": false,
+    "remoteBuilders": []
+  },
+  "recovery": {
+    "outputRemovedWithScopedKeepOutputsOverride": true,
+    "narHashBefore": "sha256:1abcyc2n0cxmzqv6qjhbcy1cfb7fkrcwy10rdl6v6vbmr7v6851v",
+    "narHashAfter": "sha256:1abcyc2n0cxmzqv6qjhbcy1cfb7fkrcwy10rdl6v6vbmr7v6851v",
+    "payloadSha256": "da9c8851db74d5abfc261500f6dce5545f43c387137ccfe174d9fe7fe37f8437",
+    "sameBytes": true
+  },
+  "missingInput": {
+    "recipe": "/nix/store/q6ymzlvs8fcvmjq6c1fymjq9901hz2yv-sandhi-unavailable.drv",
+    "recipeRetained": true,
+    "retentionMechanism": "explicit guest test gcroot, created after boot",
+    "realizationFailed": true,
+    "failureExitCode": 1,
+    "failureLog": "this derivation will be built:\n  /nix/store/q6ymzlvs8fcvmjq6c1fymjq9901hz2yv-sandhi-unavailable.drv\nbuilding '/nix/store/q6ymzlvs8fcvmjq6c1fymjq9901hz2yv-sandhi-unavailable.drv'...\nerror:\n       \u2026 writing file \"/nix/store/z4qsv2m8w3yx1fxj0sy9j9z9w23m1r14-sandhi-unavailable\"\n\n       error: unable to download 'file:///sandhi-intentionally-missing-input': Could not read a file:// file (37) Could not open file /sandhi-intentionally-missing-input\nerror: Cannot build '/nix/store/q6ymzlvs8fcvmjq6c1fymjq9901hz2yv-sandhi-unavailable.drv'.\n       Reason: builder failed with exit code 1.\n       Output paths:\n         /nix/store/z4qsv2m8w3yx1fxj0sy9j9z9w23m1r14-sandhi-unavailable\n       Last 4 log lines:\n       > error:\n       >        \u2026 writing file \"/nix/store/z4qsv2m8w3yx1fxj0sy9j9z9w23m1r14-sandhi-unavailable\"\n       >\n       >        error: unable to download 'file:///sandhi-intentionally-missing-input': Could not read a file:// file (37) Could not open file /sandhi-intentionally-missing-input\n       For full logs, run:\n         nix log /nix/store/q6ymzlvs8fcvmjq6c1fymjq9901hz2yv-sandhi-unavailable.drv\n",
+    "validOutputRegistered": false,
+    "residualFilePresent": true,
+    "residualPayloadSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "expectedPayloadPresent": false,
+    "recoveryStatus": "unresolved"
+  }
+}

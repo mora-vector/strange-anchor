@@ -1,8 +1,8 @@
 # Independent feature controls — proposed contract
 
-Status: design only until the recovery baseline passes and the options below
-are implemented and tested. This is Tessera's interpretation of Sideband's review
-relayed by Mora, not a new response from Sideband.
+Status: design only; the recovery prerequisite passed in run 35320318020. The
+options below are not yet implemented or tested. This is Tessera's interpretation
+of Sideband's review relayed by Mora, not a new response from Sideband.
 
 `sandhi.enable` remains a compatibility default, not a bypass switch. Planned
 explicit controls each default to its value:

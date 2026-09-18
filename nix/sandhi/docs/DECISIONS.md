@@ -170,3 +170,20 @@ error, invalid Nix registration (with a valid-output positive control), and no
 matching payload. It records residual file presence and SHA-256 independently.
 The failed run remains failed; these observations are not a completed recovery
 attestation. File presence, valid registration, and recovered bytes are distinct.
+
+## 2026-09-18: the complete recovery baseline passes
+
+Run 35320318020 passed evaluation, reachability, and recovery on source head
+6deae6ebb28b800a335c42f6c2ce724775cf9377 (tested merge
+d7251e5a36c7acec1cac603d60afd69fffea4a3c). The artifact's SHA-256 was checked
+against GitHub's digest; selected original JSON and output metadata are retained
+under evidence/ci-35320318020 without rewriting. Every recorded source digest
+matches the current implementation, and the recorder found no endpoint drift.
+
+The unavailable-input output was invalid, with an empty residual file. Its gap
+remained unresolved. The available fixture survived normal GC, was deliberately
+removed, and was reconstructed offline with identical payload and NAR hash.
+This is one fixture on one builder, not an off-host backup or independent quorum.
+The Node 24 checkout and ZIP evidence upload also passed. The recovery prerequisite
+for feature-control work is now satisfied; FEATURE-CONTROLS.md remains a design,
+not an implemented interface. No release, deployment, or canonical promotion.
