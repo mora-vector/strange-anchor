@@ -23,7 +23,7 @@ let
   sourcePackages = kk: map (p: cfg.inputs.${p})
     (builtins.filter (p: builtins.hasAttr p cfg.inputs) kk.apadana);
 in {
-  config = lib.mkIf cfg.enable {
+  config = lib.mkIf cfg.services.enable {
     assertions = lib.concatMap (name:
       let kk = cfg.contracts.${name}; in [
         { assertion = validName name; message = "Sandhi invalid contract name: ${name}"; }
@@ -42,8 +42,10 @@ in {
         message = "Sandhi contracts must have distinct state directories."; }
     ];
     system.extraDependencies = lib.concatMap (n: sourcePackages cfg.contracts.${n}) names;
-    environment.etc."sandhi/contracts.json".text = builtins.toJSON {
-      inherit (cfg) locus peers contracts chandas;
+    environment.etc = lib.mkIf cfg.registry.export {
+      "sandhi/contracts.json".text = builtins.toJSON {
+        inherit (cfg) locus peers contracts chandas;
+      };
     };
     systemd.services = lib.mapAttrs' (name: kk:
       let c = budget name; in lib.nameValuePair "sandhi-contract-${name}" {

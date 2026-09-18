@@ -1,12 +1,17 @@
 { config, lib, ... }:
+let cfg = config.sandhi;
+in
 {
-  config = lib.mkIf config.sandhi.enable {
+  config = lib.mkMerge [ (lib.mkIf (cfg.enable || cfg.services.enable || cfg.retention.enable) {
     nix.settings = {
-      keep-derivations = true;
-      keep-outputs = lib.mkIf (config.sandhi.retainedRecipes != []) true;
       sandbox = true;
       require-sigs = true;
       allow-import-from-derivation = false;
+    };
+  }) (lib.mkIf cfg.retention.enable {
+    nix.settings = {
+      keep-derivations = true;
+      keep-outputs = lib.mkIf (config.sandhi.retainedRecipes != []) true;
     };
     # A conservative first cut: no scheduled GC. Manual root actions remain
     # administrative operations; this does not prohibit root from deleting.
@@ -17,5 +22,5 @@
     system.extraDependencies = config.sandhi.retainedPackages
       ++ map (drv: builtins.unsafeDiscardOutputDependency drv.drvPath)
         config.sandhi.retainedRecipes;
-  };
+  }) ];
 }

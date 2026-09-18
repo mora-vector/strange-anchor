@@ -187,3 +187,20 @@ This is one fixture on one builder, not an off-host backup or independent quorum
 The Node 24 checkout and ZIP evidence upload also passed. The recovery prerequisite
 for feature-control work is now satisfied; FEATURE-CONTROLS.md remains a design,
 not an implemented interface. No release, deployment, or canonical promotion.
+
+## 2026-09-18: independent execution, retention, and registry export
+
+The three controls in FEATURE-CONTROLS.md are implemented with `sandhi.enable`
+as their compatibility default. Both compiled contracts and legacy workers use
+the service switch. Runtime input dependencies remain attached to enabled
+services even when archival retention is off. Registry export never suppresses
+declared blocking gap assertions, including when the umbrella is off. Contract
+snapshots exist only when their service compilation and export are both enabled.
+
+Build-security settings remain active for the umbrella, services, or retention;
+registry-only configuration leaves host build policy alone. Retention off emits
+neither retention dependencies nor retention/GC settings and performs no deletion.
+The evaluation matrix uses deliberately different host defaults to detect leaks.
+The two VM experiments now exercise services-only and retention-only operation.
+Runtime evidence for this revision must be checked separately from the earlier
+umbrella-enabled recovery baseline; the affected-path experiment is the next change.

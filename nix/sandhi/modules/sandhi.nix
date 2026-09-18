@@ -9,7 +9,7 @@ in {
       remain separate with their source files, after Nix priority filtering.
       Do not put secrets here. Operational decisions use ordinary options.'';
   };
-  config = lib.mkIf config.sandhi.enable {
+  config = lib.mkIf config.sandhi.registry.export {
     environment.etc."sandhi/claims.json".source =
       pkgs.writeText "sandhi-claims.json" (builtins.toJSON config.sandhi.claims);
   };

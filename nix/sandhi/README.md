@@ -67,6 +67,19 @@ namespace belongs to compiled contract units and their state directories.
 The compiler checks declared references; it cannot discover arbitrary references
 hidden in program code or opaque arguments.
 
+## Independent controls
+
+`sandhi.services.enable`, `sandhi.retention.enable`, and `sandhi.registry.export`
+each default to `sandhi.enable`, and can be explicitly overridden. Enable services
+alone for restricted workloads, retention alone for store policy, or export alone
+for claims and gap snapshots. Disabled services emit no managed workloads; disabled
+retention deletes nothing and leaves host retention policy alone. Disabled export
+does not waive declared blocking gaps—even when all features are disabled.
+
+Contract snapshots require services and export together. Build-security settings
+apply when the umbrella, services, or retention is enabled. See
+[FEATURE-CONTROLS.md](docs/FEATURE-CONTROLS.md) for the precise boundaries and tests.
+
 ## Precisely what is enforced
 
 - Nonempty recipient lists permit IPv4 traffic to the listed addresses. Both

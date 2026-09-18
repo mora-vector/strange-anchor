@@ -26,12 +26,16 @@
     default = {};
     description = "Public unresolved requirements, separate from store retention.";
   };
-  config = lib.mkIf config.sandhi.enable {
+  config = {
+    # A declared blocker is a prerequisite, not a visibility preference. Even
+    # disabling every Sandhi feature must not silently resolve it.
     assertions = lib.mapAttrsToList (id: gap: {
       assertion = !gap.blocksActivation;
       message = "Sandhi unresolved prerequisite '${id}': ${gap.reason}";
     }) config.sandhi.gaps;
-    environment.etc."sandhi/lopa.json".source =
-      pkgs.writeText "sandhi-lopa.json" (builtins.toJSON config.sandhi.gaps);
+    environment.etc = lib.mkIf config.sandhi.registry.export {
+      "sandhi/lopa.json".source =
+        pkgs.writeText "sandhi-lopa.json" (builtins.toJSON config.sandhi.gaps);
+    };
   };
 }

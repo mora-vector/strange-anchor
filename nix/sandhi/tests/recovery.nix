@@ -37,7 +37,11 @@ in pkgs.testers.runNixOSTest {
     # implicit local store would evade the network condition being tested.
     systemd.services.nix-daemon.serviceConfig.PrivateNetwork = true;
     sandhi = {
-      enable = true;
+      retention.enable = true; # Recovery does not require execution or export.
+      # Nonempty declarations make absence of generated units a useful control.
+      workers.disabled.package = pkgs.hello;
+      contracts.disabled = { karana = pkgs.hello; adhikarana = "backplane"; };
+      chandas.disabled = { cpuPercent = 50; memoryMiB = 128; };
       retainedRecipes = [ recoverable ];
       gaps.unavailable-fixture = {
         status = "unknown";
@@ -51,6 +55,10 @@ in pkgs.testers.runNixOSTest {
     import hashlib, json, os, shlex
     start_all()
     machine.wait_for_unit("multi-user.target")
+    units = machine.succeed("systemctl list-unit-files 'sandhi-*.service' --no-legend --no-pager").strip()
+    assert units == "", units
+    for snapshot in ["claims", "lopa", "contracts"]:
+        machine.succeed(f"test ! -e /etc/sandhi/{snapshot}.json")
     store = "NIX_REMOTE=daemon nix-store"
     no_builders = shlex.quote("")
     good = "${recipe recoverable}"
@@ -136,12 +144,12 @@ in pkgs.testers.runNixOSTest {
         machine.succeed(f"test -f {bad_out}", f"test ! -L {bad_out}")
         residual_hash = machine.succeed(f"sha256sum {bad_out}").split()[0]
         assert residual_hash != hashlib.sha256(expected.encode()).hexdigest(), residual_hash
-    gap = json.loads(machine.succeed("cat /etc/sandhi/lopa.json"))["unavailable-fixture"]
-    assert gap["recoveryEvidence"] == [] and gap["availability"] == "absent", gap
     evidence = {
         "schemaVersion": 2,
         "scope": "Synthetic fixed-output fixture in one disposable guest; no off-host or independent restoration claim",
         "canonical": False,
+        "features": {"services": False, "retention": True, "registryExport": False,
+                     "managedServiceUnitsAbsent": True, "diagnosticSnapshotsAbsent": True},
         "recipe": good, "source": source, "output": out,
         "retentionMechanism": "system closure recipe reference; baseline realized in isolated guest",
         "baseline": {"initiallyPresent": initially_present,

@@ -1,17 +1,18 @@
 {
   "release": "0.3-development",
-  "status": "evaluation-service-boundaries-and-synthetic-offline-recovery-passed",
+  "status": "feature-controls-evaluation-passed; feature-runtime-ci-pending",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
-  "evaluationAssertionsPassed": 38,
+  "evaluationAssertionsPassed": 181,
   "assertionGroups": {
     "contractTests": 15,
     "evalTests": 12,
-    "integrationTests": 11
+    "integrationTests": 11,
+    "featureTests": 143
   },
   "flakeCheckNoBuild": "passed",
-  "evaluationArtifactBuilt": true,
+  "evaluationArtifactBuilt": false,
   "independentBuildsVerified": false,
   "productionDeployed": false,
   "canonical": false,
@@ -57,7 +58,7 @@
     "scope": "Synthetic fixture in one disposable guest; GC, controlled loss, offline restoration with matching NAR hash/payload, missing-input failure with invalid empty residual file. No general/off-host or independent recovery claim."
   },
   "localContinuation": {
-    "evaluationEvidence": "evidence/local-evaluation-007/report.json",
+    "historicalEvaluationEvidence": "evidence/local-evaluation-007/report.json",
     "recorderTestsPassed": 6,
     "archiveTestsPassed": 15,
     "archiveRecordsVerified": 10,
@@ -66,7 +67,7 @@
     "localSourceHead": "6f386e8bd0682a82a4a19620757a3398f8195eca",
     "sharedSourceTree": "87330ab5346d928e6f1e02fc54de772914014734",
     "affectedPaths": "invariant documented; new behavioral test pending",
-    "featureControls": "design and acceptance matrix documented; recovery prerequisite passed; implementation next",
+    "featureControls": "implemented; eight combinations plus compatibility/override checks pass local evaluation; isolated-feature VM checks pending CI",
     "actions": "full-SHA Node 24 checkout/upload pins passed in CI; ZIP upload verified; comment-archiver event path not exercised"
   }
 }

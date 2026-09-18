@@ -57,7 +57,7 @@ in pkgs.testers.runNixOSTest {
       serviceConfig.ExecStart = "${pkgs.python3}/bin/python3 -m http.server 8080 --bind 127.0.0.3 --directory ${pkgs.writeTextDir "index.html" "echo"}";
     };
     sandhi = {
-      enable = true;
+      services.enable = true; # Exercise execution without retention or export.
       peers = { sideband.ipv4 = "127.0.0.2"; echo.ipv4 = "127.0.0.3"; };
       contracts = {
         first = contract [ "sideband" ] [ "127.0.0.2=reachable=sideband" "127.0.0.3=blocked=echo" ];
@@ -71,10 +71,13 @@ in pkgs.testers.runNixOSTest {
     import json, os
     start_all()
     machine.wait_for_unit("multi-user.target")
+    for snapshot in ["claims", "lopa", "contracts"]:
+        machine.succeed(f"test ! -e /etc/sandhi/{snapshot}.json")
     machine.succeed("setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-write-control/host-control")
     for ip, body in [("127.0.0.2", "sideband"), ("127.0.0.3", "echo")]:
         machine.wait_until_succeeds(f"curl --noproxy '*' --fail --max-time 3 http://{ip}:8080/ | grep -x {body}")
-    evidence = {}
+    evidence = {"features": {"services": True, "retention": False, "registryExport": False,
+                             "diagnosticSnapshotsAbsent": True}}
     for name in ["first", "changed", "empty"]:
         unit = f"sandhi-contract-{name}.service"
         machine.succeed(f"systemctl start {unit}")

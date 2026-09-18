@@ -14,7 +14,7 @@
     });
     description = "Local workers; keys must be short lowercase service identifiers.";
   };
-  config = lib.mkIf config.sandhi.enable {
+  config = lib.mkIf config.sandhi.services.enable {
     assertions = lib.concatLists (lib.mapAttrsToList (name: _: [
       {
         assertion = builtins.match "[a-z][a-z0-9-]{0,31}" name != null;
