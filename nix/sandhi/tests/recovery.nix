@@ -100,7 +100,9 @@ in pkgs.testers.runNixOSTest {
     assert realized == out, (realized, out)
     machine.succeed(f"test -f {out}")
 
-    orphan = query("--add-text sandhi-unrooted-control disposable-fixture")
+    machine.succeed("printf '%s' disposable-fixture > /tmp/sandhi-unrooted-control")
+    orphan = query("--add /tmp/sandhi-unrooted-control")
+    machine.succeed(f"test -f {orphan}")
     machine.succeed(f"{store} --gc")
     machine.succeed(f"test ! -e {orphan}", f"test -f {good}", f"test -f {bad}", f"test -f {source}")
     before = nar_hash(out)

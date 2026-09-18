@@ -137,3 +137,13 @@ its initial source digest names the pre-edit version. That run used the recorder
 before drift detection was added. It is retained as build/launch evidence only.
 No successful recovery result is claimed. Feature splitting and new runtime
 experiments stay deferred until the baseline can run on a capable builder.
+
+## 2026-09-18: repair succeeds; collection-control CLI corrected
+
+Run 35318802266 demonstrated that repair mode reconstructs the missing baseline
+bytes. It then failed on the test harness's nonexistent `nix-store --add-text`
+operation, before collection. The control now uses documented `nix-store --add`
+with an explicit temporary file and checks its presence before GC. The test still
+requires that unrooted store object to disappear after GC. This is a correction
+to the experiment, not removal of a negative control. Evaluation and reachability
+passed in the failed run; full recovery remains pending.
