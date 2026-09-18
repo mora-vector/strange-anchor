@@ -119,12 +119,27 @@ in pkgs.testers.runNixOSTest {
     assert before == after and restored == expected, (before, after, restored)
 
     # Counterexample: a retained recipe whose source is unavailable cannot build.
-    machine.fail(f"{store} --realise {bad} --option substitute false --option builders {no_builders}")
-    machine.succeed(f"test -f {bad}", f"test ! -e {bad_out}")
+    failure_code, failure_log = machine.execute(
+        f"{store} --realise {bad} --option substitute false --option builders {no_builders} 2>&1"
+    )
+    assert failure_code != 0, failure_log
+    assert "file:///sandhi-intentionally-missing-input" in failure_log, failure_log
+    assert "Could not open file" in failure_log, failure_log
+    machine.succeed(f"test -f {bad}", f"{store} --check-validity {out}")
+    invalid_code, invalid_log = machine.execute(f"{store} --check-validity {bad_out} 2>&1")
+    assert invalid_code != 0 and "is not valid" in invalid_log, invalid_log
+    # A failed builtin fetch may leave an unregistered partial file. Measure it;
+    # neither its presence nor a failed command alone establishes recovery.
+    residual_present = machine.execute(f"test -e {bad_out} || test -L {bad_out}")[0] == 0
+    residual_hash = None
+    if residual_present:
+        machine.succeed(f"test -f {bad_out}", f"test ! -L {bad_out}")
+        residual_hash = machine.succeed(f"sha256sum {bad_out}").split()[0]
+        assert residual_hash != hashlib.sha256(expected.encode()).hexdigest(), residual_hash
     gap = json.loads(machine.succeed("cat /etc/sandhi/lopa.json"))["unavailable-fixture"]
     assert gap["recoveryEvidence"] == [] and gap["availability"] == "absent", gap
     evidence = {
-        "schemaVersion": 1,
+        "schemaVersion": 2,
         "scope": "Synthetic fixed-output fixture in one disposable guest; no off-host or independent restoration claim",
         "canonical": False,
         "recipe": good, "source": source, "output": out,
@@ -142,7 +157,12 @@ in pkgs.testers.runNixOSTest {
                      "sameBytes": True},
         "missingInput": {"recipe": bad, "recipeRetained": True,
                          "retentionMechanism": "explicit guest test gcroot, created after boot",
-                         "realizationFailed": True, "outputAbsent": True,
+                         "realizationFailed": True, "failureExitCode": failure_code,
+                         "failureLog": failure_log,
+                         "validOutputRegistered": False,
+                         "residualFilePresent": residual_present,
+                         "residualPayloadSha256": residual_hash,
+                         "expectedPayloadPresent": False,
                          "recoveryStatus": "unresolved"},
     }
     with open(os.path.join(os.environ["out"], "recovery.json"), "w") as f:

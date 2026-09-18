@@ -147,3 +147,26 @@ with an explicit temporary file and checks its presence before GC. The test stil
 requires that unrooted store object to disappear after GC. This is a correction
 to the experiment, not removal of a negative control. Evaluation and reachability
 passed in the failed run; full recovery remains pending.
+
+## 2026-09-18: explicit Node 24 action pins
+
+Mora flagged the [Node 20 retirement](https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/).
+Checkout moves to [v5.1.0](https://github.com/actions/checkout/releases/tag/v5.1.0),
+the Node 24 series with current security backports; evidence upload moves to
+[v7.0.1](https://github.com/actions/upload-artifact/releases/tag/v7.0.1).
+Both action manifests at the pinned full SHAs explicitly declare node24. The
+uploader retains ZIP mode explicitly. Workflow triggers, access scopes, credential
+persistence, and archive behavior are unchanged. The comment archiver's upgraded
+checkout will not be exercised by the Sandhi PR test; it remains a separate scope.
+
+## 2026-09-18: failed fetches can leave residual bytes
+
+Run 35319510107 collected the unrooted control, retained the recipes/input, and
+restored the deliberately removed output with identical NAR hash and payload.
+The missing-input fetch then failed for the expected reason, but its output path
+existed, failing the test's final physical-absence assertion. The revised test
+does not discard that counterexample: it requires the specific missing-input
+error, invalid Nix registration (with a valid-output positive control), and no
+matching payload. It records residual file presence and SHA-256 independently.
+The failed run remains failed; these observations are not a completed recovery
+attestation. File presence, valid registration, and recovered bytes are distinct.

@@ -1,0 +1,59 @@
+{
+  "first": {
+    "network": [
+      {
+        "ip": "127.0.0.2",
+        "expected": "reachable",
+        "actual": "reachable",
+        "detail": "sideband"
+      },
+      {
+        "ip": "127.0.0.3",
+        "expected": "blocked",
+        "actual": "blocked",
+        "detail": "<urlopen error timed out>"
+      }
+    ],
+    "owned_state": true,
+    "system_write_blocked": true,
+    "write_errno": 30
+  },
+  "changed": {
+    "network": [
+      {
+        "ip": "127.0.0.2",
+        "expected": "blocked",
+        "actual": "blocked",
+        "detail": "<urlopen error timed out>"
+      },
+      {
+        "ip": "127.0.0.3",
+        "expected": "reachable",
+        "actual": "reachable",
+        "detail": "echo"
+      }
+    ],
+    "owned_state": true,
+    "system_write_blocked": true,
+    "write_errno": 30
+  },
+  "empty": {
+    "network": [
+      {
+        "ip": "127.0.0.2",
+        "expected": "blocked",
+        "actual": "blocked",
+        "detail": "<urlopen error [Errno 97] Address family not supported by protocol>"
+      },
+      {
+        "ip": "127.0.0.3",
+        "expected": "blocked",
+        "actual": "blocked",
+        "detail": "<urlopen error [Errno 97] Address family not supported by protocol>"
+      }
+    ],
+    "owned_state": true,
+    "system_write_blocked": true,
+    "write_errno": 30
+  }
+}

@@ -22,9 +22,11 @@ The experiment checks these distinct propositions:
 5. One test-only deletion, with `keep-outputs=false` scoped to that command,
    removes this synthetic output. Its recipe and source remain. Realization
    restores the expected payload and the same NAR hash.
-6. The other recipe remains present but cannot build because its file input is
-   unavailable. Its recovery status stays unresolved; retention earns no success
-   claim on its own.
+6. The other recipe remains present but fails specifically because its file input
+   is unavailable. Its output is not registered as valid, and the expected payload
+   is not present. A failed fetch may leave a partial file: the test records its
+   presence and hash rather than mistaking it for a recovered output. The recovery
+   status stays unresolved; retention earns no success claim on its own.
 
 The deletion operates only on the named synthetic output in the writable guest
 store. It is an explicit simulated-loss operation, not a change to Sandhi's
@@ -72,6 +74,15 @@ registration and file presence separately, and uses `nix-store --realise --repai
 to check actual contents before collection. The later controlled-loss experiment
 still requires ordinary realization to restore the deleted output. See the
 [repair option](https://nix.dev/manual/nix/2.35/command-ref/nix-store/realise.html).
+
+Run 35319510107 completed collection and the controlled-loss restoration, with
+matching NAR hash and payload, but failed the final counterexample's overly strong
+physical-absence assertion. The missing-input fetch failed as expected while
+leaving a file behind. The revised counterexample requires the specific missing
+input error, checks Nix validity independently, and records any residual file's
+hash, which must differ from the expected payload. Recovery evidence schema 2
+therefore separates registration, file presence, and payload identity. The failed
+run is not retrospectively promoted to a passing suite.
 
 ## Limits
 
