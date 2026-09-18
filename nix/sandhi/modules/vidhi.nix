@@ -61,6 +61,9 @@ in {
           StateDirectory = "sandhi-contract-${kk.karman.state}";
           WorkingDirectory = "/var/lib/sandhi-contract-${kk.karman.state}";
           ReadOnlyPaths = kk.karman.affected;
+          # ReadOnlyPaths may be coalesced under ProtectSystem=strict without
+          # checking a redundant path. A required bind enforces its existence.
+          BindReadOnlyPaths = kk.karman.affected;
           ProtectSystem = "strict";
           ProtectHome = true;
           PrivateTmp = true;

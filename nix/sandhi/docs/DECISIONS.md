@@ -234,3 +234,18 @@ the evidence dictionary from its initial boolean feature record. The path record
 contains strings and nested observations as well. Its container is now explicitly
 `dict[str, object]`; the type check remains enabled. No runtime result is attributed
 to that run beyond its completed evaluation check.
+
+## 2026-09-18: a missing-path counterexample corrects the compiler
+
+Run 35398323774 reached the path experiment and disproved the documented startup
+invariant: the workload executed with its required path absent, then raised
+FileNotFoundError while reading the fixture. ReadOnlyPaths alone did not require
+that redundant path to exist under ProtectSystem=strict. The earlier namespace-
+failure claim was stronger than the implementation.
+
+Vidhi now adds a required BindReadOnlyPaths mount for each affected path, keeping
+the read-only declaration as well. A missing bind source must fail namespace setup
+before execution. The original negative test is retained; its result must be
+measured again. A compiler assertion also checks that affected paths get required
+binds. The additional mount is an intentional enforcement change, not an assertion
+relaxation. The earlier failed run remains the counterexample that prompted it.

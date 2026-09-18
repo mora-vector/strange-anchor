@@ -95,9 +95,11 @@ apply when the umbrella, services, or retention is enabled. See
 - `ProtectSystem=strict` restricts writes. `ReadOnlyPaths` does not hide every
   unlisted readable file. This is not a full confidentiality sandbox or a VM-strength
   boundary against hostile workloads.
-- `karman.affected` lists required host paths constrained read-only. It grants no
+- `karman.affected` lists required host paths bound read-only. It grants no
   writes and does not override ordinary read permissions. Missing required paths
-  prevent service startup on the runtime host; Nix evaluation cannot check a
+  prevent service startup through required `BindReadOnlyPaths` sources;
+  `ReadOnlyPaths` alone did not establish this under `ProtectSystem=strict`.
+  Nix evaluation cannot check a
   different machine's filesystem. `karman.state` separately declares owned writable
   state; the private temporary directory is also writable. The required-path
   experiment checks namespace failure before workload execution, then successful

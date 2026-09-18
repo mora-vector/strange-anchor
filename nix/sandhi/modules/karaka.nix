@@ -28,8 +28,8 @@ in {
           };
           affected = lib.mkOption {
             type = t.listOf absolute; default = [];
-            description = ''Required host paths constrained read-only by systemd.
-              Missing paths prevent service startup. These are not write grants
+            description = ''Required host paths bound read-only by systemd.
+              Missing bind sources prevent service startup. These are not write grants
               or a complete read allowlist; ordinary permissions still apply.
               Existence is checked on the runtime host, not by Nix evaluation.'';
           };

@@ -1,12 +1,12 @@
 {
   "release": "0.3-development",
-  "status": "feature-controls-evaluation-passed; feature-runtime-ci-pending",
+  "status": "feature-controls-and-required-bind-fix-evaluated; runtime-ci-pending",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
-  "evaluationAssertionsPassed": 181,
+  "evaluationAssertionsPassed": 182,
   "assertionGroups": {
-    "contractTests": 15,
+    "contractTests": 16,
     "evalTests": 12,
     "integrationTests": 11,
     "featureTests": 143

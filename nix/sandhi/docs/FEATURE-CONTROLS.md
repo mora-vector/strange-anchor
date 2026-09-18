@@ -52,7 +52,9 @@ exit status 226, a journal diagnostic naming the missing path, and no workload
 execution marker. Once the path exists, the unchanged unit must execute, read the
 reference payload, and receive EROFS when trying to write there. An unprivileged
 host write control rules out ordinary directory ownership as the cause. This tests
-the full generated sandbox, where ReadOnlyPaths and ProtectSystem overlap.
+the full generated sandbox, where required BindReadOnlyPaths, ReadOnlyPaths, and
+ProtectSystem overlap. Required binds enforce source existence: run 35398323774
+showed that ReadOnlyPaths alone allowed workload execution with the path absent.
 
 Type=simple start-job success is not accepted as evidence of execution: the test
 waits for the actual process status. It explicitly stops the failed attempt and

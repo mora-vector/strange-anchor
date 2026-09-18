@@ -11,6 +11,7 @@ let
         inputs.reference = pkgs.hello;
         contracts.probe = {
           karana = pkgs.hello; adhikarana = "backplane";
+          karman.affected = [ "/srv/required-reference" ];
           sampradana = [ "sideband" ]; apadana = [ "reference" ];
         };
         chandas.probe = { cpuPercent = 50; memoryMiB = 128; };
@@ -37,6 +38,8 @@ let
     sandhi.chandas.other = { cpuPercent = 50; memoryMiB = 128; };
   });
   cases = {
+    affectedPathsRequireReadOnlyBinds = unit.serviceConfig.BindReadOnlyPaths == [ "/srv/required-reference" ]
+      && unit.serviceConfig.ReadOnlyPaths == [ "/srv/required-reference" ];
     legacyWorkerCannotClaimContractUnit = builtins.any
       (a: a.message == "Sandhi worker 'contract-probe' uses the reserved contract- namespace.")
       (failures legacyCollision);

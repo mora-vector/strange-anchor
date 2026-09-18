@@ -1,0 +1,67 @@
+vm-test-run-sandhi-declared-reach> machine: must succeed: test ! -e /srv/sandhi-required-path
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: test ! -e /srv/sandhi-required-path, in 0.04 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed, in 0.04 seconds)
+vm-test-run-sandhi-declared-reach> machine # [   37.829808] systemd[1]: Started Sandhi contract required-path.
+vm-test-run-sandhi-declared-reach> machine: waiting for success: test $(systemctl show sandhi-contract-required-path.service -p ExecMainStatus --value) = 226
+vm-test-run-sandhi-declared-reach> machine # [   38.270560] sandhi-required-path-probe[1032]: Traceback (most recent call last):
+vm-test-run-sandhi-declared-reach> machine # [   38.294854] sandhi-required-path-probe[1032]:   File "/nix/store/rapb1v49kgq2xrx14kdhddr45fz0p6hs-sandhi-required-path-probe/bin/sandhi-required-path-probe", line 6, in <module>
+vm-test-run-sandhi-declared-reach> machine # [   38.302202] sandhi-required-path-probe[1032]:     readable = (required / "reference").read_text() == "required-reference"
+vm-test-run-sandhi-declared-reach> machine # [   38.307461] sandhi-required-path-probe[1032]:                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+vm-test-run-sandhi-declared-reach> machine # [   38.311797] sandhi-required-path-probe[1032]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 546, in read_text
+vm-test-run-sandhi-declared-reach> machine # [   38.318521] sandhi-required-path-probe[1032]:     return PathBase.read_text(self, encoding, errors, newline)
+vm-test-run-sandhi-declared-reach> machine # [   38.323410] sandhi-required-path-probe[1032]:            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+vm-test-run-sandhi-declared-reach> machine # [   38.329235] sandhi-required-path-probe[1032]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+vm-test-run-sandhi-declared-reach> machine # [   38.335929] sandhi-required-path-probe[1032]:     with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+vm-test-run-sandhi-declared-reach> machine # [   38.337449] sandhi-required-path-probe[1032]:          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+vm-test-run-sandhi-declared-reach> machine # [   38.340846] sandhi-required-path-probe[1032]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+vm-test-run-sandhi-declared-reach> machine # [   38.342589] sandhi-required-path-probe[1032]:     return io.open(self, mode, buffering, encoding, errors, newline)
+vm-test-run-sandhi-declared-reach> machine # [   38.344994] sandhi-required-path-probe[1032]:            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+vm-test-run-sandhi-declared-reach> machine # [   38.347349] sandhi-required-path-probe[1032]: FileNotFoundError: [Errno 2] No such file or directory: '/srv/sandhi-required-path/reference'
+vm-test-run-sandhi-declared-reach> machine # [   38.365859] systemd[1]: sandhi-contract-required-path.service: Main process exited, code=exited, status=1/FAILURE
+vm-test-run-sandhi-declared-reach> machine # [   38.373539] systemd[1]: sandhi-contract-required-path.service: Failed with result 'exit-code'.
+vm-test-run-sandhi-declared-reach> machine # [   40.617676] systemd[1]: sandhi-contract-required-path.service: Scheduled restart job, restart counter is at 1.
+vm-test-run-sandhi-declared-reach> machine # [   40.621028] systemd[1]: sandhi-contract-required-path.service: Start request repeated too quickly.
+vm-test-run-sandhi-declared-reach> machine # [   40.622440] systemd[1]: sandhi-contract-required-path.service: Failed with result 'start-limit-hit'.
+vm-test-run-sandhi-declared-reach> machine # [   40.625150] systemd[1]: Failed to start Sandhi contract required-path.
+vm-test-run-sandhi-declared-reach> !!! Traceback (most recent call last):
+vm-test-run-sandhi-declared-reach> !!!   File "<string>", line 37, in <module>
+vm-test-run-sandhi-declared-reach> !!!     machine.wait_until_succeeds(
+vm-test-run-sandhi-declared-reach> !!! 
+vm-test-run-sandhi-declared-reach> !!! RequestedAssertionFailed: action timed out after 30.36 seconds (timeout=30)
+vm-test-run-sandhi-declared-reach> cleanup
+vm-test-run-sandhi-declared-reach> kill QemuMachine (pid 9)
+vm-test-run-sandhi-declared-reach> machine # qemu-system-x86_64: terminating on signal 15 from pid 6 (/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3.13)
+vm-test-run-sandhi-declared-reach> (finished: cleanup, in 0.10 seconds)
+error: Cannot build '/nix/store/ps2jifnr450awankvhjbr0li25y9mwjj-vm-test-run-sandhi-declared-reach.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/sxl3fxcxqq5m5c26yn00z54bfc51z2c0-vm-test-run-sandhi-declared-reach
+       Last 25 log lines:
+       > machine # [   38.311797] sandhi-required-path-probe[1032]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 546, in read_text
+       > machine # [   38.318521] sandhi-required-path-probe[1032]:     return PathBase.read_text(self, encoding, errors, newline)
+       > machine # [   38.323410] sandhi-required-path-probe[1032]:            ~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       > machine # [   38.329235] sandhi-required-path-probe[1032]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_abc.py", line 632, in read_text
+       > machine # [   38.335929] sandhi-required-path-probe[1032]:     with self.open(mode='r', encoding=encoding, errors=errors, newline=newline) as f:
+       > machine # [   38.337449] sandhi-required-path-probe[1032]:          ~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       > machine # [   38.340846] sandhi-required-path-probe[1032]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/pathlib/_local.py", line 537, in open
+       > machine # [   38.342589] sandhi-required-path-probe[1032]:     return io.open(self, mode, buffering, encoding, errors, newline)
+       > machine # [   38.344994] sandhi-required-path-probe[1032]:            ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+       > machine # [   38.347349] sandhi-required-path-probe[1032]: FileNotFoundError: [Errno 2] No such file or directory: '/srv/sandhi-required-path/reference'
+       > machine # [   38.365859] systemd[1]: sandhi-contract-required-path.service: Main process exited, code=exited, status=1/FAILURE
+       > machine # [   38.373539] systemd[1]: sandhi-contract-required-path.service: Failed with result 'exit-code'.
+       > machine # [   40.617676] systemd[1]: sandhi-contract-required-path.service: Scheduled restart job, restart counter is at 1.
+       > machine # [   40.621028] systemd[1]: sandhi-contract-required-path.service: Start request repeated too quickly.
+       > machine # [   40.622440] systemd[1]: sandhi-contract-required-path.service: Failed with result 'start-limit-hit'.
+       > machine # [   40.625150] systemd[1]: Failed to start Sandhi contract required-path.
+       > !!! Traceback (most recent call last):
+       > !!!   File "<string>", line 37, in <module>
+       > !!!     machine.wait_until_succeeds(
+       > !!! 
+       > !!! RequestedAssertionFailed: action timed out after 30.36 seconds (timeout=30)
+       > cleanup
+       > kill QemuMachine (pid 9)
+       > machine # qemu-system-x86_64: terminating on signal 15 from pid 6 (/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3.13)
+       > (finished: cleanup, in 0.10 seconds)
+       For full logs, run:
+         nix log /nix/store/ps2jifnr450awankvhjbr0li25y9mwjj-vm-test-run-sandhi-declared-reach.drv
