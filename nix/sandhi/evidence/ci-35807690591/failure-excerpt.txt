@@ -1,0 +1,109 @@
+vm-test-run-sandhi-budget-behavior> machine # [   43.356279] sandhi-budget-p invoked oom-killer: gfp_mask=0xcc0(GFP_KERNEL), order=0, oom_score_adj=0
+vm-test-run-sandhi-budget-behavior> machine # [   43.359138] CPU: 0 UID: 65405 PID: 1081 Comm: sandhi-budget-p Not tainted 6.18.52 #1-NixOS PREEMPT(lazy)
+vm-test-run-sandhi-budget-behavior> machine # [   43.359154] Hardware name: QEMU Standard PC (i440FX + PIIX, 1996), BIOS rel-1.17.0-0-gb52ca86e094d-prebuilt.qemu.org 04/01/2014
+vm-test-run-sandhi-budget-behavior> machine # [   43.359156] Call Trace:
+vm-test-run-sandhi-budget-behavior> machine # [   43.359182]  <TASK>
+vm-test-run-sandhi-budget-behavior> machine # [   43.359185]  dump_stack_lvl+0x5d/0x80
+vm-test-run-sandhi-budget-behavior> machine # [   43.359256]  dump_header+0x43/0x1aa
+vm-test-run-sandhi-budget-behavior> machine # [   43.359303]  out_of_memory.cold+0x35/0x78
+vm-test-run-sandhi-budget-behavior> machine # [   43.359305]  ? try_to_free_mem_cgroup_pages+0x107/0x230
+vm-test-run-sandhi-budget-behavior> machine # [   43.359351]  mem_cgroup_out_of_memory+0xc2/0xd0
+vm-test-run-sandhi-budget-behavior> machine # [   43.359418]  try_charge_memcg+0x473/0x690
+vm-test-run-sandhi-budget-behavior> machine # [   43.359441]  charge_memcg+0x2f/0x70
+vm-test-run-sandhi-budget-behavior> machine # [   43.359442]  __mem_cgroup_charge+0x30/0x90
+vm-test-run-sandhi-budget-behavior> machine # [   43.359443]  folio_prealloc+0x90/0x110
+vm-test-run-sandhi-budget-behavior> machine # [   43.359454]  do_anonymous_page+0x318/0x8a0
+vm-test-run-sandhi-budget-behavior> machine # [   43.359457]  ? update_load_avg+0x7b/0x730
+vm-test-run-sandhi-budget-behavior> machine # [   43.359464]  ? ___pte_offset_map+0x1b/0x160
+vm-test-run-sandhi-budget-behavior> machine # [   43.359493]  __handle_mm_fault+0xaee/0xf70
+vm-test-run-sandhi-budget-behavior> machine # [   43.359495]  handle_mm_fault+0xe7/0x2e0
+vm-test-run-sandhi-budget-behavior> machine # [   43.359497]  do_user_addr_fault+0x21a/0x690
+vm-test-run-sandhi-budget-behavior> machine # [   43.359529]  exc_page_fault+0x6a/0x150
+vm-test-run-sandhi-budget-behavior> machine # [   43.359594]  asm_exc_page_fault+0x26/0x30
+vm-test-run-sandhi-budget-behavior> machine # [   43.359603] RIP: 0033:0x75eb7248c198
+vm-test-run-sandhi-budget-behavior> machine # [   43.359612] Code: 04 62 e1 fe 48 7f 41 05 62 e1 fe 48 7f 41 06 62 e1 fe 48 7f 41 07 c3 48 3b 15 44 91 06 00 73 72 40 0f b6 c6 48 89 d1 48 89 fa <f3> aa 48 92 c3 83 fa 20 7d 1f 83 fa 10 7d 29 62 e1 fd 08 7e c1 83
+vm-test-run-sandhi-budget-behavior> machine # [   43.359613] RSP: 002b:00007ffe24f738a8 EFLAGS: 00010287
+vm-test-run-sandhi-budget-behavior> machine # [   43.359622] RAX: 0000000000000000 RBX: 000075eb71d39fb0 RCX: 000000000005f010
+vm-test-run-sandhi-budget-behavior> machine # [   43.359623] RDX: 000075eb6e156010 RSI: 0000000000000000 RDI: 000075eb6e1f7000
+vm-test-run-sandhi-budget-behavior> machine # [   43.359624] RBP: 00007ffe24f73970 R08: 0000000000000000 R09: 0000000000000000
+vm-test-run-sandhi-budget-behavior> machine # [   43.359624] R10: 0000000000000000 R11: 0000000000000000 R12: 000075eb71f1a170
+vm-test-run-sandhi-budget-behavior> machine # [   43.359625] R13: 0000000000100000 R14: 0000000000000001 R15: 0000000000000000
+vm-test-run-sandhi-budget-behavior> machine # [   43.359640]  </TASK>
+vm-test-run-sandhi-budget-behavior> machine # [   43.359725] memory: usage 65536kB, limit 65536kB, failcnt 20
+vm-test-run-sandhi-budget-behavior> machine # [   43.396749] swap: usage 0kB, limit 9007199254740988kB, failcnt 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.398187] Memory cgroup stats for /system.slice/sandhi-contract-memory.service:
+vm-test-run-sandhi-budget-behavior> machine # [   43.398209] anon 66621440
+vm-test-run-sandhi-budget-behavior> machine # [   43.400847] file 8192
+vm-test-run-sandhi-budget-behavior> machine # [   43.401380] kernel 458752
+vm-test-run-sandhi-budget-behavior> machine # [   43.402190] kernel_stack 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.403120] pagetables 208896
+vm-test-run-sandhi-budget-behavior> machine # [   43.404391] sec_pagetables 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.405176] percpu 2864
+vm-test-run-sandhi-budget-behavior> machine # [   43.405703] sock 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.406333] vmalloc 45056
+vm-test-run-sandhi-budget-behavior> machine # [   43.407037] shmem 4096
+vm-test-run-sandhi-budget-behavior> machine # [   43.408730] zswap 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.409560] zswapped 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.410831] file_mapped 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.411476] file_dirty 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.412527] file_writeback 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.413717] swapcached 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.414968] anon_thp 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.415562] file_thp 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.416717] shmem_thp 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.417890] inactive_anon 66605056
+vm-test-run-sandhi-budget-behavior> machine # [   43.418866] active_anon 20480
+vm-test-run-sandhi-budget-behavior> machine # [   43.419590] inactive_file 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.420893] active_file 4096
+vm-test-run-sandhi-budget-behavior> machine # [   43.421687] unevictable 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.424141] slab_reclaimable 33384
+vm-test-run-sandhi-budget-behavior> machine # [   43.426558] slab_unreclaimable 169440
+vm-test-run-sandhi-budget-behavior> machine # [   43.428886] slab 202824
+vm-test-run-sandhi-budget-behavior> machine # [   43.429912] hugetlb 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.430557] workingset_refault_anon 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.432073] workingset_refault_file 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.433469] workingset_activate_anon 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.435004] workingset_activate_file 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.436381] workingset_restore_anon 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.437874] workingset_restore_file 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.439196] workingset_nodereclaim 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.440212] pgdemote_kswapd 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.442260] pgdemote_direct 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.443534] pgdemote_khugepaged 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.444752] pgdemote_proactive 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.445959] pgpromote_success 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.446893] pgscan 42
+vm-test-run-sandhi-budget-behavior> machine # [   43.447555] pgsteal 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.449575] pswpin 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.450864] pswpout 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.451486] pgscan_kswapd 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.452726] pgscan_direct 42
+vm-test-run-sandhi-budget-behavior> machine # [   43.454064] pgscan_khugepaged 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.455350] pgscan_proactive 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.456603] pgsteal_kswapd 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.457926] pgsteal_direct 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.458643] pgsteal_khugepaged 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.459552] pgsteal_proactive 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.460560] pgfault 17205
+vm-test-run-sandhi-budget-behavior> machine # [   43.463896] pgmajfault 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.464673] pgrefill 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.466880] pgactivate 41
+vm-test-run-sandhi-budget-behavior> machine # [   43.467581] pgdeactivate 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.470011] pglazyfree 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.470670] pglazyfreed 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.471930] swpin_zero 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.472599] swpout_zero 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.473882] zswpin 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.474427] zswpout 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.475528] zswpwb 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.477431] thp_fault_alloc 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.478552] thp_collapse_alloc 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.479668] thp_swpout 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.481127] thp_swpout_fallback 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.482504] numa_pages_migrated 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.483942] numa_pte_updates 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.484721] numa_hint_faults 0
+vm-test-run-sandhi-budget-behavior> machine # [   43.486082] Tasks state (memory values in pages):
+vm-test-run-sandhi-budget-behavior> machine # [   43.488640] [  pid  ]   uid  tgid total_vm      rss rss_anon rss_file rss_shmem pgtables_bytes swapents oom_score_adj name
+vm-test-run-sandhi-budget-behavior> machine # [   43.491759] [   1081] 65405  1081    19782    17819    16224     1595         0   200704        0             0 sandhi-budget-p
+vm-test-run-sandhi-budget-behavior> machine # [   43.495098] Kernel panic - not syncing: Out of memory: compulsory panic_on_oom is enabled

@@ -1,0 +1,217 @@
+{
+  "schemaVersion": 5,
+  "startedAt": "2026-09-23T01:47:11.513013+00:00",
+  "platform": "Linux-6.17.0-1022-azure-x86_64-with-glibc2.39",
+  "sourceFilesSha256": {
+    "examples/lopa-audit.nix": "a8f0897f0c4446103d75f9acf95063ef31d1e6307f5065b74b01292f044313f5",
+    "examples/mesh.nix": "2bbe70671a17d4b70519aa970b286beecc49eea7fed5e6f030672f24d7e59b45",
+    "examples/vessel.nix": "626246a96399fd3eabab2edfca984105de40379d3465a99387b3793254a26599",
+    "flake.lock": "6e7c97ca05778f5dd8346722bef770729818e627a3f6851c3d3af6c34f61487a",
+    "flake.nix": "d6cb16ebea40699ff4e5e8504d4511dcd50386a5f9d6ca11a70a9ad97df5bc4d",
+    "lib/prakrtibhava.nix": "04c794743688a35d81427fca9884853f59eabae5df233b9270538be98306aff8",
+    "lib/saksya.nix": "54e8ff0f227e182512f3c0d3db4d68c924abbeba5e58e2cd5a1069153db4701c",
+    "modules/adhikara.nix": "7d3855255b573f714ae057b3dd507114d35c130cb2e33145152b34826e5c452d",
+    "modules/chandas.nix": "006918b9a7f475df7b2ac20c6298fcb6c79436fa38acb8a17a2f648e700eba52",
+    "modules/default.nix": "202672085cb04f5818fa1a3a72ac5c71708e97d669bbc228addb2f0325564ee4",
+    "modules/karaka.nix": "bed1a3389695f5f8d7954fae8d8c85b64c068272c276e4c8a375702764ec2ec8",
+    "modules/kosa.nix": "f0fd6ee6f33e59a208fb3a9e23609f27283d62f6db661e84e3fb1493f4027daf",
+    "modules/lopa.nix": "a75305493b56f96fea0e46b13dca6ba5f37748c4421eb8bd396d30b8cea30361",
+    "modules/sandhi.nix": "d6bb6c3242f931123bc784bd86a19a407a5ebab453d2216804317f66eb0d918f",
+    "modules/sanjna.nix": "4a0408245a86f57dbcf11a504c02e5eeffb2e4bac8f1eb1c6bfd6f2f837b8c6e",
+    "modules/vidhi.nix": "8865b0db34e3328ba78e78c9c86ae92bd57ce2e94c971c6701ba9760d5ea45de",
+    "packages/lopa-audit.nix": "6d131b0f45a89c627c8892767e36968a4a323ab38e6327f33554245aa0fd3b26",
+    "schemas/lopa-v1.schema.json": "333b7671a374a92acd9789acc8486c16bdca7fe900b5a0bbe56d01241072dc40",
+    "scripts/compare_reports.py": "1dedfba1d8d3e72665c1b3fe2d2b93e61550d420c2c730de4ff5ae8a0f36b418",
+    "scripts/lopa_audit.py": "4373725820d9d3e890814fbd66825a85274b4d9a0ab1f3dd28273da24bafbd62",
+    "scripts/realize.py": "67c46e15639ac325869e1dcc4e68eade94f3752f436ea46aee78da107d849602",
+    "tests/budgets.nix": "cbdcb788c0abe9e5598a948c77af93af8eafe993da7c3c4f34c505b49758f976",
+    "tests/contracts.nix": "68279b264f6de006382450d7524f30e629a93741b6c103a5b29cab37c3b84380",
+    "tests/eval.nix": "eb9d3ce54aa71cd5cac7bb96db1d629e33976100fc6c0a369a0fb8cf85768a4a",
+    "tests/export.nix": "61ce85e5ffe60d36f531379ef671a5b824ad9cd95c2576f4d1e3591ec1b993db",
+    "tests/features.nix": "8752b17dde039d3b28bb37c954f64e12118e65539a61a5eef5094d2c98876391",
+    "tests/fixtures/fixed-output.nix": "e45b59cd81856f431fdd71892b72343385b5026ab7ecae93998fd035379dc108",
+    "tests/integration.nix": "00fe86233bf7da1bf5ca3a2bc5f39b9b43f60c66b9a46a4333947ee5bd075066",
+    "tests/reachability.nix": "d1327143703ca574edd506bd4b68192c2af75f9eb42e7c5bbb3ed2d18b114eb6",
+    "tests/recovery.nix": "aa20165d81934e093839a7b688ca5836fdf42caac09d48d59a07ef30aa797b3a",
+    "tests/test_comparison.py": "14ba2fb03e86341e5071d6c15c6505820246c176751a9d7b283db437d9763a09",
+    "tests/test_lopa.py": "eb5639c1dbd7fbb9eff4d76261ea8fe132b6d39429e922019f7250f82f684408",
+    "tests/test_recorder.py": "89be20c85d9896a63a391de1184d3b973093c9f77920a90db73d062173380077",
+    "tests/workload.nix": "6fd0b823b3da9d7fcac53161121303e1d868779f3fbe775998fb4e9a98c3ec99"
+  },
+  "evidenceScope": "one local run; no builder independence or canonical promotion asserted",
+  "requestedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload"
+  ],
+  "steps": [
+    {
+      "name": "nix-version",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--version"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "evaluate",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "flake",
+        "check",
+        "--no-build",
+        "path:/home/runner/work/strange-anchor/strange-anchor/nix/sandhi"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build-evaluation",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "build",
+        "--print-build-logs",
+        "--json",
+        "--out-link",
+        "/home/runner/work/_temp/sandhi-run/evaluation-result",
+        "path:/home/runner/work/strange-anchor/strange-anchor/nix/sandhi#checks.x86_64-linux.evaluation"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "paths-evaluation",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "path-info",
+        "--json",
+        "/nix/store/z7krjm4ycpxxjxrv043144d62i14qs8i-sandhi-evaluation"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build-reachability",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "build",
+        "--print-build-logs",
+        "--json",
+        "--out-link",
+        "/home/runner/work/_temp/sandhi-run/reachability-result",
+        "path:/home/runner/work/strange-anchor/strange-anchor/nix/sandhi#checks.x86_64-linux.reachability"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "paths-reachability",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "path-info",
+        "--json",
+        "/nix/store/2833snpjk86rfk4vkdvk9d5ibkfqi03p-vm-test-run-sandhi-declared-reach"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build-recovery",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "build",
+        "--print-build-logs",
+        "--json",
+        "--out-link",
+        "/home/runner/work/_temp/sandhi-run/recovery-result",
+        "path:/home/runner/work/strange-anchor/strange-anchor/nix/sandhi#checks.x86_64-linux.recovery"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "paths-recovery",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "path-info",
+        "--json",
+        "/nix/store/jx1ldmi3yqfhr7yyiah0pdp7nq93zxgd-vm-test-run-sandhi-offline-recovery"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build-budgets",
+      "command": [
+        "/nix/var/nix/profiles/default/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "build",
+        "--print-build-logs",
+        "--json",
+        "--out-link",
+        "/home/runner/work/_temp/sandhi-run/budgets-result",
+        "path:/home/runner/work/strange-anchor/strange-anchor/nix/sandhi#checks.x86_64-linux.budgets"
+      ],
+      "exitCode": 1
+    }
+  ],
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery"
+  ],
+  "canonical": false,
+  "status": "failed",
+  "repositoryCommit": "c66e37fa80bd9064b8df3537fce7844644af0828",
+  "sourceChanges": [],
+  "nixVersion": "nix (Nix) 2.35.2",
+  "error": "build-budgets exited 1",
+  "sourceFilesSha256After": {
+    "examples/lopa-audit.nix": "a8f0897f0c4446103d75f9acf95063ef31d1e6307f5065b74b01292f044313f5",
+    "examples/mesh.nix": "2bbe70671a17d4b70519aa970b286beecc49eea7fed5e6f030672f24d7e59b45",
+    "examples/vessel.nix": "626246a96399fd3eabab2edfca984105de40379d3465a99387b3793254a26599",
+    "flake.lock": "6e7c97ca05778f5dd8346722bef770729818e627a3f6851c3d3af6c34f61487a",
+    "flake.nix": "d6cb16ebea40699ff4e5e8504d4511dcd50386a5f9d6ca11a70a9ad97df5bc4d",
+    "lib/prakrtibhava.nix": "04c794743688a35d81427fca9884853f59eabae5df233b9270538be98306aff8",
+    "lib/saksya.nix": "54e8ff0f227e182512f3c0d3db4d68c924abbeba5e58e2cd5a1069153db4701c",
+    "modules/adhikara.nix": "7d3855255b573f714ae057b3dd507114d35c130cb2e33145152b34826e5c452d",
+    "modules/chandas.nix": "006918b9a7f475df7b2ac20c6298fcb6c79436fa38acb8a17a2f648e700eba52",
+    "modules/default.nix": "202672085cb04f5818fa1a3a72ac5c71708e97d669bbc228addb2f0325564ee4",
+    "modules/karaka.nix": "bed1a3389695f5f8d7954fae8d8c85b64c068272c276e4c8a375702764ec2ec8",
+    "modules/kosa.nix": "f0fd6ee6f33e59a208fb3a9e23609f27283d62f6db661e84e3fb1493f4027daf",
+    "modules/lopa.nix": "a75305493b56f96fea0e46b13dca6ba5f37748c4421eb8bd396d30b8cea30361",
+    "modules/sandhi.nix": "d6bb6c3242f931123bc784bd86a19a407a5ebab453d2216804317f66eb0d918f",
+    "modules/sanjna.nix": "4a0408245a86f57dbcf11a504c02e5eeffb2e4bac8f1eb1c6bfd6f2f837b8c6e",
+    "modules/vidhi.nix": "8865b0db34e3328ba78e78c9c86ae92bd57ce2e94c971c6701ba9760d5ea45de",
+    "packages/lopa-audit.nix": "6d131b0f45a89c627c8892767e36968a4a323ab38e6327f33554245aa0fd3b26",
+    "schemas/lopa-v1.schema.json": "333b7671a374a92acd9789acc8486c16bdca7fe900b5a0bbe56d01241072dc40",
+    "scripts/compare_reports.py": "1dedfba1d8d3e72665c1b3fe2d2b93e61550d420c2c730de4ff5ae8a0f36b418",
+    "scripts/lopa_audit.py": "4373725820d9d3e890814fbd66825a85274b4d9a0ab1f3dd28273da24bafbd62",
+    "scripts/realize.py": "67c46e15639ac325869e1dcc4e68eade94f3752f436ea46aee78da107d849602",
+    "tests/budgets.nix": "cbdcb788c0abe9e5598a948c77af93af8eafe993da7c3c4f34c505b49758f976",
+    "tests/contracts.nix": "68279b264f6de006382450d7524f30e629a93741b6c103a5b29cab37c3b84380",
+    "tests/eval.nix": "eb9d3ce54aa71cd5cac7bb96db1d629e33976100fc6c0a369a0fb8cf85768a4a",
+    "tests/export.nix": "61ce85e5ffe60d36f531379ef671a5b824ad9cd95c2576f4d1e3591ec1b993db",
+    "tests/features.nix": "8752b17dde039d3b28bb37c954f64e12118e65539a61a5eef5094d2c98876391",
+    "tests/fixtures/fixed-output.nix": "e45b59cd81856f431fdd71892b72343385b5026ab7ecae93998fd035379dc108",
+    "tests/integration.nix": "00fe86233bf7da1bf5ca3a2bc5f39b9b43f60c66b9a46a4333947ee5bd075066",
+    "tests/reachability.nix": "d1327143703ca574edd506bd4b68192c2af75f9eb42e7c5bbb3ed2d18b114eb6",
+    "tests/recovery.nix": "aa20165d81934e093839a7b688ca5836fdf42caac09d48d59a07ef30aa797b3a",
+    "tests/test_comparison.py": "14ba2fb03e86341e5071d6c15c6505820246c176751a9d7b283db437d9763a09",
+    "tests/test_lopa.py": "eb5639c1dbd7fbb9eff4d76261ea8fe132b6d39429e922019f7250f82f684408",
+    "tests/test_recorder.py": "89be20c85d9896a63a391de1184d3b973093c9f77920a90db73d062173380077",
+    "tests/workload.nix": "6fd0b823b3da9d7fcac53161121303e1d868779f3fbe775998fb4e9a98c3ec99"
+  },
+  "sourceStableAtEnd": true,
+  "finishedAt": "2026-09-23T01:51:16.325987+00:00"
+}

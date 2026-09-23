@@ -24,10 +24,19 @@ does not bound stop/preflight time, and retries can multiply runtime. MemoryMax
 does not itself prohibit swap. A future total-job budget needs an explicit design;
 this checkpoint does not silently change these existing semantics.
 
-The VM has no swap, 1536 MiB RAM, and a 600-second test timeout. Allocation probes
+The VM has no swap, `vm.panic_on_oom=0`, 1536 MiB RAM, and a 600-second test timeout. Allocation probes
 request 96 MiB, and CPU probes terminate after 60 seconds even if the driver loses
 control. Run only the unresolved check with `realize.py --check budgets` when
 appropriate. Local guest launch was previously denied; CI is the capable builder.
+
+Run 35807690591 reached the 64 MiB cgroup limit, but the NixOS test harness default
+`vm.panic_on_oom=2` panicked the entire guest before the OOM-kill assertions could
+run. The corrected guest explicitly selects and verifies policy 0. This changes
+the experimental host condition, not the workload's limit or the assertion.
+Production OOM policy remains the host administrator's choice: a memory cap alone
+does not guarantee that a host configured for compulsory panic will survive it.
+See the [pinned test-harness default](https://github.com/NixOS/nixpkgs/blob/b67c7a60c3732edd4b947a7df8af06215851a614/nixos/modules/testing/test-instrumentation.nix)
+and [kernel panic-on-OOM semantics](https://docs.kernel.org/admin-guide/sysctl/vm.html#panic-on-oom).
 
 Primary references: [systemd unit rate limits](https://github.com/systemd/systemd/blob/main/man/systemd.unit.xml),
 [service runtime/restarts](https://github.com/systemd/systemd/blob/main/man/systemd.service.xml),

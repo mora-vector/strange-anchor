@@ -1,0 +1,23 @@
+{
+  "kind": "Tessera-derived summary; original selected members and a contiguous original log excerpt retained",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35807690591",
+  "sourceHead": "bad7d1b7e815391f5d90cf6fce7d67f0e799e1d7",
+  "testedMerge": "c66e37fa80bd9064b8df3537fce7844644af0828",
+  "conclusion": "failure",
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery"
+  ],
+  "sourceStableAtEnd": true,
+  "failure": "Budget memory probe reached the 64 MiB cgroup limit; compulsory panic_on_oom=2 killed the guest before OOM result assertions. CPU and workload checks did not complete.",
+  "correction": "Explicit test-only panic_on_oom=0, verified in guest. Memory limit, touched allocation, and negative/positive assertions unchanged.",
+  "artifactSha256": "13ce362cc9add6daa47e8ec2026bfd36060b7a5f98ee76feb04ca51712b77e14",
+  "originalArtifactArchivedInRepository": false,
+  "artifactExpiresAt": "2026-10-23T01:51:16Z",
+  "logExcerpt": {
+    "member": "build-budgets.stderr",
+    "firstLine": 1071,
+    "lastLine": 1179
+  }
+}

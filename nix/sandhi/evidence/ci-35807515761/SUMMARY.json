@@ -1,0 +1,13 @@
+{
+  "kind": "Tessera-derived summary of a superseded CI run",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35807515761",
+  "sourceHead": "2dc832ee164db53a19ccd728c076d09b5a16a740",
+  "conclusion": "cancelled",
+  "reason": "A reviewed memory probe correction touches every allocated page; publishing the correction triggered configured concurrency cancellation. No complete runtime result is claimed.",
+  "artifactSha256": "fd962e9bbda54f9fee3d972ab746fc118201568044424e63bf3241b3b3753cdc",
+  "originalMembersPreserved": [
+    "report.json"
+  ],
+  "originalArtifactArchivedInRepository": false,
+  "artifactExpiresAt": "2026-10-23T01:46:55Z"
+}

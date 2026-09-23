@@ -294,3 +294,17 @@ establishes independent administration. lib.saksya retains its existing contract
 The review packet is REVIEW-2026-09-23.md. No new Sideband contribution is implied.
 Implementation and test definitions precede measurement: consult VALIDATION.json
 and the new run records for the actual outcomes.
+
+The initial CI attempt, run 35807515761, was superseded after evaluation and
+reachability completed. Review found that zero-filled virtual allocations need
+not consume the claimed resident memory. The corrected probe writes to every
+page; the 64 MiB failure assertion and 192 MiB positive control are unchanged.
+The cancellation and original partial report are retained under evidence/.
+
+Run 35807690591 passed evaluation, reachability, and recovery, then panicked
+the budget guest when it reached its 64 MiB cgroup memory limit. The pinned
+NixOS test harness defaults vm.panic_on_oom to 2. The next experiment explicitly
+sets and verifies 0 in that guest so an expected process OOM can be observed.
+The original negative and positive assertions stay unchanged. Sandhi does not
+override production OOM policy; memory limits do not promise host survival under
+a compulsory-panic policy. The original failed run remains failed.

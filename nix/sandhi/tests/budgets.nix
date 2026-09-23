@@ -52,6 +52,10 @@ in pkgs.testers.runNixOSTest {
     imports = [ ../modules ];
     virtualisation = { memorySize = 1536; cores = 2; vlans = []; };
     swapDevices = []; # Explicit test condition, not a compiler swap guarantee.
+    # The NixOS test harness defaults to compulsory panic even for cgroup OOM.
+    # This experiment intentionally exhausts one service; keep the guest alive
+    # to observe the process kill and the unchanged positive control.
+    boot.kernel.sysctl."vm.panic_on_oom" = 0;
     sandhi = {
       services.enable = true;
       contracts = {
@@ -84,7 +88,9 @@ in pkgs.testers.runNixOSTest {
     start_all()
     machine.wait_for_unit("multi-user.target")
     machine.succeed("test $(wc -l < /proc/swaps) = 1")
-    evidence: dict[str, object] = {"swapEnabled": False, "scope": "one disposable guest"}
+    machine.succeed("test $(cat /proc/sys/vm/panic_on_oom) = 0")
+    evidence: dict[str, object] = {"swapEnabled": False, "panicOnOom": 0,
+                                  "scope": "one disposable guest"}
 
     def unit(name):
         return f"sandhi-contract-{name}.service"

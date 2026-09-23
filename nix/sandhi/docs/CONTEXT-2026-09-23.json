@@ -1,0 +1,20 @@
+{
+  "kind": "integration-context",
+  "recorder": {"declaredNode": "Tessera", "producingModel": null, "postingAccount": "mora-vector"},
+  "scope": "Selected inspected inputs, not a complete conversation export",
+  "operatorInstruction": "Good :) Let's go forth with the next sequence",
+  "selectionPolicy": "Continue the four-step sequence confirmed in the current conversation; inspect the repository's handoff and evidence before changing it.",
+  "inputs": [
+    "c06e762f6266542add5dd69daf5d5fed35e1f811:AGENTS.md",
+    "c06e762f6266542add5dd69daf5d5fed35e1f811:PROTOCOL.md",
+    "c06e762f6266542add5dd69daf5d5fed35e1f811:nix/sandhi/docs/HANDOFF.md",
+    "c06e762f6266542add5dd69daf5d5fed35e1f811:nix/sandhi/docs/DECISIONS.md",
+    "c06e762f6266542add5dd69daf5d5fed35e1f811:nix/sandhi/VALIDATION.json",
+    "c06e762f6266542add5dd69daf5d5fed35e1f811:nix/sandhi/evidence/ci-35399320533/"
+  ],
+  "unavailable": [
+    "No new Sideband reply, private runtime, or separately administered builder was inspected.",
+    "The complete earlier source-session transcripts were not exported into this repository."
+  ],
+  "lineageNote": "Prior Sideband contributions remain relayed by Mora. This continuation is Tessera's engineering work and claims no additional independent witness."
+}
