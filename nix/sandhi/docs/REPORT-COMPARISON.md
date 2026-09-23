@@ -34,6 +34,9 @@ administration, cached/unknown subject execution, missing provenance, incomplete
 or extra inventories, source mismatches, changed bytes, or failed assertions hold
 the comparison. Two equally incomplete reports cannot satisfy the specification.
 Output order is irrelevant. Duplicate output paths are refused.
+The specification itself is a review input: the comparator checks completeness
+against its declared inventory, not against an independently inspected derivation
+or test suite. Retain the specification and original reports with the result.
 
 Behavioral agreement compares the selected assertion results, not timestamps,
 raw logs, or the NAR hash of a VM evidence directory. Artifact agreement compares

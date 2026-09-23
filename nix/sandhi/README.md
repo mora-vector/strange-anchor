@@ -3,7 +3,8 @@
 Sandhi grew from Sideband's Sanskrit derivation model and Tessera's runtime
 contracts. Sanskrit names the design relationships; Nix and systemd implement
 them. The v0.2 checkpoint added the vidhi compiler and a NixOS VM experiment.
-Repository development now adds CI and stronger filesystem controls. See
+Repository development adds CI, independent feature controls, versioned Lopa exports,
+budget experiments, and a local audit workload. See
 VALIDATION.json for measured execution status and docs/CONTEXT.json for input scope.
 
 ## What changed

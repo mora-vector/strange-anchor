@@ -1,15 +1,16 @@
 {
   "release": "0.3-development",
-  "status": "integration-implemented-runtime-verification-pending",
+  "status": "versioned-export-budgets-and-audit-workload-passed",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
-  "evaluationAssertionsPassed": 182,
+  "evaluationAssertionsPassed": 199,
   "assertionGroups": {
     "contractTests": 16,
     "evalTests": 12,
     "integrationTests": 11,
-    "featureTests": 143
+    "featureTests": 153,
+    "exportTests": 7
   },
   "flakeCheckNoBuild": "passed",
   "evaluationArtifactBuilt": true,
@@ -40,28 +41,67 @@
     "evidence/ci-35399320533/SUMMARY.json",
     "evidence/ci-35399320533/report.json",
     "evidence/ci-35399320533/reachability.json",
-    "evidence/ci-35399320533/recovery.json"
+    "evidence/ci-35399320533/recovery.json",
+    "evidence/local-integration-evaluation-001/report.json",
+    "evidence/ci-35807515761/SUMMARY.json",
+    "evidence/ci-35807690591/SUMMARY.json",
+    "evidence/ci-35864282761/SUMMARY.json",
+    "evidence/ci-35864282761/report.json"
   ],
   "runtimeValidation": {
     "status": "passed",
-    "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
-    "testedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
-    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
-    "ciEvidence": "evidence/ci-35399320533/reachability.json",
+    "sourceHead": "c69e209287720c378722fb49f5743d4250e1b904",
+    "testedMerge": "ff1c422063d05cc5f32bca8fcbe583ab38a4811b",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35864282761",
+    "ciEvidence": "evidence/ci-35864282761/reachability.json",
     "historicalArchiveRecord": "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d",
     "scope": "Services-only guest: peer filtering, writable owned state, read-only host filesystem, and required-path namespace failure before execution; retention and diagnostic export disabled."
   },
   "recoveryValidation": {
     "status": "passed",
-    "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
-    "testedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
-    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
+    "sourceHead": "c69e209287720c378722fb49f5743d4250e1b904",
+    "testedMerge": "ff1c422063d05cc5f32bca8fcbe583ab38a4811b",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35864282761",
     "latestCiFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35397280379",
-    "ciEvidence": "evidence/ci-35399320533/recovery.json",
+    "ciEvidence": "evidence/ci-35864282761/recovery.json",
     "localEvidence": "evidence/local-recovery-006/report.json",
     "scope": "Retention-only disposable guest with no Sandhi-managed units or diagnostic snapshots; synthetic fixture GC, controlled loss, offline restoration with matching NAR hash/payload, missing-input failure with invalid empty residual file. No general/off-host or independent recovery claim."
   },
-  "localContinuation": {
+  "integrationValidation": {
+    "status": "passed",
+    "scope": "Lopa 1.0 export, budgets, explicit report comparison, and local audit workload; one CI execution, no independently administered reproduction",
+    "pythonTestsPassed": 17,
+    "nixAssertionsPassed": 199,
+    "completedChecks": [
+      "evaluation",
+      "reachability",
+      "recovery",
+      "budgets",
+      "workload"
+    ],
+    "sourceHead": "c69e209287720c378722fb49f5743d4250e1b904",
+    "localSourceHead": "f9d5127763a5f7bed91d0ff0ebe751fd2b507622",
+    "sharedSourceTree": "18743cd48d0cbdae511025fbc05a840617394b64",
+    "testedMerge": "ff1c422063d05cc5f32bca8fcbe583ab38a4811b",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35864282761",
+    "artifactSha256": "20d80b817b74c0bec32173d2fbdbd073acf13670724f790979c632fe4ce10af5",
+    "sourceDigestsMatchLocal": true,
+    "budgetEvidence": "evidence/ci-35864282761/budgets.json",
+    "workloadEvidence": "evidence/ci-35864282761/workload.json",
+    "budgetHostConditions": {
+      "swapEnabled": false,
+      "panicOnOom": 0
+    },
+    "sourceIdentityScope": "Tested implementation before later evidence/documentation commits"
+  },
+  "previousCheckpoint": {
+    "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
+    "assertionsPassed": 182,
+    "status": "feature-controls-and-required-path-enforcement-passed"
+  },
+  "pythonTestsPassed": 17,
+  "historicalContinuation": {
     "historicalEvaluationEvidence": "evidence/local-evaluation-007/report.json",
     "recorderTestsPassed": 6,
     "archiveTestsPassed": 15,
@@ -78,18 +118,5 @@
     "latestRun": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
     "latestArtifactSha256": "37e012431d5495f15921480618f5722525f19d9ff125740a6ec45134530ffbc1",
     "actions": "full-SHA Node 24 checkout/upload pins passed in CI; ZIP upload verified; comment-archiver event path not exercised"
-  },
-  "integrationValidation": {
-    "status": "pending",
-    "scope": "Lopa 1.0 export, budget behavior, explicit report comparison, and local audit workload",
-    "pythonTestsPassed": 17,
-    "runtimeChecks": [
-      "reachability",
-      "recovery",
-      "budgets",
-      "workload"
-    ],
-    "sourceHead": null,
-    "run": null
   }
 }

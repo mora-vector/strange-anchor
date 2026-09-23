@@ -308,3 +308,12 @@ sets and verifies 0 in that guest so an expected process OOM can be observed.
 The original negative and positive assertions stay unchanged. Sandhi does not
 override production OOM policy; memory limits do not promise host survival under
 a compulsory-panic policy. The original failed run remains failed.
+
+Run 35864282761 passed the complete expanded suite at source c69e209. The
+OOM policy was verified as 0, the restricted process was killed at 64 MiB, and
+the positive allocation completed at 192 MiB. Timeout, start-window exhaustion,
+and CPU throttling passed with their controls. The local Lopa audit completed
+inside its generated service while keeping evidence references unverified.
+Original selected observations and artifact digest are retained; source digests
+match the implementation. Independent administration and authentication remain
+future work despite this completed single-builder checkpoint.

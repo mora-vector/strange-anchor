@@ -1,0 +1,29 @@
+{
+  "scope": "local snapshot audit in generated contract",
+  "report": {
+    "blockingGapIds": [],
+    "canonical": false,
+    "evidenceReferences": [
+      {
+        "declaredProvenance": {
+          "assertedBy": null,
+          "recordedAt": null,
+          "sha256": null,
+          "sourceReference": null
+        },
+        "gapId": "independent-builder",
+        "kind": "verified-restoration",
+        "reference": "fixture:unverified-claim",
+        "verification": "not-performed"
+      }
+    ],
+    "gapCount": 1,
+    "inputSchemaVersion": "1.0",
+    "inputSha256": "1f0e2aa617765025dcacef3771b29fae33f2f7a7afbe2924062aea2e04706e8a",
+    "schema": "sandhi.lopa-audit",
+    "schemaVersion": "1.0",
+    "unattributedGapIds": [
+      "independent-builder"
+    ]
+  }
+}

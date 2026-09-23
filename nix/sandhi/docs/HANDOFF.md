@@ -1,112 +1,106 @@
-# Sandhi development handoff — 2026-09-23
+# Sandhi integration handoff — 2026-09-23
 
-Prepared by Tessera in the current Codex session. Sideband's review was supplied
-by Mora; no new reply or endorsement from Sideband is implied. This document is
-an engineering handoff, not an independent attestation or complete session export.
+Prepared by Tessera from the inspected repository and Mora's instruction to
+continue. No new Sideband contribution or independent builder is implied.
+The previous feature-control handoff is preserved in
+HANDOFF-feature-controls-2026-09-23.md; its future-work statements describe that
+historical checkpoint.
 
 ## Read first
 
-1. `../VALIDATION.json` for measured status and evidence locations.
-2. `DECISIONS.md` for accepted corrections and their boundaries.
-3. `RECOVERY.md` and `../tests/recovery.nix` for the recovery experiment.
-4. `FEATURE-CONTROLS.md` for implemented options and their test matrix.
+1. `../VALIDATION.json` and the specific CI report it names for measured status.
+2. `REVIEW-2026-09-23.md` for the review packet and attribution.
+3. `LOPA-EXPORT.md`, `BUDGETS.md`, and `REPORT-COMPARISON.md` for the new contracts.
+4. `CONTEXT-2026-09-23.json` for selected inputs and unavailable sources.
 
-The tested implementation head is
-`fcdaece7c8d13560dbc48d075a238ac7109853de` on `tessera/sandhi-runtime`, draft PR #2.
-Its pending evidence commit was published on 2026-09-23 as
-`2eb9138d6f03dd81404ca003873eaacff44baa18`, with tree
-`e95666389cac37aae1fafd77b77e3331a83cf822`, identical to local commit
-`cb79166ac79c66bcf153745633721365592fd799`.
-Mora made the repository private and explicitly authorized publication; the
-prepared continuation and CI-derived evidence have now been published through
-the configured GitHub connection. No merge, production activation, or access
-change was performed. Remote and local commits can have different metadata/SHAs
-because publication used GitHub's commit API; compare trees, not just commit IDs.
+## Implemented continuation
 
-## Completed baseline and current continuation
+* Both Lopa snapshots are gated by registry.export. The original gap-ID-keyed
+  lopa.json retains its shape; lopa-v1.json uses a 1.0 envelope, standalone schema,
+  and explicit nullable provenance for gaps and evidence. Unknown versions and
+  malformed/duplicate-key inputs are refused by the bundled reader.
+* The budget experiment covers per-attempt timeout, start-window exhaustion,
+  touched resident-memory allocation, and CPU throttling, each with a control.
+  Retries are additional starts inside windowSec, not a lifetime counter. Memory
+  behavior is measured with swap absent and panic_on_oom=0; host policy remains
+  outside these service declarations.
+* compare_reports.py requires a declared subject/source and expected inventory.
+  Artifact and behavior modes stay distinct; incomplete matching reports are
+  held. Identity, administration, cache scope, and evidence declarations are
+  required but not authenticated. lib.saksya remains compatible.
+* The first workload is a manual local Lopa audit under a generated Sandhi unit.
+  It validates a snapshot, hashes its exact bytes, inventories gaps and references,
+  and writes report.json in owned state. Evidence references remain unverified.
+  The workload has no declared network peers and no automatic schedule.
 
-Run 35319510107 reached collection and offline restoration with matching bytes
-and NAR hash, then failed an overly strong physical-absence assertion for the
-unavailable-input counterexample. A failed fetch had left a residual file. The
-correction measures the specific missing-input failure, store validity, and
-payload identity separately, recording residual bytes rather than deleting or
-ignoring them. Run 35320318020 passed all three checks; its saved observations
-confirm the residual was an invalid empty file, not recovered payload. Original
-report, guest observations, and output metadata are retained under
-`../evidence/ci-35320318020/`, with the source head and synthetic merge revision
-separate. Those source digests identify that baseline revision; later changes
-require their own results. Earlier failed runs remain failed, with their original
-reports retained.
+## Execution record
 
-The three feature controls are now implemented, with 143 new evaluation assertions
-(182 total including the required-bind assertion). Run 35397280379 passed
-evaluation and services-only packet/write
-checks with registry snapshots absent. Its retention guest stopped at an unmatched
-systemctl inventory-pattern query. The corrected query positively identifies
-nix-daemon.service in the complete inventory and requires no Sandhi units.
+Local evaluation at implementation commit dd8d228 (published as 2dc832e with
+identical tree) passed 199 Nix assertions and 17 Python tests, including legacy
+export compatibility and schema validation. Its original report and evaluation
+artifact are retained in evidence/local-integration-evaluation-001.
 
-Run 35399320533 passed the complete suite. It verifies the independent controls,
-retention-only recovery, services-only boundaries, and required-path enforcement.
-The missing path failed at `226/NAMESPACE` before the execution marker; the same
-unit later read the present path and received `EROFS` on write. Its artifact digest
-and selected original members are retained under `../evidence/ci-35399320533/`.
-Run 35397906109 caught a driver type-inference error before boot; the evidence
-container now has an explicit heterogeneous type, with type checking still on.
-Run 35398323774 then found a real compiler gap: ReadOnlyPaths with ProtectSystem
-did not reject the missing path, and the workload executed. Vidhi now also emits
-required read-only bind mounts; run 35399320533 verified this fix with the
-unchanged negative test and the same-unit positive control.
+CI run 35807515761 was superseded after evaluation and reachability completed.
+Review required touching every memory page rather than relying on zero-filled
+virtual allocations. The original partial report remains running as captured;
+its derived summary records GitHub's cancellation, not a completed pass.
 
-Local recovery attempt 006 built the image and driver but could not launch the
-guest (EPERM). Do not repeat that environment-only failure without evidence of
-changed launch capability. Run on a capable builder from a fixed checkout:
+Run 35807690591 passed evaluation, reachability, and recovery, then panicked the
+budget guest at its 64 MiB cgroup limit. The test harness default panic_on_oom=2
+caused a whole-guest panic. The next revision explicitly sets and verifies policy
+0 for this expected OOM experiment; the workload limit and outcome assertions
+stay unchanged. Original selected members, the contiguous failure excerpt, and
+the artifact digest are retained beside the summary.
+
+The corrected source is c69e209287720c378722fb49f5743d4250e1b904 (local f9d5127),
+shared tree 18743cd48d0cbdae511025fbc05a840617394b64. Run 35864282761 is the
+completed verification for that correction: all five checks passed, with 199
+Nix assertions and 17 Python tests. Archive validation also passed. The original
+artifact digest matched GitHub's metadata, every recorded source digest matches
+the local implementation, and the recorder reported stable source at the end.
+Selected original observations are retained in evidence/ci-35864282761, including
+budget stop results/kernel counters and the actual workload report. The synthetic
+merge tested by CI was ff1c422063d05cc5f32bca8fcbe583ab38a4811b.
+
+The memory probe recorded one kernel OOM kill at 64 MiB; the same 96 MiB touched
+allocation succeeded under 192 MiB. Zero/two retries produced one/three attempts,
+with a further manual start denied. The timeout and its short positive control
+behaved as expected. The 10% CPU unit used about 10% of one CPU over the measured
+six seconds and accumulated throttle events; the 100% control did more work.
+The audit's report matched the snapshot's exact input hash and retained explicit
+unverified evidence references. These are bounded observations on one builder.
+
+## Reproduce and review
+
+Use a fixed checkout and a new output directory outside the source tree:
 
 ```sh
 cd nix/sandhi
-python3 scripts/realize.py --check recovery --output-dir /path/outside/checkout/sandhi-recovery-001
+python3 scripts/realize.py --output-dir /path/outside/checkout/sandhi-integration-001
 ```
 
-Use a new output directory. Inspect the exact source digests, requested/completed
-checks, baseline presence/registration, GC control, before/after hashes, and the
-missing-input counterexample. If it fails, keep the failure and diagnose the named
-step; do not weaken the assertion to obtain a pass.
+The default now requires all five checks: evaluation, reachability, recovery,
+budgets, workload. Recorder schema 5 includes schema-file digests. Selecting only
+the old three checks cannot produce a full-suite pass. A bounded follow-up may
+use `--check budgets --check workload`, with its narrower scope explicit.
+Do not repeat the known local EPERM guest-launch failure without changed launch
+capability. CI is the measured runtime builder for this checkpoint.
 
-## Sideband review disposition
+Import examples/lopa-audit.nix into a chosen NixOS configuration to obtain the
+manual service; the repository itself has no production host activation. Start
+sandhi-contract-lopa-audit.service only on that configured host and inspect its
+owned report and input hash. An older completed report is not overwritten when a
+later invocation fails validation.
 
-| Concern | Current disposition | Next evidence |
-| --- | --- | --- |
-| `karman.affected` | Required-path enforcement passed in CI | Namespace exit 226, missing-path journal, absent marker; unchanged unit later executes with read-only access |
-| Lopa/export naming | Documented typed registry versus generated per-generation JSON snapshot | Specify a versioned export/schema before external consumers depend on it |
-| `sandhi.enable` | Three controls and both isolated runtime modes passed | Versioned export and budget-exhaustion experiments remain future work |
-| Resource budgets | Settings compiled; behavior under exhaustion not yet tested | Separate bounded experiments for timeout, retry, and memory/CPU behavior |
-| Independent reports | `lib.saksya` compares declared derivation/output inventories and NAR hashes; no report is privileged as canonical | Authenticated reports with independently administered execution and explicit cache scope |
+## Next decisions
 
-Checkout and artifact upload now use full-SHA Node 24 action pins; ZIP uploads
-remain explicit. Archive validation exercises checkout; Sandhi CI exercises both
-checkout and upload. The comment archiver's checkout pin also changed, but that
-workflow's event-specific behavior is not tested by this PR. Triggers and access
-scopes were not expanded.
+The useful next checkpoint is a separately administered execution with explicit
+cache scope and retained original evidence. Construct the comparison specification
+from the exact source and expected artifact/assertion inventory; do not count
+shared discussion, a local rebuild, or two labels on one host as independence.
+Authentication/signing and release policy are not implemented. No canonical
+promotion, merge, fleet database, or production activation follows from this work.
 
-Next implementation order after this runtime verification: specify a versioned
-lopa export and migration policy before adding external consumers, then exercise
-budget exhaustion with bounded timeout/retry and memory/CPU experiments. Keep
-registry references distinct from independently verified evidence. The new
-feature options are implemented; the export is still the existing unversioned
-gap-ID-keyed snapshot, with no new fleet database or signing protocol.
-
-## Collaboration contract
-
-Contributors may share designs without claiming independent rediscovery. Keep
-original evidence separate from interpretations. Name the object a result tests.
-Use separate fixed checkouts when working concurrently. The recorder detects
-start/end source drift, not transient edits or malicious changes.
-
-Selected checks reduce repeated work; their success does not imply unrequested
-checks passed. A collaborator can finish or pause with a precise unresolved
-question. No invented reply, automatic conversation expansion, production
-activation, or release promotion is part of this handoff.
-
-Mora sets purpose and acceptable operational costs. The next product choice is
-one useful first workload, followed by host, storage budget, and an independent
-builder when needed. Routine source review and fixture testing can proceed
-without requiring Mora to mediate every engineering choice.
+Sideband can review the packet without a fabricated reply. Mora retains the
+choice of production workload/host, storage costs, and the independent operator.
+Routine review and fixture work can continue without repeated mediation.
