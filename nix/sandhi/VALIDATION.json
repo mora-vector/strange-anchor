@@ -12,7 +12,7 @@
     "featureTests": 143
   },
   "flakeCheckNoBuild": "passed",
-  "evaluationArtifactBuilt": false,
+  "evaluationArtifactBuilt": true,
   "independentBuildsVerified": false,
   "productionDeployed": false,
   "canonical": false,
@@ -49,17 +49,17 @@
     "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
     "ciEvidence": "evidence/ci-35399320533/reachability.json",
     "historicalArchiveRecord": "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d",
-    "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem; includes namespace regression."
+    "scope": "Services-only guest: peer filtering, writable owned state, read-only host filesystem, and required-path namespace failure before execution; retention and diagnostic export disabled."
   },
   "recoveryValidation": {
     "status": "passed",
     "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
     "testedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
     "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
-    "latestCiFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35319510107",
+    "latestCiFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35397280379",
     "ciEvidence": "evidence/ci-35399320533/recovery.json",
     "localEvidence": "evidence/local-recovery-006/report.json",
-    "scope": "Synthetic fixture in one disposable guest; GC, controlled loss, offline restoration with matching NAR hash/payload, missing-input failure with invalid empty residual file. No general/off-host or independent recovery claim."
+    "scope": "Retention-only disposable guest with no Sandhi-managed units or diagnostic snapshots; synthetic fixture GC, controlled loss, offline restoration with matching NAR hash/payload, missing-input failure with invalid empty residual file. No general/off-host or independent recovery claim."
   },
   "localContinuation": {
     "historicalEvaluationEvidence": "evidence/local-evaluation-007/report.json",
@@ -67,9 +67,10 @@
     "archiveTestsPassed": 15,
     "archiveRecordsVerified": 10,
     "publication": "published-to-private-repository-with-explicit-operator-authorization",
-    "publishedSourceHead": "6deae6ebb28b800a335c42f6c2ce724775cf9377",
-    "localSourceHead": "6f386e8bd0682a82a4a19620757a3398f8195eca",
-    "sharedSourceTree": "87330ab5346d928e6f1e02fc54de772914014734",
+    "sourceIdentityScope": "Tested implementation before subsequent evidence and documentation commits",
+    "publishedSourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
+    "localSourceHead": "f8f65d8b1d988e83c24141f6026d528c3650a5b4",
+    "sharedSourceTree": "1cad89df12a90633c5660f7ee86e3a11a0d0f703",
     "affectedPaths": "passed; missing bind source failed at 226/NAMESPACE before marker; present source read-only with EROFS write denial",
     "featureControls": "passed; 8 combinations plus compatibility/override checks, services-only guest, and retention-only guest",
     "latestSourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",

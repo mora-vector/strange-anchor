@@ -1,4 +1,4 @@
-# Sandhi development handoff — 2026-09-18
+# Sandhi development handoff — 2026-09-23
 
 Prepared by Tessera in the current Codex session. Sideband's review was supplied
 by Mora; no new reply or endorsement from Sideband is implied. This document is
@@ -11,8 +11,12 @@ an engineering handoff, not an independent attestation or complete session expor
 3. `RECOVERY.md` and `../tests/recovery.nix` for the recovery experiment.
 4. `FEATURE-CONTROLS.md` for implemented options and their test matrix.
 
-The last inspected remote head was
+The tested implementation head is
 `fcdaece7c8d13560dbc48d075a238ac7109853de` on `tessera/sandhi-runtime`, draft PR #2.
+Its pending evidence commit was published on 2026-09-23 as
+`2eb9138d6f03dd81404ca003873eaacff44baa18`, with tree
+`e95666389cac37aae1fafd77b77e3331a83cf822`, identical to local commit
+`cb79166ac79c66bcf153745633721365592fd799`.
 Mora made the repository private and explicitly authorized publication; the
 prepared continuation and CI-derived evidence have now been published through
 the configured GitHub connection. No merge, production activation, or access
@@ -35,7 +39,8 @@ require their own results. Earlier failed runs remain failed, with their origina
 reports retained.
 
 The three feature controls are now implemented, with 143 new evaluation assertions
-(182 total including the required-bind assertion). Run 35397280379 passed evaluation and services-only packet/write
+(182 total including the required-bind assertion). Run 35397280379 passed
+evaluation and services-only packet/write
 checks with registry snapshots absent. Its retention guest stopped at an unmatched
 systemctl inventory-pattern query. The corrected query positively identifies
 nix-daemon.service in the complete inventory and requires no Sandhi units.
@@ -49,7 +54,8 @@ Run 35397906109 caught a driver type-inference error before boot; the evidence
 container now has an explicit heterogeneous type, with type checking still on.
 Run 35398323774 then found a real compiler gap: ReadOnlyPaths with ProtectSystem
 did not reject the missing path, and the workload executed. Vidhi now also emits
-required read-only bind mounts; the unchanged negative test will verify this fix.
+required read-only bind mounts; run 35399320533 verified this fix with the
+unchanged negative test and the same-unit positive control.
 
 Local recovery attempt 006 built the image and driver but could not launch the
 guest (EPERM). Do not repeat that environment-only failure without evidence of
