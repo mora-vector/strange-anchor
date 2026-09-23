@@ -15,7 +15,14 @@ let
         # Let the driver establish a live process before allocation.
         while not pathlib.Path("go").exists():
             time.sleep(0.05)
-        chunks = [bytearray(1024 * 1024) for _ in range(96)]
+        chunks = []
+        for _ in range(96):
+            chunk = bytearray(1024 * 1024)
+            # Fault every page: virtual zero-filled allocation alone need not
+            # consume resident memory and cannot exercise MemoryMax honestly.
+            for offset in range(0, len(chunk), 4096):
+                chunk[offset] = 1
+            chunks.append(chunk)
     elif mode == "cpu":
         until = time.monotonic() + 60
         while time.monotonic() < until:
