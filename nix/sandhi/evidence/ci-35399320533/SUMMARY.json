@@ -1,0 +1,19 @@
+{
+  "kind": "Tessera-derived summary; selected original JSON and path metadata retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
+  "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
+  "testedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
+  "artifactSha256": "37e012431d5495f15921480618f5722525f19d9ff125740a6ec45134530ffbc1",
+  "completedChecks": ["evaluation", "reachability", "recovery"],
+  "sourceStableAtEnd": true,
+  "servicesOnly": "Network and filesystem boundaries passed with retention and diagnostic export disabled",
+  "retentionOnly": "GC and offline restoration passed with no Sandhi-managed units or diagnostic snapshots",
+  "requiredPath": "Missing source produced systemd 226/NAMESPACE before the workload marker; the same unit later read the present source and received EROFS on write",
+  "canonical": false,
+  "independentBuildsVerified": false,
+  "productionDeployed": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalMembersPreserved": ["report.json", "reachability.json", "recovery.json", "paths-evaluation.stdout", "paths-reachability.stdout", "paths-recovery.stdout"],
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533/artifacts/10569968327",
+  "originalArtifactExpiresAt": "2026-10-18T22:01:43Z"
+}

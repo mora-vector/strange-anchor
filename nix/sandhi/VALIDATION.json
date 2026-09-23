@@ -1,6 +1,6 @@
 {
   "release": "0.3-development",
-  "status": "feature-controls-and-required-bind-fix-evaluated; runtime-ci-pending",
+  "status": "feature-controls-and-required-path-enforcement-passed",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
@@ -36,24 +36,28 @@
     "evidence/ci-35319510107/SUMMARY.json",
     "evidence/ci-35320318020/SUMMARY.json",
     "evidence/ci-35320318020/report.json",
-    "evidence/ci-35320318020/recovery.json"
+    "evidence/ci-35320318020/recovery.json",
+    "evidence/ci-35399320533/SUMMARY.json",
+    "evidence/ci-35399320533/report.json",
+    "evidence/ci-35399320533/reachability.json",
+    "evidence/ci-35399320533/recovery.json"
   ],
   "runtimeValidation": {
     "status": "passed",
-    "sourceHead": "6deae6ebb28b800a335c42f6c2ce724775cf9377",
-    "testedMerge": "d7251e5a36c7acec1cac603d60afd69fffea4a3c",
-    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35320318020",
-    "ciEvidence": "evidence/ci-35320318020/reachability.json",
+    "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
+    "testedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
+    "ciEvidence": "evidence/ci-35399320533/reachability.json",
     "historicalArchiveRecord": "0ddf09703d01592e61628d682c6c2285e394c1886eaa850c3560e1249fd9de8d",
     "scope": "Guest boot, peer filtering, writable owned state, read-only host filesystem; includes namespace regression."
   },
   "recoveryValidation": {
     "status": "passed",
-    "sourceHead": "6deae6ebb28b800a335c42f6c2ce724775cf9377",
-    "testedMerge": "d7251e5a36c7acec1cac603d60afd69fffea4a3c",
-    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35320318020",
+    "sourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
+    "testedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
+    "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
     "latestCiFailure": "https://github.com/mora-vector/strange-anchor/actions/runs/35319510107",
-    "ciEvidence": "evidence/ci-35320318020/recovery.json",
+    "ciEvidence": "evidence/ci-35399320533/recovery.json",
     "localEvidence": "evidence/local-recovery-006/report.json",
     "scope": "Synthetic fixture in one disposable guest; GC, controlled loss, offline restoration with matching NAR hash/payload, missing-input failure with invalid empty residual file. No general/off-host or independent recovery claim."
   },
@@ -66,8 +70,12 @@
     "publishedSourceHead": "6deae6ebb28b800a335c42f6c2ce724775cf9377",
     "localSourceHead": "6f386e8bd0682a82a4a19620757a3398f8195eca",
     "sharedSourceTree": "87330ab5346d928e6f1e02fc54de772914014734",
-    "affectedPaths": "invariant documented; new behavioral test pending",
-    "featureControls": "implemented; eight combinations plus compatibility/override checks pass local evaluation; isolated-feature VM checks pending CI",
+    "affectedPaths": "passed; missing bind source failed at 226/NAMESPACE before marker; present source read-only with EROFS write denial",
+    "featureControls": "passed; 8 combinations plus compatibility/override checks, services-only guest, and retention-only guest",
+    "latestSourceHead": "fcdaece7c8d13560dbc48d075a238ac7109853de",
+    "latestTestedMerge": "616da30e4afa3816b95958f3128e1e6d0192b4c9",
+    "latestRun": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
+    "latestArtifactSha256": "37e012431d5495f15921480618f5722525f19d9ff125740a6ec45134530ffbc1",
     "actions": "full-SHA Node 24 checkout/upload pins passed in CI; ZIP upload verified; comment-archiver event path not exercised"
   }
 }

@@ -9,17 +9,17 @@ an engineering handoff, not an independent attestation or complete session expor
 1. `../VALIDATION.json` for measured status and evidence locations.
 2. `DECISIONS.md` for accepted corrections and their boundaries.
 3. `RECOVERY.md` and `../tests/recovery.nix` for the recovery experiment.
-4. `FEATURE-CONTROLS.md` for the next bounded implementation and its test matrix.
+4. `FEATURE-CONTROLS.md` for implemented options and their test matrix.
 
 The last inspected remote head was
-`6deae6ebb28b800a335c42f6c2ce724775cf9377` on `tessera/sandhi-runtime`, draft PR #2.
+`fcdaece7c8d13560dbc48d075a238ac7109853de` on `tessera/sandhi-runtime`, draft PR #2.
 Mora made the repository private and explicitly authorized publication; the
 prepared continuation and CI-derived evidence have now been published through
 the configured GitHub connection. No merge, production activation, or access
 change was performed. Remote and local commits can have different metadata/SHAs
 because publication used GitHub's commit API; compare trees, not just commit IDs.
 
-## Completed baseline; next implementation
+## Completed baseline and current continuation
 
 Run 35319510107 reached collection and offline restoration with matching bytes
 and NAR hash, then failed an overly strong physical-absence assertion for the
@@ -30,8 +30,26 @@ ignoring them. Run 35320318020 passed all three checks; its saved observations
 confirm the residual was an invalid empty file, not recovered payload. Original
 report, guest observations, and output metadata are retained under
 `../evidence/ci-35320318020/`, with the source head and synthetic merge revision
-separate. All recorded source digests match the published implementation. Earlier
-failed runs remain failed, with their original reports retained.
+separate. Those source digests identify that baseline revision; later changes
+require their own results. Earlier failed runs remain failed, with their original
+reports retained.
+
+The three feature controls are now implemented, with 143 new evaluation assertions
+(182 total including the required-bind assertion). Run 35397280379 passed evaluation and services-only packet/write
+checks with registry snapshots absent. Its retention guest stopped at an unmatched
+systemctl inventory-pattern query. The corrected query positively identifies
+nix-daemon.service in the complete inventory and requires no Sandhi units.
+
+Run 35399320533 passed the complete suite. It verifies the independent controls,
+retention-only recovery, services-only boundaries, and required-path enforcement.
+The missing path failed at `226/NAMESPACE` before the execution marker; the same
+unit later read the present path and received `EROFS` on write. Its artifact digest
+and selected original members are retained under `../evidence/ci-35399320533/`.
+Run 35397906109 caught a driver type-inference error before boot; the evidence
+container now has an explicit heterogeneous type, with type checking still on.
+Run 35398323774 then found a real compiler gap: ReadOnlyPaths with ProtectSystem
+did not reject the missing path, and the workload executed. Vidhi now also emits
+required read-only bind mounts; the unchanged negative test will verify this fix.
 
 Local recovery attempt 006 built the image and driver but could not launch the
 guest (EPERM). Do not repeat that environment-only failure without evidence of
@@ -51,9 +69,9 @@ step; do not weaken the assertion to obtain a pass.
 
 | Concern | Current disposition | Next evidence |
 | --- | --- | --- |
-| `karman.affected` | Documented as required read-only constraints, distinct from owned writable state | Guest test: required path present permits startup; missing path prevents workload execution |
+| `karman.affected` | Required-path enforcement passed in CI | Namespace exit 226, missing-path journal, absent marker; unchanged unit later executes with read-only access |
 | Lopa/export naming | Documented typed registry versus generated per-generation JSON snapshot | Specify a versioned export/schema before external consumers depend on it |
-| `sandhi.enable` | Split specified in FEATURE-CONTROLS.md; recovery prerequisite passed; implementation next | Eight cross-feature combinations plus umbrella compatibility; export off cannot waive blockers; services off cannot emit unrestricted workloads |
+| `sandhi.enable` | Three controls and both isolated runtime modes passed | Versioned export and budget-exhaustion experiments remain future work |
 | Resource budgets | Settings compiled; behavior under exhaustion not yet tested | Separate bounded experiments for timeout, retry, and memory/CPU behavior |
 | Independent reports | `lib.saksya` compares declared derivation/output inventories and NAR hashes; no report is privileged as canonical | Authenticated reports with independently administered execution and explicit cache scope |
 
@@ -63,11 +81,12 @@ checkout and upload. The comment archiver's checkout pin also changed, but that
 workflow's event-specific behavior is not tested by this PR. Triggers and access
 scopes were not expanded.
 
-Next implementation order: split the three feature controls with
-evaluation-matrix coverage; exercise services-only and
-retention-only guests; add the required affected-path startup counterexample.
-Do not treat the design document as an implemented option API. A versioned lopa
-export and budget-exhaustion tests remain subsequent work.
+Next implementation order after this runtime verification: specify a versioned
+lopa export and migration policy before adding external consumers, then exercise
+budget exhaustion with bounded timeout/retry and memory/CPU experiments. Keep
+registry references distinct from independently verified evidence. The new
+feature options are implemented; the export is still the existing unversioned
+gap-ID-keyed snapshot, with no new fleet database or signing protocol.
 
 ## Collaboration contract
 

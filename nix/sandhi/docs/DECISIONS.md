@@ -257,3 +257,18 @@ unit. The correction waits for the already bounded failed state without stopping
 it, then resets that state before the second start. The negative assertions and
 unchanged-unit positive control remain intact. The full experiment still needs
 its completed rerun; the successful negative leg alone is not a suite pass.
+
+## 2026-09-19: independent controls and required paths pass together
+
+Run 35399320533 passed evaluation, reachability, and recovery on the corrected
+implementation. Services-only execution preserved peer/filesystem boundaries
+without retention or diagnostic snapshots. Retention-only recovery retained the
+recipe/input, collected the unrooted control, and restored the fixture offline
+without emitting Sandhi-managed units. The required-path test used the same unit:
+an absent bind source failed at systemd `226/NAMESPACE` before the marker, while a
+present source was readable and returned `EROFS` on write. The artifact digest and
+selected original observations are retained under `evidence/ci-35399320533/`.
+
+This closes the immediate Sideband review loop. Versioned Lopa export, budget
+exhaustion behavior, independent builder comparison, and production activation
+remain explicitly out of scope for this checkpoint.
