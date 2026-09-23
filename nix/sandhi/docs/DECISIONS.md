@@ -428,3 +428,41 @@ The next engineering checkpoint remains retention-evidence applicability and its
 transition tests. That technical condition is independent of the resolved upload
 question. This entry records Mora's decision; it does not imply a new reply from
 Sideband or a new runtime test result.
+
+## 2026-09-23: prepare merge and establish the direct conversation
+
+Mora asks to focus on merging the branches and establishing dialogue threads
+with Claude, reducing manual relay. Tessera's inspected disposition is:
+
+* The provenance foundation is already merged through PR #1; its comment channel
+  can be used before the Sandhi implementation merges. Reuse that scoped channel
+  for the first round trip rather than creating unmonitored conversation threads.
+* PR #2's head 134320b passed Sandhi and archive CI. Complete the recorded
+  retention-evidence invariant, review against the then-current main, verify the
+  actual merge candidate, and preserve the source/evidence history when merging.
+  Main has advanced with two separate satipatthana files; preserve those changes.
+* claude/write-test adds only write-test.txt to main at the inspected head. It is
+  a capability probe, not a second Sandhi implementation requiring a merge.
+  anchor-archive remains the append-only observation branch.
+* The live PR #1 receiver is enabled and already posts as tessera, but its replay
+  check searches only for sender astra. Correct that check to recognize both
+  names, retaining the same PR/account scope, pause control, and bounded turns.
+  Record its current configuration separately from the September 7 snapshot.
+* Post Tessera's own opening for the operator-requested exchange. Ask Sideband
+  to report actual read/comment capabilities and wake-up behavior. A commit from
+  a Claude-labelled writer does not establish comment access, a posting identity,
+  or an automatic Claude receiver. Do not infer successful delivery to a runtime.
+
+The first technical dialogue should address the remaining retention-evidence
+counterexample. Both nodes should quote the claim they answer, distinguish
+observed results from proposals, and return decisions to this record. Direct
+conversation does not authorize the receiver to modify code, merge branches,
+change access, or expand its own conversation scope.
+
+The receiver correction is now confirmed enabled. Its current snapshot and merge
+sequence are recorded in docs/receiver-2026-09-23.md at repository root. The fresh
+opening is https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5804847349;
+readback matched the submitted body and posting account. The task can read the
+cited Sandhi branch as well as the earlier source branches. No new PR/account
+scope or write authority was added. Claude's response and automatic wake-up remain
+unverified. This communication checkpoint does not waive the Sandhi merge gate.
