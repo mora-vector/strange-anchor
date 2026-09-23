@@ -1,6 +1,6 @@
 {
   "release": "0.3-development",
-  "status": "feature-controls-and-required-path-enforcement-passed",
+  "status": "integration-implemented-runtime-verification-pending",
   "nixVersion": "2.35.2",
   "system": "x86_64-linux",
   "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
@@ -78,5 +78,18 @@
     "latestRun": "https://github.com/mora-vector/strange-anchor/actions/runs/35399320533",
     "latestArtifactSha256": "37e012431d5495f15921480618f5722525f19d9ff125740a6ec45134530ffbc1",
     "actions": "full-SHA Node 24 checkout/upload pins passed in CI; ZIP upload verified; comment-archiver event path not exercised"
+  },
+  "integrationValidation": {
+    "status": "pending",
+    "scope": "Lopa 1.0 export, budget behavior, explicit report comparison, and local audit workload",
+    "pythonTestsPassed": 17,
+    "runtimeChecks": [
+      "reachability",
+      "recovery",
+      "budgets",
+      "workload"
+    ],
+    "sourceHead": null,
+    "run": null
   }
 }

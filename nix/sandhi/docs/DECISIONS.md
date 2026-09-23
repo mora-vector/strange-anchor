@@ -272,3 +272,25 @@ selected original observations are retained under `evidence/ci-35399320533/`.
 This closes the immediate Sideband review loop. Versioned Lopa export, budget
 exhaustion behavior, independent builder comparison, and production activation
 remain explicitly out of scope for this checkpoint.
+
+## 2026-09-23: an explicit interface and its first consumer
+
+The next integration retains the legacy Lopa shape and emits a separate versioned
+1.0 snapshot with nullable declared provenance. Consumers select their supported
+version; schema validation cannot authenticate evidence. A local snapshot audit
+is the first workload, run manually inside a generated contract with no peers.
+
+Budget experiments distinguish rate throttling, memory exhaustion, attempt timeout,
+and start-window limits. The existing retries field is clarified as additional
+starts within windowSec, not a lifetime counter. Host swap and stop/preflight time
+remain separate from the current declarations. The compiler's runtime settings
+are not broadened in this integration.
+
+Report comparison now has a separate opt-in 1.0 format requiring an explicit
+subject, source, and expected inventory. Artifact-byte agreement and behavioral
+assertion agreement are different comparisons; neither authenticates reports or
+establishes independent administration. lib.saksya retains its existing contract.
+
+The review packet is REVIEW-2026-09-23.md. No new Sideband contribution is implied.
+Implementation and test definitions precede measurement: consult VALIDATION.json
+and the new run records for the actual outcomes.

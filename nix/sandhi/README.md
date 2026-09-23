@@ -105,8 +105,10 @@ apply when the umbrella, services, or retention is enabled. See
   experiment checks namespace failure before workload execution, then successful
   reading and EROFS on writes once that path exists. See VALIDATION.json for its
   observed status; the older packet-only results do not establish this behavior.
-- State directories are separately owned; resource limits and bounded retries
-  are emitted as service settings. `retries` excludes the initial attempt.
+- State directories are separately owned; resource limits and start-rate limits
+  are emitted as service settings. `retries` excludes the initial attempt within
+  `windowSec`; it is not a lifetime attempt counter. CPU throttles, runtime is per
+  attempt, and swap remains host policy. See [BUDGETS.md](docs/BUDGETS.md).
 - Ancillary DNS is not silently allowed. Use explicit addresses, or design and
   declare a resolution mechanism. IPv6 peers are intentionally outside this first
   compiler's schema; networked units can create AF_INET and AF_UNIX sockets.
@@ -148,8 +150,10 @@ Lopa names the concept. `sandhi.gaps` is its typed registry and
 `/etc/sandhi/lopa.json` is a generated snapshot for one system generation: a plain
 JSON object keyed by gap ID. It is not a writable database, a fleet-wide canonical
 record, or an independently authenticated evidence archive. Nix option types
-validate declarations; no standalone JSON Schema or stable versioned export API
-exists yet. External consumers should wait for that contract to be specified.
+validate declarations. A parallel `/etc/sandhi/lopa-v1.json` now provides the
+versioned 1.0 envelope and explicit declared provenance, validated by a standalone
+JSON Schema. The legacy snapshot keeps its original shape. See
+[LOPA-EXPORT.md](docs/LOPA-EXPORT.md) for compatibility and the local audit workload.
 
 Selected output and recipe retention lasts while the retaining system generation
 stays rooted. Recipe retention enables global keep-outputs and may retain much
@@ -162,7 +166,8 @@ VM behavior, independent reproduction, and adoption are different evidence objec
 
 ## Use and verification
 
-The flake exports `nixosModules.default`, `lib` helpers, and three checks. It pins
+The flake exports `nixosModules.default`, `lib` helpers, the `lopa-audit` package,
+and five checks: evaluation, reachability, recovery, budgets, and workload. It pins
 Nixpkgs through flake.lock. It does not export a production host: supply actual
 hardware, storage, secrets, backup destinations, and host assignments separately.
 Keep the established `system.stateVersion` on existing hosts.

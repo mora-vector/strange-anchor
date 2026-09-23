@@ -86,7 +86,13 @@ class RecorderTests(unittest.TestCase):
         code, report, _, _, _ = self.run_recorder([])
         self.assertEqual(code, 0)
         self.assertEqual(report["status"], "runtime-tests-passed")
-        self.assertEqual(report["completedChecks"], ["evaluation", "reachability", "recovery"])
+        self.assertEqual(report["completedChecks"], recorder.CHECKS)
+
+    def test_old_three_checks_do_not_claim_expanded_suite(self):
+        code, report, _, _, _ = self.run_recorder(
+            ["--check", "evaluation", "--check", "reachability", "--check", "recovery"])
+        self.assertEqual(code, 0)
+        self.assertEqual(report["status"], "selected-checks-passed")
 
     def test_evaluation_only_compatibility(self):
         code, report, _, _, _ = self.run_recorder(["--evaluation-only"])

@@ -58,8 +58,9 @@ showed that ReadOnlyPaths alone allowed workload execution with the path absent.
 
 Type=simple start-job success is not accepted as evidence of execution: the test
 waits for the actual process status and the bounded failed state, then resets
-the failure/start-limit state before the second run. Dedicated retry-budget
-and timeout behavior remains a separate future experiment.
+the failure/start-limit state before the second run. Dedicated budget behavior
+now has a separate experiment in tests/budgets.nix; measured status is recorded
+in VALIDATION.json.
 
-An export-schema change is separate from this toggle split. Preserve the current
-gap-ID-keyed JSON shape unless a versioned migration is explicitly documented.
+The gap-ID-keyed JSON shape remains unchanged. LOPA-EXPORT.md specifies the
+parallel versioned export and compatibility rules; the same export switch gates both.

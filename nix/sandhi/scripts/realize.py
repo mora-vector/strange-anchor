@@ -11,13 +11,15 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
+CHECKS = ["evaluation", "reachability", "recovery", "budgets", "workload"]
 
 
 def source_hashes():
     return {
         str(path.relative_to(ROOT)): hashlib.sha256(path.read_bytes()).hexdigest()
         for path in sorted(ROOT.rglob("*"))
-        if path.is_file() and (path.suffix in {".nix", ".py"} or path.name == "flake.lock")
+        if path.is_file() and (path.suffix in {".nix", ".py"} or path.name == "flake.lock"
+                               or path.parent == ROOT / "schemas")
     }
 
 
@@ -27,13 +29,13 @@ def main():
                         help="New directory for this run; existing paths are refused")
     parser.add_argument("--evaluation-only", action="store_true",
                         help="Build only the evaluation artifact; no VM claim")
-    parser.add_argument("--check", action="append", choices=["evaluation", "reachability", "recovery"],
+    parser.add_argument("--check", action="append", choices=CHECKS,
                         help="Run only named checks; repeat for multiple checks (default: all)")
     args = parser.parse_args()
     if args.evaluation_only and args.check:
         parser.error("Use either --evaluation-only or --check, not both.")
     targets = (["evaluation"] if args.evaluation_only else
-               list(dict.fromkeys(args.check or ["evaluation", "reachability", "recovery"])))
+               list(dict.fromkeys(args.check or CHECKS)))
     destination = args.output_dir.resolve()
     if destination == ROOT or ROOT in destination.parents:
         parser.error("Place evidence outside the source tree so recording does not change the input.")
@@ -45,7 +47,7 @@ def main():
     destination.mkdir(parents=True)
     sources = source_hashes()
     report = {
-        "schemaVersion": 4,
+        "schemaVersion": 5,
         "startedAt": datetime.datetime.now(datetime.timezone.utc).isoformat(),
         "platform": platform.platform(),
         "sourceFilesSha256": sources,
@@ -99,7 +101,7 @@ def main():
                 shutil.copyfile(observation, destination / (target + ".json"))
             report["completedChecks"].append(target)
             save()
-        report["status"] = ("runtime-tests-passed" if set(targets) == {"evaluation", "reachability", "recovery"}
+        report["status"] = ("runtime-tests-passed" if set(targets) == set(CHECKS)
                             else "evaluation-only-passed" if targets == ["evaluation"]
                             else "selected-checks-passed")
     except (OSError, RuntimeError, ValueError, KeyError) as error:
