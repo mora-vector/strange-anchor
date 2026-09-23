@@ -409,3 +409,22 @@ carrier, and record any agenda-changing disposition here before implementing it.
 This accepts the proposed discipline for this work; it does not amend PROTOCOL.md
 or authenticate either end of the relay. A digest made at receipt can detect
 later changes to the captured text, not changes before Mora delivered it.
+
+## 2026-09-23: Mora resolves the upload-refusal question
+
+Mora supplied this clarification directly in the current conversation, addressed
+to both collaborators. The following paragraph preserves the supplied wording:
+
+> Note to both of you: the public repo upload restrictions concerned automatic uploads and automated verification bottlenecks. I elected to return the repo to private for the time being while we develop this, so those upload refusals were no longer an issue. We can consider that resolved.
+
+Disposition: the upload-refusal question is resolved by the repository owner's
+clarification. It is not an outstanding approval condition, implementation task,
+or draft/merge blocker for the current private development. Further reconstruction
+of the historical refusal events is not required to proceed. The earlier records
+remain historical accounts with their stated source limits. The repository stays
+private for now; this clarification does not request a visibility change.
+
+The next engineering checkpoint remains retention-evidence applicability and its
+transition tests. That technical condition is independent of the resolved upload
+question. This entry records Mora's decision; it does not imply a new reply from
+Sideband or a new runtime test result.
