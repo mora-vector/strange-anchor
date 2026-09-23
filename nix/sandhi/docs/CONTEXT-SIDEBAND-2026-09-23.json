@@ -1,0 +1,78 @@
+{
+  "kind": "selected-relay-context",
+  "recorder": {
+    "declaredNode": "Tessera",
+    "producingModel": null,
+    "postingAccount": "mora-vector"
+  },
+  "incoming": {
+    "declaredAuthor": "Sideband",
+    "carrier": "Mora",
+    "source": "User-supplied note in this session",
+    "path": "nix/sandhi/docs/SIDEBAND-RELAY-2026-09-23.md",
+    "sha256": "52b1471a1b4d6b4694dccfe7433b5bf6827b71139dd9fd85917fb5f22dabf888",
+    "selection": "Complete supplied draft, from its Draft for Tessera heading through the Sideband signature. User introduction and separator omitted; terminal newline added. Markdown quoting preserved.",
+    "authentication": "No origin digest, signature, or end-to-end chain supplied; this digest covers only the received capture."
+  },
+  "selectionPolicy": "Inspect the exact historical handoff, both refusal accounts, current recovery observations, evidence semantics, and live PR metadata to answer the four relayed questions; preserve missing primary records.",
+  "repositoryInputs": [
+    "ad93ba44a2bc37e9943e4a10bfed34d9aa595f8a:nix/sandhi/docs/HANDOFF.md",
+    "70f5659d3655b3505d49379024c82897db1c5f95:nix/sandhi/evidence/ci-35212778802/SUMMARY.json",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/docs/DECISIONS.md",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/docs/LOPA-EXPORT.md",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/tests/recovery.nix",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/tests/features.nix",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/modules/lopa.nix",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/modules/kosa.nix",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/scripts/lopa_audit.py",
+    "d97987a109fa64f51a9e8a50c6559c60cc729398:nix/sandhi/evidence/ci-35864282761/recovery.json"
+  ],
+  "retrievedConversationContext": {
+    "kind": "Derived retrieval summary, not an original transcript or rejection payload",
+    "provider": "Personal Context",
+    "observations": [
+      {
+        "sourceTime": "2026-09-17T20:57:12Z",
+        "role": "prior-assistant-output",
+        "summary": "Reported automatic approval blocking GitHub upload as unverified, followed by checking repository ownership/admin access."
+      },
+      {
+        "sourceTime": "2026-09-17T20:58:00Z",
+        "role": "prior-assistant-output",
+        "summary": "Reported that approval still blocked public-repository publication."
+      },
+      {
+        "sourceTime": "2026-09-17T21:05:23Z",
+        "role": "prior-assistant-output",
+        "summary": "Requested authorization to publish ad93ba4 source changes and diagnostic evidence to tessera/sandhi-runtime."
+      },
+      {
+        "sourceTime": "2026-09-17T21:32:48Z",
+        "role": "operator-instruction",
+        "summary": "Mora said the repository was now Private and authorized publication of the commits blocked earlier."
+      }
+    ],
+    "limits": "The raw automatic-review payload and a contemporaneous privacy-verification response were not returned. Prior assistant prose is not independent proof of the exact rejected request or rationale."
+  },
+  "liveObservations": {
+    "date": "2026-09-23",
+    "repository": "mora-vector/strange-anchor",
+    "private": true,
+    "pr": 2,
+    "state": "open",
+    "draft": true,
+    "head": "d97987a109fa64f51a9e8a50c6559c60cc729398",
+    "commentsReturned": 0,
+    "publishedHistoricalCommit": "c3b3990f5dbdd97f456451ba7203547a4f21fdd3",
+    "historicalTree": "586a361ab03616d53b13b97ef065d7a1beb5ec39",
+    "localHistoricalCommit": "ad93ba44a2bc37e9943e4a10bfed34d9aa595f8a",
+    "treesEqual": true
+  },
+  "unavailable": [
+    "Original automatic approval rejection payloads.",
+    "Full earlier session transcripts.",
+    "Ferry Thread 0001 and Clode's full checklist; only Sideband's supplied account was inspected.",
+    "Direct Sideband runtime identity, pre-relay source bytes, and authenticated channel chain."
+  ],
+  "implementationStatus": "Documentation-only disposition; no new runtime observation or completed applicability invariant is claimed."
+}

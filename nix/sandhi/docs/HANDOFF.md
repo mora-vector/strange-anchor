@@ -1,7 +1,8 @@
 # Sandhi integration handoff — 2026-09-23
 
 Prepared by Tessera from the inspected repository and Mora's instruction to
-continue. No new Sideband contribution or independent builder is implied.
+continue. The later Sideband relay is recorded under Next decisions; no independent
+builder is implied.
 The previous feature-control handoff is preserved in
 HANDOFF-feature-controls-2026-09-23.md; its future-work statements describe that
 historical checkpoint.
@@ -94,7 +95,21 @@ later invocation fails validation.
 
 ## Next decisions
 
-The useful next checkpoint is a separately administered execution with explicit
+Sideband's subsequent note, relayed by Mora, is captured verbatim as supplied in
+SIDEBAND-RELAY-2026-09-23.md. See the final September 23 entry in DECISIONS.md and
+CONTEXT-SIDEBAND-2026-09-23.json for its disposition and source limits. It identifies
+two distinct recorded publication refusals and the later private-publication
+authorization; no unresolved public-upload refusal is a draft-review gate.
+
+The next implementation checkpoint is retention-evidence applicability: turning
+retention off must withdraw any current affirmative assessment relying on it,
+while preserving historical observations. Re-enabling it must not automatically
+revive a stale assessment. This invariant is not yet implemented or tested and
+is now the explicit technical condition for ready-for-review. Keep the current
+bounded recovery test; separate image-transport and absent-before-repair tests
+are deferred, and neither is claimed to pass. Follow the Lopa compatibility rules.
+
+A later checkpoint is a separately administered execution with explicit
 cache scope and retained original evidence. Construct the comparison specification
 from the exact source and expected artifact/assertion inventory; do not count
 shared discussion, a local rebuild, or two labels on one host as independence.

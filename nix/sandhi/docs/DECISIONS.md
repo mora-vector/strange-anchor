@@ -317,3 +317,95 @@ inside its generated service while keeping evidence references unverified.
 Original selected observations and artifact digest are retained; source digests
 match the implementation. Independent administration and authentication remain
 future work despite this completed single-builder checkpoint.
+
+## 2026-09-23: Sideband relay, refusal objects, and the remaining review condition
+
+Sideband's note was supplied by Mora in this session. Its supplied Markdown is
+captured in SIDEBAND-RELAY-2026-09-23.md; CONTEXT-SIDEBAND-2026-09-23.json records
+the selected inputs and missing originals. These dispositions are Tessera's;
+Sideband's agreement with them has not been received.
+
+### Two recorded publication refusals must remain distinct
+
+The ZIP summary concerns the original opaque artifact from run 35212778802.
+It is not a record of the later prepared-source publication attempt. The
+September 17 handoff at local ad93ba44a2bc37e9943e4a10bfed34d9aa595f8a says the
+last inspected remote head was 70f5659 and reports a refusal of the local
+continuation's public GitHub upload after an ownership/admin check. Retrieved
+conversation context independently of that ZIP summary also describes this later
+attempt to publish ad93ba4's source changes and diagnostic evidence. It reports
+Mora's subsequent instruction that the repository was now private and publication
+of the previously blocked commits was authorized.
+
+Evidence limit: the retrieved context contains prior assistant reports and the
+operator instruction, not the raw automatic-review rejection payload. We can
+distinguish the recorded events; we cannot quote or reconstruct the reviewer's
+exact denied request and rationale. Do not close the historical question by
+identifying the handoff refusal with the ZIP refusal, or treat this reconstruction
+as a newly authenticated policy verdict.
+
+GitHub now confirms private visibility and published commit
+c3b3990f5dbdd97f456451ba7203547a4f21fdd3, whose tree
+586a361ab03616d53b13b97ef065d7a1beb5ec39 matches local ad93ba4. The historical
+public-upload refusal is not an outstanding condition on review of this private
+PR. The original ZIP remains unarchived here; this correction does not authorize
+its publication. Preserve both the refusal's object and its later disposition.
+
+### Recovery baseline preparation is deliberate; image transport is deferred
+
+The repair call deliberately establishes the baseline. The current test then
+collects an unrooted control, checks retained inputs/output, deletes the output,
+and restores it through ordinary offline realization, comparing bytes and NAR
+hashes. Run 35864282761 observed initiallyPresent=false and initiallyRegistered=true
+before repair. It did not observe image-carried output bytes. The unconditional
+repair does not assert either starting state in every execution.
+
+Keep this bounded test for PR #2 and explicitly defer separate image-transport
+and absent-before-repair tests. Image transport is not a passing claim or an exit
+condition for this PR. A future split must assert initial presence in its transport
+case and initial absence in its repair case; simply adding transported outputs
+to this guest risks changing what its retention/GC experiment measures.
+
+### Retention evidence applicability remains unimplemented
+
+Sideband's third invariant is accepted: disabling retention must not leave a
+standing affirmative claim of current recoverability supported by the disabled
+policy. The existing feature matrix does not test this. Lopa preserves declared
+evidence references independently of retention, and the audit labels their
+verification as not performed. Those limits do not implement an applicability
+lifecycle. The September 19 sentence saying the immediate review loop was closed
+was too broad; this paragraph corrects it without rewriting that historical entry.
+
+The next implementation checkpoint must distinguish a historical observation
+from a current assessment. Preserve historical references and provenance. Bind
+any affirmative current assessment to its subject, configuration/generation, and
+supporting conditions; withdraw that assessment when those conditions change,
+leaving current recoverability unassessed until revalidated. Retention on is not
+proof of recoverability; retention off is not proof that bytes were deleted.
+The existing 1.0 export cannot silently acquire a new meaning: follow its recorded
+version/migration rules when introducing these semantics.
+
+Acceptance must exercise retention on/off with actual recovery evidence present,
+show that no current affirmative assessment survives the disabled premise, and
+show that historical evidence remains available and cannot be mistaken for a
+current pass. Re-enabling retention alone must not revive the old assessment.
+This is an implementation agenda and acceptance condition, not a claim that
+the invariant already passes.
+
+### Draft exit and relay discipline
+
+Before this relay the draft status held the integration for collaborator review;
+Tessera had not recorded a precise exit criterion. The existing integration gates
+passed. The remaining technical condition Tessera now sets for ready-for-review
+is the retention-evidence applicability contract, implementation, and meaningful
+transition tests, with the existing regression checks still passing. Image
+transport, independent administration, signing, and production activation are
+separate scopes, not hidden conditions for marking this PR ready. Merge remains
+a separate decision. Clode's full checklist and Ferry Thread 0001 were not
+inspected, so no verdict on their separately named conditions is attributed here.
+
+For Tessera's replies, quote the sentence being answered, identify the source and
+carrier, and record any agenda-changing disposition here before implementing it.
+This accepts the proposed discipline for this work; it does not amend PROTOCOL.md
+or authenticate either end of the relay. A digest made at receipt can detect
+later changes to the captured text, not changes before Mora delivered it.
