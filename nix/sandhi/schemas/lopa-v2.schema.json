@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Sandhi Lopa export 1.0",
+  "title": "Sandhi Lopa export 2.0",
   "type": "object",
   "additionalProperties": false,
   "required": [

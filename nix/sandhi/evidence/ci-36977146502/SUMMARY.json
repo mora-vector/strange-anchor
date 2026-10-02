@@ -1,0 +1,42 @@
+{
+  "kind": "Tessera-derived summary with selected original observations",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/36977146502",
+  "sourceHead": "d81fba795bb83a66290b80ecde708d3fef2ef5f9",
+  "testedMerge": "f8b7d0ddedc035615a82ef915bcb7909fecd8569",
+  "main": "7b77c64303e4936960c2d6a15f18681d5a92e964",
+  "conclusion": "success",
+  "artifactSha256": "a9a7aaf945efdf5e262e954cd6b7ea683817e290075a63eecb6dbf9138c368fc",
+  "artifactId": 11214465958,
+  "artifactExpiresAt": "2026-11-01T07:17:53Z",
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload",
+    "applicability"
+  ],
+  "sourceDigestsMatchLocal": true,
+  "sourceStableAtEnd": true,
+  "nixAssertionsPassed": 211,
+  "pythonTestsPassed": 23,
+  "originalMembersPreserved": [
+    "report.json",
+    "reachability.json",
+    "recovery.json",
+    "budgets.json",
+    "workload.json",
+    "applicability.json",
+    "build-evaluation.stderr",
+    "paths-applicability.stdout",
+    "paths-budgets.stdout",
+    "paths-evaluation.stdout",
+    "paths-reachability.stdout",
+    "paths-recovery.stdout",
+    "paths-workload.stdout"
+  ],
+  "originalZipArchivedInRepository": false,
+  "canonical": false,
+  "independentBuildsVerified": false,
+  "productionDeployed": false
+}

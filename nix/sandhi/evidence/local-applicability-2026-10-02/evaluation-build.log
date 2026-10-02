@@ -1,0 +1,30 @@
+warning: the group 'nixbld' specified in 'build-users-group' does not exist
+got build log for '/nix/store/678sbrwqwakyzs4kd7gmph8yk2j2hbfz-sandhi-evaluation.drv' from 'local'
+test_agreement_never_authenticates (test_comparison.ComparisonTests.test_agreement_never_authenticates) ... ok
+test_changed_source_or_artifact_or_failed_behavior_held (test_comparison.ComparisonTests.test_changed_source_or_artifact_or_failed_behavior_held) ... ok
+test_identical_omissions_are_held (test_comparison.ComparisonTests.test_identical_omissions_are_held) ... ok
+test_malformed_unknown_and_missing_evidence_held (test_comparison.ComparisonTests.test_malformed_unknown_and_missing_evidence_held) ... ok
+test_shared_administration_cache_and_identity_hold (test_comparison.ComparisonTests.test_shared_administration_cache_and_identity_hold) ... ok
+test_blocking_gap_is_reported (test_lopa.LopaTests.test_blocking_gap_is_reported) ... ok
+test_claim_is_not_verified (test_lopa.LopaTests.test_claim_is_not_verified) ... ok
+test_duplicate_json_keys_and_nan_rejected (test_lopa.LopaTests.test_duplicate_json_keys_and_nan_rejected) ... ok
+test_incompatible_version_and_unknown_fields_rejected (test_lopa.LopaTests.test_incompatible_version_and_unknown_fields_rejected) ... ok
+test_missing_provenance_and_malformed_digest_rejected (test_lopa.LopaTests.test_missing_provenance_and_malformed_digest_rejected) ... ok
+test_concurrent_source_edit_prevents_combined_success (test_recorder.RecorderTests.test_concurrent_source_edit_prevents_combined_success) ... ok
+test_default_failure_keeps_completed_checks_and_diagnostic (test_recorder.RecorderTests.test_default_failure_keeps_completed_checks_and_diagnostic) ... ok
+test_default_success_names_all_checks (test_recorder.RecorderTests.test_default_success_names_all_checks) ... ok
+test_evaluation_only_compatibility (test_recorder.RecorderTests.test_evaluation_only_compatibility) ... ok
+test_missing_observation_is_not_a_runtime_pass (test_recorder.RecorderTests.test_missing_observation_is_not_a_runtime_pass) ... ok
+test_old_three_checks_do_not_claim_expanded_suite (test_recorder.RecorderTests.test_old_three_checks_do_not_claim_expanded_suite) ... ok
+test_single_vm_success_never_claims_full_suite (test_recorder.RecorderTests.test_single_vm_success_never_claims_full_suite) ... ok
+test_cli_atomic_ledger_and_malformed_state_not_overwritten (test_recovery_state.RecoveryStateTests.test_cli_atomic_ledger_and_malformed_state_not_overwritten) ... ok
+test_malformed_or_disabled_current_state_fails_closed (test_recovery_state.RecoveryStateTests.test_malformed_or_disabled_current_state_fails_closed) ... ok
+test_on_off_on_requires_new_declaration_and_preserves_history (test_recovery_state.RecoveryStateTests.test_on_off_on_requires_new_declaration_and_preserves_history) ... ok
+test_same_configuration_reactivation_also_invalidates (test_recovery_state.RecoveryStateTests.test_same_configuration_reactivation_also_invalidates) ... ok
+test_unretained_subject_and_missing_identity_rejected (test_recovery_state.RecoveryStateTests.test_unretained_subject_and_missing_identity_rejected) ... ok
+test_v2_schema_requires_history_semantics_and_no_current_snapshot_claim (test_recovery_state.RecoveryStateTests.test_v2_schema_requires_history_semantics_and_no_current_snapshot_claim) ... ok
+
+----------------------------------------------------------------------
+Ran 23 tests in 0.224s
+
+OK

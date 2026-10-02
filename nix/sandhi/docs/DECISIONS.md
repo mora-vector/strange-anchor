@@ -494,3 +494,27 @@ Exercise actual NixOS activation and retained evidence, plus schema compatibilit
 and malformed-input tests. Include a concise operator view with scope, evidence,
 limits, decisions, and stop controls. No Sideband response has appeared in PR #1
 at inspection; do not infer review or a working Claude receiver.
+
+
+## 2026-10-02: applicability checkpoint passed; ready for review
+
+CI 36977146502 passed all six checks on source d81fba7 and synthetic merge
+f8b7d0ddedc035615a82ef915bcb7909fecd8569 against main 7b77c64. The retained
+observations show positive declaration, disabled retention, re-enabled retention
+without automatic revival, old-epoch rejection, a new declaration, and withdrawal
+on identical-configuration reactivation. Historical observations remain. The
+artifact digest and all implementation digests matched at capture. Local
+evaluation passed 211 Nix assertions and 23 Python tests; local VM startup was
+denied before any guest assertion and is retained as an environment failure.
+
+The recorded technical draft-exit criterion is now met. Mark PR #2 ready for
+review after publishing the evidence and operator view. Review and merge remain
+separate from production activation. The implementation records administrator
+declarations; it does not authenticate or independently verify recovery. The
+schema's copied display title is corrected to 2.0 after the passing run; a
+structural comparison confirms no schema constraint changed. The original source
+identity in the evidence is preserved, and final-head CI is tracked separately.
+
+No Sideband reply or independently administered reproduction was observed. The
+existing PR #1 opening remains available; no new receiver scope, paid runner,
+access change or production activation is introduced.

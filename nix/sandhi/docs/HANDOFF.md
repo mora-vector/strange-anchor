@@ -1,121 +1,69 @@
-# Sandhi integration handoff — 2026-09-23
+# Sandhi handoff — 2026-10-02
 
-Prepared by Tessera from the inspected repository and Mora's instruction to
-continue. The later Sideband relay is recorded under Next decisions; no independent
-builder is implied.
-The previous feature-control handoff is preserved in
-HANDOFF-feature-controls-2026-09-23.md; its future-work statements describe that
-historical checkpoint.
+Start with [OPERATOR-VIEW.md](OPERATOR-VIEW.md). It explains the system's authority,
+what is demonstrated, what remains uncertain, and how to stop work.
 
-## Read first
+## This checkpoint
 
-1. `../VALIDATION.json` and the specific CI report it names for measured status.
-2. `REVIEW-2026-09-23.md` for the review packet and attribution.
-3. `LOPA-EXPORT.md`, `BUDGETS.md`, and `REPORT-COMPARISON.md` for the new contracts.
-4. `CONTEXT-2026-09-23.json` for selected inputs and unavailable sources.
+The retention-evidence applicability implementation is published at `d81fba7`
+(local `c03cf41`, identical tree `8a1bce2793d7b939251f4ecfefaf8d4d2e78ab14`).
+It addresses Sideband's third invariant: retention off withdraws current
+assessments; turning it on again cannot automatically revive them. Historical
+declarations keep their subject, epoch, configuration digest and evidence digest.
 
-## Implemented continuation
+The mechanism is deliberately conservative: **every successful activation** of a
+configuration containing this module starts a new epoch and withdraws current
+assessments, including reactivation of the same configuration. Retention on and a
+historical report do not automatically establish recovery. An administrator must
+declare a fresh assessment for the current epoch and a listed retained subject.
+The supplied evidence file is hashed but its claimed restoration is not verified
+or authenticated. Current status is `declared-recoverable` only for listed subjects.
 
-* Both Lopa snapshots are gated by registry.export. The original gap-ID-keyed
-  lopa.json retains its shape; lopa-v1.json uses a 1.0 envelope, standalone schema,
-  and explicit nullable provenance for gaps and evidence. Unknown versions and
-  malformed/duplicate-key inputs are refused by the bundled reader.
-* The budget experiment covers per-attempt timeout, start-window exhaustion,
-  touched resident-memory allocation, and CPU throttling, each with a control.
-  Retries are additional starts inside windowSec, not a lifetime counter. Memory
-  behavior is measured with swap absent and panic_on_oom=0; host policy remains
-  outside these service declarations.
-* compare_reports.py requires a declared subject/source and expected inventory.
-  Artifact and behavior modes stay distinct; incomplete matching reports are
-  held. Identity, administration, cache scope, and evidence declarations are
-  required but not authenticated. lib.saksya remains compatible.
-* The first workload is a manual local Lopa audit under a generated Sandhi unit.
-  It validates a snapshot, hashes its exact bytes, inventories gaps and references,
-  and writes report.json in owned state. Evidence references remain unverified.
-  The workload has no declared network peers and no automatic schedule.
+The separate Lopa 2.0 schema and export make historical semantics and the retention
+inventory explicit. Legacy and 1.0 exports retain their shapes. The example audit
+selects 2.0 and reports current recovery as unassessed because a snapshot is not a
+live ledger. See [LOPA-V2-MIGRATION.md](LOPA-V2-MIGRATION.md) for migration and limits.
 
-## Execution record
+## Validation status
 
-Local evaluation at implementation commit dd8d228 (published as 2dc832e with
-identical tree) passed 199 Nix assertions and 17 Python tests, including legacy
-export compatibility and schema validation. Its original report and evaluation
-artifact are retained in evidence/local-integration-evaluation-001.
+The local evaluation artifact passed 211 Nix assertions and 23 Python tests.
+All six checks evaluate, and the new guest image built. The local test driver
+could not start its guest (`Operation not permitted`), so it executed no guest
+assertions. This is preserved in `evidence/local-applicability-2026-10-02`.
 
-CI run 35807515761 was superseded after evaluation and reachability completed.
-Review required touching every memory page rather than relying on zero-filled
-virtual allocations. The original partial report remains running as captured;
-its derived summary records GitHub's cancellation, not a completed pass.
+The initial CI run 36976734811 completed evaluation, reachability and recovery
+before it was superseded by the scope/provenance revision. Its original partial
+report remains unchanged, accompanied by a derived cancellation summary.
 
-Run 35807690591 passed evaluation, reachability, and recovery, then panicked the
-budget guest at its 64 MiB cgroup limit. The test harness default panic_on_oom=2
-caused a whole-guest panic. The next revision explicitly sets and verifies policy
-0 for this expected OOM experiment; the workload limit and outcome assertions
-stay unchanged. Original selected members, the contiguous failure excerpt, and
-the artifact digest are retained beside the summary.
+Candidate runtime CI 36977146502 passed all six checks against synthetic merge
+`f8b7d0ddedc035615a82ef915bcb7909fecd8569`. Its archive check 36977146519 passed.
+The downloaded artifact digest matched GitHub metadata, and every recorded source
+digest matched the tested local implementation. Selected original observations
+are preserved in `evidence/ci-36977146502`. `VALIDATION.json` names this evidence.
+The only later schema edit corrects its display title from 1.0 to 2.0; all schema
+constraints are identical. A final automatic head check will confirm publication.
 
-The corrected source is c69e209287720c378722fb49f5743d4250e1b904 (local f9d5127),
-shared tree 18743cd48d0cbdae511025fbc05a840617394b64. Run 35864282761 is the
-completed verification for that correction: all five checks passed, with 199
-Nix assertions and 17 Python tests. Archive validation also passed. The original
-artifact digest matched GitHub's metadata, every recorded source digest matches
-the local implementation, and the recorder reported stable source at the end.
-Selected original observations are retained in evidence/ci-35864282761, including
-budget stop results/kernel counters and the actual workload report. The synthetic
-merge tested by CI was ff1c422063d05cc5f32bca8fcbe583ab38a4811b.
+## Review and merge
 
-The memory probe recorded one kernel OOM kill at 64 MiB; the same 96 MiB touched
-allocation succeeded under 192 MiB. Zero/two retries produced one/three attempts,
-with a further manual start denied. The timeout and its short positive control
-behaved as expected. The 10% CPU unit used about 10% of one CPU over the measured
-six seconds and accumulated throttle events; the 100% control did more work.
-The audit's report matched the snapshot's exact input hash and retained explicit
-unverified evidence references. These are bounded observations on one builder.
+Current main at inspection is `7b77c64303e4936960c2d6a15f18681d5a92e964`.
+It is already an ancestor of the local implementation history and its additions
+are preserved. GitHub tests the actual PR merge candidate, which must pass the
+full suite. The applicability implementation and regression checks have passed;
+the technical draft-exit criterion is met. Merge remains after review;
+this checkpoint does not activate a production host.
 
-## Reproduce and review
+No Sideband reply has appeared in PR #1, and PR #2 has no review comments at
+inspection. The existing opening/receiver remains available; neither Claude
+wake-up nor an end-to-end exchange is inferred. No new channel scope is needed.
+The upload-refusal question remains resolved by Mora.
 
-Use a fixed checkout and a new output directory outside the source tree:
+## Next bounded work
 
-```sh
-cd nix/sandhi
-python3 scripts/realize.py --output-dir /path/outside/checkout/sandhi-integration-001
-```
+Make this PR ready for review with the exact source and evidence linked. Review the activation footprint and declaration/verification
+boundary, then merge the verified candidate. Independently administered
+reproduction, report authentication, and the transport/repair test split remain
+explicit future scopes. They are not hidden draft-exit conditions.
 
-The default now requires all five checks: evaluation, reachability, recovery,
-budgets, workload. Recorder schema 5 includes schema-file digests. Selecting only
-the old three checks cannot produce a full-suite pass. A bounded follow-up may
-use `--check budgets --check workload`, with its narrower scope explicit.
-Do not repeat the known local EPERM guest-launch failure without changed launch
-capability. CI is the measured runtime builder for this checkpoint.
-
-Import examples/lopa-audit.nix into a chosen NixOS configuration to obtain the
-manual service; the repository itself has no production host activation. Start
-sandhi-contract-lopa-audit.service only on that configured host and inspect its
-owned report and input hash. An older completed report is not overwritten when a
-later invocation fails validation.
-
-## Next decisions
-
-Sideband's subsequent note, relayed by Mora, is captured verbatim as supplied in
-SIDEBAND-RELAY-2026-09-23.md. See the final September 23 entry in DECISIONS.md and
-CONTEXT-SIDEBAND-2026-09-23.json for its disposition and source limits. It identifies
-two distinct recorded publication refusals and the later private-publication
-authorization; no unresolved public-upload refusal is a draft-review gate.
-
-The next implementation checkpoint is retention-evidence applicability: turning
-retention off must withdraw any current affirmative assessment relying on it,
-while preserving historical observations. Re-enabling it must not automatically
-revive a stale assessment. This invariant is not yet implemented or tested and
-is now the explicit technical condition for ready-for-review. Keep the current
-bounded recovery test; separate image-transport and absent-before-repair tests
-are deferred, and neither is claimed to pass. Follow the Lopa compatibility rules.
-
-A later checkpoint is a separately administered execution with explicit
-cache scope and retained original evidence. Construct the comparison specification
-from the exact source and expected artifact/assertion inventory; do not count
-shared discussion, a local rebuild, or two labels on one host as independence.
-Authentication/signing and release policy are not implemented. No canonical
-promotion, merge, fleet database, or production activation follows from this work.
-
-Sideband can review the packet without a fabricated reply. Mora retains the
-choice of production workload/host, storage costs, and the independent operator.
-Routine review and fixture work can continue without repeated mediation.
+Historical integration detail is preserved in
+[HANDOFF-integration-2026-09-23.md](HANDOFF-integration-2026-09-23.md); the older
+feature-control handoff also remains. Agenda decisions are in DECISIONS.md.
