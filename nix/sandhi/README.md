@@ -1,5 +1,7 @@
 # Sandhi — service contracts with measured boundaries
 
+Start with the [operator's view](docs/OPERATOR-VIEW.md) for scope, evidence, decisions, and stop controls.
+
 Sandhi grew from Sideband's Sanskrit derivation model and Tessera's runtime
 contracts. Sanskrit names the design relationships; Nix and systemd implement
 them. The v0.2 checkpoint added the vidhi compiler and a NixOS VM experiment.

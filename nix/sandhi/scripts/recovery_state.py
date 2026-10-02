@@ -50,8 +50,9 @@ def validate(state):
         raise ValueError("Invalid recovery state; refusing to infer a current assessment")
     policy({"schema": "sandhi.lopa", "schemaVersion": "2.0", "recoveryPolicy": state["policy"]})
     for item in state["history"]:
-        if (not isinstance(item, dict) or set(item) != {"epoch", "subject", "reference", "sha256", "assertedBy", "verification"}
-                or not all(isinstance(item[k], str) and item[k] for k in ["epoch", "reference", "sha256", "assertedBy"])
+        if (not isinstance(item, dict) or set(item) != {"epoch", "snapshotSha256", "subject", "reference", "sha256", "assertedBy", "verification"}
+                or not all(isinstance(item[k], str) and item[k] for k in ["epoch", "snapshotSha256", "reference", "sha256", "assertedBy"])
+                or len(item["snapshotSha256"]) != 64
                 or len(item["sha256"]) != 64 or any(c not in "0123456789abcdef" for c in item["sha256"])
                 or item["verification"] != "not-performed"):
             raise ValueError("Invalid historical assessment")
@@ -59,6 +60,7 @@ def validate(state):
     for index in state["current"]:
         if (type(index) is not int or not 0 <= index < len(state["history"])
                 or state["history"][index]["epoch"] != state["epoch"]
+                or state["history"][index]["snapshotSha256"] != state["snapshotSha256"]
                 or state["history"][index]["subject"] not in state["policy"]["subjects"]
                 or not state["policy"]["retentionEnabled"]):
             raise ValueError("Invalid current assessment")
@@ -84,7 +86,7 @@ def record(state, epoch, subject, reference, evidence, asserted_by):
     if not reference.strip() or not asserted_by.strip():
         raise ValueError("Reference and asserting administrator are required")
     result = copy.deepcopy(state)
-    result["history"].append({"epoch": epoch, "subject": subject, "reference": reference,
+    result["history"].append({"epoch": epoch, "snapshotSha256": state["snapshotSha256"], "subject": subject, "reference": reference,
                               "sha256": hashlib.sha256(evidence).hexdigest(),
                               "assertedBy": asserted_by, "verification": "not-performed"})
     result["current"] = [i for i in result["current"] if result["history"][i]["subject"] != subject]

@@ -56,6 +56,7 @@ let
         && cfg.nix.settings.allow-import-from-derivation == !security;
       claimsExport = (cfg.environment.etc ? "sandhi/claims.json") == export;
       gapExport = (cfg.environment.etc ? "sandhi/lopa.json") == export;
+      v2GapExport = (cfg.environment.etc ? "sandhi/lopa-v2.json") == export;
       versionedGapExport = (cfg.environment.etc ? "sandhi/lopa-v1.json") == export;
       activeContractExport = (cfg.environment.etc ? "sandhi/contracts.json") == (export && services);
       blockingGap = builtins.any (a: a.message ==

@@ -35,6 +35,7 @@ class RecoveryStateTests(unittest.TestCase):
         off = r.activate(first, snapshot(False), 'off')
         self.assertEqual(r.status(off)['status'], 'unassessed')
         self.assertEqual(off['history'], first['history'])
+        self.assertEqual(off['history'][0]['snapshotSha256'], first['snapshotSha256'])
         with self.assertRaises(ValueError):
             r.record(off, 'off', SUBJECT, 'fixture:new', b'new', 'operator')
         again = r.activate(off, snapshot(), 'again')

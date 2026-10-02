@@ -36,6 +36,7 @@
         export PYTHONDONTWRITEBYTECODE=1
         python -m unittest discover -s ${source}/tests -p 'test_*.py' -v
         python ${source}/scripts/lopa_audit.py --schema ${./schemas/lopa-v1.schema.json} ${pkgs.writeText "lopa-v1-fixture.json" exportFixture.versioned} > audit.json
+        python ${source}/scripts/lopa_audit.py --schema ${./schemas/lopa-v2.schema.json} ${exportFixture.versionedV2} > audit-v2.json
         python - ${exportFixture.legacy} <<'PY'
         import json, sys
         with open(sys.argv[1]) as f:

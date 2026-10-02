@@ -26,5 +26,6 @@ let
 in assert builtins.all (x: x) (builtins.attrValues cases); {
   inherit cases;
   versioned = cfg.environment.etc."sandhi/lopa-v1.json".text;
+  versionedV2 = cfg.environment.etc."sandhi/lopa-v2.json".source;
   legacy = cfg.environment.etc."sandhi/lopa.json".source;
 }

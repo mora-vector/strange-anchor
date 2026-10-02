@@ -1,7 +1,7 @@
 # Named objects, separate evidence
 
 The implemented checks under `checks.x86_64-linux` are evaluation, reachability,
-recovery, budgets, and workload. The latter four boot disposable guests and
+recovery, budgets, workload, and applicability. The latter five boot disposable guests and
 produce their respective named JSON observation files. Evaluation also runs the
 Python unit suite, validates a generated export, and checks legacy compatibility.
 The recovery experiment tests limited offline restoration and carries
@@ -93,7 +93,7 @@ For a bounded follow-up, select the unresolved experiment explicitly:
 python3 scripts/realize.py --check recovery --output-dir ../sandhi-recovery-002
 ```
 
-`--check` may be repeated; omitting it runs all five checks. A selected
+`--check` may be repeated; omitting it runs all six checks. A selected
 subset gets `selected-checks-passed`, never the full-suite success label. Reports
 record requested and completed checks separately, and print a compact status plus
 the failed step's final 40 stderr lines into the job log. The complete logs remain
@@ -111,8 +111,8 @@ The `Validate Sandhi` workflow executes this recorder on Ubuntu for relevant
 pull requests and main-branch changes. It pins checkout, the Nix installer
 action, and the evidence uploader to commit SHAs, and installs Nix 2.35.2. The
 installer enables KVM when available; this is a facility request, not proof that
-a guest ran. A job passes only if the recorder completes all five builds and finds
-all four guest observation files. Logs are captured during builds and retained even
+a guest ran. A job passes only if the recorder completes all six builds and finds
+all five guest observation files. Logs are captured during builds and retained even
 when a step fails. Artifacts expire after 30 days; copy evidence to a durable
 archive before expiry.
 
