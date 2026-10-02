@@ -1,0 +1,14 @@
+{
+  "kind": "Tessera-derived summary; original report and guest observations retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35397280379",
+  "sourceHead": "2e3f911f9f45ce5bed9c6c092afc00eb47ab7911",
+  "testedMerge": "31a7bf74c1c54ffb44b59f1b448196bb6f0c84d7",
+  "artifactSha256": "7191d1b98758c8e509de9213de01adce9657f7eae576467ef380428dd1a2daf5",
+  "completedChecks": ["evaluation", "reachability"],
+  "serviceScope": "Services enabled with retention and registry export disabled; packet/write boundaries passed and diagnostic snapshots were absent",
+  "recovery": "Stopped before recovery operations: systemctl list-unit-files returned 1 for the unmatched sandhi service pattern, with empty output",
+  "correction": "Query all service units, require nix-daemon.service as a positive control, then require absence of Sandhi units",
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35397280379/artifacts/10567693962"
+}

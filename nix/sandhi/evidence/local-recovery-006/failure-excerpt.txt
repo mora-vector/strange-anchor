@@ -1,0 +1,43 @@
+Selected tail from original build-recovery.stderr.
+building '/nix/store/lm0443spam38dik7n57w3mmgham50wkj-closure-info.drv'...
+closure-info> structuredAttrs is enabled
+building '/nix/store/k5hpaigz4pcvbrw4v30s0wg9s32sji85-run-nixos-vm.drv'...
+building '/nix/store/s0ywz6lrgh7lhh87fyks0sily88yl2jz-nixos-vm.drv'...
+building '/nix/store/ks1rmr4r4zx4y3mxl6nyzwflk58hd99p-driverConfiguration.json.drv'...
+driverConfiguration.json> structuredAttrs is enabled
+building '/nix/store/xh95q1j9jy5d0raypik8qmnpd2rwnjkv-nixos-test-driver-sandhi-offline-recovery.drv'...
+nixos-test-driver-sandhi-offline-recovery> Running type check (enable/disable: config.skipTypeCheck)
+nixos-test-driver-sandhi-offline-recovery> See https://nixos.org/manual/nixos/stable/#test-opt-skipTypeCheck
+nixos-test-driver-sandhi-offline-recovery> All checks passed!
+nixos-test-driver-sandhi-offline-recovery> Linting test script (enable/disable: config.skipLint)
+nixos-test-driver-sandhi-offline-recovery> See https://nixos.org/manual/nixos/stable/#test-opt-skipLint
+nixos-test-driver-sandhi-offline-recovery> All checks passed!
+building '/nix/store/b1lrmrf3wvw5xyd48pj2qgyx27p2kmrh-vm-test-run-sandhi-offline-recovery.drv'...
+vm-test-run-sandhi-offline-recovery> Machine state will be reset. To keep it, pass --keep-machine-state
+vm-test-run-sandhi-offline-recovery> start all VLans
+vm-test-run-sandhi-offline-recovery> (finished: start all VLans, in 0.00 seconds)
+vm-test-run-sandhi-offline-recovery> Test will time out and terminate in 900 seconds
+vm-test-run-sandhi-offline-recovery> run the VM test script
+vm-test-run-sandhi-offline-recovery> additionally exposed symbols:
+vm-test-run-sandhi-offline-recovery>     machine,
+vm-test-run-sandhi-offline-recovery>     ,
+vm-test-run-sandhi-offline-recovery>     start_all, test_script, machines, machines_qemu, machines_nspawn, vlans, driver, log, os, create_machine, subtest, run_tests, join_all, retry, serial_stdout_off, serial_stdout_on, polling_condition, BaseMachine, QemuMachine, NspawnMachine, t, debug, dump_machine_ssh
+vm-test-run-sandhi-offline-recovery> start all VMs
+vm-test-run-sandhi-offline-recovery> machine: starting vm
+vm-test-run-sandhi-offline-recovery> !!! Traceback (most recent call last):
+vm-test-run-sandhi-offline-recovery> !!!   File "/nix/store/4rdc8pbhinsncqvi1arybzn3an3abhvk-nixos-test-driver-1.1/lib/python3.13/site-packages/test_driver/driver.py", line 392, in test_script
+vm-test-run-sandhi-offline-recovery> !!!     exec(self.tests, symbols, None)
+vm-test-run-sandhi-offline-recovery> !!!     ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+vm-test-run-sandhi-offline-recovery> !!!   File "<string>", line 2, in <module>
+vm-test-run-sandhi-offline-recovery> !!!   File "/nix/store/4rdc8pbhinsncqvi1arybzn3an3abhvk-nixos-test-driver-1.1/lib/python3.13/site-packages/test_driver/driver.py", line 468, in start_all
+vm-test-run-sandhi-offline-recovery> !!!     raise MachineError(
+vm-test-run-sandhi-offline-recovery> !!!         "Failed to start the following machines:\n" + "\n".join(messages)
+vm-test-run-sandhi-offline-recovery> !!!     )
+vm-test-run-sandhi-offline-recovery> !!! test_driver.errors.MachineError: Failed to start the following machines:
+vm-test-run-sandhi-offline-recovery> !!! machine: [Errno 1] Operation not permitted
+vm-test-run-sandhi-offline-recovery> cleanup
+vm-test-run-sandhi-offline-recovery> (finished: cleanup, in 0.00 seconds)
+error: Cannot build '/nix/store/b1lrmrf3wvw5xyd48pj2qgyx27p2kmrh-vm-test-run-sandhi-offline-recovery.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/45il7knlshshqndb1f4r3ri9i06ihzwk-vm-test-run-sandhi-offline-recovery

@@ -1,0 +1,33 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": "GitHub Actions"
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [
+      "No independent builder or restoration evidence; no production deployment"
+    ],
+    "scope": "Exact GitHub Actions artifact ZIP as received; reports and build logs from one runner"
+  },
+  "captured_at": "2026-09-17T10:31:39.742928Z",
+  "content": {
+    "bytes": 68051,
+    "media_type": "application/zip",
+    "sha256": "2740d34f9d7cafc5ba11017cea193c545536feadbaf0c316eaa57c752958d244"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": "PR head 1b86e73beeee0d9ef29ed8f6c52b603bf7ae1dd0",
+    "transport_author": null,
+    "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/35145130501/artifacts/10466531571"
+  },
+  "recorded_by": "Tessera",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "Sandhi namespace regression and VM boundary test: CI run 35145130501"
+}

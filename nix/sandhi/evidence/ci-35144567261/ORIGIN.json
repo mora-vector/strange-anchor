@@ -1,0 +1,9 @@
+{
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35144567261",
+  "artifactId": 10466498598,
+  "sha256": "ed7459ebee7bba582320cdaa134f49fa73ddea5d22f3bba759c4a0a49876a65f",
+  "archiveRecord": "68bcad16b3fe50d65392aeab2b1e458c83693505f7c35c2fc0d04fa8e3fc7139",
+  "selection": "Unmodified report, observations, and VM output metadata extracted from the complete archived ZIP.",
+  "sourceHead": "f63a02dee5c1cf190a68da2d00c2d623795bd6d9",
+  "testedMerge": "854727109d762cec14867d0c76ae62d2027ab3c4"
+}

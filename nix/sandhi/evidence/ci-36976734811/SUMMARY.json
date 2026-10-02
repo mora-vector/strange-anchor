@@ -1,0 +1,21 @@
+{
+  "kind": "Tessera-derived summary",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/36976734811",
+  "sourceHead": "315512987734c7df592b3eac7c89efc186f4d828",
+  "conclusion": "cancelled",
+  "reason": "Superseded by assessment scope preservation and schema coverage revision",
+  "artifactSha256": "6f6c64971bedd7401311baa64a4b57701727243e0d6f94f18cfae8fca8a2df03",
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery"
+  ],
+  "originalMembersPreserved": [
+    "report.json",
+    "reachability.json",
+    "recovery.json",
+    "build-evaluation.stderr"
+  ],
+  "originalReportPreservedWithoutRewriting": true,
+  "canonical": false
+}

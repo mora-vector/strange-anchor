@@ -1,0 +1,80 @@
+{
+  "schemaVersion": 1,
+  "startedAt": "2026-09-16T19:40:29.009756+00:00",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "sourceFilesSha256": {
+    "examples/mesh.nix": "2bbe70671a17d4b70519aa970b286beecc49eea7fed5e6f030672f24d7e59b45",
+    "examples/vessel.nix": "626246a96399fd3eabab2edfca984105de40379d3465a99387b3793254a26599",
+    "flake.lock": "6e7c97ca05778f5dd8346722bef770729818e627a3f6851c3d3af6c34f61487a",
+    "flake.nix": "1878c9e6538180b49dc08a1d6ece489ece891c5026b14f73770783a5572b7a12",
+    "lib/prakrtibhava.nix": "04c794743688a35d81427fca9884853f59eabae5df233b9270538be98306aff8",
+    "lib/saksya.nix": "54e8ff0f227e182512f3c0d3db4d68c924abbeba5e58e2cd5a1069153db4701c",
+    "modules/adhikara.nix": "38fc5d4be2d71e047979b4b692c245c91beb6d9aa97f208522f523ba143eab2e",
+    "modules/chandas.nix": "93afd2bd859ffa20c8ce9f9611b78ec8b1e3ade437b3e6ce9d5845bb2faf0c05",
+    "modules/default.nix": "202672085cb04f5818fa1a3a72ac5c71708e97d669bbc228addb2f0325564ee4",
+    "modules/karaka.nix": "de92baa2ee9263163479c3f587bbcd4e01d96684221aa9f148d607c428279787",
+    "modules/kosa.nix": "e76f92240afe170260e29bc70f313d1fc0c46ee5209d8e32bcbf7f3c66d9087f",
+    "modules/lopa.nix": "3d2c3ade699b0f1017369510c81674a0621924651e3eeb8a2c78ae69cd0a7a34",
+    "modules/sandhi.nix": "87ae6e3b57947b3dd0b9dea8b54220a9646a56eb8ce968b341b177ce96f436a0",
+    "modules/sanjna.nix": "66d801a41a1d434fa683c4766456ddfdb1ecce425661c31deac38851af4af0bd",
+    "modules/vidhi.nix": "577e41881f2400e18978498da4c3530a0a5969f8591a9c499e385ad9c36e7c15",
+    "tests/contracts.nix": "1909b660ee76a40c033bbbc0589c656ee49c4f308191e99e6c96861c4cc780d2",
+    "tests/eval.nix": "eb9d3ce54aa71cd5cac7bb96db1d629e33976100fc6c0a369a0fb8cf85768a4a",
+    "tests/integration.nix": "00fe86233bf7da1bf5ca3a2bc5f39b9b43f60c66b9a46a4333947ee5bd075066",
+    "tests/reachability.nix": "9000849fac65224ce7b1e748a179db7dd3d8450337e16db653d1dbbca23e6c3d"
+  },
+  "evidenceScope": "one local run; no builder independence or canonical promotion asserted",
+  "steps": [
+    {
+      "name": "nix-version",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--version"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "evaluate",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "flake",
+        "check",
+        "--no-build",
+        "path:/workspace/scratch/32db3ffd838b/sandhi-shards"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build-evaluation",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "build",
+        "--json",
+        "--out-link",
+        "/workspace/scratch/32db3ffd838b/sandhi-run-final/evaluation-result",
+        "path:/workspace/scratch/32db3ffd838b/sandhi-shards#checks.x86_64-linux.evaluation"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "paths-evaluation",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "path-info",
+        "--json",
+        "/nix/store/fh84w6bhi646p24sc24pllza7a9g7x21-sandhi-evaluation"
+      ],
+      "exitCode": 0
+    }
+  ],
+  "canonical": false,
+  "status": "evaluation-only-passed",
+  "nixVersion": "nix (Nix) 2.35.2",
+  "finishedAt": "2026-09-16T19:41:18.444635+00:00"
+}

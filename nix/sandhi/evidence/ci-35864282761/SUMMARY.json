@@ -1,0 +1,46 @@
+{
+  "kind": "Tessera-derived summary; selected original observations and path metadata retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35864282761",
+  "sourceHead": "c69e209287720c378722fb49f5743d4250e1b904",
+  "testedMerge": "ff1c422063d05cc5f32bca8fcbe583ab38a4811b",
+  "artifactSha256": "20d80b817b74c0bec32173d2fbdbd073acf13670724f790979c632fe4ce10af5",
+  "conclusion": "success",
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload"
+  ],
+  "sourceStableAtEnd": true,
+  "sourceDigestsMatchLocal": true,
+  "nixAssertionsPassed": 199,
+  "pythonTestsPassed": 17,
+  "budgetObservations": {
+    "timeout": "Runtime timeout recorded; short control succeeded",
+    "retries": "1 and 3 attempts for 0 and 2 retries; extra manual start denied within 300-second window",
+    "memory": "96 MiB touched allocation OOM-killed at 64 MiB; succeeded at 192 MiB; swap absent, panic_on_oom=0",
+    "cpu": "10% quota, increasing kernel throttle counters, lower usage than 100% control",
+    "cpuUsageFraction": 0.09998292485724214
+  },
+  "workload": "Manual local Lopa audit ran in generated contract; exact input digest matched; references remained unverified",
+  "canonical": false,
+  "independentBuildsVerified": false,
+  "productionDeployed": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalMembersPreserved": [
+    "report.json",
+    "reachability.json",
+    "recovery.json",
+    "budgets.json",
+    "workload.json",
+    "paths-evaluation.stdout",
+    "paths-reachability.stdout",
+    "paths-recovery.stdout",
+    "paths-budgets.stdout",
+    "paths-workload.stdout",
+    "build-evaluation.stderr"
+  ],
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35864282761/artifacts/10752176618",
+  "originalArtifactExpiresAt": "2026-10-23T13:07:59Z"
+}

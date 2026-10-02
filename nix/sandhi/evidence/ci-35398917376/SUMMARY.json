@@ -1,0 +1,15 @@
+{
+  "kind": "Tessera-derived summary; original report and selected original stderr retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35398917376",
+  "sourceHead": "a73ca05d430737e9e716ff7a6ecb4fbda02e8980",
+  "testedMerge": "1a9b4e3129d0e0a19cdff521bccbdfc719f585d2",
+  "artifactSha256": "bca88c989977efc25552284bcda7a4cb7fdf610a4bfff4b1785c1c62d9a2e80d",
+  "completedChecks": ["evaluation"],
+  "observation": "Required bind prevented workload execution: namespace exit 226, missing-path diagnostic, and absent execution marker were observed",
+  "failure": "Stopping the failed unit allowed systemd to unload it; reset-failed then failed before the positive start",
+  "correction": "Wait for the bounded failed state without stopping the unit, then reset-failed and start with the path present",
+  "excerptSelection": "Unchanged contiguous suffix of build-reachability.stderr beginning with the required-path absence control, through the end of that log",
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35398917376/artifacts/10569527566"
+}

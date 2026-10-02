@@ -1,0 +1,33 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": "GitHub Actions"
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [
+      "No independent builder or restoration evidence; no production deployment"
+    ],
+    "scope": "Exact GitHub Actions artifact ZIP as received; reports and build logs from one runner"
+  },
+  "captured_at": "2026-09-16T20:10:02.138457Z",
+  "content": {
+    "bytes": 67785,
+    "media_type": "application/zip",
+    "sha256": "ed7459ebee7bba582320cdaa134f49fa73ddea5d22f3bba759c4a0a49876a65f"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": "PR head f63a02dee5c1cf190a68da2d00c2d623795bd6d9; tested merge 854727109d762cec14867d0c76ae62d2027ab3c4",
+    "transport_author": null,
+    "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/35144567261/artifacts/10466498598"
+  },
+  "recorded_by": "Tessera",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "Sandhi first passing VM boundary test: CI run 35144567261"
+}

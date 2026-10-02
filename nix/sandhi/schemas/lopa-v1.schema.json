@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sandhi Lopa export 1.0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema", "schemaVersion", "provenance", "gaps"],
+  "properties": {
+    "schema": {"const": "sandhi.lopa"},
+    "schemaVersion": {"const": "1.0"},
+    "provenance": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sourceRevision", "recorder"],
+      "properties": {
+        "sourceRevision": {"type": ["string", "null"]},
+        "recorder": {"type": ["string", "null"]}
+      }
+    },
+    "gaps": {"type": "object", "additionalProperties": {"$ref": "#/$defs/gap"}}
+  },
+  "$defs": {
+    "origin": {
+      "type": "object", "additionalProperties": false,
+      "required": ["sourceReference", "assertedBy", "recordedAt", "sha256"],
+      "properties": {
+        "sourceReference": {"type": ["string", "null"]},
+        "assertedBy": {"type": ["string", "null"]},
+        "recordedAt": {"type": ["string", "null"]},
+        "sha256": {"type": ["string", "null"], "minLength": 64, "maxLength": 64, "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "evidence": {
+      "type": "object", "additionalProperties": false,
+      "required": ["kind", "reference", "provenance"],
+      "properties": {
+        "kind": {"enum": ["retained-bytes", "retained-recipe-and-inputs", "verified-restoration"]},
+        "reference": {"type": "string"},
+        "provenance": {"$ref": "#/$defs/origin"}
+      }
+    },
+    "gap": {
+      "type": "object", "additionalProperties": false,
+      "required": ["status", "availability", "reason", "blocksActivation", "recoveryEvidence", "provenance"],
+      "properties": {
+        "status": {"enum": ["unknown", "withheld", "unsupported", "inapplicable"]},
+        "availability": {"enum": ["unassessed", "present", "absent", "unreachable"]},
+        "reason": {"type": "string"},
+        "blocksActivation": {"type": "boolean"},
+        "recoveryEvidence": {"type": "array", "items": {"$ref": "#/$defs/evidence"}},
+        "provenance": {"$ref": "#/$defs/origin"}
+      }
+    }
+  }
+}

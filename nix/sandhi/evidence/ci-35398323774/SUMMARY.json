@@ -1,0 +1,14 @@
+{
+  "kind": "Tessera-derived summary; original report and selected original stderr retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35398323774",
+  "sourceHead": "4b62913c19e2ba6ef52d6cca530ce4b9b42cec96",
+  "testedMerge": "44047e158a24b63bbf9a18cdfb4fa3780683ae6f",
+  "artifactSha256": "0af5f4f080f1c8fa6eb24ac5e7a10d6f6e6f98989fd00d6d078120645ab12da9",
+  "completedChecks": ["evaluation"],
+  "finding": "With the affected path absent, the workload executed and raised FileNotFoundError. ReadOnlyPaths with ProtectSystem=strict did not enforce the documented required-path startup invariant.",
+  "correction": "Add required BindReadOnlyPaths in the compiler; retain the namespace-failure and no-execution negative test",
+  "excerptSelection": "Unchanged contiguous suffix of build-reachability.stderr beginning with the required-path absence control, through the end of that log",
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35398323774/artifacts/10569486820"
+}

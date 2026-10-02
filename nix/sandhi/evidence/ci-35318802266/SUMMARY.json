@@ -1,0 +1,12 @@
+{
+  "kind": "Tessera-derived summary; original report and reachability observations retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35318802266",
+  "sourceHead": "c3b3990f5dbdd97f456451ba7203547a4f21fdd3",
+  "testedMerge": "4326c654123f90142eb8395b906880246d092ef0",
+  "artifactSha256": "c759010a21f8d90a1a803a7128270dfa132a8016ba8225a168bc89a2a83fb21b",
+  "completedChecks": ["evaluation", "reachability"],
+  "recovery": "repair-mode baseline succeeded; invalid nix-store --add-text operation stopped the test before GC",
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35318802266/artifacts/10535869221"
+}

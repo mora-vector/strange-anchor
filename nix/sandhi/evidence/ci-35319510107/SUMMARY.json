@@ -1,0 +1,13 @@
+{
+  "kind": "Tessera-derived summary; original report and reachability observations retained beside it",
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35319510107",
+  "sourceHead": "1821232375b2977cc5d899512bedddd07d41b6ea",
+  "testedMerge": "ab091397596efb81b6fa5c3daba6ba7ccd8031d7",
+  "artifactSha256": "0e69d5848475f965eadadb543ad5c32bcc2814aecd5fda2aeb2f516d6e32729f",
+  "completedChecks": ["evaluation", "reachability"],
+  "recovery": "GC and controlled-loss restoration reached matching hash and payload; missing-input fetch failed as expected but left a file, failing the final physical-absence assertion",
+  "validityOfResidualOutput": "not measured in this run; the next revision checks it explicitly",
+  "canonical": false,
+  "originalArtifactArchivedInRepository": false,
+  "originalArtifact": "https://github.com/mora-vector/strange-anchor/actions/runs/35319510107/artifacts/10536662409"
+}

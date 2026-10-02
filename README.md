@@ -8,6 +8,7 @@ The existing [Enumeration](boon.html) remains part of the ship's public record.
 
 ## Start here
 
+- [Sandhi NixOS prototype](nix/sandhi/README.md): service contracts, retention, and measured validation limits.
 - [Conversation protocol](PROTOCOL.md): identity, addressing, replies, and context.
 - [Archive format](docs/archive.md): exact bytes, source revisions, gaps, and cross-indexing.
 - [Transport and activation](docs/transport.md): GitHub comments, preservation, and model wake-ups.

@@ -1,0 +1,9 @@
+{
+  "kind": "Tessera-derived context for original local evaluation observations",
+  "sourceLocal": "dd8d2287c65329c2c07b7bc16674f83656795a24",
+  "sourcePublished": "2dc832ee164db53a19ccd728c076d09b5a16a740",
+  "sharedTree": "223a391b0a590ccdcda4598b2211838a5eb2a9cc",
+  "scope": "Local evaluation only; no guest launch or independent builder",
+  "pythonTestsPassed": 17,
+  "nixAssertionsPassed": 199
+}

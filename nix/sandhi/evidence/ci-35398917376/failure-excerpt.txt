@@ -1,0 +1,74 @@
+vm-test-run-sandhi-declared-reach> machine: must succeed: test ! -e /srv/sandhi-required-path
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: test ! -e /srv/sandhi-required-path, in 0.02 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed, in 0.02 seconds)
+vm-test-run-sandhi-declared-reach> machine # [   27.339379] systemd[1]: Started Sandhi contract required-path.
+vm-test-run-sandhi-declared-reach> machine: waiting for success: test $(systemctl show sandhi-contract-required-path.service -p ExecMainStatus --value) = 226
+vm-test-run-sandhi-declared-reach> machine # [   27.412162] (sandhi-required-path-probe)[1015]: sandhi-contract-required-path.service: Failed to set up mount namespacing: /srv/sandhi-required-path: No such file or directory
+vm-test-run-sandhi-declared-reach> machine # [   27.413155] (sandhi-required-path-probe)[1015]: sandhi-contract-required-path.service: Failed at step NAMESPACE spawning /nix/store/rapb1v49kgq2xrx14kdhddr45fz0p6hs-sandhi-required-path-probe/bin/sandhi-required-path-probe: No such file or directory
+vm-test-run-sandhi-declared-reach> machine # [   27.433699] systemd[1]: sandhi-contract-required-path.service: Main process exited, code=exited, status=226/NAMESPACE
+vm-test-run-sandhi-declared-reach> machine # [   27.436511] systemd[1]: sandhi-contract-required-path.service: Failed with result 'exit-code'.
+vm-test-run-sandhi-declared-reach> machine: (finished: waiting for success: test $(systemctl show sandhi-contract-required-path.service -p ExecMainStatus --value) = 226, in 0.12 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: systemctl show sandhi-contract-required-path.service -p Result --value
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: systemctl show sandhi-contract-required-path.service -p Result --value, in 0.04 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: systemctl stop sandhi-contract-required-path.service
+vm-test-run-sandhi-declared-reach> machine # [   27.568983] systemd[1]: Stopped Sandhi contract required-path.
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: systemctl stop sandhi-contract-required-path.service, in 0.09 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: journalctl -b -u sandhi-contract-required-path.service --no-pager -o cat
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: journalctl -b -u sandhi-contract-required-path.service --no-pager -o cat, in 0.03 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed, in 0.02 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: test ! -e /var/lib/sandhi-contract-required-path/result.json
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: test ! -e /var/lib/sandhi-contract-required-path/result.json, in 0.02 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: install -d -m 1777 /srv/sandhi-required-path
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: install -d -m 1777 /srv/sandhi-required-path, in 0.03 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: printf '%s' required-reference > /srv/sandhi-required-path/reference
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: printf '%s' required-reference > /srv/sandhi-required-path/reference, in 0.02 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: chmod 644 /srv/sandhi-required-path/reference
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: chmod 644 /srv/sandhi-required-path/reference, in 0.03 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-required-path/host-control
+vm-test-run-sandhi-declared-reach> machine: (finished: must succeed: setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-required-path/host-control, in 0.04 seconds)
+vm-test-run-sandhi-declared-reach> machine: must succeed: systemctl reset-failed sandhi-contract-required-path.service
+vm-test-run-sandhi-declared-reach> machine # Failed to reset failed state of unit sandhi-contract-required-path.service: Unit sandhi-contract-required-path.service not loaded.
+vm-test-run-sandhi-declared-reach> machine: output:
+vm-test-run-sandhi-declared-reach> !!! Traceback (most recent call last):
+vm-test-run-sandhi-declared-reach> !!!   File "<string>", line 50, in <module>
+vm-test-run-sandhi-declared-reach> !!!     machine.succeed(f"systemctl reset-failed {unit}", f"systemctl start {unit}")
+vm-test-run-sandhi-declared-reach> !!! 
+vm-test-run-sandhi-declared-reach> !!! RequestedAssertionFailed: command `systemctl reset-failed sandhi-contract-required-path.service` failed (exit code 1)
+vm-test-run-sandhi-declared-reach> cleanup
+vm-test-run-sandhi-declared-reach> kill QemuMachine (pid 9)
+vm-test-run-sandhi-declared-reach> machine # qemu-system-x86_64: terminating on signal 15 from pid 6 (/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3.13)
+vm-test-run-sandhi-declared-reach> (finished: cleanup, in 0.08 seconds)
+error: Cannot build '/nix/store/7lidv5l7jifv5iqcjc49i7m2hylbai5k-vm-test-run-sandhi-declared-reach.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/lqacvsbjxdl7fbjqr0wyz7glmhsc49jd-vm-test-run-sandhi-declared-reach
+       Last 25 log lines:
+       > machine: (finished: must succeed: journalctl -b -u sandhi-contract-required-path.service --no-pager -o cat, in 0.03 seconds)
+       > machine: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed
+       > machine: (finished: must succeed: test ! -e /var/lib/sandhi-contract-required-path/executed, in 0.02 seconds)
+       > machine: must succeed: test ! -e /var/lib/sandhi-contract-required-path/result.json
+       > machine: (finished: must succeed: test ! -e /var/lib/sandhi-contract-required-path/result.json, in 0.02 seconds)
+       > machine: must succeed: install -d -m 1777 /srv/sandhi-required-path
+       > machine: (finished: must succeed: install -d -m 1777 /srv/sandhi-required-path, in 0.03 seconds)
+       > machine: must succeed: printf '%s' required-reference > /srv/sandhi-required-path/reference
+       > machine: (finished: must succeed: printf '%s' required-reference > /srv/sandhi-required-path/reference, in 0.02 seconds)
+       > machine: must succeed: chmod 644 /srv/sandhi-required-path/reference
+       > machine: (finished: must succeed: chmod 644 /srv/sandhi-required-path/reference, in 0.03 seconds)
+       > machine: must succeed: setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-required-path/host-control
+       > machine: (finished: must succeed: setpriv --reuid=nobody --regid=nogroup --clear-groups touch /srv/sandhi-required-path/host-control, in 0.04 seconds)
+       > machine: must succeed: systemctl reset-failed sandhi-contract-required-path.service
+       > machine # Failed to reset failed state of unit sandhi-contract-required-path.service: Unit sandhi-contract-required-path.service not loaded.
+       > machine: output:
+       > !!! Traceback (most recent call last):
+       > !!!   File "<string>", line 50, in <module>
+       > !!!     machine.succeed(f"systemctl reset-failed {unit}", f"systemctl start {unit}")
+       > !!! 
+       > !!! RequestedAssertionFailed: command `systemctl reset-failed sandhi-contract-required-path.service` failed (exit code 1)
+       > cleanup
+       > kill QemuMachine (pid 9)
+       > machine # qemu-system-x86_64: terminating on signal 15 from pid 6 (/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/bin/python3.13)
+       > (finished: cleanup, in 0.08 seconds)
+       For full logs, run:
+         nix log /nix/store/7lidv5l7jifv5iqcjc49i7m2hylbai5k-vm-test-run-sandhi-declared-reach.drv

@@ -1,0 +1,14 @@
+{
+  "recordType": "transcription-of-tool-result",
+  "scope": "Earlier v0.2 development attempt in this conversation, before final probe refinements",
+  "testDerivation": "/nix/store/f8f6w548zss6zkw2nyncrk06szhrjck9-vm-test-run-sandhi-declared-reach.drv",
+  "driverOutput": "/nix/store/qm3p3inlwpgzyz120sb49nh8j1y9qlwh-nixos-test-driver-sandhi-declared-reach",
+  "driverBuilt": true,
+  "guestLaunch": "blocked",
+  "observedError": "machine: [Errno 1] Operation not permitted",
+  "stage": "start_all: starting vm",
+  "vmBooted": false,
+  "packetProbesExecuted": false,
+  "rawLogAvailability": "Temporary runtime files did not survive the session environment reset; this record transcribes the retained conversation tool output.",
+  "firstAttemptNote": "An earlier host-side vde_switch failed; the subsequent single-guest test removed the unnecessary VLAN and then reached the guest-launch denial."
+}

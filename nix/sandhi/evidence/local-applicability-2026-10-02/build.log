@@ -1,0 +1,26 @@
+warning: the group 'nixbld' specified in 'build-users-group' does not exist
+got build log for '/nix/store/lk9bw0dw9yarvkqg5v19i39zp00b86af-vm-test-run-sandhi-retention-evidence-applicability.drv' from 'local'
+Machine state will be reset. To keep it, pass --keep-machine-state
+[1m[32mstart all VLans[0m
+(finished: start all VLans, in 0.00 seconds)
+Test will time out and terminate in 600 seconds
+[1m[32mrun the VM test script[0m
+additionally exposed symbols:
+    machine,
+    ,
+    start_all, test_script, machines, machines_qemu, machines_nspawn, vlans, driver, log, os, create_machine, subtest, run_tests, join_all, retry, serial_stdout_off, serial_stdout_on, polling_condition, BaseMachine, QemuMachine, NspawnMachine, t, debug, dump_machine_ssh
+[1m[32mstart all VMs[0m
+machine: starting vm
+[31m!!! [0mTraceback (most recent call last):
+[31m!!! [0m  File "/nix/store/4rdc8pbhinsncqvi1arybzn3an3abhvk-nixos-test-driver-1.1/lib/python3.13/site-packages/test_driver/driver.py", line 392, in test_script
+[31m!!! [0m    exec(self.tests, symbols, None)
+[31m!!! [0m    ~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^
+[31m!!! [0m  File "<string>", line 2, in <module>
+[31m!!! [0m  File "/nix/store/4rdc8pbhinsncqvi1arybzn3an3abhvk-nixos-test-driver-1.1/lib/python3.13/site-packages/test_driver/driver.py", line 468, in start_all
+[31m!!! [0m    raise MachineError(
+[31m!!! [0m        "Failed to start the following machines:\n" + "\n".join(messages)
+[31m!!! [0m    )
+[31m!!! [0mtest_driver.errors.MachineError: Failed to start the following machines:
+[31m!!! [0mmachine: [Errno 1] Operation not permitted
+[1m[32mcleanup[0m
+(finished: cleanup, in 0.00 seconds)

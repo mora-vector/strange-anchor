@@ -1,0 +1,88 @@
+{
+  "schemaVersion": 4,
+  "startedAt": "2026-09-17T21:00:35.434788+00:00",
+  "platform": "Linux-6.18.44-x86_64-with-glibc2.39",
+  "sourceFilesSha256": {
+    "examples/mesh.nix": "2bbe70671a17d4b70519aa970b286beecc49eea7fed5e6f030672f24d7e59b45",
+    "examples/vessel.nix": "626246a96399fd3eabab2edfca984105de40379d3465a99387b3793254a26599",
+    "flake.lock": "6e7c97ca05778f5dd8346722bef770729818e627a3f6851c3d3af6c34f61487a",
+    "flake.nix": "c0a9598326826acf75ce4b226125c52fd418c6833f967c91cb8e9a7d2a3e37b2",
+    "lib/prakrtibhava.nix": "04c794743688a35d81427fca9884853f59eabae5df233b9270538be98306aff8",
+    "lib/saksya.nix": "54e8ff0f227e182512f3c0d3db4d68c924abbeba5e58e2cd5a1069153db4701c",
+    "modules/adhikara.nix": "b11da0baf813a484101258c979a422c8e598dc70f554806cdd2f1ab100ac3540",
+    "modules/chandas.nix": "93afd2bd859ffa20c8ce9f9611b78ec8b1e3ade437b3e6ce9d5845bb2faf0c05",
+    "modules/default.nix": "202672085cb04f5818fa1a3a72ac5c71708e97d669bbc228addb2f0325564ee4",
+    "modules/karaka.nix": "de92baa2ee9263163479c3f587bbcd4e01d96684221aa9f148d607c428279787",
+    "modules/kosa.nix": "3eedfa711aced5f28f1f44fa102580e71116452ed6741fea0849308ebbf78f25",
+    "modules/lopa.nix": "3d2c3ade699b0f1017369510c81674a0621924651e3eeb8a2c78ae69cd0a7a34",
+    "modules/sandhi.nix": "87ae6e3b57947b3dd0b9dea8b54220a9646a56eb8ce968b341b177ce96f436a0",
+    "modules/sanjna.nix": "66d801a41a1d434fa683c4766456ddfdb1ecce425661c31deac38851af4af0bd",
+    "modules/vidhi.nix": "577e41881f2400e18978498da4c3530a0a5969f8591a9c499e385ad9c36e7c15",
+    "scripts/realize.py": "eed146565028842c133fcb52ca7dfb11d5f3b6ec8877d531eb03849e1891a474",
+    "tests/contracts.nix": "21b2ad24e4a3e14bc86f343fd439938ac36a6f4ff06a831c7fec79058ed5d021",
+    "tests/eval.nix": "eb9d3ce54aa71cd5cac7bb96db1d629e33976100fc6c0a369a0fb8cf85768a4a",
+    "tests/fixtures/fixed-output.nix": "e45b59cd81856f431fdd71892b72343385b5026ab7ecae93998fd035379dc108",
+    "tests/integration.nix": "00fe86233bf7da1bf5ca3a2bc5f39b9b43f60c66b9a46a4333947ee5bd075066",
+    "tests/reachability.nix": "2d61816ebb945e465587cdb8b1d8f9fe2534774d79494417843c055e82433260",
+    "tests/recovery.nix": "1781167715a10ac92959c36aaf5b87a1ee42fa1945cb0042494fdd95eb2bd736",
+    "tests/test_recorder.py": "517744ab43ae20d2b83042bca3fd6ff79ae568796f2bc96cb0507ba2dec67638"
+  },
+  "evidenceScope": "one local run; no builder independence or canonical promotion asserted",
+  "requestedChecks": [
+    "recovery"
+  ],
+  "steps": [
+    {
+      "name": "nix-version",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--version"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "evaluate",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "flake",
+        "check",
+        "--no-build",
+        "path:/workspace/scratch/32db3ffd838b/strange-anchor/nix/sandhi"
+      ],
+      "exitCode": 0
+    },
+    {
+      "name": "build-recovery",
+      "command": [
+        "/nix/store/irfrbndi76zhkvqsfhmsn4a99iafck29-nix-2.35.2/bin/nix",
+        "--extra-experimental-features",
+        "nix-command flakes",
+        "build",
+        "--print-build-logs",
+        "--json",
+        "--out-link",
+        "/workspace/scratch/32db3ffd838b/sandhi-local-recovery-006/recovery-result",
+        "path:/workspace/scratch/32db3ffd838b/strange-anchor/nix/sandhi#checks.x86_64-linux.recovery"
+      ],
+      "exitCode": 1
+    }
+  ],
+  "completedChecks": [],
+  "canonical": false,
+  "status": "failed",
+  "repositoryCommit": "70f5659d3655b3505d49379024c82897db1c5f95",
+  "sourceChanges": [
+    " M nix/sandhi/docs/BUILD-PROTOCOL.md",
+    " M nix/sandhi/docs/DECISIONS.md",
+    " M nix/sandhi/docs/RECOVERY.md",
+    " M nix/sandhi/scripts/realize.py",
+    " M nix/sandhi/tests/recovery.nix",
+    "?? nix/sandhi/evidence/ci-35271564455/",
+    "?? nix/sandhi/tests/test_recorder.py"
+  ],
+  "nixVersion": "nix (Nix) 2.35.2",
+  "error": "build-recovery exited 1",
+  "finishedAt": "2026-09-17T21:01:47.349508+00:00"
+}

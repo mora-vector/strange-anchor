@@ -1,0 +1,10 @@
+{
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/35211657016",
+  "artifactId": 10491828711,
+  "sha256": "87732c075efb3f4cc3dadb1071bef3e71654ac69fd0c2f958bc537fb12b30c18",
+  "archiveRecord": "fc5b114e02f5ad0e4bc6ea5945e203620cda17a3055490f0606d70685a467dcb",
+  "selection": "Original report and recovery build log extracted from the complete archived ZIP.",
+  "sourceHead": "3f813c3b4bf06931a6cd8b8f8365557df4211f81",
+  "testedMerge": "51b083d8fdb5a8b338491867d6d4d5d6c9407924",
+  "result": "Evaluation and reachability passed; image export failed before recovery guest boot."
+}
