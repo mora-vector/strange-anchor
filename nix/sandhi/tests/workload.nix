@@ -20,13 +20,15 @@ pkgs.testers.runNixOSTest {
     machine.wait_until_succeeds(
         f"test $(systemctl show {unit} -p ActiveState --value) = inactive", timeout=60)
     machine.succeed(f"test $(systemctl show {unit} -p Result --value) = success")
-    raw = machine.succeed("cat /etc/sandhi/lopa-v1.json")
+    raw = machine.succeed("cat /etc/sandhi/lopa-v2.json")
     report = json.loads(machine.succeed("cat /var/lib/sandhi-contract-lopa-audit/report.json"))
     assert report["inputSha256"] == hashlib.sha256(raw.encode()).hexdigest(), report
     assert report["gapCount"] == 1 and report["blockingGapIds"] == [], report
     assert report["unattributedGapIds"] == ["independent-builder"], report
     assert report["evidenceReferences"][0]["verification"] == "not-performed", report
     assert report["canonical"] is False, report
+    assert report["currentRecovery"] == "unassessed", report
+    assert report["evidenceSemantics"] == "historical-declarations", report
     machine.succeed(f"test $(systemctl show {unit} -p PrivateNetwork --value) = yes",
                     f"test $(systemctl show {unit} -p ProtectSystem --value) = strict")
     with open(os.path.join(os.environ["out"], "workload.json"), "w") as f:

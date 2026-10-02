@@ -27,6 +27,7 @@
       };
       packages.${system}.lopa-audit = import ./packages/lopa-audit.nix { inherit pkgs; };
       checks.${system} = {
+      applicability = import ./tests/applicability.nix { inherit pkgs; };
       budgets = import ./tests/budgets.nix { inherit pkgs; };
       workload = import ./tests/workload.nix { inherit pkgs; };
       recovery = import ./tests/recovery.nix { inherit pkgs; };

@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Validate a Lopa 1.0 snapshot and inventory declared evidence without fetching it."""
+"""Validate a version-selected Lopa snapshot and inventory declared evidence without fetching it."""
 import argparse
 import hashlib
 import json
@@ -42,6 +42,11 @@ def audit(raw, schema):
              "declaredProvenance": entry["provenance"], "verification": "not-performed"}
             for key, gap in sorted(gaps.items()) for entry in gap["recoveryEvidence"]],
         "canonical": False,
+        **({"evidenceSemantics": "historical-declarations",
+            "currentRecovery": "unassessed",
+            "currentRecoveryReason": "immutable-snapshot-is-not-live-ledger",
+            "retentionEnabled": snapshot["recoveryPolicy"]["retentionEnabled"]}
+           if snapshot["schemaVersion"] == "2.0" else {}),
     }
 
 

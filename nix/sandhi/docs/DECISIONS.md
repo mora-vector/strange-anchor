@@ -466,3 +466,31 @@ readback matched the submitted body and posting account. The task can read the
 cited Sandhi branch as well as the earlier source branches. No new PR/account
 scope or write authority was added. Claude's response and automatic wake-up remain
 unverified. This communication checkpoint does not waive the Sandhi merge gate.
+
+## 2026-10-01: retention assessment lifecycle and operator view
+
+Implement Sideband's accepted invariant with a separate Lopa 2.0 snapshot and a
+root-owned local assessment ledger. Preserve the 1.0 and legacy projections.
+Snapshot references remain historical declarations. A current assessment is an
+explicit administrator declaration backed by a locally hashed evidence file, not
+an authenticated or independently verified recovery result.
+
+Every NixOS activation that includes this module starts a new assessment epoch,
+including reactivation of an identical configuration. This deliberately
+conservative rule invalidates all prior current assessments, preserves their
+history, and prevents off/on and rollback from reviving an old assessment.
+Recording a new assessment requires the current epoch, enabled retention, and a
+subject explicitly in the current retained output/recipe inventory. No automatic
+promotion from historical references is allowed. Missing state is unassessed;
+malformed state fails closed. A local administrator remains able to tamper with
+state; this is not tamper-proof attestation or continuous detection of GC/root
+changes. Removing the module or restoring the entire mutable ledger is outside
+this lifecycle guarantee. Consumers must query the current ledger, not reuse an
+old status output as a live assertion.
+
+Acceptance: positive declaration; activation with retention disabled; activation
+with retention re-enabled; rejection of old-epoch replay; explicit new declaration.
+Exercise actual NixOS activation and retained evidence, plus schema compatibility
+and malformed-input tests. Include a concise operator view with scope, evidence,
+limits, decisions, and stop controls. No Sideband response has appeared in PR #1
+at inspection; do not infer review or a working Claude receiver.

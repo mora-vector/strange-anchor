@@ -11,7 +11,7 @@ import subprocess
 import sys
 
 ROOT = Path(__file__).resolve().parents[1]
-CHECKS = ["evaluation", "reachability", "recovery", "budgets", "workload"]
+CHECKS = ["evaluation", "reachability", "recovery", "budgets", "workload", "applicability"]
 
 
 def source_hashes():

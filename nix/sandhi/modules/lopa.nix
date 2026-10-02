@@ -14,12 +14,23 @@ let
     inherit (gap) status availability reason blocksActivation;
     recoveryEvidence = map (e: { inherit (e) kind reference; }) gap.recoveryEvidence;
   }) config.sandhi.gaps;
+  manager = import ../packages/recovery-state.nix { inherit pkgs policyFile; };
   snapshot = {
     schema = "sandhi.lopa";
     schemaVersion = "1.0";
     provenance = config.sandhi.registry.provenance;
     gaps = config.sandhi.gaps;
   };
+  snapshotV2 = snapshot // {
+    schemaVersion = "2.0";
+    evidenceSemantics = "historical-declarations";
+    recoveryPolicy = {
+      retentionEnabled = config.sandhi.retention.enable;
+      subjects = map (p: { kind = "output"; path = builtins.unsafeDiscardStringContext (toString p); }) config.sandhi.retainedPackages
+        ++ map (p: { kind = "recipe"; path = builtins.unsafeDiscardStringContext p.drvPath; }) config.sandhi.retainedRecipes;
+    };
+  };
+  policyFile = pkgs.writeText "sandhi-lopa-v2.json" (builtins.toJSON snapshotV2);
 in {
   options.sandhi.registry.provenance = lib.mkOption {
     type = lib.types.submodule { options = {
@@ -58,6 +69,14 @@ in {
     description = "Public unresolved requirements, separate from store retention.";
   };
   config = {
+    environment.systemPackages = [ manager ];
+    # Bookkeeping must also run when retention/export are disabled. Every
+    # activation withdraws current claims, including switching back to an old
+    # system closure. Immutable snapshots alone cannot remember an off/on cycle.
+    system.activationScripts.sandhiRecovery = {
+      deps = [ "var" ];
+      text = "${manager}/bin/sandhi-recovery-state activate ${policyFile} >/dev/null";
+    };
     # A declared blocker is a prerequisite, not a visibility preference. Even
     # disabling every Sandhi feature must not silently resolve it.
     assertions = lib.mapAttrsToList (id: gap: {
@@ -68,6 +87,7 @@ in {
       "sandhi/lopa.json".source =
         pkgs.writeText "sandhi-lopa.json" (builtins.toJSON legacy);
       "sandhi/lopa-v1.json".text = builtins.toJSON snapshot;
+      "sandhi/lopa-v2.json".source = policyFile;
     };
   };
 }

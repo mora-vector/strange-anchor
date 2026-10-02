@@ -19,6 +19,8 @@ let
     gapOriginExplicit = snapshot.gaps.example.provenance.assertedBy == null;
     referenceIsNotVerified = !((builtins.head snapshot.gaps.example.recoveryEvidence) ? verified);
     evidenceOriginExplicit = (builtins.head snapshot.gaps.example.recoveryEvidence).provenance.sha256 == null;
+    v2Emitted = cfg.environment.etc ? "sandhi/lopa-v2.json";
+    lifecycleSurvivesDisabledRetention = cfg.system.activationScripts ? sandhiRecovery;
     legacyStillEmitted = cfg.environment.etc ? "sandhi/lopa.json";
   };
 in assert builtins.all (x: x) (builtins.attrValues cases); {
