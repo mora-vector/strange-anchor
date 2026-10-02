@@ -45,6 +45,19 @@
             "reason": "No independent builder report.", "blocksActivation": False,
             "recoveryEvidence": [{"kind": "retained-bytes", "reference": "fixture:one"}]}}, actual
         PY
+        for v2 in ${exportFixture.pairedV2.on} ${exportFixture.pairedV2.off}; do
+          python ${source}/scripts/lopa_audit.py --schema ${./schemas/lopa-v2.schema.json} "$v2" > /dev/null
+        done
+        python - ${exportFixture.pairedV2.on} ${exportFixture.pairedV2.off} <<'PY'
+        import json, sys
+        on, off = (json.load(open(path)) for path in sys.argv[1:])
+        # Only the recorded premise differs; declared targets stay listed when disabled.
+        assert on["recoveryPolicy"]["retentionEnabled"] is True, on
+        assert off["recoveryPolicy"]["retentionEnabled"] is False, off
+        assert off["recoveryPolicy"]["subjects"] == on["recoveryPolicy"]["subjects"] != [], (on, off)
+        off["recoveryPolicy"]["retentionEnabled"] = True
+        assert off == on, (on, off)
+        PY
         cat > "$out" <<'JSON'
         ${builtins.toJSON { inherit evalTests integrationTests contractTests featureTests exportTests; }}
         JSON

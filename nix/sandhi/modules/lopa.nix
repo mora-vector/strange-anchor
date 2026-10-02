@@ -24,6 +24,8 @@ let
   snapshotV2 = snapshot // {
     schemaVersion = "2.0";
     evidenceSemantics = "historical-declarations";
+    # Declared targets and the configured premise, kept even when retention is
+    # off; not an observed rooted inventory or evidence of recoverability.
     recoveryPolicy = {
       retentionEnabled = config.sandhi.retention.enable;
       subjects = map (p: { kind = "output"; path = builtins.unsafeDiscardStringContext (toString p); }) config.sandhi.retainedPackages
