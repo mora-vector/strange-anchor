@@ -7,6 +7,16 @@ The legacy and 1.0 files remain byte-shape compatible. All three exported files
 follow `sandhi.registry.export`. Their evidence references do not assert current
 recoverability. The 2.0 schema is bundled as `schemas/lopa-v2.schema.json`.
 
+`recoveryPolicy.subjects` lists **declared targets**, not an observed rooted
+inventory. They remain listed when retention is disabled, so a reader can tell
+"configured but disabled" from "nothing configured". `retentionEnabled` records
+this snapshot's configured premise, not proof of its current activation or of
+recoverability. A consumer that needs the effective configured targets derives an
+empty set when the flag is false. Neither form establishes that the bytes exist.
+Legacy and 1.0 exports are byte-identical whether retention is on or off; an
+evaluation fixture pins this, and the activation test observes it with export on.
+These clarifications change no schema constraint.
+
 Readers must explicitly select 2.0. The bundled audit's default remains 1.0;
 pass `--schema schemas/lopa-v2.schema.json` for a 2.0 snapshot. The example service
 now selects the bundled 2.0 schema and required snapshot. It always reports

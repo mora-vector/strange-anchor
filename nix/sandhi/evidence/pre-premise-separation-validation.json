@@ -1,0 +1,56 @@
+{
+  "release": "0.4-development",
+  "status": "applicability-and-six-check-regression-passed",
+  "sourceHead": "d81fba795bb83a66290b80ecde708d3fef2ef5f9",
+  "localSourceHead": "c03cf41",
+  "sharedSourceTree": "8a1bce2793d7b939251f4ecfefaf8d4d2e78ab14",
+  "system": "x86_64-linux",
+  "nixVersion": "2.35.2",
+  "nixpkgsRevision": "b67c7a60c3732edd4b947a7df8af06215851a614",
+  "flakeCheckNoBuild": "passed-all-six-checks",
+  "evaluationAssertionsPassed": 211,
+  "assertionGroups": {
+    "contractTests": 16,
+    "evalTests": 12,
+    "integrationTests": 11,
+    "featureTests": 163,
+    "exportTests": 9
+  },
+  "pythonTestsPassed": 23,
+  "evaluationArtifactBuilt": true,
+  "runtimeStatus": "passed",
+  "requestedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload",
+    "applicability"
+  ],
+  "candidateRun": "https://github.com/mora-vector/strange-anchor/actions/runs/36977146502",
+  "archiveRun": "https://github.com/mora-vector/strange-anchor/actions/runs/36977146519",
+  "archiveStatus": "passed",
+  "localVm": "driver-denied-before-guest-assertions",
+  "evidence": [
+    "evidence/local-applicability-2026-10-02/SUMMARY.json",
+    "evidence/ci-36976734811/SUMMARY.json",
+    "evidence/ci-36977146502/SUMMARY.json"
+  ],
+  "previousValidation": "evidence/pre-applicability-validation.json",
+  "canonical": false,
+  "independentBuildsVerified": false,
+  "productionDeployed": false,
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload",
+    "applicability"
+  ],
+  "testedMerge": "f8b7d0ddedc035615a82ef915bcb7909fecd8569",
+  "sourceDigestsMatchTestedImplementation": true,
+  "artifactSha256": "a9a7aaf945efdf5e262e954cd6b7ea683817e290075a63eecb6dbf9138c368fc",
+  "scope": "Administrator-declared applicability across activations; not authenticated recovery verification",
+  "postEvidenceChange": "Schema display title corrected from 1.0 to 2.0; constraints unchanged; final automatic head check separate"
+}

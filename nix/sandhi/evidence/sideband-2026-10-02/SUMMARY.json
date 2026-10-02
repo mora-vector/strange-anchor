@@ -1,0 +1,128 @@
+{
+  "kind": "Sideband-derived observation summary",
+  "recorder": {
+    "declaredNode": "Sideband",
+    "producingModel": null,
+    "runtime": "Claude Code remote session started by Mora",
+    "postingAccount": "mora-vector (GitHub API); git author Claude <noreply@anthropic.com>"
+  },
+  "independence": "Different builder and Nix version from Tessera's runs; same operator, same repository, same pinned inputs. A second observation, not independent administration or authentication.",
+  "sourceHead": "d602a4a1ae87bfca31d339232fb9f699b19da4bb",
+  "sourceFilesSha256": {
+    "examples/lopa-audit.nix": "7598dfe3f1cb1d4963ffc67955e71effc7df397592d7b73026a1c2c127ff1ce1",
+    "examples/mesh.nix": "2bbe70671a17d4b70519aa970b286beecc49eea7fed5e6f030672f24d7e59b45",
+    "examples/vessel.nix": "626246a96399fd3eabab2edfca984105de40379d3465a99387b3793254a26599",
+    "flake.lock": "6e7c97ca05778f5dd8346722bef770729818e627a3f6851c3d3af6c34f61487a",
+    "flake.nix": "9535ec255bf5f6d356d8073a449092ad29ca17dded619d71a32c819096185121",
+    "lib/prakrtibhava.nix": "04c794743688a35d81427fca9884853f59eabae5df233b9270538be98306aff8",
+    "lib/saksya.nix": "54e8ff0f227e182512f3c0d3db4d68c924abbeba5e58e2cd5a1069153db4701c",
+    "modules/adhikara.nix": "7d3855255b573f714ae057b3dd507114d35c130cb2e33145152b34826e5c452d",
+    "modules/chandas.nix": "006918b9a7f475df7b2ac20c6298fcb6c79436fa38acb8a17a2f648e700eba52",
+    "modules/default.nix": "202672085cb04f5818fa1a3a72ac5c71708e97d669bbc228addb2f0325564ee4",
+    "modules/karaka.nix": "bed1a3389695f5f8d7954fae8d8c85b64c068272c276e4c8a375702764ec2ec8",
+    "modules/kosa.nix": "f0fd6ee6f33e59a208fb3a9e23609f27283d62f6db661e84e3fb1493f4027daf",
+    "modules/lopa.nix": "9d33aec7759b179c4c25dc9221e03375ae6cbb3afa944e690c312dea4397503f",
+    "modules/sandhi.nix": "d6bb6c3242f931123bc784bd86a19a407a5ebab453d2216804317f66eb0d918f",
+    "modules/sanjna.nix": "4a0408245a86f57dbcf11a504c02e5eeffb2e4bac8f1eb1c6bfd6f2f837b8c6e",
+    "modules/vidhi.nix": "8865b0db34e3328ba78e78c9c86ae92bd57ce2e94c971c6701ba9760d5ea45de",
+    "packages/lopa-audit.nix": "6d131b0f45a89c627c8892767e36968a4a323ab38e6327f33554245aa0fd3b26",
+    "packages/recovery-state.nix": "0a510c08de8c74ec9da90a1329185da86f9fae27c8a7c5c70fbee7a7209f9d3b",
+    "schemas/lopa-v1.schema.json": "333b7671a374a92acd9789acc8486c16bdca7fe900b5a0bbe56d01241072dc40",
+    "schemas/lopa-v2.schema.json": "36111f80e0cafd096402166035a2a80e7952b5f1717020a6127561ffe8d5a4e2",
+    "scripts/compare_reports.py": "1dedfba1d8d3e72665c1b3fe2d2b93e61550d420c2c730de4ff5ae8a0f36b418",
+    "scripts/lopa_audit.py": "7bc1a46e2289ca584b0d12135994ba606cacb08739e8c3df9b1fd7086fb71a37",
+    "scripts/realize.py": "b92bb5c641aa334551a822ba1b78d2d806e0b8872e77f3f80f01bb6340060003",
+    "scripts/recovery_state.py": "65238c932eaebc9afdb845fc3c1557629fdffd997d47a9a10cdc8b9f5e4b335c",
+    "tests/applicability.nix": "1cc1b9d6e8d36b7dcd1ebc399ec7a77104e5511bded8540936fd93ed0a91edc5",
+    "tests/budgets.nix": "3a507e6c6d91c805ebad17e91372256a4731359e1915b5bbb325d08405db1e11",
+    "tests/contracts.nix": "68279b264f6de006382450d7524f30e629a93741b6c103a5b29cab37c3b84380",
+    "tests/eval.nix": "eb9d3ce54aa71cd5cac7bb96db1d629e33976100fc6c0a369a0fb8cf85768a4a",
+    "tests/export.nix": "ed3ab1be345256885c26ed886f0a9fe27b9cb6786353efb12754743b161dc553",
+    "tests/features.nix": "ab0a49b62ac7a85e6db3465c261c0774234c60b723014e42b47aae6c4cdc7e8e",
+    "tests/fixtures/fixed-output.nix": "e45b59cd81856f431fdd71892b72343385b5026ab7ecae93998fd035379dc108",
+    "tests/integration.nix": "00fe86233bf7da1bf5ca3a2bc5f39b9b43f60c66b9a46a4333947ee5bd075066",
+    "tests/reachability.nix": "d1327143703ca574edd506bd4b68192c2af75f9eb42e7c5bbb3ed2d18b114eb6",
+    "tests/recovery.nix": "aa20165d81934e093839a7b688ca5836fdf42caac09d48d59a07ef30aa797b3a",
+    "tests/test_comparison.py": "14ba2fb03e86341e5071d6c15c6505820246c176751a9d7b283db437d9763a09",
+    "tests/test_lopa.py": "eb5639c1dbd7fbb9eff4d76261ea8fe132b6d39429e922019f7250f82f684408",
+    "tests/test_recorder.py": "89be20c85d9896a63a391de1184d3b973093c9f77920a90db73d062173380077",
+    "tests/test_recovery_state.py": "c5f237cdaf1e88465b0090a0e3a0e46a79ac0914cb67cc4c5ca095749c0c50db",
+    "tests/workload.nix": "e023ddb1d27de7426c2a6c8ffe28d34c55fcb9f9c997d07ce2ca095a209114f3"
+  },
+  "sourceDigestsDifferingFromLocalApplicabilitySummary": [
+    "schemas/lopa-v2.schema.json"
+  ],
+  "builder": {
+    "system": "x86_64-linux",
+    "kernel": "Linux 6.18.44-fc-v51",
+    "nixVersion": "2.34.6",
+    "kvm": false,
+    "note": "QEMU software emulation; the test sets requiredFeatures.kvm = false"
+  },
+  "observations": {
+    "archiveTests": {
+      "command": "python3 -m unittest discover -s tests",
+      "result": "15 passed"
+    },
+    "archiveVerify": {
+      "command": "python3 anchor.py verify",
+      "result": "Verified 10 records, their blobs, links, and index."
+    },
+    "sandhiPythonTests": {
+      "command": "python3 -m unittest discover -s tests (in nix/sandhi)",
+      "result": "23 passed"
+    },
+    "evaluation": {
+      "check": "checks.x86_64-linux.evaluation",
+      "result": "built",
+      "outPath": "/nix/store/qqfv5w10ggd58gd80aczibms38d4m6zq-sandhi-evaluation",
+      "narHash": "sha256-0R9ZivAi8iPWr8CRGtnk4cqA//YKVgeUV2c/37QZRgc=",
+      "narSize": 6400,
+      "assertions": {
+        "contractTests": 16,
+        "evalTests": 12,
+        "exportTests": 9,
+        "featureTests": 163,
+        "integrationTests": 11,
+        "total": 211
+      },
+      "comparison": "narHash and narSize equal evidence/ci-36977146502/paths-evaluation.stdout. Store path differs (CI 7sjhnx4g...) because the v2 schema display title changed after that run; output bytes do not.",
+      "pathInfo": "paths-evaluation.json"
+    },
+    "applicabilityVm": {
+      "check": "checks.x86_64-linux.applicability",
+      "result": "passed",
+      "testScriptSeconds": 190.93,
+      "derivation": "/nix/store/lk9bw0dw9yarvkqg5v19i39zp00b86af-vm-test-run-sandhi-retention-evidence-applicability.drv",
+      "outPath": "/nix/store/s4v4yp0w91hn4dg089mi91s4l1px0b5r-vm-test-run-sandhi-retention-evidence-applicability",
+      "narHash": "sha256-w+38BAj2/adOU9pnwRJt3FSHJsWFIA4MBVpEtRcCJY4=",
+      "comparison": "Same derivation and out path as CI 36977146502. Statuses, retention flags, history counts, policy snapshot digests, and evidence digest equal CI's observation; epochs differ (random by design), so the NAR differs.",
+      "output": "applicability.json"
+    },
+    "exportProbe": {
+      "expression": "counterexample.nix",
+      "output": "counterexample.json",
+      "result": "With export on, legacy and 1.0 exports are byte-identical for retention on and off; v2 differs only in recoveryPolicy.retentionEnabled and still lists the unrooted subject."
+    }
+  },
+  "notRun": [
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload"
+  ],
+  "laterCiObservedViaApi": {
+    "36978161232": {
+      "head": "73e24b17d7bcdd6b970653716676174afe89f409",
+      "event": "pull_request",
+      "conclusion": "success"
+    },
+    "36979220047": {
+      "head": "d602a4a1ae87bfca31d339232fb9f699b19da4bb",
+      "event": "push to main",
+      "conclusion": "success"
+    },
+    "note": "Conclusions read from the Actions API; artifacts not downloaded or digested."
+  },
+  "canonical": false
+}

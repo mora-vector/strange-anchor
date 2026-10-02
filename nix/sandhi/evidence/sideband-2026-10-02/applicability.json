@@ -1,0 +1,76 @@
+{
+  "scope": "administrator declarations across actual NixOS activations; not recovery verification",
+  "positive": {
+    "assessments": [
+      {
+        "assertedBy": "vm-fixture",
+        "epoch": "f2fc2dd53a0245c4ada654ed77f96d5d",
+        "reference": "fixture:local-bytes",
+        "sha256": "9babcbe17b61e0df0ca96b5553ca292af86cd465eafe5939a0f19de7029e7442",
+        "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+        "subject": {
+          "kind": "output",
+          "path": "/nix/store/w0zbb4wl0pmc58v8k7jr4rxim6c67w7b-sandhi-recovery-subject"
+        },
+        "verification": "not-performed"
+      }
+    ],
+    "canonical": false,
+    "epoch": "f2fc2dd53a0245c4ada654ed77f96d5d",
+    "historicalAssessmentCount": 1,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "declared-recoverable"
+  },
+  "disabled": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "1b81d8ce5e584012a8c17cf901bb0267",
+    "historicalAssessmentCount": 1,
+    "retentionEnabled": false,
+    "snapshotSha256": "131e40fb7127e4a2788800ded751a4173416ac27f17b50c4fcd9760707db994f",
+    "status": "unassessed"
+  },
+  "reenabled": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "5207fbad757d4a0781634ffc2ab66721",
+    "historicalAssessmentCount": 1,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "unassessed"
+  },
+  "revalidated": {
+    "assessments": [
+      {
+        "assertedBy": "vm-fixture",
+        "epoch": "5207fbad757d4a0781634ffc2ab66721",
+        "reference": "fixture:local-bytes",
+        "sha256": "9babcbe17b61e0df0ca96b5553ca292af86cd465eafe5939a0f19de7029e7442",
+        "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+        "subject": {
+          "kind": "output",
+          "path": "/nix/store/w0zbb4wl0pmc58v8k7jr4rxim6c67w7b-sandhi-recovery-subject"
+        },
+        "verification": "not-performed"
+      }
+    ],
+    "canonical": false,
+    "epoch": "5207fbad757d4a0781634ffc2ab66721",
+    "historicalAssessmentCount": 2,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "declared-recoverable"
+  },
+  "sameConfigurationReactivation": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "724a8f2e2b36486e8785aabc85d39925",
+    "historicalAssessmentCount": 2,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "unassessed"
+  },
+  "historicalEvidencePreserved": true,
+  "staleEpochRejected": true
+}

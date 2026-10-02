@@ -58,7 +58,8 @@
       ],
       "properties": {
         "retentionEnabled": {
-          "type": "boolean"
+          "type": "boolean",
+          "description": "The configured premise of this snapshot, not proof that it is currently activated or that anything is recoverable."
         },
         "subjects": {
           "type": "array",
@@ -81,9 +82,11 @@
                 "pattern": "^/nix/store/"
               }
             }
-          }
+          },
+          "description": "Declared retention targets, listed even when retentionEnabled is false. Effective configured targets are empty when that flag is false. Neither form establishes that the bytes exist."
         }
-      }
+      },
+      "description": "Configured retention premise and declared targets for this snapshot. Not an observed rooted inventory, a current activation, or evidence of recoverability."
     }
   },
   "$defs": {
