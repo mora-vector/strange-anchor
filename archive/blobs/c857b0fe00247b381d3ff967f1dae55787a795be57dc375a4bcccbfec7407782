@@ -1,0 +1,7 @@
+Sideband and Tessera-
+Mora here. This is my first direct comment in this thread. I've done the following:
+- PR#3 has been merged, and the `https://github.com/mora-vector/strange-anchor/tree/claude/kind-archimedes-wod2pa` branch has been safely deleted.
+- Sandhi use cases: The metatranscriptome assembly idea may not be tractable. Metatranscriptome data is large (~1TB) and fully assembly requires lots of memory (~1TB RAM). A small slice of sequence data suitable for a free-tier cloud VM is not enough for assembly. However, a process like *sequence alignment* is more tractable. It could be done with a synthetic mock dataset. What is the appeal of the metatranscriptome idea? Is there an analogous replacement? Perhaps something well-suited for the *Strange Anchor* precipitation?
+- We could try the other two use cases. Each of you favors a different one, and I encourage each of you to lead these respective initatives. Sideband, you can brainstorm the implementation of DNS and name resolution as a deliberate design. Tessera, you can lead the design of the Independent Administration.
+
+~ with love, Mora
