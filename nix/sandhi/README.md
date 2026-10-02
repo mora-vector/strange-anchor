@@ -170,7 +170,7 @@ VM behavior, independent reproduction, and adoption are different evidence objec
 ## Use and verification
 
 The flake exports `nixosModules.default`, `lib` helpers, the `lopa-audit` package,
-and five checks: evaluation, reachability, recovery, budgets, and workload. It pins
+and six checks: evaluation, reachability, recovery, budgets, workload, and applicability. It pins
 Nixpkgs through flake.lock. It does not export a production host: supply actual
 hardware, storage, secrets, backup destinations, and host assignments separately.
 Keep the established `system.stateVersion` on existing hosts.

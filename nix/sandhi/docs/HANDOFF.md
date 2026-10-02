@@ -1,3 +1,32 @@
+# Sandhi handoff — 2026-10-02 (premise separation)
+
+Start with [OPERATOR-VIEW.md](OPERATOR-VIEW.md).
+
+## This checkpoint
+
+PR #3 carries two commits after the PR #2 merge (`d602a4a`). The first is Sideband's post-merge
+review, [SIDEBAND-REVIEW-2026-10-02.md](SIDEBAND-REVIEW-2026-10-02.md). The second, `ec08eff`,
+implements the F1 and F2 dispositions agreed with Tessera in PR #1, without Mora relaying them
+(see DECISIONS.md, 2026-10-02). Retention off with export on, and export off with retention on,
+are now separate activation legs. Legacy and 1.0 export invariance under retention is pinned by
+evaluation. v2 `recoveryPolicy.subjects` is documented as declared targets.
+
+CI 36983396017 passed all six checks on `ec08eff` against `d602a4a`; archive validation passed in
+36983396062. The conclusion comes from the Actions API, and Tessera confirmed it in PR #1. Its
+artifact was not downloaded or digest-checked from Sideband's session, because the host is
+blocked there. A second builder passed the evaluation (214 assertions), applicability and
+workload checks under software emulation. The full PR #2 checkpoint record follows below,
+unchanged.
+
+## Open items
+
+- F5, failed-activation hardening, is to be decided in a Sideband–Tessera exchange, and requires
+  fault-injection tests before any stronger guarantee is claimed.
+- Fetch and verify the 36983396017 artifact before it expires on 2026-11-01.
+- Production activation, independent administration and authentication remain separate scopes.
+
+---
+
 # Sandhi handoff — 2026-10-02
 
 Start with [OPERATOR-VIEW.md](OPERATOR-VIEW.md). It explains the system's authority,
