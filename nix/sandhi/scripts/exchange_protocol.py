@@ -6,6 +6,20 @@ and own duplicate detection and inbox/outbox transactions. A parsed sender is a
 claim until peer_id is supplied from the authenticated certificate mapping.
 Binary streams should have a caller-enforced I/O timeout. This module does not
 implement a network service or establish that an exchange completed.
+
+Diagnostic codes (never include payload text):
+  framing: invalid-frame-limit, truncated-frame, frame-size, incomplete-write
+  JSON: bytes-required, message-size, duplicate-key, nonfinite-json,
+        invalid-utf8, invalid-json, object-required
+  envelope: unknown-schema, invalid-kind, envelope-fields, invalid-id,
+            turn-limit, invalid-parent, self-parent, invalid-installation,
+            self-recipient, invalid-payload, invalid-deadline, invalid-status,
+            invalid-reason, invalid-envelope
+  context: sender-mismatch, recipient-mismatch, conversation-mismatch,
+           invalid-clock, expired, invalid-deadline-policy
+  parent: unexpected-parent, missing-parent, parent-mismatch,
+          parent-address-mismatch, parent-turn-mismatch, deadline-changed
+  acknowledgment: invalid-ack, ack-fields, ack-id-mismatch, ack-result, ack-reason
 """
 import json
 import re
@@ -24,8 +38,10 @@ _FIELDS = {"schema", "conversation_id", "message_id", "parent_id", "sender",
 
 class ProtocolError(ValueError):
     """A stable diagnostic code, safe to record without echoing message content."""
-    def __init__(self, code):
+    def __init__(self, code, message_id=None):
         self.code = code
+        # Untrusted correlation only; never evidence of acceptance or identity.
+        self.message_id = message_id
         super().__init__(code)
 
 
@@ -106,25 +122,58 @@ def _shape(value):
     return expiry
 
 
-def decode_envelope(raw, *, local_id=None, peer_id=None, now=None, conversation_id=None):
+def encode_envelope(fields):
+    """Encode a newly authored envelope, checking syntax/size but not expiry.
+
+    Never use this to rewrite received evidence; persist received bytes exactly.
+    """
+    _shape(fields)
+    try:
+        raw = json.dumps(fields, ensure_ascii=False, allow_nan=False,
+                         sort_keys=True, separators=(",", ":")).encode("utf-8")
+    except (TypeError, ValueError, UnicodeEncodeError):
+        raise ProtocolError("invalid-envelope") from None
+    _require(len(raw) <= MAX_ENVELOPE_BYTES, "message-size")
+    return raw
+
+
+def validate_deadline(message, *, now=None):
+    """Enforce expiry for new admission/work after any durable duplicate lookup."""
+    _require(isinstance(message, dict), "object-required")
+    expiry = _deadline(message.get("deadline"))
+    current = datetime.now(timezone.utc) if now is None else now
+    _require(isinstance(current, datetime) and current.utcoffset() is not None, "invalid-clock")
+    _require(expiry > current, "expired")
+
+
+def decode_envelope(raw, *, local_id=None, peer_id=None, now=None,
+                    conversation_id=None, check_deadline=True):
     """Parse without rewriting bytes; optionally bind identities to trusted context.
 
     now is an aware datetime for deterministic tests; production defaults to UTC
     wall clock. Parent existence and conversation state require validate_parent
     plus the caller's durable ledger. No authentication is inferred if peer_id is
     omitted. Deadline enforcement here concerns admission, not real-time execution.
+    check_deadline=False allows authenticated syntax checking before an exact-byte
+    durable duplicate lookup; new work still requires validate_deadline. Errors
+    expose an untrusted message_id only after strict JSON decoding establishes it.
     """
     value = _decode(raw)
-    expiry = _shape(value)
-    if peer_id is not None:
-        _require(value["sender"] == peer_id, "sender-mismatch")
-    if local_id is not None:
-        _require(value["recipient"] == local_id, "recipient-mismatch")
-    if conversation_id is not None:
-        _require(value["conversation_id"] == conversation_id, "conversation-mismatch")
-    current = datetime.now(timezone.utc) if now is None else now
-    _require(isinstance(current, datetime) and current.utcoffset() is not None, "invalid-clock")
-    _require(expiry > current, "expired")
+    try:
+        _shape(value)
+        if peer_id is not None:
+            _require(value["sender"] == peer_id, "sender-mismatch")
+        if local_id is not None:
+            _require(value["recipient"] == local_id, "recipient-mismatch")
+        if conversation_id is not None:
+            _require(value["conversation_id"] == conversation_id, "conversation-mismatch")
+        _require(type(check_deadline) is bool, "invalid-deadline-policy")
+        if check_deadline:
+            validate_deadline(value, now=now)
+    except ProtocolError as error:
+        if _id(value.get("message_id")):
+            error.message_id = value["message_id"]
+        raise
     return value
 
 

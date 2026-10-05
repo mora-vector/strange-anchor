@@ -9,6 +9,7 @@ from datetime import datetime, timezone
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "scripts"))
 from exchange_protocol import (MAX_ENVELOPE_BYTES, ProtocolError, decode_envelope,
+                               encode_envelope, validate_deadline,
                                validate_parent, encode_ack, decode_ack, read_frame, write_frame)
 
 NOW = datetime(2026, 10, 5, 16, 0, tzinfo=timezone.utc)
@@ -49,6 +50,39 @@ class ProtocolTests(unittest.TestCase):
                              ({"conversation_id": "c" * 32}, "conversation-mismatch")]:
             with self.subTest(code=code):
                 self.refused(code, decode_envelope, raw(message()), now=NOW, **kwargs)
+
+    def test_shared_encoder_validates_without_rewriting_received_bytes(self):
+        value = message(payload='UTF-8 λ and "quotes"')
+        encoded = encode_envelope(value)
+        self.assertEqual(decode_envelope(encoded, now=NOW), value)
+        self.assertEqual(encoded, encode_envelope(dict(reversed(list(value.items())))))
+        self.refused("message-size", encode_envelope, message(payload="λ" * MAX_ENVELOPE_BYTES))
+        self.refused("turn-limit", encode_envelope, message(turn=8))
+        self.refused("invalid-payload", encode_envelope, message(payload="\ud800"))
+        # Authoring or replaying a test fixture must not renew its deadline.
+        expired = message(deadline="2000-01-01T00:00:00Z")
+        self.refused("expired", decode_envelope, encode_envelope(expired), now=NOW)
+
+    def test_explicit_syntax_only_pass_keeps_identity_checks(self):
+        expired = message(deadline="2000-01-01T00:00:00Z")
+        parsed = decode_envelope(raw(expired), peer_id="installation-a", check_deadline=False)
+        self.assertEqual(parsed, expired)
+        self.refused("expired", validate_deadline, parsed, now=NOW)
+        self.refused("expired", decode_envelope, raw(expired))
+        self.refused("sender-mismatch", decode_envelope, raw(expired),
+                     peer_id="installation-c", check_deadline=False)
+        self.refused("invalid-deadline-policy", decode_envelope, raw(message()), check_deadline=0)
+
+    def test_rejected_ack_id_requires_an_unambiguous_valid_id(self):
+        cases = [(raw(message()), {"peer_id": "installation-c"}, "b" * 32),
+                 (raw(message(turn=8)), {}, "b" * 32),
+                 (raw(message(message_id="untrusted")), {}, None),
+                 (b'{"message_id":"' + b"b" * 32 + b'","message_id":"' + b"c" * 32 + b'"}', {}, None),
+                 (b'{"message_id":"' + b"b" * 32 + b'"} trailing', {}, None)]
+        for data, kwargs, expected in cases:
+            with self.subTest(data=data), self.assertRaises(ProtocolError) as result:
+                decode_envelope(data, now=NOW, **kwargs)
+            self.assertEqual(result.exception.message_id, expected)
 
     def test_deadline_boundary_and_invalid_clocks(self):
         self.refused("expired", decode_envelope, raw(message(deadline="2026-10-05T16:00:00Z")), now=NOW)
