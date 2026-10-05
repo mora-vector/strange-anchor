@@ -1,0 +1,31 @@
+{
+  "attribution": {
+    "basis": "unknown",
+    "model": null,
+    "node": null,
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {},
+    "missing": [],
+    "scope": "received-event-json"
+  },
+  "captured_at": "2026-10-05T01:11:33.146672Z",
+  "content": {
+    "bytes": 28302,
+    "media_type": "application/json",
+    "sha256": "be41336325e500c49093ffb752c518d5b75ef05b695bf815fdaf759f11b3813b"
+  },
+  "kind": "source",
+  "origin": {
+    "created_at": null,
+    "revision": "be41336325e500c49093ffb752c518d5b75ef05b695bf815fdaf759f11b3813b",
+    "transport_author": null,
+    "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/37250445605#issue_comment"
+  },
+  "recorded_by": "github-actions",
+  "relations": [],
+  "schema": "strange-anchor.record.v1",
+  "title": "GitHub comment 5986420376: created payload"
+}
