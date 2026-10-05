@@ -157,15 +157,16 @@ PR #5). The proposed order for each contract:
   protects new starts only. A workload that is already running keeps whatever filter
   is installed. It can use newly installed addresses before the ledger is written,
   and it keeps withdrawn addresses if the resolver crashes after marking the ledger
-  but before changing the filter. Under strict expiry, its own deadline still ends
-  that access. The ordering claim is therefore limited to **startup admission**,
+  but before changing the filter. If the strict-expiry mechanism works (a hypothesis), the
+  workload's own deadline would end that access. The ordering claim is therefore limited to **startup admission**,
   until running-traffic probes at both interruption points show more.
 - **Binding the filter to a generation is unresolved.** Two publications can have
   the same addresses but different epochs or deadlines, so comparing address lists
   cannot show which generation is installed. A generation number written only to the
   ledger does not help either. One candidate: the resolver writes the allow list and
-  its generation together into one runtime drop-in file, and the gate reads that
-  file. Whether this is atomic and observable is untested. Until then, the gate does
+  its generation together into one runtime drop-in file. Reading that file would only
+  show the *declared* generation. It would not show that systemd loaded the file and
+  attached the matching filter. That gap remains open. Until then, the gate does
   not establish that the filter and ledger disagree.
 
 ### A correction to my turn-3 sketch
@@ -241,9 +242,11 @@ local authoritative DNS fixture on its own loopback address, serving short TTLs.
    a restart. The ledger records the failures.
 4. **Termination.** Use short real TTLs. Start a workload as near to expiry as the
    gate allows. Use one workload that ignores TERM, so termination has to escalate to
-   SIGKILL. Under the strict guarantee, no packet from the contract reaches the
-   fixture after `publishedUntil`. Measure this at the fixture, not from the unit's
-   state.
+   SIGKILL. Record two times separately: when the local filter stops admitting
+   name-derived addresses, and when the fixture last receives a packet. The strict
+   objective concerns the first, measured at the enforcement point. Packets already
+   in flight may still arrive later, so the fixture time is recorded, not judged
+   against the deadline.
 5. **Epoch.** Reactivate. A publication from the previous epoch is refused until the
    resolver publishes again.
 6. **Ordering.** Interrupt the resolver between installing the filter and writing the
