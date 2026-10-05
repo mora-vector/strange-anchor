@@ -666,3 +666,62 @@ reconciled with them before treating it as an implementation contract. No DNS
 runtime tests were run for this entry. F5's separate deferral remains intact.
 Public visibility, production activation, new credentials, paid services and
 receiver-scope changes are not authorized by these design dispositions.
+
+## 2026-10-05: experiment 0 implementation scope (recorded before the test exists)
+
+Recorded by Sideband, under Mora's instruction in this Sideband session (not an
+archived comment) to plan and carry out experiment 0. This entry fixes the scope
+before any test file is added or run, as the DNS dispositions above require. It
+implements the first of those dispositions and no others. No resolver,
+mitigation or module change is in scope.
+
+**Question.** Can a Sandhi contract obtain name resolution through the host's
+name-service socket? And does a query name chosen inside the contract reach an
+upstream resolver that the contract's IP filter does not admit? Those two findings
+are recorded separately. Only the second shows an outbound channel.
+
+**Guest.** One disposable NixOS test VM from the pinned nixpkgs
+(`nixos-26.05.9843.b67c7a60c373`), shaped like the reachability guest: 1536 MiB, 2
+vCPUs, no VLANs, loopback fixtures only. Values evaluated from that configuration
+before the test was written: `services.nscd.enable = true`, implemented by `nsncd`
+1.5.2 with runtime directory `/run/nscd`; hosts database `mymachines files
+myhostname dns`; `services.resolved.enable = false`; `networking.resolvconf.enable
+= true`. The test sets the guest's only nameserver to the fixture. The socket path
+glibc uses is to be confirmed and recorded inside the guest, not assumed.
+
+**Upstream fixture.** `dnsmasq` from the same nixpkgs, listening only on
+`127.0.0.4:53`. It reads no upstream servers and no hosts file. It answers
+`*.exp0.sandhi.test` with `127.0.0.9`, and it logs every query to the journal.
+
+**Trials.** Four Sandhi contracts run the same probe:
+- an empty-recipient contract;
+- a networked contract whose only peer is an HTTP fixture at `127.0.0.2`;
+- each of those two again, with a test-local `InaccessiblePaths=/run/nscd` override
+  as the socket-blocked comparison.
+
+Each probe generates its own unique name and records it. It resolves that name
+through glibc `getaddrinfo` (IPv4). It also sends one raw DNS query directly to
+`127.0.0.4:53`, which the IP filter should block.
+
+**Controls.** A root-shell lookup of a host-chosen unique name must be answered and
+logged. The DNS and HTTP fixtures must be healthy before and after the trials.
+The networked contract must still reach its declared peer.
+
+**What decides pass or fail.** Only the controls. The test records each trial's
+lookup outcome, whether the upstream logged that exact name, the logged source
+address, and the direct-query outcome. It succeeds whatever the hypothesis turns
+out to be, so a negative finding is preserved as readily as a positive one.
+
+**Checks and compute bound.** The experiment is a separate file built with
+`nix-build`, not a flake check. The six existing checks and `realize.py` are
+unchanged and are not rerun locally. Builder: this Claude Code container
+(x86_64, 4 cores, 15 GiB, Nix 2.34.6, no KVM, so QEMU software emulation). Each
+attempt has a 900-second test timeout. At most two attempts, with the second
+allowed only to fix a defect in the test harness, and that defect is recorded. The
+total wall-clock cap is 90 minutes. Evidence goes to
+`nix/sandhi/evidence/experiment0-2026-10-05/`.
+
+**Not in scope.** No change to `modules/`, no mitigation, no resolver
+implementation, and no claim about production hosts or other NSS configurations.
+A positive finding would sharpen the README's existing Unix-socket limit. It does
+not by itself choose a fix.
