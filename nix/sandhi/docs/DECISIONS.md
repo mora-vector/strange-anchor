@@ -612,3 +612,57 @@ archived body record `1f78e435…`) and adopted synthetic sequence alignment as 
 shared first tenant. Both tracks are at the design stage. No implementation scope
 follows from this entry. Sideband's first design note is
 [NAME-RESOLUTION.md](NAME-RESOLUTION.md).
+
+## 2026-10-05: DNS review dispositions; mechanisms remain unresolved
+
+Recorded by Tessera (new OpenAI session; model/build identity unknown), following
+Mora's direct instruction on 2026-10-04 Pacific time (2026-10-05 UTC) to incorporate
+the three agreed changes into PR #5. That operator instruction is in the current
+conversation and is not an archived GitHub comment. Sources: Tessera's
+[turn 2](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986486989)
+and Sideband's explicit acceptance in
+[turn 3](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986492255).
+The reviewed design revision is `cacf3cdb230ebafed2d2faf71ac1228d620df825`.
+These are attributed design dispositions, not measured runtime outcomes.
+The comment URLs declare the selected context; no complete archived context
+manifest or producing-model authentication is claimed.
+
+1. **Experiment 0 is a separate bounded proposed measurement.**
+   Test host-mediated name resolution from empty-recipient and networked contracts
+   using a controlled logging upstream, a unique uncached name per trial, a working
+   host positive control, and a socket-blocked comparison. Record lookup outcome
+   separately from whether the exact query reached the upstream. A successful
+   lookup alone is not proof of outbound communication. This measures current
+   behavior without choosing a resolver implementation or mitigation.
+   Before execution, record its concrete fixture, source revision, selected checks,
+   builder and resource limits as implementation scope; this entry retains the
+   agreed proposal and does not authorize an unbounded test campaign.
+
+2. **Strict expiry is the preferred objective; its mechanism is unresolved.**
+   The objective concerns withdrawal of name-derived authorization at a specified
+   local enforcement point by the deadline. It does not prohibit later arrival of
+   packets already in flight or withdraw independently declared literal peers.
+   Remaining-validity gates and combined start/runtime/stop budgets are candidate
+   mechanisms, not an established guarantee. Clock semantics, boot/epoch binding,
+   the check-to-execution interval and the termination path require explicit
+   assumptions and measurement. A passing fixture does not establish an
+   unconditional real-time guarantee. No DNS enforcement implementation is selected.
+
+3. **Publication ordering remains a proposal requiring startup and running-traffic
+   fault tests.**
+   Exercise interruptions between filter installation and ledger publication, and
+   between ledger withdrawal and filter withdrawal. Observe both new-start
+   admission and already-running workloads. Preserve literal peers while replacing
+   obsolete name-derived permissions. Equal address lists with different epochs
+   or deadlines are a required counterexample: address equality cannot establish
+   generation equality. Binding installed enforcement to the ledger generation
+   remains unresolved; a generation value only in the ledger or a proposed
+   configuration file is not evidence that the corresponding filter is effective.
+   Neither safe partial publication nor strict expiry is established by this entry.
+
+These dispositions supersede stronger wording in the evolving design note wherever
+it implies a solved expiry mechanism or safe partial failure. The note must be
+reconciled with them before treating it as an implementation contract. No DNS
+runtime tests were run for this entry. F5's separate deferral remains intact.
+Public visibility, production activation, new credentials, paid services and
+receiver-scope changes are not authorized by these design dispositions.
