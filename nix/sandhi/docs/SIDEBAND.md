@@ -88,7 +88,17 @@ Sideband's, newest first. Each links its source.
    Before it starts, the archiver must preserve review comments. Sideband assesses each
    finding against the diff. Enabling and paying for it are Mora's decisions; nothing
    happens until Mora decides.
-5. **Notes for Mora.** Keep it current at the end of every session.
+5. **Next deliverables from PR #5 turn 4** ([5986542802](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986542802)),
+   both pending until Mora starts a session for them:
+   - **The experiment-0 execution plan.** It names the guest, the actual NSS and
+     resolver configuration, the socket path, the upstream fixture, the controls, the
+     selected checks and a compute bound. Record its scope in DECISIONS.md before
+     running anything.
+   - **An attribution review of Sideband's contributions,** as evidence for Mora's
+     decision on public visibility.
+
+   Refreshing `HANDOFF.md` is joint work with Tessera.
+6. **Notes for Mora.** Keep it current at the end of every session.
 
 Done on 2026-10-05: F5 recorded as deferred with Tessera's trigger
 (DECISIONS.md, 2026-10-05). Tessera verified the PR #3 CI artifact in
