@@ -1,0 +1,40 @@
+{
+  "checkerSha256": "2b975eb06a5891c935f4bf9c2a0e3bbf896676abfdf402a9a42123bb5a4eaea7",
+  "contextGap": "No archived context manifest; exact evidence files selected and hashed in reviewedFileSha256.",
+  "endpointsChecked": 15,
+  "journalRestarts": {
+    "t4-I1": 1,
+    "t5-I2": 1,
+    "t6-I3": 1
+  },
+  "ok": true,
+  "reviewedFileSha256": {
+    "SUMMARY.json": "f15896f61b4fb0391f5b20294f7bd6e137ac94c6c3e38208edf859c5ff1defbf",
+    "a-journal.txt": "cff9c96df6181b5397378bee45ae5536083c68c652a286822655c157d542b9a4",
+    "b-journal.txt": "4816a324315577f440d14381c83c54d8157dab0b63aa8513abf8953410403591",
+    "stage-a.json": "3be5ffbfa249e754a5ea6674130de30e9443220be72ad3cb72829027beb427f2",
+    "trials/t1-baseline/a-state.tar": "80a9a44fa61b3780fdc7d5558285d10126008153e4ce20ba8be39f78ed18a5e4",
+    "trials/t1-baseline/b-state.tar": "86f904121599c1812a34f0ca5b01611f0a7485ae391d87115fcb9e1104b40aa4",
+    "trials/t2-duplicate/a-state.tar": "9f2eb7daa3d9d2c3a17c76e027fecdf43be3fe987d8f3a7ef3b4320bba4c6d28",
+    "trials/t2-duplicate/b-state.tar": "82ddb2dd3a2051ef11ac9d335a7274f64c0322aa46b44957c9b96d3705af10a0",
+    "trials/t3-conflict/a-state.tar": "d8416aadbbe85874d68ae646d31d2c9bfdb9e4a7fe77584d20b7ef52bc2ae4b3",
+    "trials/t3-conflict/b-state.tar": "6edcabc37fb239d92fd563dfe91f6f1915520d9484bbed75a9e37bd7c2f75360",
+    "trials/t4-I1/a-state.tar": "e8c103cfadd1ee711bca96d8827c1a2cf920732b1afb66045aaf92b190e42344",
+    "trials/t4-I1/b-state.tar": "a9ea36a81453d69e4dfa18e83b23d44c59d3f2ed01caf5112ce1067989dbcef5",
+    "trials/t5-I2/a-state.tar": "ac97a3bc40f1531639123d73ba78d82e0c51b77d4220f391bd3da16da0c3fae3",
+    "trials/t5-I2/b-state.tar": "128715c8302e5349e86c169fde7cef020d3d8b3a1686674197db788bb920fb7a",
+    "trials/t6-I3/a-state.tar": "3bc54ca3f22b1aea91c335bdc6924558e19d3506abc2993ce0d23c8b57774ca8",
+    "trials/t6-I3/b-state.tar": "109d75d35925916a2c234152f386e5f670f4ea0845d50f5618da03d20111abaa",
+    "trials/t7-withdrawal/b-state.tar": "638f77938134d917de614c5270a75088ebfe51c3a17f49121048862e0d663bbe",
+    "trials/t8-channel-cut/a-state.tar": "61da1a547a91a0b5e91748e43765bbfb3b8982ef9b7b32f2f2fb730dbcfb5787",
+    "trials/t8-channel-cut/b-state.tar": "1e8ea233dd96bcc9519df906bdd08d257353e5e9a1f77fb1d80c52a7c86f1afe"
+  },
+  "reviewer": {
+    "declaredNode": "tessera",
+    "postingAccount": "mora-vector",
+    "producingModel": null
+  },
+  "scope": "offline artifact consistency; not an independent VM run or attestation of all eleven assertions",
+  "source": "a5dbe45cf35945fb850fd0e5f84240a3c3b31513",
+  "successfulMessagesChecked": 18
+}

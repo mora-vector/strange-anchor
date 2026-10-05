@@ -1,0 +1,275 @@
+{
+  "allAssertionsPassed": true,
+  "assertions": {
+    "1-completion": true,
+    "10-channel-cut": true,
+    "11-explicit-ending": true,
+    "2-byte-agreement": true,
+    "3-duplicate-delivery": true,
+    "4-conflicting-bytes": true,
+    "5-interruptions": true,
+    "6-address-filter": true,
+    "7-authentication": true,
+    "8-distinct-claims": true,
+    "9-peer-withdrawal": true
+  },
+  "attempt": 4,
+  "buildSeconds": 806,
+  "builder": {
+    "cores": 4,
+    "kvm": false,
+    "memoryGiB": 15,
+    "nixVersion": "2.34.6",
+    "note": "QEMU software emulation; requiredFeatures.kvm = false; three guests, 1 vCPU and 1024 MiB each",
+    "system": "x86_64-linux"
+  },
+  "canonical": false,
+  "experiment": "Stage A: standalone transport between two separately configured Sandhi installations",
+  "findings": {
+    "addressFilter": "c's connections to both contract ports timed out while its connections to each host's control port connected.",
+    "authentication": "From a permitted address, an untrusted certificate failed TLS, a trusted but unmapped certificate was refused after TLS, and a mapped certificate with a wrong sender, turn 8 or an oversize frame was refused after authentication. b's outbox was unchanged.",
+    "channelCut": "With b's peer withdrawn before the conversation, both endpoints ended with explicit, distinct failures and neither held a digest.",
+    "faults": "Duplicate and conflicting resends, and interruption at I1, I2 and I3, each ended in completion with one systemd restart for the interrupted node. In this run I2 did not re-invoke the responder; attempt 3 recorded that at-least-once case.",
+    "transport": "Two separately configured NixOS installations, each running Sandhi with one exchange contract, completed the split-input task over mutual TLS with fingerprint-pinned installation IDs. Both endpoints' own status files held the checker's expected digest, and sender outbox bytes equalled receiver inbox bytes for every acknowledged message.",
+    "withdrawal": "Activating the withdrawn specialisation restarted b's contract with a changed address allow-list. A held connection then failed (BrokenPipe) and a new connection from a's address timed out before TLS. The held-connection result cannot separate the restart from the filter."
+  },
+  "finishedAt": "2026-10-05T16:42:18Z",
+  "harnessErrors": [],
+  "kind": "Sideband-recorded Stage A experiment summary (run of record)",
+  "limits": [
+    "A transport test with deterministic responders. It is not AI communication and makes no model-family claim.",
+    "Two guests on one builder, operated by one person: separate installations, not independent administration.",
+    "Isolation claimed here is the observed contract restrictions plus the removed default route. Each guest kept its QEMU user-network link (10.0.2.0/24 on eth0); host-facing interfaces were not removed.",
+    "No claim about passive interception, a malicious hypervisor, DNS confinement (experiment 0's host-socket path is unchanged), or behaviour on hardware or under KVM.",
+    "One attempt on the final source. Timings are from software emulation on one builder.",
+    "allAssertionsPassed is the harness's own computation; Tessera's offline checker is the planned independent reading of these artifacts."
+  ],
+  "observed": {
+    "channelCut": {
+      "a": {
+        "reason": "deadline-exceeded:undelivered:045d5567a352fe8b838f15935ec29a4f",
+        "status": "failed"
+      },
+      "aDeliveryAttempts": 9,
+      "b": {
+        "reason": "deadline-exceeded:no-message-received",
+        "status": "failed"
+      }
+    },
+    "completion": {
+      "t1-baseline": {
+        "a": {
+          "reason": "",
+          "status": "complete"
+        },
+        "b": {
+          "reason": "",
+          "status": "complete"
+        }
+      },
+      "t2-duplicate": {
+        "a": {
+          "reason": "",
+          "status": "complete"
+        },
+        "b": {
+          "reason": "",
+          "status": "complete"
+        }
+      },
+      "t3-conflict": {
+        "a": {
+          "reason": "",
+          "status": "complete"
+        },
+        "b": {
+          "reason": "",
+          "status": "complete"
+        }
+      },
+      "t4-I1": {
+        "a": {
+          "reason": "",
+          "status": "complete"
+        },
+        "b": {
+          "reason": "",
+          "status": "complete"
+        }
+      },
+      "t5-I2": {
+        "a": {
+          "reason": "",
+          "status": "complete"
+        },
+        "b": {
+          "reason": "",
+          "status": "complete"
+        }
+      },
+      "t6-I3": {
+        "a": {
+          "reason": "",
+          "status": "complete"
+        },
+        "b": {
+          "reason": "",
+          "status": "complete"
+        }
+      }
+    },
+    "probes": {
+      "b-outbox-unchanged": true,
+      "c->a:contract": {
+        "detail": "timed out",
+        "outcome": "timeout",
+        "seconds": 5.066
+      },
+      "c->b:contract": {
+        "detail": "timed out",
+        "outcome": "timeout",
+        "seconds": 5.056
+      },
+      "oversize-frame": {
+        "detail": "ConnectionResetError: ConnectionResetError",
+        "outcome": "no-ack"
+      },
+      "trusted-unmapped-certificate": {
+        "detail": "ConnectionResetError: ConnectionResetError",
+        "outcome": "no-ack"
+      },
+      "turn-8": {
+        "ack": {
+          "ack": "1e52e3e42157e3b4b9fe36f62fb81585",
+          "reason": "turn-limit",
+          "result": "rejected"
+        },
+        "outcome": "acked"
+      },
+      "untrusted-certificate": {
+        "detail": "SSLError: SSLError",
+        "outcome": "no-ack"
+      },
+      "wrong-sender": {
+        "ack": {
+          "ack": "b4e474210c0ecc44535ca203e3324ae8",
+          "reason": "sender-mismatch",
+          "result": "rejected"
+        },
+        "outcome": "acked"
+      }
+    },
+    "restartsFromJournal": {
+      "t1-baseline": {
+        "a": 0,
+        "b": 0
+      },
+      "t2-duplicate": {
+        "a": 0,
+        "b": 0
+      },
+      "t3-conflict": {
+        "a": 0,
+        "b": 0
+      },
+      "t4-I1": {
+        "a": 0,
+        "b": 1
+      },
+      "t5-I2": {
+        "a": 0,
+        "b": 1
+      },
+      "t6-I3": {
+        "a": 1,
+        "b": 0
+      },
+      "t8-channel-cut": {
+        "a": 0,
+        "b": 0
+      }
+    },
+    "routesAfterProvisioning": {
+      "a": [
+        "10.0.2.0/24 dev eth0 proto dhcp scope link src 10.0.2.15 metric 1002 ",
+        "192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.10"
+      ],
+      "b": [
+        "10.0.2.0/24 dev eth0 proto dhcp scope link src 10.0.2.15 metric 1002 ",
+        "192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.20"
+      ],
+      "c": [
+        "10.0.2.0/24 dev eth0 proto dhcp scope link src 10.0.2.15 metric 1002 ",
+        "192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.30"
+      ]
+    },
+    "unprivilegedPortStart": {
+      "a": "1024",
+      "b": "1024",
+      "c": "1024"
+    },
+    "withdrawal": {
+      "allowAfter": "IPAddressAllow=192.168.1.40/32",
+      "allowBefore": "IPAddressAllow=192.168.1.10/32",
+      "controlStillOpen": "connected",
+      "existingConnection": {
+        "detail": "BrokenPipeError: BrokenPipeError",
+        "outcome": "no-ack"
+      },
+      "invocationChanged": true,
+      "newConnection": {
+        "detail": "TimeoutError: timed out",
+        "outcome": "connect-failed"
+      },
+      "switchSeconds": 42.4
+    }
+  },
+  "output": {
+    "driverLog": "driver.log (test-driver lines; guest console lines omitted)",
+    "journals": "a-journal.txt, b-journal.txt (contract and credential units)",
+    "stageA": "stage-a.json (byte copy of the test output)",
+    "stageASha256": "6529e59d5d3860bd1272c33489b9fb35ba175217261dab230cf2446d24b9910f",
+    "stateArchives": "trials/<trial>/<guest>-state.tar: each node's state directory as collected; private keys are not in it",
+    "storePath": "/nix/store/hfln6r2g1ph63kblk4xs94929blss97b-vm-test-run-sandhi-stage-a-standalone-exchange"
+  },
+  "priorAttempts": [
+    {
+      "attempt": 1,
+      "outcome": "test-driver type check failed; no guest booted",
+      "record": "../attempt-1/failure-excerpt.txt",
+      "source": "f2ffe96a357e87237b0e734856303ace4389f3d9"
+    },
+    {
+      "attempt": 2,
+      "outcome": "guests booted; harness control failed (control listener bound before its address); no trial ran",
+      "record": "../attempt-2/failure-excerpt.txt",
+      "source": "3a3ae6176f731a1c71c7c2e5446c00a9f4b722d2"
+    },
+    {
+      "attempt": 3,
+      "outcome": "all eleven assertions passed; superseded source (node defects fixed in 29c7303 and a990b99)",
+      "record": "../attempt-3/SUMMARY.json",
+      "source": "a5dbe45cf35945fb850fd0e5f84240a3c3b31513"
+    }
+  ],
+  "recorder": {
+    "declaredNode": "Sideband",
+    "postingAccount": "mora-vector (GitHub API); git author Claude <noreply@anthropic.com>",
+    "producingModel": null,
+    "runtime": "Claude Code remote session started by a repository user"
+  },
+  "scope": "nix/sandhi/docs/DECISIONS.md, 2026-10-05 (Stage A adopted, b6b25bd); docs/SCOPE-STAGE-A-TRANSPORT.md at fb3af2c",
+  "source": {
+    "ciOnSource": "Validate Sandhi boundaries (six existing checks) and Validate archive passed on a990b99: runs 37341156112 and 37341155977",
+    "commit": "a990b9983166598ed6fd3e3c92414c231667173b",
+    "contributors": {
+      "exchange_node.py, exchange_responder.py, exchange_probe.py, test_exchange_node.py, packages/sandhi-exchange.nix, experiments/standalone-exchange.nix": "Sideband",
+      "exchange_protocol.py, test_exchange_protocol.py, test_exchange_recovery.py, node recovery/deadline patch 29c7303": "Tessera"
+    },
+    "flakeAndRealizeChanged": false,
+    "nixpkgs": "nixos-26.05.9843.b67c7a60c373 (flake.lock pin)",
+    "productionModulesChanged": false
+  },
+  "startedAt": "2026-10-05T16:28:52Z",
+  "testScriptSeconds": 793.5
+}

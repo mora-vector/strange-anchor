@@ -1,0 +1,2780 @@
+{
+  "allAssertionsPassed": true,
+  "assertions": {
+    "1-completion": true,
+    "10-channel-cut": true,
+    "11-explicit-ending": true,
+    "2-byte-agreement": true,
+    "3-duplicate-delivery": true,
+    "4-conflicting-bytes": true,
+    "5-interruptions": true,
+    "6-address-filter": true,
+    "7-authentication": true,
+    "8-distinct-claims": {
+      "cannot-authenticate": [
+        "SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1032)",
+        "unmapped-certificate"
+      ],
+      "cannot-connect": [
+        "c->a:contract",
+        "c->b:contract"
+      ],
+      "passed": true,
+      "passive-interception": "not tested; no claim",
+      "rejected-after-authentication": [
+        "sender-mismatch",
+        "turn-limit",
+        "frame-size"
+      ]
+    },
+    "9-peer-withdrawal": {
+      "existingConnectionCarriedData": false,
+      "newConnectionRefusedBeforeTls": true,
+      "observed": {
+        "existingConnection": {
+          "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+          "detail": "BrokenPipeError: BrokenPipeError",
+          "held_seconds": 45.36,
+          "host": "192.168.1.20",
+          "label": "held",
+          "message_id": "0aaed14c3d896ea92f240c32b18cdd2b",
+          "outcome": "no-ack",
+          "port": 7443,
+          "probe": "tls",
+          "released": true,
+          "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+          "sha256": "5bbbf265462034fb090c4a28336d10b8390e2398aa6fef4eb32725ad4e82c7ef"
+        },
+        "newConnection": {
+          "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+          "detail": "TimeoutError: timed out",
+          "host": "192.168.1.20",
+          "label": "new-after-withdrawal",
+          "outcome": "connect-failed",
+          "port": 7443,
+          "probe": "tls"
+        }
+      },
+      "passed": true,
+      "restartObserved": true
+    }
+  },
+  "canonical": false,
+  "controls": {
+    "a->b:control": {
+      "detail": "",
+      "host": "192.168.1.20",
+      "outcome": "connected",
+      "port": 7444,
+      "probe": "connect",
+      "seconds": 0.177
+    },
+    "b->a:control": {
+      "detail": "",
+      "host": "192.168.1.10",
+      "outcome": "connected",
+      "port": 7444,
+      "probe": "connect",
+      "seconds": 0.088
+    },
+    "c->a:control": {
+      "detail": "",
+      "host": "192.168.1.10",
+      "outcome": "connected",
+      "port": 7444,
+      "probe": "connect",
+      "seconds": 0.155
+    },
+    "c->b:control": {
+      "detail": "",
+      "host": "192.168.1.20",
+      "outcome": "connected",
+      "port": 7444,
+      "probe": "connect",
+      "seconds": 0.084
+    }
+  },
+  "environment": {
+    "a": {
+      "addresses": [
+        "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+        "2: eth0    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0\\       valid_lft 86346sec preferred_lft 75546sec",
+        "3: eth1    inet 192.168.1.10/24 scope global eth1\\       valid_lft forever preferred_lft forever"
+      ],
+      "kernel": "6.18.52",
+      "routes": [
+        "10.0.2.0/24 dev eth0 proto dhcp scope link src 10.0.2.15 metric 1002 ",
+        "192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.10"
+      ],
+      "unit": [
+        "StartLimitIntervalUSec=10min",
+        "StartLimitBurst=4",
+        "Restart=on-failure",
+        "RestartUSec=2s",
+        "RuntimeMaxUSec=10min",
+        "CPUQuotaPerSecUSec=500ms",
+        "MemoryMax=201326592",
+        "IPAddressAllow=192.168.1.20/32",
+        "IPAddressDeny=::/0 0.0.0.0/0",
+        "CapabilityBoundingSet=",
+        "DynamicUser=yes",
+        "LoadCredential=[unprintable]",
+        "PrivateNetwork=no",
+        "ProtectSystem=strict",
+        "RestrictAddressFamilies=AF_INET AF_UNIX"
+      ],
+      "unprivilegedPortStart": "1024"
+    },
+    "b": {
+      "addresses": [
+        "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+        "2: eth0    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0\\       valid_lft 86345sec preferred_lft 75545sec",
+        "3: eth1    inet 192.168.1.20/24 scope global eth1\\       valid_lft forever preferred_lft forever"
+      ],
+      "kernel": "6.18.52",
+      "routes": [
+        "10.0.2.0/24 dev eth0 proto dhcp scope link src 10.0.2.15 metric 1002 ",
+        "192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.20"
+      ],
+      "unit": [
+        "StartLimitIntervalUSec=10min",
+        "StartLimitBurst=4",
+        "Restart=on-failure",
+        "RestartUSec=2s",
+        "RuntimeMaxUSec=10min",
+        "CPUQuotaPerSecUSec=500ms",
+        "MemoryMax=201326592",
+        "IPAddressAllow=192.168.1.10/32",
+        "IPAddressDeny=0.0.0.0/0 ::/0",
+        "CapabilityBoundingSet=",
+        "DynamicUser=yes",
+        "LoadCredential=[unprintable]",
+        "PrivateNetwork=no",
+        "ProtectSystem=strict",
+        "RestrictAddressFamilies=AF_INET AF_UNIX"
+      ],
+      "unprivilegedPortStart": "1024"
+    },
+    "c": {
+      "addresses": [
+        "1: lo    inet 127.0.0.1/8 scope host lo\\       valid_lft forever preferred_lft forever",
+        "2: eth0    inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute eth0\\       valid_lft 86319sec preferred_lft 75519sec",
+        "3: eth1    inet 192.168.1.30/24 scope global eth1\\       valid_lft forever preferred_lft forever"
+      ],
+      "kernel": "6.18.52",
+      "routes": [
+        "10.0.2.0/24 dev eth0 proto dhcp scope link src 10.0.2.15 metric 1002 ",
+        "192.168.1.0/24 dev eth1 proto kernel scope link src 192.168.1.30"
+      ],
+      "unprivilegedPortStart": "1024"
+    },
+    "fingerprints": {
+      "installation-a": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+      "installation-b": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+      "probe-extra": "85de451b2eb74dea356f6e47a8c244ae99125a94f8697c6c0fa5351866878bc9",
+      "probe-untrusted": "c8572c8d7de9f926cef49273800a4654a0e91c16a42461b9b33a168a6538fcf2"
+    },
+    "package": "/nix/store/66n4cmg9dgnmsd9pfs5h8qkv9p3pkmdj-sandhi-exchange"
+  },
+  "errors": [],
+  "probes": {
+    "b-outbox-unchanged": true,
+    "c->a:contract": {
+      "detail": "timed out",
+      "host": "192.168.1.10",
+      "outcome": "timeout",
+      "port": 7443,
+      "probe": "connect",
+      "seconds": 5.066
+    },
+    "c->b:contract": {
+      "detail": "timed out",
+      "host": "192.168.1.20",
+      "outcome": "timeout",
+      "port": 7443,
+      "probe": "connect",
+      "seconds": 5.056
+    },
+    "oversize-frame": {
+      "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+      "detail": "ConnectionResetError: ConnectionResetError",
+      "host": "192.168.1.20",
+      "label": "oversize",
+      "outcome": "no-ack",
+      "port": 7443,
+      "probe": "tls",
+      "sent_bytes": 16389,
+      "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88"
+    },
+    "trusted-unmapped-certificate": {
+      "client_fingerprint": "85de451b2eb74dea356f6e47a8c244ae99125a94f8697c6c0fa5351866878bc9",
+      "detail": "ConnectionResetError: ConnectionResetError",
+      "host": "192.168.1.20",
+      "label": "unmapped",
+      "message_id": "b0106968557693310611d06d7e8fca64",
+      "outcome": "no-ack",
+      "port": 7443,
+      "probe": "tls",
+      "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+      "sha256": "dfb88a30222312c13036acabbfa4d6509251cc2898bc34cd773811ae04f38cb4"
+    },
+    "turn-8": {
+      "ack": {
+        "ack": "1e52e3e42157e3b4b9fe36f62fb81585",
+        "reason": "turn-limit",
+        "result": "rejected"
+      },
+      "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+      "host": "192.168.1.20",
+      "label": "turn-8",
+      "message_id": "1e52e3e42157e3b4b9fe36f62fb81585",
+      "outcome": "acked",
+      "port": 7443,
+      "probe": "tls",
+      "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+      "sha256": "13ec3ff01961a82e22bb98447b0186f893e7ce52243325db057baa52d3b95a56"
+    },
+    "untrusted-certificate": {
+      "client_fingerprint": "c8572c8d7de9f926cef49273800a4654a0e91c16a42461b9b33a168a6538fcf2",
+      "detail": "SSLError: SSLError",
+      "host": "192.168.1.20",
+      "label": "untrusted",
+      "message_id": "11b123f394aa68fb9f57e25743168327",
+      "outcome": "no-ack",
+      "port": 7443,
+      "probe": "tls",
+      "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+      "sha256": "0583dc18515845f068ec1c6ec71bca4167c9319c0bc83264bb04f6abfbd2e35b"
+    },
+    "wrong-sender": {
+      "ack": {
+        "ack": "b4e474210c0ecc44535ca203e3324ae8",
+        "reason": "sender-mismatch",
+        "result": "rejected"
+      },
+      "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+      "host": "192.168.1.20",
+      "label": "wrong-sender",
+      "message_id": "b4e474210c0ecc44535ca203e3324ae8",
+      "outcome": "acked",
+      "port": 7443,
+      "probe": "tls",
+      "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+      "sha256": "57044ec92c027ae786815b5f84f234f354cf7712efbc055c476445ec91a9684c"
+    }
+  },
+  "scope": "Stage A transport test (DECISIONS.md 2026-10-05); deterministic responders; one builder, three guests; not AI communication or independent administration",
+  "testScriptSeconds": 793.5,
+  "trials": {
+    "t1-baseline": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:34:39.583Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "ca07f30a99e83a3da40b93e0107e406e",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:34:42.682Z",
+            "direction": "in",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "from": "192.168.1.20",
+            "message_id": "b5da46ffb3d93d7bf8b23a5b82a1f181",
+            "peer": "installation-b",
+            "result": "accepted",
+            "sha256": "68a17362801a8407f1afa457674d52b3204b0d4f4d45b0848ca849a675f0235e",
+            "turn": 1
+          },
+          {
+            "at": "2026-10-05T16:34:45.009Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "61bd994edb5897a03775dc7be8f28889",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "1b7469dcd3f3e24a7ecdc5eebf64987f",
+            "deadline": "2026-10-05T16:38:35Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:34:35.509Z",
+            "trial": "t1-baseline"
+          },
+          "ended_at": "2026-10-05T16:35:26.571Z",
+          "inbox": {
+            "b5da46ffb3d93d7bf8b23a5b82a1f181": {
+              "sha256": "68a17362801a8407f1afa457674d52b3204b0d4f4d45b0848ca849a675f0235e",
+              "turn": 1
+            }
+          },
+          "local_id": "installation-a",
+          "outbox": {
+            "61bd994edb5897a03775dc7be8f28889": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "555c29bfc82002f06283e91970acc961040a9f46e057b11791eec7cf6ae3960e",
+              "turn": 2
+            },
+            "ca07f30a99e83a3da40b93e0107e406e": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "967c4ef2e8fbc934f3e0aa2332e51a5a82168b794f8af4a096c5a94327ac5e70",
+              "turn": 0
+            }
+          },
+          "status": {
+            "conversation_id": "1b7469dcd3f3e24a7ecdc5eebf64987f",
+            "decided_at": "2026-10-05T16:34:44.810Z",
+            "digest": "b36ea8b3c8a1def9f5bef55883968b95aaa2da39a4c0d4ed6ac93f3a2e57a616",
+            "local_id": "installation-a",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:34:35.601Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "014c0e48dd7f4cc5bdf77fc794ad8188",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 300,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1253
+          },
+          {
+            "at": "2026-10-05T16:34:44.830Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:35:26.596Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:34:35.954Z",
+            "event": "invoke",
+            "incoming": null
+          },
+          {
+            "at": "2026-10-05T16:34:42.941Z",
+            "event": "invoke",
+            "incoming": "b5da46ffb3d93d7bf8b23a5b82a1f181"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "1b7469dcd3f3e24a7ecdc5eebf64987f",
+          "decided_at": "2026-10-05T16:34:44.810Z",
+          "digest": "b36ea8b3c8a1def9f5bef55883968b95aaa2da39a4c0d4ed6ac93f3a2e57a616",
+          "local_id": "installation-a",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:34:39.492Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "ca07f30a99e83a3da40b93e0107e406e",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "967c4ef2e8fbc934f3e0aa2332e51a5a82168b794f8af4a096c5a94327ac5e70",
+            "turn": 0
+          },
+          {
+            "at": "2026-10-05T16:34:42.659Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "message_id": "b5da46ffb3d93d7bf8b23a5b82a1f181",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:34:44.936Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "61bd994edb5897a03775dc7be8f28889",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "555c29bfc82002f06283e91970acc961040a9f46e057b11791eec7cf6ae3960e",
+            "turn": 2
+          },
+          {
+            "at": "2026-10-05T16:35:07.567Z",
+            "direction": "in",
+            "from": "192.168.1.10",
+            "reason": "SSLCertVerificationError: [SSL: CERTIFICATE_VERIFY_FAILED] certificate verify failed: self-signed certificate (_ssl.c:1032)",
+            "result": "tls-failed"
+          },
+          {
+            "at": "2026-10-05T16:35:11.309Z",
+            "direction": "in",
+            "fingerprint": "85de451b2eb74dea356f6e47a8c244ae99125a94f8697c6c0fa5351866878bc9",
+            "from": "192.168.1.10",
+            "reason": "unmapped-certificate",
+            "result": "unauthenticated"
+          },
+          {
+            "at": "2026-10-05T16:35:15.389Z",
+            "bytes": 282,
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "b4e474210c0ecc44535ca203e3324ae8",
+            "peer": "installation-a",
+            "reason": "sender-mismatch",
+            "result": "rejected",
+            "sha256": "57044ec92c027ae786815b5f84f234f354cf7712efbc055c476445ec91a9684c"
+          },
+          {
+            "at": "2026-10-05T16:35:19.172Z",
+            "bytes": 312,
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "1e52e3e42157e3b4b9fe36f62fb81585",
+            "peer": "installation-a",
+            "reason": "turn-limit",
+            "result": "rejected",
+            "sha256": "13ec3ff01961a82e22bb98447b0186f893e7ce52243325db057baa52d3b95a56"
+          },
+          {
+            "at": "2026-10-05T16:35:23.174Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "peer": "installation-a",
+            "reason": "frame-size",
+            "result": "rejected",
+            "stage": "frame"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "1b7469dcd3f3e24a7ecdc5eebf64987f",
+            "deadline": "2026-10-05T16:38:26Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:34:26.133Z",
+            "trial": "t1-baseline"
+          },
+          "ended_at": "2026-10-05T16:35:30.699Z",
+          "inbox": {
+            "61bd994edb5897a03775dc7be8f28889": {
+              "sha256": "555c29bfc82002f06283e91970acc961040a9f46e057b11791eec7cf6ae3960e",
+              "turn": 2
+            },
+            "ca07f30a99e83a3da40b93e0107e406e": {
+              "sha256": "967c4ef2e8fbc934f3e0aa2332e51a5a82168b794f8af4a096c5a94327ac5e70",
+              "turn": 0
+            }
+          },
+          "local_id": "installation-b",
+          "outbox": {
+            "b5da46ffb3d93d7bf8b23a5b82a1f181": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "68a17362801a8407f1afa457674d52b3204b0d4f4d45b0848ca849a675f0235e",
+              "turn": 1
+            }
+          },
+          "status": {
+            "conversation_id": "1b7469dcd3f3e24a7ecdc5eebf64987f",
+            "decided_at": "2026-10-05T16:34:47.047Z",
+            "digest": "b36ea8b3c8a1def9f5bef55883968b95aaa2da39a4c0d4ed6ac93f3a2e57a616",
+            "local_id": "installation-b",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:34:26.252Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "3cf0d6849f654e7d93ce08cedbbd1e28",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 300,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1237
+          },
+          {
+            "at": "2026-10-05T16:34:47.065Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:35:30.725Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:34:39.542Z",
+            "event": "invoke",
+            "incoming": "ca07f30a99e83a3da40b93e0107e406e"
+          },
+          {
+            "at": "2026-10-05T16:34:45.038Z",
+            "event": "invoke",
+            "incoming": "61bd994edb5897a03775dc7be8f28889"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "1b7469dcd3f3e24a7ecdc5eebf64987f",
+          "decided_at": "2026-10-05T16:34:47.047Z",
+          "digest": "b36ea8b3c8a1def9f5bef55883968b95aaa2da39a4c0d4ed6ac93f3a2e57a616",
+          "local_id": "installation-b",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {
+          "61bd994edb5897a03775dc7be8f28889": true,
+          "ca07f30a99e83a3da40b93e0107e406e": true
+        },
+        "b->a": {
+          "b5da46ffb3d93d7bf8b23a5b82a1f181": true
+        }
+      },
+      "complete": true,
+      "expectedDigest": "b36ea8b3c8a1def9f5bef55883968b95aaa2da39a4c0d4ed6ac93f3a2e57a616",
+      "faults": {},
+      "label": "t1-baseline",
+      "seconds": 240,
+      "secondsToStatus": 34.2,
+      "since": {
+        "a": "1791218054",
+        "b": "1791218054"
+      }
+    },
+    "t2-duplicate": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:35:54.417Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "7b5f734bf3509da5703b946b65b9d4a7",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:35:54.516Z",
+            "attempt": 1,
+            "direction": "out",
+            "fault": "resend-acked",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "7b5f734bf3509da5703b946b65b9d4a7",
+            "reason": "",
+            "result": "ack-duplicate",
+            "sha256": "f0c9970dab654650293aa5bd8bc007ef57ef2da32744b6c8ba12c175a6e8d813",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:35:57.610Z",
+            "direction": "in",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "from": "192.168.1.20",
+            "message_id": "65fd78ec1056cccf1ae1f0065bdd356c",
+            "peer": "installation-b",
+            "result": "accepted",
+            "sha256": "3afeac4b585bb5dae483dbee6a5cb7a21aab4bf4d6a12dbf2088a6201d8c3436",
+            "turn": 1
+          },
+          {
+            "at": "2026-10-05T16:35:59.750Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "c137cbcbaa63da22378babeab3f80fdd",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "f50422d0a35c288df972f27d87d639c4",
+            "deadline": "2026-10-05T16:39:51Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:35:51.816Z",
+            "trial": "t2-duplicate"
+          },
+          "ended_at": "2026-10-05T16:36:04.730Z",
+          "inbox": {
+            "65fd78ec1056cccf1ae1f0065bdd356c": {
+              "sha256": "3afeac4b585bb5dae483dbee6a5cb7a21aab4bf4d6a12dbf2088a6201d8c3436",
+              "turn": 1
+            }
+          },
+          "local_id": "installation-a",
+          "outbox": {
+            "7b5f734bf3509da5703b946b65b9d4a7": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "f0c9970dab654650293aa5bd8bc007ef57ef2da32744b6c8ba12c175a6e8d813",
+              "turn": 0
+            },
+            "c137cbcbaa63da22378babeab3f80fdd": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "e48a83eb851df41e520ed6def48f4d052d75b635304775c8371751846ea28624",
+              "turn": 2
+            }
+          },
+          "status": {
+            "conversation_id": "f50422d0a35c288df972f27d87d639c4",
+            "decided_at": "2026-10-05T16:35:59.520Z",
+            "digest": "0214e6bf34cc74c904b3a48499b91723540a190d04baeb6813a305f41b76f0bf",
+            "local_id": "installation-a",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:35:51.839Z",
+            "event": "start",
+            "faults": [
+              "resend-acked"
+            ],
+            "invocation": "e369cd6c87e94e5bb889f2f77fcd8a4b",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1335
+          },
+          {
+            "at": "2026-10-05T16:35:54.476Z",
+            "event": "fault",
+            "point": "resend-acked"
+          },
+          {
+            "at": "2026-10-05T16:35:59.538Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:36:04.755Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [
+          "resend-acked"
+        ],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:35:52.008Z",
+            "event": "invoke",
+            "incoming": null
+          },
+          {
+            "at": "2026-10-05T16:35:57.767Z",
+            "event": "invoke",
+            "incoming": "65fd78ec1056cccf1ae1f0065bdd356c"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "f50422d0a35c288df972f27d87d639c4",
+          "decided_at": "2026-10-05T16:35:59.520Z",
+          "digest": "0214e6bf34cc74c904b3a48499b91723540a190d04baeb6813a305f41b76f0bf",
+          "local_id": "installation-a",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:35:54.342Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "7b5f734bf3509da5703b946b65b9d4a7",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "f0c9970dab654650293aa5bd8bc007ef57ef2da32744b6c8ba12c175a6e8d813",
+            "turn": 0
+          },
+          {
+            "at": "2026-10-05T16:35:54.444Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "7b5f734bf3509da5703b946b65b9d4a7",
+            "peer": "installation-a",
+            "result": "duplicate",
+            "sha256": "f0c9970dab654650293aa5bd8bc007ef57ef2da32744b6c8ba12c175a6e8d813"
+          },
+          {
+            "at": "2026-10-05T16:35:57.582Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "message_id": "65fd78ec1056cccf1ae1f0065bdd356c",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:35:59.679Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "c137cbcbaa63da22378babeab3f80fdd",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "e48a83eb851df41e520ed6def48f4d052d75b635304775c8371751846ea28624",
+            "turn": 2
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "f50422d0a35c288df972f27d87d639c4",
+            "deadline": "2026-10-05T16:39:47Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:35:47.347Z",
+            "trial": "t2-duplicate"
+          },
+          "ended_at": "2026-10-05T16:36:07.764Z",
+          "inbox": {
+            "7b5f734bf3509da5703b946b65b9d4a7": {
+              "sha256": "f0c9970dab654650293aa5bd8bc007ef57ef2da32744b6c8ba12c175a6e8d813",
+              "turn": 0
+            },
+            "c137cbcbaa63da22378babeab3f80fdd": {
+              "sha256": "e48a83eb851df41e520ed6def48f4d052d75b635304775c8371751846ea28624",
+              "turn": 2
+            }
+          },
+          "local_id": "installation-b",
+          "outbox": {
+            "65fd78ec1056cccf1ae1f0065bdd356c": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "3afeac4b585bb5dae483dbee6a5cb7a21aab4bf4d6a12dbf2088a6201d8c3436",
+              "turn": 1
+            }
+          },
+          "status": {
+            "conversation_id": "f50422d0a35c288df972f27d87d639c4",
+            "decided_at": "2026-10-05T16:36:02.452Z",
+            "digest": "0214e6bf34cc74c904b3a48499b91723540a190d04baeb6813a305f41b76f0bf",
+            "local_id": "installation-b",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:35:47.370Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "233266eab8414dba9ebf44b6bdb87320",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1359
+          },
+          {
+            "at": "2026-10-05T16:36:02.478Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:36:07.792Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:35:54.510Z",
+            "event": "invoke",
+            "incoming": "7b5f734bf3509da5703b946b65b9d4a7"
+          },
+          {
+            "at": "2026-10-05T16:35:59.860Z",
+            "event": "invoke",
+            "incoming": "c137cbcbaa63da22378babeab3f80fdd"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "f50422d0a35c288df972f27d87d639c4",
+          "decided_at": "2026-10-05T16:36:02.452Z",
+          "digest": "0214e6bf34cc74c904b3a48499b91723540a190d04baeb6813a305f41b76f0bf",
+          "local_id": "installation-b",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {
+          "7b5f734bf3509da5703b946b65b9d4a7": true,
+          "c137cbcbaa63da22378babeab3f80fdd": true
+        },
+        "b->a": {
+          "65fd78ec1056cccf1ae1f0065bdd356c": true
+        }
+      },
+      "complete": true,
+      "expectedDigest": "0214e6bf34cc74c904b3a48499b91723540a190d04baeb6813a305f41b76f0bf",
+      "faults": {
+        "a": [
+          "resend-acked"
+        ]
+      },
+      "label": "t2-duplicate",
+      "seconds": 240,
+      "secondsToStatus": 32.4,
+      "since": {
+        "a": "1791218139",
+        "b": "1791218139"
+      }
+    },
+    "t3-conflict": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:36:34.521Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "3abda52ac60910ddc22f3726baa5cf4e",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:36:34.706Z",
+            "attempt": 1,
+            "direction": "out",
+            "fault": "conflict",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "3abda52ac60910ddc22f3726baa5cf4e",
+            "reason": "conflicting-bytes",
+            "result": "ack-rejected",
+            "sha256": "ffdb54758364b9459edb57850bfc84305b3c63131c26a2a59802f578a7d50dbc",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:36:37.986Z",
+            "direction": "in",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "from": "192.168.1.20",
+            "message_id": "4cd6da60a64dedfc62b87dc95b920cc3",
+            "peer": "installation-b",
+            "result": "accepted",
+            "sha256": "1ec8f39a639c60f38c851aa4cd5602bee782c3204b6b75c6a468c52cf0b19440",
+            "turn": 1
+          },
+          {
+            "at": "2026-10-05T16:36:40.287Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "9714a51f50e3ee6d33623a4d1d59720b",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "b7e2549e53684d474bc5fc4d0c4266b7",
+            "deadline": "2026-10-05T16:40:31Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:36:31.690Z",
+            "trial": "t3-conflict"
+          },
+          "ended_at": "2026-10-05T16:36:45.186Z",
+          "inbox": {
+            "4cd6da60a64dedfc62b87dc95b920cc3": {
+              "sha256": "1ec8f39a639c60f38c851aa4cd5602bee782c3204b6b75c6a468c52cf0b19440",
+              "turn": 1
+            }
+          },
+          "local_id": "installation-a",
+          "outbox": {
+            "3abda52ac60910ddc22f3726baa5cf4e": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "1fd455d60ad3b34d0d25dddb656bddec092de94c9b0909692a7155d621bcb648",
+              "turn": 0
+            },
+            "9714a51f50e3ee6d33623a4d1d59720b": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "19ef7af96c805390a7ded3a4ce7d17eb6849a51ef022680e69e617dab2e63bd9",
+              "turn": 2
+            }
+          },
+          "status": {
+            "conversation_id": "b7e2549e53684d474bc5fc4d0c4266b7",
+            "decided_at": "2026-10-05T16:36:40.107Z",
+            "digest": "8d5031b34d85588acc9b9852f555083cacfbc9c3687632a6ff0964cd6c6a8ec5",
+            "local_id": "installation-a",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:36:31.747Z",
+            "event": "start",
+            "faults": [
+              "conflict"
+            ],
+            "invocation": "944e4641b3cc428f9945829ccab35dcb",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1405
+          },
+          {
+            "at": "2026-10-05T16:36:34.591Z",
+            "event": "fault",
+            "point": "conflict"
+          },
+          {
+            "at": "2026-10-05T16:36:40.126Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:36:45.213Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [
+          "conflict"
+        ],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:36:31.946Z",
+            "event": "invoke",
+            "incoming": null
+          },
+          {
+            "at": "2026-10-05T16:36:38.242Z",
+            "event": "invoke",
+            "incoming": "4cd6da60a64dedfc62b87dc95b920cc3"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "b7e2549e53684d474bc5fc4d0c4266b7",
+          "decided_at": "2026-10-05T16:36:40.107Z",
+          "digest": "8d5031b34d85588acc9b9852f555083cacfbc9c3687632a6ff0964cd6c6a8ec5",
+          "local_id": "installation-a",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:36:34.445Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "3abda52ac60910ddc22f3726baa5cf4e",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "1fd455d60ad3b34d0d25dddb656bddec092de94c9b0909692a7155d621bcb648",
+            "turn": 0
+          },
+          {
+            "at": "2026-10-05T16:36:34.579Z",
+            "bytes": 323,
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "3abda52ac60910ddc22f3726baa5cf4e",
+            "peer": "installation-a",
+            "reason": "conflicting-bytes",
+            "result": "rejected",
+            "sha256": "ffdb54758364b9459edb57850bfc84305b3c63131c26a2a59802f578a7d50dbc"
+          },
+          {
+            "at": "2026-10-05T16:36:37.960Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "message_id": "4cd6da60a64dedfc62b87dc95b920cc3",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:36:40.214Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "9714a51f50e3ee6d33623a4d1d59720b",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "19ef7af96c805390a7ded3a4ce7d17eb6849a51ef022680e69e617dab2e63bd9",
+            "turn": 2
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "b7e2549e53684d474bc5fc4d0c4266b7",
+            "deadline": "2026-10-05T16:40:27Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:36:27.585Z",
+            "trial": "t3-conflict"
+          },
+          "ended_at": "2026-10-05T16:36:48.318Z",
+          "inbox": {
+            "3abda52ac60910ddc22f3726baa5cf4e": {
+              "sha256": "1fd455d60ad3b34d0d25dddb656bddec092de94c9b0909692a7155d621bcb648",
+              "turn": 0
+            },
+            "9714a51f50e3ee6d33623a4d1d59720b": {
+              "sha256": "19ef7af96c805390a7ded3a4ce7d17eb6849a51ef022680e69e617dab2e63bd9",
+              "turn": 2
+            }
+          },
+          "local_id": "installation-b",
+          "outbox": {
+            "4cd6da60a64dedfc62b87dc95b920cc3": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "1ec8f39a639c60f38c851aa4cd5602bee782c3204b6b75c6a468c52cf0b19440",
+              "turn": 1
+            }
+          },
+          "status": {
+            "conversation_id": "b7e2549e53684d474bc5fc4d0c4266b7",
+            "decided_at": "2026-10-05T16:36:43.062Z",
+            "digest": "8d5031b34d85588acc9b9852f555083cacfbc9c3687632a6ff0964cd6c6a8ec5",
+            "local_id": "installation-b",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:36:27.638Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "4063871592c545bf86ce4097761e0a78",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1482
+          },
+          {
+            "at": "2026-10-05T16:36:43.099Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:36:48.338Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:36:34.481Z",
+            "event": "invoke",
+            "incoming": "3abda52ac60910ddc22f3726baa5cf4e"
+          },
+          {
+            "at": "2026-10-05T16:36:40.305Z",
+            "event": "invoke",
+            "incoming": "9714a51f50e3ee6d33623a4d1d59720b"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "b7e2549e53684d474bc5fc4d0c4266b7",
+          "decided_at": "2026-10-05T16:36:43.062Z",
+          "digest": "8d5031b34d85588acc9b9852f555083cacfbc9c3687632a6ff0964cd6c6a8ec5",
+          "local_id": "installation-b",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {
+          "3abda52ac60910ddc22f3726baa5cf4e": true,
+          "9714a51f50e3ee6d33623a4d1d59720b": true
+        },
+        "b->a": {
+          "4cd6da60a64dedfc62b87dc95b920cc3": true
+        }
+      },
+      "complete": true,
+      "expectedDigest": "8d5031b34d85588acc9b9852f555083cacfbc9c3687632a6ff0964cd6c6a8ec5",
+      "faults": {
+        "a": [
+          "conflict"
+        ]
+      },
+      "label": "t3-conflict",
+      "seconds": 240,
+      "secondsToStatus": 32.0,
+      "since": {
+        "a": "1791218180",
+        "b": "1791218180"
+      }
+    },
+    "t4-I1": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:37:16.882Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "reason": "truncated-frame",
+            "result": "transfer-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:37:19.071Z",
+            "attempt": 2,
+            "direction": "out",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:37:21.251Z",
+            "attempt": 3,
+            "direction": "out",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:37:23.404Z",
+            "attempt": 4,
+            "direction": "out",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:37:25.571Z",
+            "attempt": 5,
+            "direction": "out",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:37:27.869Z",
+            "attempt": 6,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:37:31.098Z",
+            "direction": "in",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "from": "192.168.1.20",
+            "message_id": "bf9d5d23af456bfd7d5ecf8db0830d37",
+            "peer": "installation-b",
+            "result": "accepted",
+            "sha256": "e4455959b23472799b87ad807d8ce39c35daeead3a90ef9d24088598358d6b07",
+            "turn": 1
+          },
+          {
+            "at": "2026-10-05T16:37:33.328Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "6ceb6cf67aeba47f7fdebdedbc6ac9de",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "90d4a2a31fa4a0ec911f5d601ea93e5a",
+            "deadline": "2026-10-05T16:41:14Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:37:14.220Z",
+            "trial": "t4-I1"
+          },
+          "ended_at": "2026-10-05T16:37:38.279Z",
+          "inbox": {
+            "bf9d5d23af456bfd7d5ecf8db0830d37": {
+              "sha256": "e4455959b23472799b87ad807d8ce39c35daeead3a90ef9d24088598358d6b07",
+              "turn": 1
+            }
+          },
+          "local_id": "installation-a",
+          "outbox": {
+            "1e65520b7227c40ae7b57d6e7e9d68b4": {
+              "ack": "accepted",
+              "attempts": 6,
+              "sha256": "1cce4383ce3c613dbe57e6303ffe1ad003605fa2bf11546d8b55e4f5507730ab",
+              "turn": 0
+            },
+            "6ceb6cf67aeba47f7fdebdedbc6ac9de": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "92eb88e4e9bed1af10261c51eeb88b6cf392b8fd9c601c4573e8eb7219930038",
+              "turn": 2
+            }
+          },
+          "status": {
+            "conversation_id": "90d4a2a31fa4a0ec911f5d601ea93e5a",
+            "decided_at": "2026-10-05T16:37:33.142Z",
+            "digest": "f3bcdfde7c64fc1130cdedffcaac4654ef7b5fb09cc327800a788efb2829419c",
+            "local_id": "installation-a",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:37:14.247Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "27fbfe325ef2408486afaee2c1b26efe",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1474
+          },
+          {
+            "at": "2026-10-05T16:37:33.156Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:37:38.298Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:37:14.409Z",
+            "event": "invoke",
+            "incoming": null
+          },
+          {
+            "at": "2026-10-05T16:37:31.128Z",
+            "event": "invoke",
+            "incoming": "bf9d5d23af456bfd7d5ecf8db0830d37"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "90d4a2a31fa4a0ec911f5d601ea93e5a",
+          "decided_at": "2026-10-05T16:37:33.142Z",
+          "digest": "f3bcdfde7c64fc1130cdedffcaac4654ef7b5fb09cc327800a788efb2829419c",
+          "local_id": "installation-a",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:37:27.796Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "1e65520b7227c40ae7b57d6e7e9d68b4",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "1cce4383ce3c613dbe57e6303ffe1ad003605fa2bf11546d8b55e4f5507730ab",
+            "turn": 0
+          },
+          {
+            "at": "2026-10-05T16:37:31.066Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "message_id": "bf9d5d23af456bfd7d5ecf8db0830d37",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:37:33.257Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "6ceb6cf67aeba47f7fdebdedbc6ac9de",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "92eb88e4e9bed1af10261c51eeb88b6cf392b8fd9c601c4573e8eb7219930038",
+            "turn": 2
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "90d4a2a31fa4a0ec911f5d601ea93e5a",
+            "deadline": "2026-10-05T16:41:09Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:37:09.079Z",
+            "trial": "t4-I1"
+          },
+          "ended_at": "2026-10-05T16:37:41.445Z",
+          "inbox": {
+            "1e65520b7227c40ae7b57d6e7e9d68b4": {
+              "sha256": "1cce4383ce3c613dbe57e6303ffe1ad003605fa2bf11546d8b55e4f5507730ab",
+              "turn": 0
+            },
+            "6ceb6cf67aeba47f7fdebdedbc6ac9de": {
+              "sha256": "92eb88e4e9bed1af10261c51eeb88b6cf392b8fd9c601c4573e8eb7219930038",
+              "turn": 2
+            }
+          },
+          "local_id": "installation-b",
+          "outbox": {
+            "bf9d5d23af456bfd7d5ecf8db0830d37": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "e4455959b23472799b87ad807d8ce39c35daeead3a90ef9d24088598358d6b07",
+              "turn": 1
+            }
+          },
+          "status": {
+            "conversation_id": "90d4a2a31fa4a0ec911f5d601ea93e5a",
+            "decided_at": "2026-10-05T16:37:36.149Z",
+            "digest": "f3bcdfde7c64fc1130cdedffcaac4654ef7b5fb09cc327800a788efb2829419c",
+            "local_id": "installation-b",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:37:09.100Z",
+            "event": "start",
+            "faults": [
+              "I1"
+            ],
+            "invocation": "3ed78969d00244728128de3f9e3a06eb",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1605
+          },
+          {
+            "at": "2026-10-05T16:37:16.764Z",
+            "event": "fault",
+            "point": "I1"
+          },
+          {
+            "at": "2026-10-05T16:37:26.915Z",
+            "event": "start",
+            "faults": [
+              "I1"
+            ],
+            "invocation": "76a89f12f3514252aafe019c4e0ab952",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1652
+          },
+          {
+            "at": "2026-10-05T16:37:36.185Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:37:41.468Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [
+          "I1"
+        ],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:37:27.990Z",
+            "event": "invoke",
+            "incoming": "1e65520b7227c40ae7b57d6e7e9d68b4"
+          },
+          {
+            "at": "2026-10-05T16:37:33.479Z",
+            "event": "invoke",
+            "incoming": "6ceb6cf67aeba47f7fdebdedbc6ac9de"
+          }
+        ],
+        "processStarts": 2,
+        "status": {
+          "conversation_id": "90d4a2a31fa4a0ec911f5d601ea93e5a",
+          "decided_at": "2026-10-05T16:37:36.149Z",
+          "digest": "f3bcdfde7c64fc1130cdedffcaac4654ef7b5fb09cc327800a788efb2829419c",
+          "local_id": "installation-b",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 1,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {
+          "1e65520b7227c40ae7b57d6e7e9d68b4": true,
+          "6ceb6cf67aeba47f7fdebdedbc6ac9de": true
+        },
+        "b->a": {
+          "bf9d5d23af456bfd7d5ecf8db0830d37": true
+        }
+      },
+      "complete": true,
+      "expectedDigest": "f3bcdfde7c64fc1130cdedffcaac4654ef7b5fb09cc327800a788efb2829419c",
+      "faults": {
+        "b": [
+          "I1"
+        ]
+      },
+      "label": "t4-I1",
+      "seconds": 240,
+      "secondsToStatus": 44.3,
+      "since": {
+        "a": "1791218220",
+        "b": "1791218221"
+      }
+    },
+    "t5-I2": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:38:07.721Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "reason": "truncated-frame",
+            "result": "transfer-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:38:09.909Z",
+            "attempt": 2,
+            "direction": "out",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:38:12.095Z",
+            "attempt": 3,
+            "direction": "out",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:38:14.302Z",
+            "attempt": 4,
+            "direction": "out",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:38:16.480Z",
+            "attempt": 5,
+            "direction": "out",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:38:19.305Z",
+            "attempt": 6,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "reason": "",
+            "result": "ack-duplicate",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:38:21.686Z",
+            "direction": "in",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "from": "192.168.1.20",
+            "message_id": "05aedb3d9754d09b764625d5c2c22822",
+            "peer": "installation-b",
+            "result": "accepted",
+            "sha256": "6a697ed37734d19556a1816f73f91a0469365bd206695809d2e54cabc4c2e42e",
+            "turn": 1
+          },
+          {
+            "at": "2026-10-05T16:38:23.598Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "6da8f768b5e25e06d44bb6bf6978048c",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "0ef4a61b4cdbf968859d0d843db17e83",
+            "deadline": "2026-10-05T16:42:05Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:38:05.300Z",
+            "trial": "t5-I2"
+          },
+          "ended_at": "2026-10-05T16:38:28.724Z",
+          "inbox": {
+            "05aedb3d9754d09b764625d5c2c22822": {
+              "sha256": "6a697ed37734d19556a1816f73f91a0469365bd206695809d2e54cabc4c2e42e",
+              "turn": 1
+            }
+          },
+          "local_id": "installation-a",
+          "outbox": {
+            "0ce12af54cd0c9c5a11dfc27e0cb6553": {
+              "ack": "duplicate",
+              "attempts": 6,
+              "sha256": "5836dce333dd99801d92b19f0d3de5a90caafff6e85533b9172d18b3d7916536",
+              "turn": 0
+            },
+            "6da8f768b5e25e06d44bb6bf6978048c": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "2c33bfebec4ef3ac2e2d110b6734fca029e0a46aab7d190ab72c694c8af19dfc",
+              "turn": 2
+            }
+          },
+          "status": {
+            "conversation_id": "0ef4a61b4cdbf968859d0d843db17e83",
+            "decided_at": "2026-10-05T16:38:23.429Z",
+            "digest": "11d8f3a94c990a1baab00399cad72b2cc390e38e969b471e181b0d7b00a9ed1c",
+            "local_id": "installation-a",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:38:05.319Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "c0a3bf7ee45d4b2a89b6f679e92d0fad",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1548
+          },
+          {
+            "at": "2026-10-05T16:38:23.447Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:38:28.743Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:38:05.435Z",
+            "event": "invoke",
+            "incoming": null
+          },
+          {
+            "at": "2026-10-05T16:38:21.773Z",
+            "event": "invoke",
+            "incoming": "05aedb3d9754d09b764625d5c2c22822"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "0ef4a61b4cdbf968859d0d843db17e83",
+          "decided_at": "2026-10-05T16:38:23.429Z",
+          "digest": "11d8f3a94c990a1baab00399cad72b2cc390e38e969b471e181b0d7b00a9ed1c",
+          "local_id": "installation-a",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:38:07.597Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "5836dce333dd99801d92b19f0d3de5a90caafff6e85533b9172d18b3d7916536",
+            "turn": 0
+          },
+          {
+            "at": "2026-10-05T16:38:19.198Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "0ce12af54cd0c9c5a11dfc27e0cb6553",
+            "peer": "installation-a",
+            "result": "duplicate",
+            "sha256": "5836dce333dd99801d92b19f0d3de5a90caafff6e85533b9172d18b3d7916536"
+          },
+          {
+            "at": "2026-10-05T16:38:21.650Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "message_id": "05aedb3d9754d09b764625d5c2c22822",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:38:23.528Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "6da8f768b5e25e06d44bb6bf6978048c",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "2c33bfebec4ef3ac2e2d110b6734fca029e0a46aab7d190ab72c694c8af19dfc",
+            "turn": 2
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "0ef4a61b4cdbf968859d0d843db17e83",
+            "deadline": "2026-10-05T16:42:00Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:38:00.698Z",
+            "trial": "t5-I2"
+          },
+          "ended_at": "2026-10-05T16:38:30.849Z",
+          "inbox": {
+            "0ce12af54cd0c9c5a11dfc27e0cb6553": {
+              "sha256": "5836dce333dd99801d92b19f0d3de5a90caafff6e85533b9172d18b3d7916536",
+              "turn": 0
+            },
+            "6da8f768b5e25e06d44bb6bf6978048c": {
+              "sha256": "2c33bfebec4ef3ac2e2d110b6734fca029e0a46aab7d190ab72c694c8af19dfc",
+              "turn": 2
+            }
+          },
+          "local_id": "installation-b",
+          "outbox": {
+            "05aedb3d9754d09b764625d5c2c22822": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "6a697ed37734d19556a1816f73f91a0469365bd206695809d2e54cabc4c2e42e",
+              "turn": 1
+            }
+          },
+          "status": {
+            "conversation_id": "0ef4a61b4cdbf968859d0d843db17e83",
+            "decided_at": "2026-10-05T16:38:25.745Z",
+            "digest": "11d8f3a94c990a1baab00399cad72b2cc390e38e969b471e181b0d7b00a9ed1c",
+            "local_id": "installation-b",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:38:00.722Z",
+            "event": "start",
+            "faults": [
+              "I2"
+            ],
+            "invocation": "5e516faa7fa94d12bfb4b58ac71578a7",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1772
+          },
+          {
+            "at": "2026-10-05T16:38:07.627Z",
+            "event": "fault",
+            "point": "I2"
+          },
+          {
+            "at": "2026-10-05T16:38:18.508Z",
+            "event": "start",
+            "faults": [
+              "I2"
+            ],
+            "invocation": "66298d919c53485ba0d24d6e841ceebe",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1819
+          },
+          {
+            "at": "2026-10-05T16:38:25.784Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:38:30.904Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [
+          "I2"
+        ],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:38:18.721Z",
+            "event": "invoke",
+            "incoming": "0ce12af54cd0c9c5a11dfc27e0cb6553"
+          },
+          {
+            "at": "2026-10-05T16:38:23.646Z",
+            "event": "invoke",
+            "incoming": "6da8f768b5e25e06d44bb6bf6978048c"
+          }
+        ],
+        "processStarts": 2,
+        "status": {
+          "conversation_id": "0ef4a61b4cdbf968859d0d843db17e83",
+          "decided_at": "2026-10-05T16:38:25.745Z",
+          "digest": "11d8f3a94c990a1baab00399cad72b2cc390e38e969b471e181b0d7b00a9ed1c",
+          "local_id": "installation-b",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 1,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {
+          "0ce12af54cd0c9c5a11dfc27e0cb6553": true,
+          "6da8f768b5e25e06d44bb6bf6978048c": true
+        },
+        "b->a": {
+          "05aedb3d9754d09b764625d5c2c22822": true
+        }
+      },
+      "complete": true,
+      "expectedDigest": "11d8f3a94c990a1baab00399cad72b2cc390e38e969b471e181b0d7b00a9ed1c",
+      "faults": {
+        "b": [
+          "I2"
+        ]
+      },
+      "label": "t5-I2",
+      "seconds": 240,
+      "secondsToStatus": 41.9,
+      "since": {
+        "a": "1791218273",
+        "b": "1791218273"
+      }
+    },
+    "t6-I3": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:39:08.060Z",
+            "attempt": 2,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "8f1ce635f212eb188f842d130c2cdeb9",
+            "reason": "",
+            "result": "ack-duplicate",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:39:08.450Z",
+            "direction": "in",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "from": "192.168.1.20",
+            "message_id": "c4fb6a1050464c08add5179eaaec137a",
+            "peer": "installation-b",
+            "result": "accepted",
+            "sha256": "749fe1b0b0c9dd6e6cb88798b2e256e2b9ebc02e092af4c42315719bc0865fa5",
+            "turn": 1
+          },
+          {
+            "at": "2026-10-05T16:39:10.651Z",
+            "attempt": 1,
+            "direction": "out",
+            "fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+            "message_id": "680d8884b24cff483a42bcfa98fa1f34",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "54a8a2ed60ab27600dcf2912488c55a7",
+            "deadline": "2026-10-05T16:42:56Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:38:56.741Z",
+            "trial": "t6-I3"
+          },
+          "ended_at": "2026-10-05T16:39:15.559Z",
+          "inbox": {
+            "c4fb6a1050464c08add5179eaaec137a": {
+              "sha256": "749fe1b0b0c9dd6e6cb88798b2e256e2b9ebc02e092af4c42315719bc0865fa5",
+              "turn": 1
+            }
+          },
+          "local_id": "installation-a",
+          "outbox": {
+            "680d8884b24cff483a42bcfa98fa1f34": {
+              "ack": "accepted",
+              "attempts": 1,
+              "sha256": "9ff10b53e4387d734116b72698e49063d63ef7408a5057d5fd172f313e7e4352",
+              "turn": 2
+            },
+            "8f1ce635f212eb188f842d130c2cdeb9": {
+              "ack": "duplicate",
+              "attempts": 2,
+              "sha256": "f27b4a66581e5e057e868964a76bfeeec78b7151e9fc0ba2f3545b67e7d84e92",
+              "turn": 0
+            }
+          },
+          "status": {
+            "conversation_id": "54a8a2ed60ab27600dcf2912488c55a7",
+            "decided_at": "2026-10-05T16:39:10.444Z",
+            "digest": "964c56ed0ac25d0e1d5209355acd0aee6e3641c6d893304d972169d364273e7e",
+            "local_id": "installation-a",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:38:56.768Z",
+            "event": "start",
+            "faults": [
+              "I3"
+            ],
+            "invocation": "2d29c1c02d1d45a9afe89eef3b0c2b86",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1618
+          },
+          {
+            "at": "2026-10-05T16:38:59.050Z",
+            "event": "fault",
+            "point": "I3"
+          },
+          {
+            "at": "2026-10-05T16:39:07.533Z",
+            "event": "start",
+            "faults": [
+              "I3"
+            ],
+            "invocation": "7f40e9695d8e4e2fae8bc540f669a50a",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1633
+          },
+          {
+            "at": "2026-10-05T16:39:10.460Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:39:15.576Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [
+          "I3"
+        ],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:38:56.862Z",
+            "event": "invoke",
+            "incoming": null
+          },
+          {
+            "at": "2026-10-05T16:39:08.635Z",
+            "event": "invoke",
+            "incoming": "c4fb6a1050464c08add5179eaaec137a"
+          }
+        ],
+        "processStarts": 2,
+        "status": {
+          "conversation_id": "54a8a2ed60ab27600dcf2912488c55a7",
+          "decided_at": "2026-10-05T16:39:10.444Z",
+          "digest": "964c56ed0ac25d0e1d5209355acd0aee6e3641c6d893304d972169d364273e7e",
+          "local_id": "installation-a",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 1,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:38:59.043Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "8f1ce635f212eb188f842d130c2cdeb9",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "f27b4a66581e5e057e868964a76bfeeec78b7151e9fc0ba2f3545b67e7d84e92",
+            "turn": 0
+          },
+          {
+            "at": "2026-10-05T16:39:01.645Z",
+            "attempt": 1,
+            "direction": "out",
+            "message_id": "c4fb6a1050464c08add5179eaaec137a",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:39:03.817Z",
+            "attempt": 2,
+            "direction": "out",
+            "message_id": "c4fb6a1050464c08add5179eaaec137a",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:39:06.033Z",
+            "attempt": 3,
+            "direction": "out",
+            "message_id": "c4fb6a1050464c08add5179eaaec137a",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:39:07.958Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "8f1ce635f212eb188f842d130c2cdeb9",
+            "peer": "installation-a",
+            "result": "duplicate",
+            "sha256": "f27b4a66581e5e057e868964a76bfeeec78b7151e9fc0ba2f3545b67e7d84e92"
+          },
+          {
+            "at": "2026-10-05T16:39:08.410Z",
+            "attempt": 4,
+            "direction": "out",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "message_id": "c4fb6a1050464c08add5179eaaec137a",
+            "reason": "",
+            "result": "ack-accepted",
+            "to": "192.168.1.10"
+          },
+          {
+            "at": "2026-10-05T16:39:10.579Z",
+            "direction": "in",
+            "fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+            "from": "192.168.1.10",
+            "message_id": "680d8884b24cff483a42bcfa98fa1f34",
+            "peer": "installation-a",
+            "result": "accepted",
+            "sha256": "9ff10b53e4387d734116b72698e49063d63ef7408a5057d5fd172f313e7e4352",
+            "turn": 2
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "54a8a2ed60ab27600dcf2912488c55a7",
+            "deadline": "2026-10-05T16:42:52Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:38:52.062Z",
+            "trial": "t6-I3"
+          },
+          "ended_at": "2026-10-05T16:39:18.423Z",
+          "inbox": {
+            "680d8884b24cff483a42bcfa98fa1f34": {
+              "sha256": "9ff10b53e4387d734116b72698e49063d63ef7408a5057d5fd172f313e7e4352",
+              "turn": 2
+            },
+            "8f1ce635f212eb188f842d130c2cdeb9": {
+              "sha256": "f27b4a66581e5e057e868964a76bfeeec78b7151e9fc0ba2f3545b67e7d84e92",
+              "turn": 0
+            }
+          },
+          "local_id": "installation-b",
+          "outbox": {
+            "c4fb6a1050464c08add5179eaaec137a": {
+              "ack": "accepted",
+              "attempts": 4,
+              "sha256": "749fe1b0b0c9dd6e6cb88798b2e256e2b9ebc02e092af4c42315719bc0865fa5",
+              "turn": 1
+            }
+          },
+          "status": {
+            "conversation_id": "54a8a2ed60ab27600dcf2912488c55a7",
+            "decided_at": "2026-10-05T16:39:13.015Z",
+            "digest": "964c56ed0ac25d0e1d5209355acd0aee6e3641c6d893304d972169d364273e7e",
+            "local_id": "installation-b",
+            "reason": "",
+            "status": "complete"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:38:52.082Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "1e4d4baf8bac4288a0b01c40f0cc1f1d",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 5,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1934
+          },
+          {
+            "at": "2026-10-05T16:39:13.058Z",
+            "event": "terminal",
+            "reason": "",
+            "status": "complete"
+          },
+          {
+            "at": "2026-10-05T16:39:18.457Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:38:59.204Z",
+            "event": "invoke",
+            "incoming": "8f1ce635f212eb188f842d130c2cdeb9"
+          },
+          {
+            "at": "2026-10-05T16:39:10.666Z",
+            "event": "invoke",
+            "incoming": "680d8884b24cff483a42bcfa98fa1f34"
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "54a8a2ed60ab27600dcf2912488c55a7",
+          "decided_at": "2026-10-05T16:39:13.015Z",
+          "digest": "964c56ed0ac25d0e1d5209355acd0aee6e3641c6d893304d972169d364273e7e",
+          "local_id": "installation-b",
+          "reason": "",
+          "status": "complete"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {
+          "680d8884b24cff483a42bcfa98fa1f34": true,
+          "8f1ce635f212eb188f842d130c2cdeb9": true
+        },
+        "b->a": {
+          "c4fb6a1050464c08add5179eaaec137a": true
+        }
+      },
+      "complete": true,
+      "expectedDigest": "964c56ed0ac25d0e1d5209355acd0aee6e3641c6d893304d972169d364273e7e",
+      "faults": {
+        "a": [
+          "I3"
+        ]
+      },
+      "label": "t6-I3",
+      "seconds": 240,
+      "secondsToStatus": 38.4,
+      "since": {
+        "a": "1791218324",
+        "b": "1791218324"
+      }
+    },
+    "t7-withdrawal": {
+      "after": {
+        "allow": "IPAddressAllow=192.168.1.40/32",
+        "listening": true,
+        "switchSeconds": 42.4,
+        "unit": {
+          "ActiveState": "active",
+          "ExecMainStatus": "0",
+          "InvocationID": "583107cdde804a818ef8e4375652db04",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [],
+        "ending": {
+          "conversation": {
+            "conversation_id": null,
+            "deadline": "2026-10-05T16:43:45Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:39:45.133Z",
+            "trial": "t7-withdrawal"
+          },
+          "ended_at": "2026-10-05T16:40:49.413Z",
+          "inbox": {},
+          "local_id": "installation-b",
+          "outbox": {},
+          "status": {
+            "conversation_id": null,
+            "decided_at": "2026-10-05T16:39:58.316Z",
+            "local_id": "installation-b",
+            "reason": "stopped-before-completion",
+            "status": "failed"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:39:45.183Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "0734673a8cb243d89674fbb7b20984d4",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 300,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 2072
+          },
+          {
+            "at": "2026-10-05T16:39:58.409Z",
+            "event": "terminal",
+            "reason": "stopped-before-completion",
+            "status": "failed"
+          },
+          {
+            "at": "2026-10-05T16:39:58.448Z",
+            "event": "exit"
+          },
+          {
+            "at": "2026-10-05T16:40:34.594Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "583107cdde804a818ef8e4375652db04",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 240,
+              "idle_timeout": 120,
+              "linger_seconds": 300,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 2233
+          },
+          {
+            "at": "2026-10-05T16:40:49.472Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [],
+        "processStarts": 2,
+        "status": {
+          "conversation_id": null,
+          "decided_at": "2026-10-05T16:39:58.316Z",
+          "local_id": "installation-b",
+          "reason": "stopped-before-completion",
+          "status": "failed"
+        }
+      },
+      "before": {
+        "allow": "IPAddressAllow=192.168.1.10/32",
+        "unit": {
+          "ActiveState": "active",
+          "ExecMainStatus": "0",
+          "InvocationID": "0734673a8cb243d89674fbb7b20984d4",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "controlStillOpen": {
+        "detail": "",
+        "host": "192.168.1.20",
+        "outcome": "connected",
+        "port": 7444,
+        "probe": "connect",
+        "seconds": 0.061
+      },
+      "existingConnection": {
+        "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+        "detail": "BrokenPipeError: BrokenPipeError",
+        "held_seconds": 45.36,
+        "host": "192.168.1.20",
+        "label": "held",
+        "message_id": "0aaed14c3d896ea92f240c32b18cdd2b",
+        "outcome": "no-ack",
+        "port": 7443,
+        "probe": "tls",
+        "released": true,
+        "server_fingerprint": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+        "sha256": "5bbbf265462034fb090c4a28336d10b8390e2398aa6fef4eb32725ad4e82c7ef"
+      },
+      "newConnection": {
+        "client_fingerprint": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+        "detail": "TimeoutError: timed out",
+        "host": "192.168.1.20",
+        "label": "new-after-withdrawal",
+        "outcome": "connect-failed",
+        "port": 7443,
+        "probe": "tls"
+      }
+    },
+    "t8-channel-cut": {
+      "a": {
+        "attempts": [
+          {
+            "at": "2026-10-05T16:41:14.238Z",
+            "attempt": 1,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:41:21.397Z",
+            "attempt": 2,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:41:28.554Z",
+            "attempt": 3,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:41:35.709Z",
+            "attempt": 4,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:41:42.861Z",
+            "attempt": 5,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:41:50.040Z",
+            "attempt": 6,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:41:57.229Z",
+            "attempt": 7,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:42:04.397Z",
+            "attempt": 8,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "TimeoutError: timed out",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          },
+          {
+            "at": "2026-10-05T16:42:06.639Z",
+            "attempt": 9,
+            "direction": "out",
+            "message_id": "045d5567a352fe8b838f15935ec29a4f",
+            "reason": "ConnectionRefusedError: [Errno 111] Connection refused",
+            "result": "connect-failed",
+            "to": "192.168.1.20"
+          }
+        ],
+        "ending": {
+          "conversation": {
+            "conversation_id": "c31d1ffe155fa28ea3a5aa279435a4b9",
+            "deadline": "2026-10-05T16:42:07Z",
+            "local_id": "installation-a",
+            "opener": true,
+            "peer_id": "installation-b",
+            "started_at": "2026-10-05T16:41:07.020Z",
+            "trial": "t8-channel-cut"
+          },
+          "ended_at": "2026-10-05T16:42:09.117Z",
+          "inbox": {},
+          "local_id": "installation-a",
+          "outbox": {
+            "045d5567a352fe8b838f15935ec29a4f": {
+              "ack": null,
+              "attempts": 9,
+              "sha256": "cd0a0fa202b629cdd426c613aa309bcd6af971e806e85a1702fce684f8a329fc",
+              "turn": 0
+            }
+          },
+          "status": {
+            "conversation_id": "c31d1ffe155fa28ea3a5aa279435a4b9",
+            "decided_at": "2026-10-05T16:42:07.172Z",
+            "local_id": "installation-a",
+            "reason": "deadline-exceeded:undelivered:045d5567a352fe8b838f15935ec29a4f",
+            "status": "failed"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:41:07.053Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "47e1dc5d5b894b2394b6c032ee63ba0d",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 60,
+              "idle_timeout": 120,
+              "linger_seconds": 2,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 1746
+          },
+          {
+            "at": "2026-10-05T16:42:07.188Z",
+            "event": "terminal",
+            "reason": "deadline-exceeded:undelivered:045d5567a352fe8b838f15935ec29a4f",
+            "status": "failed"
+          },
+          {
+            "at": "2026-10-05T16:42:09.146Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [
+          {
+            "at": "2026-10-05T16:41:07.235Z",
+            "event": "invoke",
+            "incoming": null
+          }
+        ],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": "c31d1ffe155fa28ea3a5aa279435a4b9",
+          "decided_at": "2026-10-05T16:42:07.172Z",
+          "local_id": "installation-a",
+          "reason": "deadline-exceeded:undelivered:045d5567a352fe8b838f15935ec29a4f",
+          "status": "failed"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "b": {
+        "attempts": [],
+        "ending": {
+          "conversation": {
+            "conversation_id": null,
+            "deadline": "2026-10-05T16:42:03Z",
+            "local_id": "installation-b",
+            "opener": false,
+            "peer_id": "installation-a",
+            "started_at": "2026-10-05T16:41:03.048Z",
+            "trial": "t8-channel-cut"
+          },
+          "ended_at": "2026-10-05T16:42:05.129Z",
+          "inbox": {},
+          "local_id": "installation-b",
+          "outbox": {},
+          "status": {
+            "conversation_id": null,
+            "decided_at": "2026-10-05T16:42:03.192Z",
+            "local_id": "installation-b",
+            "reason": "deadline-exceeded:no-message-received",
+            "status": "failed"
+          }
+        },
+        "events": [
+          {
+            "at": "2026-10-05T16:41:03.075Z",
+            "event": "start",
+            "faults": [],
+            "invocation": "3c04e715df864e17b55c42de234c97a5",
+            "limits": {
+              "connect_timeout": 5,
+              "conversation_seconds": 60,
+              "idle_timeout": 120,
+              "linger_seconds": 2,
+              "max_attempts": 30,
+              "max_frame": 16384,
+              "max_turn": 7,
+              "responder_timeout": 60,
+              "retransmit_interval": 2
+            },
+            "pid": 2355
+          },
+          {
+            "at": "2026-10-05T16:42:03.241Z",
+            "event": "terminal",
+            "reason": "deadline-exceeded:no-message-received",
+            "status": "failed"
+          },
+          {
+            "at": "2026-10-05T16:42:05.149Z",
+            "event": "exit"
+          }
+        ],
+        "faultsFired": [],
+        "invocations": [],
+        "processStarts": 1,
+        "status": {
+          "conversation_id": null,
+          "decided_at": "2026-10-05T16:42:03.192Z",
+          "local_id": "installation-b",
+          "reason": "deadline-exceeded:no-message-received",
+          "status": "failed"
+        },
+        "systemdRestarts": 0,
+        "unit": {
+          "ActiveState": "inactive",
+          "ExecMainStatus": "0",
+          "InvocationID": "",
+          "NRestarts": "0",
+          "Result": "success"
+        }
+      },
+      "byteAgreement": {
+        "a->b": {},
+        "b->a": {}
+      },
+      "complete": false,
+      "expectedDigest": "a075a452b8166ca740b14352da3ecf73cb3826a54a52626ed62e971950d52a27",
+      "faults": {},
+      "label": "t8-channel-cut",
+      "seconds": 60,
+      "secondsToStatus": 76.1,
+      "since": {
+        "a": "1791218455",
+        "b": "1791218455"
+      }
+    }
+  }
+}

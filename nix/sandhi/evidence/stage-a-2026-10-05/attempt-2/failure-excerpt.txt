@@ -1,0 +1,39 @@
+# Attempt 2, source 3a3ae6176f731a1c71c7c2e5446c00a9f4b722d2, started 2026-10-05T16:06:12Z, finished 2026-10-05T16:10:16Z
+# All three guests booted. Provisioning stopped at a harness control before any trial: the
+# control listener started before eth1 had its address. Lines below are unedited driver output.
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  152.886720] systemd[1]: Started exchange-control-listener.service.
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  153.136669] systemd[1]: Started exchange-control-listener.service.
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  176.127801] python3[610]: Traceback (most recent call last):
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  175.600870] python3[594]: Traceback (most recent call last):
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  177.894964] python3[610]:     self.server_bind()
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  177.934682] python3[610]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/http/server.py", line 1343, in server_bind
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  177.954543] python3[610]:     return super().server_bind()
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  177.976903] python3[610]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/http/server.py", line 140, in server_bind
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  177.992979] python3[610]:     socketserver.TCPServer.server_bind(self)
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  178.029450] python3[610]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/socketserver.py", line 478, in server_bind
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  178.070946] python3[610]: OSError: [Errno 99] Cannot assign requested address
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.497501] python3[594]:     self.server_bind()
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.513756] python3[594]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/http/server.py", line 1343, in server_bind
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.522910] python3[594]:     return super().server_bind()
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.548529] python3[594]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/http/server.py", line 140, in server_bind
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.555799] python3[594]:     socketserver.TCPServer.server_bind(self)
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.583602] python3[594]:   File "/nix/store/h3l4z7p6wny3phbckwwhy1i2g52pdnj4-python3-3.13.15/lib/python3.13/socketserver.py", line 478, in server_bind
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  177.612273] python3[594]: OSError: [Errno 99] Cannot assign requested address
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  178.967546] systemd[1]: exchange-control-listener.service: Main process exited, code=exited, status=1/FAILURE
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  179.000624] systemd[1]: exchange-control-listener.service: Failed with result 'exit-code'.
+vm-test-run-sandhi-stage-a-standalone-exchange> a # [  179.048976] systemd[1]: exchange-control-listener.service: Consumed 4.898s CPU time over 26.097s wall clock time, 14.3M memory peak.
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  178.417984] systemd[1]: exchange-control-listener.service: Main process exited, code=exited, status=1/FAILURE
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  178.438736] systemd[1]: exchange-control-listener.service: Failed with result 'exit-code'.
+vm-test-run-sandhi-stage-a-standalone-exchange> b # [  178.472746] systemd[1]: exchange-control-listener.service: Consumed 4.827s CPU time over 25.312s wall clock time, 14.3M memory peak.
+vm-test-run-sandhi-stage-a-standalone-exchange> a: waiting for unit exchange-control-listener.service
+vm-test-run-sandhi-stage-a-standalone-exchange> !!! Traceback (most recent call last):
+vm-test-run-sandhi-stage-a-standalone-exchange> !!!   File "<string>", line 38, in <module>
+vm-test-run-sandhi-stage-a-standalone-exchange> !!!     M[name].wait_for_unit("exchange-control-listener.service")
+vm-test-run-sandhi-stage-a-standalone-exchange> !!! 
+vm-test-run-sandhi-stage-a-standalone-exchange> !!! RequestedAssertionFailed: unit "exchange-control-listener.service" reached state "failed"
+vm-test-run-sandhi-stage-a-standalone-exchange> (finished: cleanup, in 0.14 seconds)
+error: Cannot build '/nix/store/h8zqln92mxk7382ln171wz9df9mfycp3-vm-test-run-sandhi-stage-a-standalone-exchange.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/gmg1p5lmc27vc4z9bfkb4xj0ii2mvr32-vm-test-run-sandhi-stage-a-standalone-exchange
+exit: 1 seconds: 244

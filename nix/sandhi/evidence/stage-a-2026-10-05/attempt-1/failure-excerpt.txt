@@ -1,0 +1,130 @@
+# Attempt 1, source f2ffe96a357e87237b0e734856303ace4389f3d9, started 2026-10-05T16:01:21Z, finished 2026-10-05T16:02:27Z
+# The test driver's type check failed before any guest booted. Lines below are the driver build's diagnostics, unedited.
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Invalid subscript assignment with key of type `Literal["package"]` and value of type `Literal["/nix/store/x343xg3xg5f2jnic71m5fr5yi7kydfv0-sandhi-exchange"]` on object of type `dict[str, dict[str, Unknown]]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:209:1
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 209 | environment["package"] = "/nix/store/x343xg3xg5f2jnic71m5fr5yi7kydfv0-sandhi-exchange"
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     | ^^^^^^^^^^^^^^^^^^^^^^^^^-------------------------------------------------------------
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                          |
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                          Expected value of type `dict[str, Unknown]`, got `Literal["/nix/store/x343xg3xg5f2jnic71m5fr5yi7kydfv0-sandhi-exchange"]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[unresolved-attribute]: Attribute `read` is not defined on `None` in union `IO[bytes] | None`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:236:56
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 236 |                 files[os.path.normpath(member.name)] = archive.extractfile(member).read()
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Cannot assign to a subscript on an object of type `str`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:294:5
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 294 |     evidence["trials"][record["label"]] = record
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: The full type of the subscripted object is `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: `str` does not have a `__setitem__` method.
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Cannot assign to a subscript on an object of type `bool`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:294:5
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 294 |     evidence["trials"][record["label"]] = record
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: The full type of the subscripted object is `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: `bool` does not have a `__setitem__` method.
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[unresolved-attribute]: Attribute `append` is not defined on `str`, `bool`, `dict[Unknown, Unknown]` in union `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:301:9
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 301 |         evidence["errors"].append({"step": label, "error": traceback.format_exc()[-2000:]})
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |         ^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Cannot assign to a subscript on an object of type `str`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:387:5
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 387 |     evidence["trials"][label] = result
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: The full type of the subscripted object is `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: `str` does not have a `__setitem__` method.
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Cannot assign to a subscript on an object of type `bool`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:387:5
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 387 |     evidence["trials"][label] = result
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |     ^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: The full type of the subscripted object is `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: `bool` does not have a `__setitem__` method.
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Invalid subscript assignment with key of type `Literal["t7-withdrawal"]` and value of type `dict[str, dict[str, Unknown | str] | dict[str, Unknown | str | int | float] | Any]` on object of type `list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:387:5
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 387 |     evidence["trials"][label] = result
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> info: The full type of the subscripted object is `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[not-subscriptable]: Cannot subscript object of type `bool` with no `__getitem__` method
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:402:21
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 402 |             value = value[part]
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                     ^^^^^^^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[unresolved-attribute]: Attribute `get` is not defined on `str`, `bool`, `list[Unknown]` in union `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:438:29
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 438 |     "6-address-filter": all(P.get(k, {}).get("outcome") in ("timeout", "error") for k in ("c->a:contract", "c->b:contract"))
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                             ^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[unresolved-attribute]: Attribute `get` is not defined on `str`, `bool`, `list[Unknown]` in union `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:445:13
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 445 |         and P.get("b-outbox-unchanged") is True,
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |             ^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[unresolved-attribute]: Attribute `get` is not defined on `str`, `bool`, `list[Unknown]` in union `str | bool | dict[Unknown, Unknown] | list[Unknown]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:447:77
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 447 |         "cannot-connect": [k for k in ("c->a:contract", "c->b:contract") if P.get(k, {}).get("outcome") != "connected"],
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                                                                             ^^^^^
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Invalid subscript assignment with key of type `Literal["passed"]` and value of type `bool` on object of type `dict[str, list[str] | list[Unknown] | str]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:464:1
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 464 |    assertions["8-distinct-claims"]["passed"] = all(assertions["8-distinct-claims"][k]
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |  __^                                           -
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     | | _____________________________________________|
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 465 | ||     for k in ("cannot-connect", "cannot-authenticate", "rejected-after-authentication"))
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     | ||________________________________________________________________________________________-
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |  |________________________________________________________________________________________|
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                                                                                           Expected value of type `list[str] | list[Unknown] | str`, got `bool`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> error[invalid-assignment]: Invalid subscript assignment with key of type `Literal["testScriptSeconds"]` and value of type `int | float` on object of type `dict[str, str | bool | dict[Unknown, Unknown] | list[Unknown]]`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>    --> testScriptWithTypes:468:1
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 468 | evidence["testScriptSeconds"] = round(time.monotonic() - started, 1)
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^------------------------------------
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                                 |
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |                                 Expected value of type `str | bool | dict[Unknown, Unknown] | list[Unknown]`, got `int | float`
+nixos-test-driver-sandhi-stage-a-standalone-exchange>     |
+nixos-test-driver-sandhi-stage-a-standalone-exchange> 
+nixos-test-driver-sandhi-stage-a-standalone-exchange> Found 14 diagnostics
+nixos-test-driver-sandhi-stage-a-standalone-exchange> Found 14 diagnostics
+error: Cannot build '/nix/store/pwgdzw7yxwrg3jh40iwl2s9hsmn9523b-nixos-test-driver-sandhi-stage-a-standalone-exchange.drv'.
+       Reason: builder failed with exit code 1.
+       Output paths:
+         /nix/store/6pgpdn0xlf1mby7nig74sky02vz5hb38-nixos-test-driver-sandhi-stage-a-standalone-exchange
+error: Cannot build '/nix/store/h017kdkbhf5pvqlg56g8yppkpw4x1w9n-vm-test-run-sandhi-stage-a-standalone-exchange.drv'.
+       Reason: 1 dependency failed.
+       Output paths:
+         /nix/store/9zkc06nlzipfz2j4pgb66d29d91h4bj2-vm-test-run-sandhi-stage-a-standalone-exchange
+error: Build failed due to failed dependency
+exit: 1 seconds: 66

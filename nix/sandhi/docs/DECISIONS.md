@@ -761,3 +761,183 @@ Dispositions:
 * **For publication,** this is a limit to state prominently, not a reason to
   withhold the prototype. It does not justify a blanket claim that empty-recipient
   contracts cannot communicate.
+
+## 2026-10-05: Mora authorizes standalone exchange implementation; Stage A adopted
+
+Recorded by Tessera (new OpenAI session; model/build identity unavailable). Mora's
+direct instruction in this session at 08:35 America/Los_Angeles was:
+
+> This is Mora - I'm authorizing the implementation work to expand the scope of the project. Record the proposed design into DECISIONS.md as stated by Sideband and carry the implementation and conversation forward.
+
+This instruction is received directly in Tessera's operator conversation, not
+inferred from a repository comment or a node label. This entry records that
+authorization and its source; it does not claim access to Sideband's private
+session or resolve that runtime's own authorization checks. The surrounding
+conversation is not exported; no complete archived context manifest is claimed.
+
+**Design adopted.** Sideband's
+[SCOPE-STAGE-A-TRANSPORT.md](SCOPE-STAGE-A-TRANSPORT.md) at
+`fb3af2c71b1428cdcc588c54efe30e03adf170da`, following Tessera's
+[PR #6 turn 1](https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5997565629)
+and Sideband's
+[turn 2](https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5997599599),
+is the first implementation scope. Its proposed-status paragraph is superseded by
+this dated entry; its original text remains available. The broader proposal's
+A -> B -> C -> D sequence remains the development direction.
+
+**Concrete Stage A.** Build a standalone Python-standard-library
+`sandhi-exchange` package, a replaceable deterministic responder, portable tests,
+and a three-guest NixOS experiment. Guests a/b independently import Sandhi and
+exchange over their private VLAN at 192.168.1.10/.20, port 7443; guest c at .30
+probes unauthorized access. Provisioning ends before measurement. There is no
+external guest route, GitHub dependency, human relay, or driver relay during the
+exchange. The driver supplies each guest only its own random input before
+measurement and subsequently observes or injects the declared faults.
+
+Use self-signed test certificates with mutual TLS and an explicit certificate
+fingerprint-to-installation-ID authorization map. Keys are ephemeral, generated
+under /run at guest setup, delivered with LoadCredential, and excluded from the
+Nix store and collected evidence. Public certificates may be distributed during
+provisioning. No credential is assigned to a crew persona or hosted model session.
+Application signatures remain deferred. The permitted-address root client in
+assertion 7 is accepted as a fault injector, not a participant or relay.
+
+Preserve the existing GitHub protocol unchanged. Use the standalone
+`sandhi-exchange.v1` envelope and bounded length-prefixed framing, durable
+inbox/outbox state, distinct delivery attempts, same-ID/different-bytes rejection,
+and the I1/I2/I3 interruption points specified in the scope. Model invocation is
+not claimed exactly-once; durable logical replies and retransmission are distinct
+from invocations. Compare application message bytes, not whole provenance records.
+
+**Budgets adopted.** Whole guest test: 2400 seconds. Each contract attempt:
+600 seconds, 50% CPU, 192 MiB RAM, three retries after the initial start per
+600-second window (four starts, not a lifetime ceiling). Envelope maximum:
+16 KiB. Turns: 0 through 7. Connect timeout: 5 seconds; retransmit interval:
+2 seconds; maximum 30 delivery attempts per message, preserved across process
+restarts. Conversation deadline and limits must not renew on restart.
+
+**Acceptance.** Implement and report all eleven scope assertions: task completion;
+exact sender/receiver message-byte agreement; duplicate delivery; conflicting-byte
+rejection; all three interruption/restart cases; address exclusion; authentication
+and sender binding tested separately from address exclusion; distinct rejection
+claims; peer withdrawal with new and existing connections; channel-cut negative
+control; and explicit terminal status on each installation. TLS validity and
+fingerprint authorization require distinguishable fixtures. A network failure
+cannot require delivery of a final message across the failed network: local
+terminal status is mandatory and undelivered final attempts remain visible.
+An over-limit input is rejected without emitting a new over-limit reply.
+
+**Implementation allocation.** Tessera will implement/review the portable
+envelope/framing validation and its tests, and inspect subsequent evidence.
+Sideband is the proposed endpoint/state-machine, packaging and first NixOS-VM
+builder. Coordinate exact files and interfaces in PR #6 before overlapping edits.
+One builder with multiple guests establishes separate installations, not
+independent administration. No production-module change is planned; any measured
+need for one is recorded separately before making it.
+
+Stage A remains a deterministic transport test, not an AI conversation. Stage B
+adds actual local models with recorded lineage, model/runner artifacts, licenses
+and execution evidence; its model choices and resource/download bounds need a
+concrete scope before running. Hosted-provider credentials/expenditure,
+production activation, independent operators and standing receiver expansion
+remain later separately specified work. The current authorization allows the
+agreed implementation to proceed without asking again merely because the former
+scope documents said it was awaiting Mora.
+
+No test outcome is asserted by this decision. Preserve failed attempts and source
+identity alongside successful evidence, and update the handoff when a checkpoint
+has actually been reached.
+
+## 2026-10-05: Stage A result; standalone transport measured, no model claim
+
+Recorded by Sideband (Claude Code session; model `null`). The run of record is
+attempt 4 at `a990b99`, which includes Tessera's protocol layer and her recovery and
+deadline patch (`29c7303`). Production modules, `flake.nix` and `realize.py` are
+unchanged. The six existing checks and the archive check passed in CI on that
+commit. Evidence:
+[`evidence/stage-a-2026-10-05/attempt-4/`](../evidence/stage-a-2026-10-05/attempt-4/SUMMARY.json).
+
+Earlier attempts are kept with their sources:
+
+* Attempt 1 (`f2ffe96`) failed the test driver's type check before boot.
+* Attempt 2 (`3a3ae61`) booted, then stopped at a harness control: the control
+  listener bound before its address existed.
+* Attempt 3 (`a5dbe45`) passed all eleven assertions on source that Tessera's
+  review then corrected. It is harness evidence only.
+
+Observed in attempt 4: three guests under software emulation, one attempt on this
+source, 793 s of test script.
+
+* **Transport.** Two separately configured installations completed the
+  split-input task over mutual TLS, with installation IDs pinned by certificate
+  fingerprint. Each endpoint's own status file held the checker's digest. Sender
+  outbox bytes equalled receiver inbox bytes for every acknowledged message.
+* **Faults.** Duplicate and conflicting resends were acknowledged `duplicate` and
+  rejected `conflicting-bytes`. Interruptions at I1, I2 and I3 each ended in
+  completion, with one journal-recorded systemd restart of the interrupted node.
+* **Authentication, separate from the address filter.** These probes came from
+  `a`'s permitted address:
+  * An untrusted certificate failed TLS.
+  * A trusted but unmapped certificate was refused after TLS.
+  * With `a`'s mapped certificate, a wrong sender, turn 8 and an oversize frame
+    were each refused after authentication. `b`'s outbox was unchanged.
+* **Address filter.** `c` timed out at both contract ports and connected to both
+  control ports.
+* **Withdrawal.** Activating the withdrawn specialisation took 42 s and restarted
+  `b`'s contract with the allow-list changed. A held connection then failed and a
+  new connection timed out before TLS. The held result cannot separate the restart
+  from the filter.
+* **Channel cut.** Both endpoints ended with explicit, distinct failures, and
+  neither held a digest.
+
+Dispositions:
+
+* **Stage A's acceptance assertions are met for this source on this builder.** This
+  is a transport result with deterministic responders. It is not AI
+  communication, a model-family claim or independent administration.
+* **The isolation claim is narrow.** It covers the observed contract restrictions
+  and the removed default route. Each guest kept its QEMU user-network link, as
+  Tessera noted.
+* **The held-connection question stays open.** Withdrawing a peer without
+  restarting the contract was not measured. If that matters for a later stage, it
+  needs its own trial.
+* **Independent reading is pending.** Tessera's offline evidence checker will
+  read the attempt 4 artifacts independently. Until then, `allAssertionsPassed`
+  is the harness's own computation.
+* **Stage B needs its own concrete scope before any model runs.** That scope covers
+  model lineages, artifacts, licences, runner, inference settings, and download and
+  compute bounds. Nothing in Stage A authorises it.
+
+## 2026-10-05: Stage A evidence independently read; certificate gap retained
+
+Recorded by Tessera (producing model `null`), following Sideband's PR #6 turns
+12 and 14. The measured source remains `a990b9983166598ed6fd3e3c92414c231667173b`.
+The offline checker independently reads the saved artifacts; it does not rerun
+NixOS or establish independent administration.
+
+The review passes for all 15 endpoint state archives, all 18 successful-message
+outbox/inbox pairs, their acknowledgments and parent chains, both endpoints'
+recomputed digests in six successful trials, explicit channel-cut failures, and
+one journal-confirmed restart in each interrupted trial. Each selected artifact
+and the checker are hashed in the new records under
+`evidence/stage-a-2026-10-05/tessera-review/`. The checker does not treat the
+harness's `allAssertionsPassed` flag as proof. Six corruption tests pass; the
+full portable Sandhi suite passes 65 tests, including real TLS/process tests.
+The two cited CI runs were also checked as successful on the measured source.
+
+The recorded network controls, authentication refusals, and withdrawal outcomes
+support the limited Stage A transport result already stated above. This is an
+independent reading of host-recorded evidence, not a second builder's execution,
+a model-family result, or cryptographic attestation of the host.
+
+Certificate evidence had an omission. Sideband recovered the original two
+installation certificates and trusted-unmapped probe certificate from provisioning
+commands in attempt 4's existing driver log. Tessera independently decoded those
+commands, compared the saved bundle/map bytes, recomputed the three DER SHA-256
+fingerprints, and checked both installation mappings. Nothing was regenerated.
+The untrusted probe's public certificate was not retained and cannot be recovered;
+only its recorded fingerprint and observed TLS refusal remain. Preserve this gap.
+
+The export fix in `d48a439` applies to future VM runs. No result from attempt 4 is
+attributed to that later source. This review closes the pending independent-reading
+item; Stage B still requires the concrete scope described above before execution.
