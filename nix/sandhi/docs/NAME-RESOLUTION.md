@@ -34,9 +34,10 @@ first agreed tenant, synthetic sequence alignment, is deliberately offline and
 needs no names. Tessera ranked DNS third for this reason. I agree, with one
 exception, experiment 0 below.
 
-**Recommendation.** Run experiment 0 now, because it concerns current enforcement.
-Keep the rest of this note as the agreed shape. Implement it when a networked tenant
-is scheduled, and revise it against that tenant first.
+**Recommendation.** Propose experiment 0 as its own bounded test, recorded separately,
+because it concerns current enforcement. The rest of this note is a **proposed shape**,
+pending Tessera's review and a disposition recorded in DECISIONS.md. Implement it
+only when a networked tenant is scheduled, and revise it against that tenant first.
 
 ## 3. Experiment 0: can a contract already resolve names through the host?
 
@@ -56,12 +57,24 @@ If the hypothesis holds, two things follow, both today:
   admits only the declared literals. That is safe, because unmatched addresses stay
   blocked, but it makes failures hard to interpret.
 
-Test: in the existing reachability guest, run `getent hosts <fixture-name>` from
-inside (a) an empty-recipient contract and (b) a networked contract. Use a fixture
-name that the guest resolves only through the host. Record the result either way. If
-the lookup succeeds, the fix is a separate, small change, such as making the cache
-socket inaccessible to contract users or binding an empty resolver configuration.
-That change needs its own review. This note does not choose it.
+Test. A successful `getent` alone proves little, because the answer could come from
+hosts data or a cache. Tessera's review (PR #5) asks for an upstream observation:
+
+- Run a controlled upstream DNS fixture in the guest that logs every query it receives.
+- For each trial, use a unique name that nothing has cached and that the hosts file
+  does not contain.
+- Look the name up from inside (a) an empty-recipient contract and (b) a networked
+  contract.
+- Repeat with the host socket made inaccessible. Include a positive control that
+  shows the fixture answers a lookup made from the host itself.
+- Count a trial as host-mediated resolution only if the fixture logged that exact name.
+
+Keep two results separate. "Host-mediated resolution succeeded" is one finding. "An
+outbound channel was demonstrated" is a stronger claim and needs the upstream log.
+Record the result either way. If resolution succeeds, the fix is a separate, reviewed
+change. Making the cache socket inaccessible and binding an empty resolver
+configuration are only candidates until this same test shows they close the Unix
+socket path.
 
 ## 4. Proposed shape
 
@@ -92,20 +105,53 @@ The pieces, in the order an address passes through them:
    compares two ways to enforce it.
 
 4. **Start gate.** A contract with names extends its existing `ExecStartPre`. It
-   refuses to start unless a publication exists, carries the current epoch, and has
-   not expired. This is the applicability lesson again: currency comes from checking
-   against a current authority, not from the presence of an earlier answer.
+   refuses to start unless a publication exists, carries the current epoch, and the
+   installed filter matches it (see "Publication order" below). This is the
+   applicability lesson again: currency comes from checking against a current
+   authority, not from the presence of an earlier answer.
 
-5. **Runtime bound.** Evaluation asserts that, for a contract with names,
-   `runtimeMaxSec ≤ min(maxTtlSec)` over its names. A running workload can then
-   outlive its last valid publication by at most one runtime limit, even if nothing
-   withdraws the publication. Restarts pass through the start gate again. This reuses
-   an enforced budget instead of adding a new watchdog.
+5. **Expiry and termination.** Tessera's review showed that my first version of this
+   step was wrong. I had claimed that `runtimeMaxSec ≤ maxTtlSec` makes a workload
+   end within one runtime limit of expiry. It does not. A start just before expiry
+   runs past it. Reaching `runtimeMaxSec` only begins termination, and the stop
+   timeout adds time on top. The first consumer needs one of two explicit guarantees:
+   - **Strict: no traffic after expiry** (my choice for the first consumer). The gate
+     refuses a start unless the publication's remaining validity is at least
+     `runtimeMaxSec + stopTimeoutSec`. The unit sets an explicit stop timeout, and
+     systemd ends with SIGKILL when it is exceeded. A workload therefore ends before
+     its publication expires, with no withdrawal actor needed. The cost is more
+     refused starts, so the resolver must refresh well ahead of expiry, and
+     evaluation must assert `maxTtlSec > runtimeMaxSec + stopTimeoutSec`.
+   - **Grace: a documented interval after expiry.** The gate checks only that the
+     publication is unexpired. The record then states a grace interval of up to
+     `runtimeMaxSec + stopTimeoutSec` after expiry.
+
+   Both rest on systemd's termination path, which is untested here. The tests in
+   section 7 must measure that path, not assume it.
 
 6. **Record.** Every query and every change goes to a root-owned resolution ledger,
    as in the recovery-state ledger. This includes NXDOMAIN, SERVFAIL, timeouts and
    AAAA-only answers. Each entry holds the name, resolver, query time, answers, TTL,
    `publishedUntil` and epoch.
+
+### Publication order
+
+Publishing is an authority transition, as F5 is, so its order matters (Tessera,
+PR #5). The proposed order for each contract:
+
+- **Every filter is recomputed from scratch,** as the declared literal peers plus the
+  current answers for its names. A refresh therefore keeps the literals and drops any
+  name-derived address that is no longer current. Nothing is ever appended to an
+  existing list.
+- **To widen** (new or changed answers): install the new filter, then write the ledger
+  entry naming that filter's generation.
+- **To withdraw** (expiry, failure or a new epoch): first mark the ledger entry
+  withdrawn, then remove the addresses from the filter.
+- **The gate requires both to agree.** It reads the unit's effective allow list and
+  compares it with the generation recorded in the ledger. A fresh ledger entry paired
+  with an old filter fails the gate, and so does an old entry paired with a new filter.
+- **A partial failure is safe.** A crash between the two writes leaves them
+  disagreeing, so the gate refuses until the resolver completes the next publication.
 
 ### A correction to my turn-3 sketch
 
@@ -142,8 +188,9 @@ resolver dies, which is a stronger fail-closed property than A.
 - Hypothesis to test: a cgroup match is bound when the rule is loaded, so a restarted
   unit's new cgroup may not match until the rule is reloaded.
 
-Recommendation: A first. The runtime bound in step 5 covers A's weakness, that
-nothing withdraws a stale publication when the resolver dies. Move to B only if A's
+Recommendation: A first. A's weakness is that nothing withdraws a stale publication
+when the resolver dies. The strict gate in step 5 covers it, provided the
+termination path passes its tests. Move to B only if A's
 update semantics fail their tests.
 
 ## 6. Address authorization is not identity, and names make this easier to forget
@@ -176,13 +223,22 @@ local authoritative DNS fixture on its own loopback address, serving short TTLs.
 2. **Changed.** The fixture moves the name to `.3`. After expiry and refresh, `.2` is
    blocked and `.3` is reachable. The ledger shows both answers.
 3. **Resolver down.** Stop the fixture. After `publishedUntil`, the start gate refuses
-   a restart. A workload that was already running ends within `runtimeMaxSec`. The
-   ledger records the failures.
-4. **Epoch.** Reactivate. A publication from the previous epoch is refused until the
+   a restart. The ledger records the failures.
+4. **Termination.** Use short real TTLs. Start a workload as near to expiry as the
+   gate allows. Use one workload that ignores TERM, so termination has to escalate to
+   SIGKILL. Under the strict guarantee, no packet from the contract reaches the
+   fixture after `publishedUntil`. Measure this at the fixture, not from the unit's
+   state.
+5. **Epoch.** Reactivate. A publication from the previous epoch is refused until the
    resolver publishes again.
-5. **Only the resolver reaches the resolver.** A contract that tries the resolver
+6. **Ordering.** Interrupt the resolver between installing the filter and writing the
+   ledger, and again between the two withdrawal steps. The gate refuses in every
+   mismatched state. A contract with both literal and named peers keeps its literals
+   across refreshes, and its name-derived addresses that are no longer current are
+   removed.
+7. **Only the resolver reaches the resolver.** A contract that tries the resolver
    address directly is blocked.
-6. **Undeclared name.** A contract cannot obtain an address for a name it does not
+8. **Undeclared name.** A contract cannot obtain an address for a name it does not
    declare, through any path. Experiment 0 decides how much work this needs.
 
 Hypotheses from section 5 are tested before anything else is built.
@@ -201,5 +257,6 @@ Hypotheses from section 5 are tested before anything else is built.
 
 There is no implementation, no test run, and no measurement here. The systemd and
 nftables behaviours above are untested hypotheses. Nothing in this note changes
-current enforcement. The consumer is anticipated, not scheduled. Tessera has not yet
-reviewed this note.
+current enforcement. The consumer is anticipated, not scheduled. Tessera reviewed the
+first version in PR #5 (comment 5986420376). This revision answers that review, and
+no disposition has been recorded yet.

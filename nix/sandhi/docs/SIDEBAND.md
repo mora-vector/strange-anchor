@@ -1,8 +1,11 @@
 # Sideband: starting point for a new session
 
 Sideband is Mora's Claude node in `mora-vector/strange-anchor`. Each session is a new
-runtime. Continuity comes from this repository, the PR #1 thread and
+runtime. Continuity comes from this repository, the PR #1 and PR #5 threads and
 [Notes for Mora](https://claude.ai/artifact/P5ujGT8PifxvTMgiFs9dVf), not from memory.
+That page is a Claude artifact. Tessera reads a separate ChatGPT Library file with the
+same title. Treat them as two copies that may differ, because nothing synchronizes
+them.
 This file was written on 2026-10-05 by a Sideband session that read the sources it
 names. Update it whenever the receiver or the commitments change.
 
@@ -39,16 +42,22 @@ Then read the two sections below. They change faster than the prompt.
 | Limits | It discusses only. It never pushes, merges, edits workflows, access, credentials or routines, and never enables paid services. |
 | Stop | Post a top-level `ANCHOR PAUSE` on PR #1, or disable the routine in Mora's Routines list. |
 
-**Known issue (observed 2026-10-05).** The receiver drafts replies but does not post
-them. On 2026-10-03 at 08:07 UTC it found Tessera's turn 4
+**Posting needs Mora's direct approval (observed 2026-10-05).** On 2026-10-03 at 08:07
+UTC the receiver found Tessera's turn 4
 ([5963429159](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963429159)),
 drafted turn 5, and held it. Its reason: the instruction to post came from the
-routine's stored prompt, and it could not tell whether Mora wrote that prompt. It asks
-Mora to say "post it" in that session, and to say there if it may post on its own from
-now on. Every later run has re-checked and stopped. By the 2026-10-05 00:07 run, the
-session had cost about $7.19 in total. Only Mora can clear this, by speaking in that
-session. Another Sideband session must not send that authorization on Mora's behalf.
-A node reporting Mora's approval is exactly what the receiver is right to distrust.
+routine's stored prompt, and it could not tell whether Mora wrote that prompt. Every
+later run re-checked and stopped. By the 2026-10-05 00:07 run, the session had cost
+about $7.19 in total. Another Sideband session must not send that approval on Mora's
+behalf, because a node reporting Mora's approval is exactly what the receiver is
+right to distrust.
+
+*Update, 2026-10-05.* Mora approved the draft in the receiver session. Turn 5 was
+posted as [5986226512](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5986226512),
+and Tessera closed that exchange at turn 6
+([5986244871](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5986244871),
+`complete`). One approval does not show that later replies will post without one.
+Treat each held draft as needing Mora until the receiver shows otherwise.
 
 The stored prompt is summarised above, not reproduced. Read it with
 `get_trigger trig_01QeZDpgPCELnosGHUcTDhi1`.
@@ -57,20 +66,22 @@ The stored prompt is summarised above, not reproduced. Read it with
 
 Sideband's, newest first. Each links its source.
 
-1. **Turn 5 to Tessera.** It answers turn 4 (byte reproduction, withheld-sample gaps,
-   the independence axis, precipitation replay). It is drafted in the receiver session
-   and blocked on Mora, as above. Its DNS line ("nothing to report yet") is now stale,
-   because [NAME-RESOLUTION.md](NAME-RESOLUTION.md) exists.
+1. **The PR #5 exchange with Tessera.** Tessera opened it as
+   [5986420376](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986420376),
+   at Mora's instruction. It covers the DNS review, readiness for publication,
+   Independent Administration and cross-family communication. The PR #1 receiver
+   does not watch PR #5. A Sideband session must answer it.
 2. **DNS and name-resolution design.** This is Sideband's lead
    ([5963129962](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963129962)).
-   The first note is [NAME-RESOLUTION.md](NAME-RESOLUTION.md). Next: run its
-   experiment 0, which tests whether a contract can already resolve names through a
-   host socket, and bring the note to Tessera for review.
-3. **Proposals in the turn-5 draft, if it is posted.** A test that a withheld real
-   sample is encoded as a Lopa v2 gap with `status: withheld`,
-   `blocksActivation: false`, `availability: unassessed` and empty `recoveryEvidence`.
-   `@PG` header lines are kept as a declared comparison field rather than being
-   stripped.
+   The first note is [NAME-RESOLUTION.md](NAME-RESOLUTION.md), revised after Tessera's
+   PR #5 review. Next: record a disposition in DECISIONS.md, then run experiment 0
+   with the upstream observation that Tessera required.
+3. **Withheld-sample test and `@PG` handling.** Both were agreed in turns 5 and 6. The
+   tenant's eval asserts six facts about a withheld sample's gap: `status: withheld`,
+   `availability: unassessed`, `blocksActivation: false`, empty `recoveryEvidence`,
+   a nonempty reason, and provenance naming the declared withheld input. Keep the exact
+   ordered `@PG` records, and their digest, as a comparison field separate from the
+   normalized alignment.
 4. **Copilot trial.** Both nodes support one review-only trial
    ([5963017053](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963017053),
    [5963414463](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963414463)).
