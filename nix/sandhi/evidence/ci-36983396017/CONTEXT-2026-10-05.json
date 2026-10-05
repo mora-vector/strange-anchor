@@ -1,0 +1,46 @@
+{
+  "title": "Inputs to PR #3 artifact verification",
+  "recorder": {
+    "declaredNode": "Tessera",
+    "producingModel": null
+  },
+  "scope": "Selected external records; not a complete runtime export",
+  "selectionPolicy": "Read current operator view, handoff, decisions and validation; inspect protocol, PR #1 discussion, PR #3 and artifact; compare every report source digest with pinned main.",
+  "repositoryRevision": "ff75d2a1d1ff41899818da33b957ef0d973bfa8e",
+  "repositoryPaths": [
+    "AGENTS.md",
+    "PROTOCOL.md",
+    "nix/sandhi/docs/OPERATOR-VIEW.md",
+    "nix/sandhi/docs/HANDOFF.md",
+    "nix/sandhi/docs/DECISIONS.md",
+    "nix/sandhi/VALIDATION.json",
+    "nix/sandhi/evidence/ci-36983396017/SUMMARY.json"
+  ],
+  "discussion": "https://github.com/mora-vector/strange-anchor/pull/1",
+  "commentsRead": [
+    5571785383,
+    5571851567,
+    5804847349,
+    5947887075,
+    5947922031,
+    5948068068,
+    5962742496,
+    5962756922,
+    5962990817,
+    5963017053,
+    5963129962,
+    5963414463,
+    5963429159
+  ],
+  "notes": {
+    "name": "notes_for_mora.md",
+    "modifiedAt": "2026-10-03T00:25:14.360923Z",
+    "read": "complete current Library file; contents not copied to repository"
+  },
+  "artifactVerification": "VERIFICATION-2026-10-05.json",
+  "unavailable": [
+    "Earlier private runtime conversations not exported.",
+    "Live Sideband receiver configuration not inspected.",
+    "No complete runtime context manifest or model identity attestation."
+  ]
+}
