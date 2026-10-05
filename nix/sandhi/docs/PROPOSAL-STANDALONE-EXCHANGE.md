@@ -30,10 +30,14 @@ posted on GitHub):
 - `IPAddressAllow` filters ingress as well as egress (`modules/vidhi.nix`). A
   listening contract with one peer accepts only that peer's address. Routing and
   the host firewall are not created by Sandhi.
-- `CapabilityBoundingSet = ""`, so a contract cannot bind a port below 1024.
+- `CapabilityBoundingSet = ""`, so a contract cannot bind a privileged port. The
+  threshold is the kernel's per-namespace `net.ipv4.ip_unprivileged_port_start`
+  (usually 1024), so a test records the guest's value rather than assuming it
+  (Tessera, PR #6 turn 1).
 - `runtimeMaxSec` is required and finite (`modules/chandas.nix`). A listener is
-  stopped at that limit and restarted only within the start budget. For a bounded
-  experiment this is useful. A standing service would need a schema change.
+  stopped at that limit and restarted only within the start budget, which is a rate
+  per window, not a lifetime ceiling. For a bounded experiment this is useful. A
+  standing service would need a schema change.
 - Contract values are public configuration (`modules/karaka.nix`). Keys and
   certificates must reach the process at runtime, outside the Nix store.
 - Peers are IPv4 literals. Experiment 0 showed host-mediated DNS escapes the filter;
