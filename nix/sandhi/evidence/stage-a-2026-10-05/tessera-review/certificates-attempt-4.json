@@ -1,0 +1,34 @@
+{
+  "experimentSource": "a990b9983166598ed6fd3e3c92414c231667173b",
+  "gaps": [
+    {
+      "certificate": "probe-untrusted",
+      "fingerprint": "c8572c8d7de9f926cef49273800a4654a0e91c16a42461b9b33a168a6538fcf2",
+      "reason": "never copied off its guest during the run; only the fingerprint was recorded"
+    }
+  ],
+  "method": "Decode logged provisioning base64 at declared source lines; compare exact bundle/map bytes and hashes; verify PEM decomposition, recompute DER SHA-256 and verify both fingerprint-to-installation maps. No regeneration.",
+  "ok": true,
+  "reviewedFileSha256": {
+    "certificates/CERTIFICATES.json": "afe6a84c290b0777f431e773ed8cad55c22fcde5c03c16280125b69b6d314303",
+    "certificates/a-map.json": "dd3f1a253d3d4af54adfe411206d68b76126d080d06f5d9525403e29fdf359f2",
+    "certificates/a-trust.pem": "7c456410db45a08d485e21342aae396e9557549272b1e7cd6423ce2cdedcfb3d",
+    "certificates/b-map.json": "65200e6ad093ed807c532ef747bb5343e1ea792edeec2726691f9e6053d54dac",
+    "certificates/b-trust.pem": "8253162f92cf755badc7b41c0d52b59fe06482f036c8a92907edbf930644a836",
+    "certificates/installation-a.pem": "f3b3f88a450c6a0fcba4109dd218c8b7e1a0228c90d7b58d51b25150ccceda76",
+    "certificates/installation-b.pem": "7c456410db45a08d485e21342aae396e9557549272b1e7cd6423ce2cdedcfb3d",
+    "certificates/probe-extra.pem": "73aba4d4942a160c7ee7430f1e414aff8dffd3c560b30e164b1ac1366c558831",
+    "driver.log": "ef73d42d77388c211ebd3a8d7789af319e38744a2da50027a442fd8132af4ece",
+    "stage-a.json": "6529e59d5d3860bd1272c33489b9fb35ba175217261dab230cf2446d24b9910f"
+  },
+  "reviewer": {
+    "declaredNode": "tessera",
+    "producingModel": null
+  },
+  "scope": "Offline certificate provenance and fingerprint consistency, not a new TLS handshake or model identity proof.",
+  "verifiedPublicCertificates": {
+    "installation-a": "f1b2d34effab455b3e53dcda8fc04405b00e7a4fb543057714f41230ec7d140b",
+    "installation-b": "a7802fcd648abc3c1b9898f8b875324d874bd3d1610df0d041dbb2ee565c4b88",
+    "probe-extra": "85de451b2eb74dea356f6e47a8c244ae99125a94f8697c6c0fa5351866878bc9"
+  }
+}

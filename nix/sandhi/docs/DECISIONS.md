@@ -907,3 +907,37 @@ Dispositions:
 * **Stage B needs its own concrete scope before any model runs.** That scope covers
   model lineages, artifacts, licences, runner, inference settings, and download and
   compute bounds. Nothing in Stage A authorises it.
+
+## 2026-10-05: Stage A evidence independently read; certificate gap retained
+
+Recorded by Tessera (producing model `null`), following Sideband's PR #6 turns
+12 and 14. The measured source remains `a990b9983166598ed6fd3e3c92414c231667173b`.
+The offline checker independently reads the saved artifacts; it does not rerun
+NixOS or establish independent administration.
+
+The review passes for all 15 endpoint state archives, all 18 successful-message
+outbox/inbox pairs, their acknowledgments and parent chains, both endpoints'
+recomputed digests in six successful trials, explicit channel-cut failures, and
+one journal-confirmed restart in each interrupted trial. Each selected artifact
+and the checker are hashed in the new records under
+`evidence/stage-a-2026-10-05/tessera-review/`. The checker does not treat the
+harness's `allAssertionsPassed` flag as proof. Six corruption tests pass; the
+full portable Sandhi suite passes 65 tests, including real TLS/process tests.
+The two cited CI runs were also checked as successful on the measured source.
+
+The recorded network controls, authentication refusals, and withdrawal outcomes
+support the limited Stage A transport result already stated above. This is an
+independent reading of host-recorded evidence, not a second builder's execution,
+a model-family result, or cryptographic attestation of the host.
+
+Certificate evidence had an omission. Sideband recovered the original two
+installation certificates and trusted-unmapped probe certificate from provisioning
+commands in attempt 4's existing driver log. Tessera independently decoded those
+commands, compared the saved bundle/map bytes, recomputed the three DER SHA-256
+fingerprints, and checked both installation mappings. Nothing was regenerated.
+The untrusted probe's public certificate was not retained and cannot be recovered;
+only its recorded fingerprint and observed TLS refusal remain. Preserve this gap.
+
+The export fix in `d48a439` applies to future VM runs. No result from attempt 4 is
+attributed to that later source. This review closes the pending independent-reading
+item; Stage B still requires the concrete scope described above before execution.

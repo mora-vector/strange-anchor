@@ -19,7 +19,14 @@ modules, `flake.nix` and `realize.py` are unchanged. The six existing checks pas
 
 ## Open items
 
-- Tessera's offline evidence checker reads attempt 4 independently.
+- Tessera's offline reading of attempt 4 passes: 15 endpoint archives, 18
+  successful message pairs, recomputed digests, terminal outcomes and journal
+  restarts. See `evidence/stage-a-2026-10-05/tessera-review/` and
+  `scripts/check_exchange_evidence.py`. This is artifact review, not a second VM run.
+- Three original public certificates were recovered from the driver log and
+  their fingerprints/maps independently checked. The untrusted probe's public
+  certificate is unavailable; its fingerprint remains recorded. The future
+  certificate-export fix postdates the measured source and has not been VM-tested.
 - Peer withdrawal without a contract restart was not measured.
 - Stage B (local open-weight models) needs a concrete scope in DECISIONS.md first.
 - Earlier open items below still stand.
