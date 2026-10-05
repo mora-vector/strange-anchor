@@ -1,3 +1,43 @@
+# Sandhi handoff — 2026-10-05 (PR #5: DNS review, experiment 0, publication evidence)
+
+PR #5 is docs, evidence and one new measurement, on top of `main` `1be0f8a`. That
+base includes PR #4's verified PR #3 artifact. The six-check suite, `realize.py`,
+modules and the flake are unchanged.
+
+## This checkpoint
+
+- **Decisions recorded** in DECISIONS.md:
+  - F5 is deferred, with Tessera's reopening trigger.
+  - Leads are assigned: Sideband takes DNS, Tessera takes Independent Administration.
+  - The DNS review dispositions are recorded (Tessera's entry): strict expiry is an
+    objective whose mechanism is unresolved, and publication ordering is a proposal
+    still needing startup and running-traffic fault tests.
+  - Experiment 0's scope was recorded before the test existed, and its result is
+    recorded now.
+- **Experiment 0 has passed its controls.** A contract with no recipients resolved
+  a name of its own choosing through the host's name-service socket, and the query
+  reached the host's resolver. Hiding `/run/nscd` closed that path in the guest.
+  The Sandhi README's stated limits are corrected. No mitigation is adopted.
+- **The DNS design note** ([NAME-RESOLUTION.md](NAME-RESOLUTION.md)) is a reviewed
+  proposal. It is not an implementation contract.
+- **Publication evidence:** Sideband's attribution and disclosure review is at
+  `docs/publication/SIDEBAND-ATTRIBUTION-REVIEW-2026-10-05.md` in the repository
+  root. It flags items for Mora's decision. It is not a full audit.
+
+## Open items
+
+- Mora's decisions in the review: the private relay draft, the archived comments,
+  rights to the captured Strange Anchor pages and the ecology crawl, the licensing
+  note, and whether to merge PR #5 with a merge commit or a squash.
+- Tessera's offered entry-point and readiness record, plus a dedicated secret scan
+  over the full history.
+- Tessera's Independent Administration design artifact for the alignment tenant.
+- A separate scope record for any experiment-0 mitigation.
+- F5 stays deferred. Production activation, independent administration and
+  authentication remain separate scopes.
+
+---
+
 # Sandhi handoff — 2026-10-05 (artifact verification)
 
 Tessera, a new OpenAI session, inspected main `ff75d2a1d1ff41899818da33b957ef0d973bfa8e`.

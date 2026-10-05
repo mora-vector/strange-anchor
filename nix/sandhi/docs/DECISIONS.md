@@ -562,3 +562,202 @@ establish unconditional protection across failed ones." A volatile marker would
 need fault-injection tests of invalidation and publication failures before any
 stronger guarantee is claimed. It is not implemented. F3, F4 and F6–F9 were not
 discussed in this exchange and remain open proposals.
+
+## 2026-10-05: F5 is deferred, with a reopening trigger and an ordered fault model
+
+Recorded by Sideband, as promised in turn 3 of the second exchange. Sources: PR #1
+comments [5963017053](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963017053)
+(Tessera, turn 2; archived body record `812aa6f8…`) and
+[5963414463](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963414463)
+(Sideband, turn 3; archived body record `acd83b02…`), both on `anchor-archive`. Mora
+handed the F5 decision to the two nodes. The disposition below is Tessera's, and
+Sideband accepted it in turn 3. This entry supersedes the shorter "F5 stays deferred"
+line of 2026-10-02 without changing it.
+
+Tessera's disposition and trigger, quoted from turn 2:
+
+> Close the present design decision as **deferred**, not resolved away. Before
+> production activation—or before any operator relies on `declared-recoverable` for
+> an operational decision—reopen it with an ordered fault model. At minimum the tests
+> must interrupt:
+>
+> 1. invalidation before the activation can fail;
+> 2. ledger mutation/commit;
+> 3. publication of the new authority.
+>
+> They must cover the returning-policy A→B→A case after consecutive failures,
+> crash/restart boundaries, and recovery from a partially completed transition. Only
+> then should the implementation and guarantee be chosen.
+
+Consequences:
+
+* No volatile marker or other F5 mechanism is implemented. The documented limit
+  stands: fresh epochs protect successful activations, not failed ones.
+  LOPA-V2-MIGRATION.md already tells operators not to rely on a current claim after a
+  failed activation.
+* Either trigger reopens F5. The first is a plan to activate any production host
+  that includes the module. The second is any operator decision that relies on
+  `declared-recoverable`. Whoever notices a trigger records it here before acting.
+* When F5 reopens, the fault-injection tests come first, at the three interruption
+  points in that order. The mechanism follows, and the guarantee covers only what
+  passes those tests.
+
+The same exchange assigned leads, in Mora's own words in plain comment
+[5963129962](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963129962)
+(archived body record `9648431f…`): "Sideband, you can brainstorm the implementation
+of DNS and name resolution as a deliberate design. Tessera, you can lead the design
+of the Independent Administration." Tessera accepted in turn 4
+([5963429159](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963429159),
+archived body record `1f78e435…`) and adopted synthetic sequence alignment as the
+shared first tenant. Both tracks are at the design stage. No implementation scope
+follows from this entry. Sideband's first design note is
+[NAME-RESOLUTION.md](NAME-RESOLUTION.md).
+
+## 2026-10-05: DNS review dispositions; mechanisms remain unresolved
+
+Recorded by Tessera (new OpenAI session; model/build identity unknown), following
+Mora's direct instruction on 2026-10-04 Pacific time (2026-10-05 UTC) to incorporate
+the three agreed changes into PR #5. That operator instruction is in the current
+conversation and is not an archived GitHub comment. Sources: Tessera's
+[turn 2](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986486989)
+and Sideband's explicit acceptance in
+[turn 3](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986492255).
+The reviewed design revision is `cacf3cdb230ebafed2d2faf71ac1228d620df825`.
+These are attributed design dispositions, not measured runtime outcomes.
+The comment URLs declare the selected context; no complete archived context
+manifest or producing-model authentication is claimed.
+
+1. **Experiment 0 is a separate bounded proposed measurement.**
+   Test host-mediated name resolution from empty-recipient and networked contracts
+   using a controlled logging upstream, a unique uncached name per trial, a working
+   host positive control, and a socket-blocked comparison. Record lookup outcome
+   separately from whether the exact query reached the upstream. A successful
+   lookup alone is not proof of outbound communication. This measures current
+   behavior without choosing a resolver implementation or mitigation.
+   Before execution, record its concrete fixture, source revision, selected checks,
+   builder and resource limits as implementation scope; this entry retains the
+   agreed proposal and does not authorize an unbounded test campaign.
+
+2. **Strict expiry is the preferred objective; its mechanism is unresolved.**
+   The objective concerns withdrawal of name-derived authorization at a specified
+   local enforcement point by the deadline. It does not prohibit later arrival of
+   packets already in flight or withdraw independently declared literal peers.
+   Remaining-validity gates and combined start/runtime/stop budgets are candidate
+   mechanisms, not an established guarantee. Clock semantics, boot/epoch binding,
+   the check-to-execution interval and the termination path require explicit
+   assumptions and measurement. A passing fixture does not establish an
+   unconditional real-time guarantee. No DNS enforcement implementation is selected.
+
+3. **Publication ordering remains a proposal requiring startup and running-traffic
+   fault tests.**
+   Exercise interruptions between filter installation and ledger publication, and
+   between ledger withdrawal and filter withdrawal. Observe both new-start
+   admission and already-running workloads. Preserve literal peers while replacing
+   obsolete name-derived permissions. Equal address lists with different epochs
+   or deadlines are a required counterexample: address equality cannot establish
+   generation equality. Binding installed enforcement to the ledger generation
+   remains unresolved; a generation value only in the ledger or a proposed
+   configuration file is not evidence that the corresponding filter is effective.
+   Neither safe partial publication nor strict expiry is established by this entry.
+
+These dispositions supersede stronger wording in the evolving design note wherever
+it implies a solved expiry mechanism or safe partial failure. The note must be
+reconciled with them before treating it as an implementation contract. No DNS
+runtime tests were run for this entry. F5's separate deferral remains intact.
+Public visibility, production activation, new credentials, paid services and
+receiver-scope changes are not authorized by these design dispositions.
+
+## 2026-10-05: experiment 0 implementation scope (recorded before the test exists)
+
+Recorded by Sideband, under Mora's instruction in this Sideband session (not an
+archived comment) to plan and carry out experiment 0. This entry fixes the scope
+before any test file is added or run, as the DNS dispositions above require. It
+implements the first of those dispositions and no others. No resolver,
+mitigation or module change is in scope.
+
+**Question.** Can a Sandhi contract obtain name resolution through the host's
+name-service socket? And does a query name chosen inside the contract reach an
+upstream resolver that the contract's IP filter does not admit? Those two findings
+are recorded separately. Only the second shows an outbound channel.
+
+**Guest.** One disposable NixOS test VM from the pinned nixpkgs
+(`nixos-26.05.9843.b67c7a60c373`), shaped like the reachability guest: 1536 MiB, 2
+vCPUs, no VLANs, loopback fixtures only. Values evaluated from that configuration
+before the test was written: `services.nscd.enable = true`, implemented by `nsncd`
+1.5.2 with runtime directory `/run/nscd`; hosts database `mymachines files
+myhostname dns`; `services.resolved.enable = false`; `networking.resolvconf.enable
+= true`. The test sets the guest's only nameserver to the fixture. The socket path
+glibc uses is to be confirmed and recorded inside the guest, not assumed.
+
+**Upstream fixture.** `dnsmasq` from the same nixpkgs, listening only on
+`127.0.0.4:53`. It reads no upstream servers and no hosts file. It answers
+`*.exp0.sandhi.test` with `127.0.0.9`, and it logs every query to the journal.
+
+**Trials.** Four Sandhi contracts run the same probe:
+- an empty-recipient contract;
+- a networked contract whose only peer is an HTTP fixture at `127.0.0.2`;
+- each of those two again, with a test-local `InaccessiblePaths=/run/nscd` override
+  as the socket-blocked comparison.
+
+Each probe generates its own unique name and records it. It resolves that name
+through glibc `getaddrinfo` (IPv4). It also sends one raw DNS query directly to
+`127.0.0.4:53`, which the IP filter should block.
+
+**Controls.** A root-shell lookup of a host-chosen unique name must be answered and
+logged. The DNS and HTTP fixtures must be healthy before and after the trials.
+The networked contract must still reach its declared peer.
+
+**What decides pass or fail.** Only the controls. The test records each trial's
+lookup outcome, whether the upstream logged that exact name, the logged source
+address, and the direct-query outcome. It succeeds whatever the hypothesis turns
+out to be, so a negative finding is preserved as readily as a positive one.
+
+**Checks and compute bound.** The experiment is a separate file built with
+`nix-build`, not a flake check. The six existing checks and `realize.py` are
+unchanged and are not rerun locally. Builder: this Claude Code container
+(x86_64, 4 cores, 15 GiB, Nix 2.34.6, no KVM, so QEMU software emulation). Each
+attempt has a 900-second test timeout. At most two attempts, with the second
+allowed only to fix a defect in the test harness, and that defect is recorded. The
+total wall-clock cap is 90 minutes. Evidence goes to
+`nix/sandhi/evidence/experiment0-2026-10-05/`.
+
+**Not in scope.** No change to `modules/`, no mitigation, no resolver
+implementation, and no claim about production hosts or other NSS configurations.
+A positive finding would sharpen the README's existing Unix-socket limit. It does
+not by itself choose a fix.
+
+## 2026-10-05: experiment 0 result; stated limits sharpened, no mitigation chosen
+
+Recorded by Sideband. The experiment ran once, within the scope recorded above
+(`ca885b9`). The test is at `72b7ce5`, and no module, flake or existing test changed.
+Controls passed. There was one attempt, with no harness defects, taking about four
+minutes under software emulation. Evidence:
+[`evidence/experiment0-2026-10-05/`](../evidence/experiment0-2026-10-05/SUMMARY.json).
+
+Observed in one guest (nsncd 1.5.2, hosts `mymachines files myhostname dns`):
+
+* A contract with no recipients, and a contract whose only peer was `127.0.0.2`,
+  both resolved a name generated inside the contract. In both cases the upstream
+  fixture logged that exact name, sent from `127.0.0.1` by the host daemon.
+* Both contracts' direct queries to the upstream were refused. The empty contract
+  had no AF_INET, and the networked contract's filter returned EPERM.
+* With a test-local `InaccessiblePaths=/run/nscd`, neither contract resolved its
+  name, and the upstream logged nothing.
+
+Dispositions:
+
+* **Both findings hold in that guest.** Host-mediated resolution succeeded, and an
+  outbound channel was demonstrated: data chosen inside a contract reached a
+  resolver that its own network controls do not admit. Capacity was not measured.
+* **Stated limits are corrected.** The Sandhi README no longer says ancillary DNS
+  is "not silently allowed" without qualification. It now states that an empty
+  recipient list does not prevent communication carried in DNS queries on hosts
+  running the name-service daemon.
+* **No mitigation is adopted.** Hiding the socket closed the path in this guest, but
+  it is a candidate only. Before any module change, a separate scope record must
+  cover three things: its effect on user and group lookups that use the same
+  socket; other resolver sockets, such as systemd-resolved's; and how it would
+  combine with a contract that declares names under the DNS design.
+* **For publication,** this is a limit to state prominently, not a reason to
+  withhold the prototype. It does not justify a blanket claim that empty-recipient
+  contracts cannot communicate.

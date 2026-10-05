@@ -95,6 +95,12 @@ apply when the umbrella, services, or retention is enabled. See
 - Empty-recipient workloads get a private network namespace and AF_UNIX-only socket
   creation. This is not a blanket denial of filesystem Unix sockets or inherited
   descriptors. The compiler creates no socket-activation units.
+  Measured consequence (experiment 0, 2026-10-05): on a host running the
+  name-service cache daemon, a contract with no recipients resolved a name of its
+  own choosing through the daemon's Unix socket, and the daemon forwarded the query
+  to the host's resolver. An empty recipient list therefore does not prevent
+  communication carried in DNS queries on such hosts. See
+  [experiment 0](evidence/experiment0-2026-10-05/SUMMARY.json).
 - `ProtectSystem=strict` restricts writes. `ReadOnlyPaths` does not hide every
   unlisted readable file. This is not a full confidentiality sandbox or a VM-strength
   boundary against hostile workloads.
@@ -112,9 +118,13 @@ apply when the umbrella, services, or retention is enabled. See
   are emitted as service settings. `retries` excludes the initial attempt within
   `windowSec`; it is not a lifetime attempt counter. CPU throttles, runtime is per
   attempt, and swap remains host policy. See [BUDGETS.md](docs/BUDGETS.md).
-- Ancillary DNS is not silently allowed. Use explicit addresses, or design and
-  declare a resolution mechanism. IPv6 peers are intentionally outside this first
-  compiler's schema; networked units can create AF_INET and AF_UNIX sockets.
+- A contract's own DNS queries are filtered like any other traffic. In experiment 0,
+  direct queries to a resolver that was not a recipient were stopped. Host-mediated
+  lookups through the name-service socket are not filtered (see above), so DNS is
+  not excluded. Use explicit addresses, or design and declare a resolution
+  mechanism ([NAME-RESOLUTION.md](docs/NAME-RESOLUTION.md)). IPv6 peers are
+  intentionally outside this first compiler's schema; networked units can create
+  AF_INET and AF_UNIX sockets.
 
 Host administrators can override modules and privileges. The policy assumes a
 trusted NixOS configuration and kernel; it is not unbypassable governance.

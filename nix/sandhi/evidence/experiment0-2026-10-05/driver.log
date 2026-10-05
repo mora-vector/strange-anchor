@@ -1,0 +1,145 @@
+vm-test-run-sandhi-experiment0-host-resolution> Machine state will be reset. To keep it, pass --keep-machine-state
+vm-test-run-sandhi-experiment0-host-resolution> start all VLans
+vm-test-run-sandhi-experiment0-host-resolution> (finished: start all VLans, in 0.00 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> Test will time out and terminate in 900 seconds
+vm-test-run-sandhi-experiment0-host-resolution> run the VM test script
+vm-test-run-sandhi-experiment0-host-resolution> additionally exposed symbols:
+vm-test-run-sandhi-experiment0-host-resolution>     machine,
+vm-test-run-sandhi-experiment0-host-resolution>     ,
+vm-test-run-sandhi-experiment0-host-resolution>     start_all, test_script, machines, machines_qemu, machines_nspawn, vlans, driver, log, os, create_machine, subtest, run_tests, join_all, retry, serial_stdout_off, serial_stdout_on, polling_condition, BaseMachine, QemuMachine, NspawnMachine, t, debug, dump_machine_ssh
+vm-test-run-sandhi-experiment0-host-resolution> start all VMs
+vm-test-run-sandhi-experiment0-host-resolution> machine: starting vm
+vm-test-run-sandhi-experiment0-host-resolution> machine: QEMU running (pid 9)
+vm-test-run-sandhi-experiment0-host-resolution> (finished: start all VMs, in 0.42 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for unit multi-user.target
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for the VM to finish booting
+vm-test-run-sandhi-experiment0-host-resolution> machine: Guest root shell did not produce any data yet...
+vm-test-run-sandhi-experiment0-host-resolution> machine:   To debug, enter the VM and run 'systemctl status backdoor.service'.
+vm-test-run-sandhi-experiment0-host-resolution> machine: Guest root shell did not produce any data yet...
+vm-test-run-sandhi-experiment0-host-resolution> machine:   To debug, enter the VM and run 'systemctl status backdoor.service'.
+vm-test-run-sandhi-experiment0-host-resolution> machine: Guest root shell did not produce any data yet...
+vm-test-run-sandhi-experiment0-host-resolution> machine:   To debug, enter the VM and run 'systemctl status backdoor.service'.
+vm-test-run-sandhi-experiment0-host-resolution> machine: Guest shell says: b'Spawning backdoor root shell...\n'
+vm-test-run-sandhi-experiment0-host-resolution> machine: connected to guest root shell
+vm-test-run-sandhi-experiment0-host-resolution> machine: (connecting took 111.65 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for the VM to finish booting, in 111.65 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for unit multi-user.target, in 118.07 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for unit nscd.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for unit nscd.service, in 1.02 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for unit exp0-upstream.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for unit exp0-upstream.service, in 0.83 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for unit sideband-fixture.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for unit sideband-fixture.service, in 0.72 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for success: curl --noproxy '*' --fail --max-time 3 http://127.0.0.2:8080/ | grep -x sideband
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for success: curl --noproxy '*' --fail --max-time 3 http://127.0.0.2:8080/ | grep -x sideband, in 1.56 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: cat /etc/resolv.conf
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: cat /etc/resolv.conf, in 0.40 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: grep -E '^hosts:' /etc/nsswitch.conf
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: grep -E '^hosts:' /etc/nsswitch.conf, in 0.47 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: ls -la /run/nscd/; readlink -f /var/run/nscd/socket || true
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: ls -la /run/nscd/; readlink -f /var/run/nscd/socket || true, in 0.70 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show nscd.service -p ExecStart --value
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show nscd.service -p ExecStart --value, in 0.50 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: /nix/store/cc9lkx3igxymsdsxnv99zsfcxp1a5b64-dnsmasq-2.93/bin/dnsmasq --version | head -1
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: /nix/store/cc9lkx3igxymsdsxnv99zsfcxp1a5b64-dnsmasq-2.93/bin/dnsmasq --version | head -1, in 0.49 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: uname -r
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: uname -r, in 0.38 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: sleep 2
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: sleep 2, in 2.52 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.79 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.49 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl start sandhi-contract-empty.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl start sandhi-contract-empty.service, in 1.41 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for success: systemctl show sandhi-contract-empty.service -p ActiveState --value | grep -Ex 'inactive|failed'
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for success: systemctl show sandhi-contract-empty.service -p ActiveState --value | grep -Ex 'inactive|failed', in 10.67 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-empty.service -p Result --value
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-empty.service -p Result --value, in 0.79 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-empty.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-empty.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies, in 1.01 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: sleep 3
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: sleep 3, in 3.57 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: cat /var/lib/sandhi-contract-empty/result.json
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: cat /var/lib/sandhi-contract-empty/result.json, in 0.73 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.92 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.71 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.66 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.71 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl start sandhi-contract-networked.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl start sandhi-contract-networked.service, in 7.60 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for success: systemctl show sandhi-contract-networked.service -p ActiveState --value | grep -Ex 'inactive|failed'
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for success: systemctl show sandhi-contract-networked.service -p ActiveState --value | grep -Ex 'inactive|failed', in 9.66 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-networked.service -p Result --value
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-networked.service -p Result --value, in 0.72 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-networked.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-networked.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies, in 0.66 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: sleep 3
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: sleep 3, in 3.25 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: cat /var/lib/sandhi-contract-networked/result.json
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: cat /var/lib/sandhi-contract-networked/result.json, in 0.24 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.30 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.29 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.26 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.22 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl start sandhi-contract-empty-blocked.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl start sandhi-contract-empty-blocked.service, in 1.04 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for success: systemctl show sandhi-contract-empty-blocked.service -p ActiveState --value | grep -Ex 'inactive|failed'
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for success: systemctl show sandhi-contract-empty-blocked.service -p ActiveState --value | grep -Ex 'inactive|failed', in 4.42 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-empty-blocked.service -p Result --value
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-empty-blocked.service -p Result --value, in 0.62 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-empty-blocked.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-empty-blocked.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies, in 0.53 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: sleep 3
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: sleep 3, in 3.28 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: cat /var/lib/sandhi-contract-empty-blocked/result.json
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: cat /var/lib/sandhi-contract-empty-blocked/result.json, in 0.20 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.20 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.20 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.22 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.21 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl start sandhi-contract-networked-blocked.service
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl start sandhi-contract-networked-blocked.service, in 1.75 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: waiting for success: systemctl show sandhi-contract-networked-blocked.service -p ActiveState --value | grep -Ex 'inactive|failed'
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: waiting for success: systemctl show sandhi-contract-networked-blocked.service -p ActiveState --value | grep -Ex 'inactive|failed', in 4.83 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-networked-blocked.service -p Result --value
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-networked-blocked.service -p Result --value, in 0.60 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: systemctl show sandhi-contract-networked-blocked.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: systemctl show sandhi-contract-networked-blocked.service -p InaccessiblePaths -p PrivateNetwork -p IPAddressAllow -p RestrictAddressFamilies, in 0.66 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: sleep 3
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: sleep 3, in 3.26 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: cat /var/lib/sandhi-contract-networked-blocked/result.json
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: cat /var/lib/sandhi-contract-networked-blocked/result.json, in 0.27 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.27 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.29 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.28 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.27 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: sleep 2
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: sleep 2, in 2.29 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl --sync
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl --sync, in 0.28 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: journalctl -b -u exp0-upstream.service --no-pager -o cat, in 0.24 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> machine: must succeed: curl --noproxy '*' --fail --max-time 3 http://127.0.0.2:8080/ | grep -x sideband
+vm-test-run-sandhi-experiment0-host-resolution> machine: (finished: must succeed: curl --noproxy '*' --fail --max-time 3 http://127.0.0.2:8080/ | grep -x sideband, in 0.60 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> (finished: run the VM test script, in 201.73 seconds)
+vm-test-run-sandhi-experiment0-host-resolution> test script finished in 202.07s
+vm-test-run-sandhi-experiment0-host-resolution> cleanup
+vm-test-run-sandhi-experiment0-host-resolution> kill QemuMachine (pid 9)
+vm-test-run-sandhi-experiment0-host-resolution> (finished: cleanup, in 0.08 seconds)

@@ -1,0 +1,70 @@
+{
+  "kind": "Sideband-derived experiment summary",
+  "experiment": "Experiment 0: host-mediated name resolution from Sandhi contracts",
+  "scope": "nix/sandhi/docs/DECISIONS.md, 2026-10-05 (experiment 0 implementation scope), recorded at ca885b9 before the test existed",
+  "recorder": {
+    "declaredNode": "Sideband",
+    "producingModel": null,
+    "runtime": "Claude Code remote session started by Mora",
+    "postingAccount": "mora-vector (GitHub API); git author Claude <noreply@anthropic.com>"
+  },
+  "source": {
+    "commit": "72b7ce5bea24ff9d16c494062e6d241e29e2903f",
+    "experimentFile": "experiments/host-resolution.nix",
+    "experimentFileSha256": "3fddecfab26affd6980db4edb7c30ba0dba66891d076cfbbb680ffd89b1f3965",
+    "modulesFlakeAndTestsChangedFromMain": false,
+    "nixpkgs": "nixos-26.05.9843.b67c7a60c373 (flake.lock pin)"
+  },
+  "builder": {
+    "system": "x86_64-linux",
+    "cores": 4,
+    "memoryGiB": 15,
+    "nixVersion": "2.34.6",
+    "kvm": false,
+    "note": "QEMU software emulation; the test sets requiredFeatures.kvm = false"
+  },
+  "attempts": [
+    {
+      "attempt": 1,
+      "startedAt": "2026-10-05T01:36:46Z",
+      "finishedAt": "2026-10-05T01:40:49Z",
+      "exitCode": 0,
+      "testScriptSeconds": 201.73,
+      "harnessDefects": []
+    }
+  ],
+  "output": {
+    "storePath": "/nix/store/rv4sgwlam85ngpksxhnpfm3iygxd3ahz-vm-test-run-sandhi-experiment0-host-resolution",
+    "narHash": "sha256-5Aq0HYGZutvMI+doGk+wK6HzED/A+6HvT02343Rfyqs=",
+    "observations": "experiment0.json (copied byte-for-byte from the output)",
+    "observationsSha256": "e05d4ac2439bb0ef9cbc89d47dbd85f6c1dc6bc4e04c1fac59d4796f573e01c7",
+    "pathInfo": "path-info.json",
+    "driverLog": "driver.log (test-driver lines only; guest console lines omitted)"
+  },
+  "controls": {
+    "hostLookupBeforeAnsweredAndLogged": true,
+    "hostLookupAfterAnsweredAndLogged": true,
+    "httpFixtureHealthyBeforeAndAfter": true,
+    "networkedContractsReachedDeclaredPeer": true,
+    "allContractUnitsResultSuccess": true
+  },
+  "observed": {
+    "guestNameService": "nsncd 1.5.2; socket /run/nscd/socket mode srwxrwxrwx owned by nscd; /var/run/nscd/socket resolves to it; hosts: mymachines files myhostname dns; resolv.conf nameserver 127.0.0.4 only",
+    "empty": "No network (PrivateNetwork=yes, AF_UNIX only). getaddrinfo resolved the contract-chosen name to 127.0.0.9. The upstream logged that exact name from 127.0.0.1. The direct query failed with EAFNOSUPPORT and was not logged.",
+    "networked": "Peer 127.0.0.2 only. getaddrinfo resolved the contract-chosen name. The upstream logged it from 127.0.0.1. The direct query to 127.0.0.4 failed with EPERM and was not logged. The declared peer was reachable.",
+    "emptyBlocked": "Same as empty, plus InaccessiblePaths=/run/nscd. The socket was not visible (EACCES). getaddrinfo failed (EAI_NONAME). The upstream logged nothing.",
+    "networkedBlocked": "Same as networked, plus InaccessiblePaths=/run/nscd. The socket was not visible. getaddrinfo failed (EAI_AGAIN); its in-process DNS fallback was stopped by the IP filter. The upstream logged nothing. The declared peer was reachable."
+  },
+  "findings": {
+    "hostMediatedResolution": "Demonstrated, in this guest, for both an empty-recipient and a networked contract.",
+    "outboundChannel": "Demonstrated, in this guest. A query name generated inside each contract reached an upstream resolver that the contract's own network controls do not admit. The host name-service daemon sent the query, so the contract's IP filter never saw it. Capacity and rate were not measured.",
+    "socketBlockedComparison": "With /run/nscd inaccessible, neither contract resolved the name and the upstream logged neither name. This was a test-local override. Its effect on other lookups that use the same socket, such as user and group names, was not measured."
+  },
+  "limits": [
+    "One disposable guest, one NSS configuration (nsncd; no systemd-resolved), one attempt. Other hosts may expose other resolver sockets, for example systemd-resolved's.",
+    "The upstream was a fixture inside the guest. On a real host the daemon forwards to whatever resolver the host is configured with, which may be off-host. That is inferred from configuration, not measured here.",
+    "No mitigation is adopted. No module code changed. Nothing here is a production claim.",
+    "The six existing checks were not rerun for this experiment."
+  ],
+  "canonical": false
+}
