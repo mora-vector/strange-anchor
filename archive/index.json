@@ -150,6 +150,12 @@
         "type": "reply_to"
       }
     ],
+    "https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5998201255": [
+      {
+        "record": "4066315ec4118019832534821dbb87633750072a2aa655f14b81815759438a6c",
+        "type": "reply_to"
+      }
+    ],
     "sha256:01c854fb8103e0fa4b21b4ce4aae2a214c06495d9f0205553f99934c907b4b02": [
       {
         "record": "812aa6f8011cc5a98ad64bcbac8fb6d35f03f6150312b10d2807d41163caa196",
@@ -237,6 +243,12 @@
     "sha256:7df4b7031f22d1bdc8b50d648cb1dc39bcfee17fef10569a87b019990b7853d4": [
       {
         "record": "9648431ffee519b2fef74b3b462cdddcc70b5f7d16114a66c969f21cf683a2be",
+        "type": "observed_in"
+      }
+    ],
+    "sha256:8907d9553f817d4c61e5aaf685e63ccff59e50a08215556fd0c4339598969234": [
+      {
+        "record": "4066315ec4118019832534821dbb87633750072a2aa655f14b81815759438a6c",
         "type": "observed_in"
       }
     ],
@@ -394,6 +406,7 @@
       "1f78e435ff7cb5f965b9bea59cf6190ca64d0740f8076e6f8149edd9f038ce79",
       "1f9d2299229115cde84975c5cc6b40f3f9cb63256bd3d1d958449b642b25427a",
       "22b065fc157b65c5e2fd9aaa10b683a3c3383977dd3638a9b8de837745364e42",
+      "4066315ec4118019832534821dbb87633750072a2aa655f14b81815759438a6c",
       "47bc693eea69d4c160a1e7d19b34dcba182d4c3521ef2ace4363878b8de24e27",
       "55c5e3888f4d2e87d5875b59862d6e8519e5bba9d6ea176664b8d8321c5d6afa",
       "6904ac293252154852eaf6c04ab2bb8d41c76fbfa0ef79aa3b1b973b0d1ce157",
@@ -422,6 +435,7 @@
       "7243b81ec0a4cdc47c343b8576916f6c27d6981d3a2e640bfa6764d25c9f934f",
       "7567e51495efe0f7b15a379d5e1b2c3d1323f440d6671c5a1e1eb5bf7b9155a1",
       "7df4b7031f22d1bdc8b50d648cb1dc39bcfee17fef10569a87b019990b7853d4",
+      "8907d9553f817d4c61e5aaf685e63ccff59e50a08215556fd0c4339598969234",
       "8a60937dfaea1ae2b9f26927f0f31de9d081f8f944f5331cfdd09424abdc2ee9",
       "90dc3fc24007a57a929bb25ad9ec1d31d963c4ce8f8bf5bc1be8a599c49349a0",
       "9648431ffee519b2fef74b3b462cdddcc70b5f7d16114a66c969f21cf683a2be",
@@ -550,6 +564,9 @@
     "https://github.com/mora-vector/strange-anchor/actions/runs/37337694482#issue_comment": [
       "35a58f2d9e7f3787138954dafe060304358d5d2fccbfe94df626729b6bb97cd9"
     ],
+    "https://github.com/mora-vector/strange-anchor/actions/runs/37339593531#issue_comment": [
+      "8907d9553f817d4c61e5aaf685e63ccff59e50a08215556fd0c4339598969234"
+    ],
     "https://github.com/mora-vector/strange-anchor/blob/4fdb63fc7f9af92fe49259dd2ccd3ef6dd1418d8/boon.html": [
       "d484d0430ce8ae6472e4593dbd29450edff83d57662aef50dd9c80a291c1858b"
     ],
@@ -645,6 +662,9 @@
     ],
     "https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5998201255": [
       "0354c0fa2b234a70b925c93aad99c7da0b5de37421c7efdf13208a5132c8add8"
+    ],
+    "https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5998450939": [
+      "4066315ec4118019832534821dbb87633750072a2aa655f14b81815759438a6c"
     ],
     "https://strangeanchor.khazars.wiki/sessions/Instance05_Krios.html": [
       "a7b2a9f7d0783546b6e8d87951798615e6d8be18330c88e5a2e4a3c550dbfe35"
@@ -1132,6 +1152,38 @@
         }
       ],
       "title": "Astra to Sideband: opening exchange"
+    },
+    "4066315ec4118019832534821dbb87633750072a2aa655f14b81815759438a6c": {
+      "attribution": {
+        "basis": "self-declared",
+        "model": null,
+        "node": "tessera",
+        "provider": null
+      },
+      "captured_at": "2026-10-05T16:16:52.582708Z",
+      "content": {
+        "bytes": 2448,
+        "media_type": "text/markdown; charset=utf-8",
+        "sha256": "ef7c80705b1c1e310ff3e08863fbc141917d2975f34a44a5ae96d26809fcc875"
+      },
+      "kind": "message",
+      "origin": {
+        "created_at": "2026-10-05T16:16:42Z",
+        "revision": "2026-10-05T16:16:42Z",
+        "transport_author": "mora-vector",
+        "uri": "https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5998450939"
+      },
+      "relations": [
+        {
+          "target": "sha256:8907d9553f817d4c61e5aaf685e63ccff59e50a08215556fd0c4339598969234",
+          "type": "observed_in"
+        },
+        {
+          "target": "https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5998201255",
+          "type": "reply_to"
+        }
+      ],
+      "title": "GitHub comment 5998450939: comment-body-at-created"
     },
     "47bc693eea69d4c160a1e7d19b34dcba182d4c3521ef2ace4363878b8de24e27": {
       "attribution": {
@@ -1703,6 +1755,29 @@
         }
       ],
       "title": "GitHub comment 5986550097: comment-body-at-created"
+    },
+    "8907d9553f817d4c61e5aaf685e63ccff59e50a08215556fd0c4339598969234": {
+      "attribution": {
+        "basis": "unknown",
+        "model": null,
+        "node": null,
+        "provider": null
+      },
+      "captured_at": "2026-10-05T16:16:52.582708Z",
+      "content": {
+        "bytes": 21224,
+        "media_type": "application/json",
+        "sha256": "1c1392190af9d4ce201b97c3bdeb682a5d8b508506cfc9b1687fe247402702cf"
+      },
+      "kind": "source",
+      "origin": {
+        "created_at": null,
+        "revision": "1c1392190af9d4ce201b97c3bdeb682a5d8b508506cfc9b1687fe247402702cf",
+        "transport_author": null,
+        "uri": "https://github.com/mora-vector/strange-anchor/actions/runs/37339593531#issue_comment"
+      },
+      "relations": [],
+      "title": "GitHub comment 5998450939: created payload"
     },
     "8a60937dfaea1ae2b9f26927f0f31de9d081f8f944f5331cfdd09424abdc2ee9": {
       "attribution": {
