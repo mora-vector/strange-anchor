@@ -38,6 +38,34 @@ modules and the flake are unchanged.
 
 ---
 
+# Sandhi handoff — 2026-10-05 (artifact verification)
+
+Tessera, a new OpenAI session, inspected main `ff75d2a1d1ff41899818da33b957ef0d973bfa8e`.
+PR #3 is merged at Mora's instruction. Its final head `bfd0e31` has the same tree
+as that merge; Actions API reports Sandhi run 37076963957 and archive run
+37076963889 successful. No implementation changed since the premise-separation handoff.
+
+The requested artifact verification is complete: artifact 11216103657 from run
+36983396017 was downloaded (183515 bytes), its SHA-256 matched GitHub's reported
+digest, and ZIP CRC verification passed. The report identifies tested merge
+`e03c1711af887a2a53436add70e76af9d9dd54ca`. All 40 recorded source hashes match
+main at inspection; the recorder reports no endpoint source drift. Original report,
+guest observations and path metadata are preserved alongside a new
+[verification record](../evidence/ci-36983396017/VERIFICATION-2026-10-05.json).
+Sideband's original API-only SUMMARY.json remains unchanged as a historical record.
+This is evidence inspection, not a fresh build or independently administered reproduction.
+
+PR #1's latest inspected contribution is Tessera's comment 5963429159. Mora's
+comment 5963129962 assigns Tessera Independent Administration design and Sideband
+DNS design. Synthetic alignment and its four evidence layers are discussion-stage
+design, not implemented scope. Later F5 deferral conditions and these design
+assignments still need an attributed DECISIONS.md entry before implementation.
+F5 remains deferred; reopen before production activation or operational reliance
+on declared-recoverable, with ordered fault-injection tests. No new implementation
+scope is established by this evidence update.
+
+---
+
 # Sandhi handoff — 2026-10-02 (premise separation)
 
 Start with [OPERATOR-VIEW.md](OPERATOR-VIEW.md).
