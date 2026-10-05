@@ -154,6 +154,34 @@ class StateTests(unittest.TestCase):
         self.assertEqual((n.status()["status"], n.status()["reason"]),
                          ("failed", "deadline-exceeded:no-message-received"))
 
+    def test_no_new_work_after_the_persisted_deadline(self):
+        n = self.node({"conversation_seconds": 30})
+        fields = envelope()
+        self.receive(n, fields)
+        original = node.utcnow
+        node.utcnow = lambda: original() + datetime.timedelta(seconds=60)
+        try:
+            n.work()
+            self.assertFalse((n.state / "invocations.log").exists())
+            n.check_deadline()
+        finally:
+            node.utcnow = original
+        self.assertEqual(n.status()["reason"], "deadline-exceeded:incomplete")
+
+    def test_expired_message_is_not_worked_inside_the_conversation(self):
+        n = self.node()
+        fields = envelope(deadline=node.stamp(node.utcnow() + datetime.timedelta(seconds=2)))
+        self.receive(n, fields)
+        original = node.utcnow
+        node.utcnow = lambda: original() + datetime.timedelta(seconds=10)
+        try:
+            n.work()
+        finally:
+            node.utcnow = original
+        self.assertFalse((n.state / "invocations.log").exists())
+        self.assertEqual(n.status()["reason"],
+                         f"deadline-exceeded:before-work:{fields['message_id']}:expired")
+
     def test_unknown_trial_keys_and_faults_are_refused(self):
         with self.assertRaises(ValueError):
             self.node({"max_attempts": 1})

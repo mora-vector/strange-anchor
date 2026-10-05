@@ -99,6 +99,7 @@ in pkgs.testers.runNixOSTest {
   };
   testScript = ''
     import base64, hashlib, io, json, os, secrets, shlex, tarfile, time, traceback
+    from typing import Any
 
     UNIT = "sandhi-contract-exchange.service"
     STATE = "/var/lib/sandhi-contract-exchange"
@@ -108,7 +109,7 @@ in pkgs.testers.runNixOSTest {
     M = {"a": a, "b": b, "c": c}
     OUT = os.environ["out"]
     started = time.monotonic()
-    evidence = {"scope": "Stage A transport test (DECISIONS.md 2026-10-05); deterministic responders;"
+    evidence: dict[str, Any] = {"scope": "Stage A transport test (DECISIONS.md 2026-10-05); deterministic responders;"
                          " one builder, three guests; not AI communication or independent administration",
                 "canonical": False, "trials": {}, "probes": {}, "errors": []}
 
@@ -151,7 +152,7 @@ in pkgs.testers.runNixOSTest {
     put(a, f"{CRED}/map.json", json.dumps({prints["b"]: IDS["b"]}).encode())
     put(b, f"{CRED}/trust.pem", (pem["a"] + extra_pem).encode())
     put(b, f"{CRED}/map.json", json.dumps({prints["a"]: IDS["a"]}).encode())
-    environment = {"fingerprints": {**{IDS[n]: prints[n] for n in ("a", "b")},
+    environment: dict[str, Any] = {"fingerprints": {**{IDS[n]: prints[n] for n in ("a", "b")},
                                     "probe-extra": fingerprint(a, "/root/probe/extra.pem"),
                                     "probe-untrusted": fingerprint(a, "/root/probe/untrusted.pem")}}
     for name in ("a", "b", "c"):
@@ -193,11 +194,12 @@ in pkgs.testers.runNixOSTest {
         os.makedirs(directory, exist_ok=True)
         with open(os.path.join(directory, f"{name}-state.tar"), "wb") as stream:
             stream.write(data)
-        files = {}
+        files: dict[str, bytes] = {}
         with tarfile.open(fileobj=io.BytesIO(data)) as archive:
             for member in archive.getmembers():
-                if member.isfile():
-                    files[os.path.normpath(member.name)] = archive.extractfile(member).read()
+                handle = archive.extractfile(member) if member.isfile() else None
+                if handle is not None:
+                    files[os.path.normpath(member.name)] = handle.read()
         return files
 
     def lines(files, name):
@@ -212,7 +214,7 @@ in pkgs.testers.runNixOSTest {
         return {mid: inbox.get(mid) == raw for mid, raw in folder(sender, "outbox").items()
                 if mid in acks and json.loads(acks[mid])["result"] in ("accepted", "duplicate")}
 
-    def summary(files, label):
+    def summary(files, label) -> dict[str, Any]:
         status = json.loads(files["status.json"]) if "status.json" in files else None
         return {"status": status,
                 "processStarts": sum(1 for e in lines(files, "events.log") if e["event"] == "start"),
@@ -222,7 +224,7 @@ in pkgs.testers.runNixOSTest {
                 "events": lines(files, "events.log"),
                 "ending": json.loads(files["ending.json"]) if "ending.json" in files else None}
 
-    def run(label, faults=None, seconds=240, linger=5, keep=False, order=("b", "a")):
+    def run(label, faults=None, seconds=240, linger=5, keep=False, order=("b", "a")) -> dict[str, Any]:
         faults = faults or {}
         inputs = {n: secrets.token_hex(16) for n in ("a", "b")}
         expected = hashlib.sha256(bytes.fromhex(inputs["a"]) + bytes.fromhex(inputs["b"])).hexdigest()
@@ -242,8 +244,8 @@ in pkgs.testers.runNixOSTest {
         return {"label": label, "faults": faults, "expectedDigest": expected,
                 "secondsToStatus": round(time.monotonic() - began, 1), "seconds": seconds}
 
-    def finish(record, keep=False):
-        files = {}
+    def finish(record: dict[str, Any], keep=False):
+        files: dict[str, Any] = {}
         for name in ("a", "b"):
             if keep:
                 M[name].succeed(f"systemctl stop {UNIT}")
@@ -269,7 +271,7 @@ in pkgs.testers.runNixOSTest {
         cert, key = f"{CRED}/cert.pem", f"{CRED}/key.pem"
         conversation = json.loads(b.succeed(f"cat {STATE}/conversation.json"))["conversation_id"]
         outbox_before = b.succeed(f"ls {STATE}/outbox").split()
-        probes = {
+        probes: dict[str, Any] = {
             # Assertion 6: the unauthorised guest, at the address filter.
             "c->a:contract": probe(c, "connect", "--host", ADDR["a"]),
             "c->b:contract": probe(c, "connect", "--host", ADDR["b"]),
@@ -322,7 +324,7 @@ in pkgs.testers.runNixOSTest {
                     secrets.token_hex(16))
         b.succeed(f"systemctl start {UNIT}")
         b.wait_until_succeeds(f"ss -ltn | grep -q '{ADDR['b']}:${toString port}'", timeout=120)
-        before = {"unit": unit(b), "allow": b.succeed(f"systemctl show {UNIT} -p IPAddressAllow").strip()}
+        before: dict[str, Any] = {"unit": unit(b), "allow": b.succeed(f"systemctl show {UNIT} -p IPAddressAllow").strip()}
         held = json.dumps({"conversation_id": "0" * 32, "parent_id": None, "sender": "installation-c",
                            "recipient": IDS["b"], "turn": 0, "kind": "message", "payload": "held"})
         a.succeed("rm -f /tmp/release /tmp/held.json && systemd-run --unit=exchange-held "
@@ -333,14 +335,14 @@ in pkgs.testers.runNixOSTest {
         b.wait_until_succeeds(f"ss -tn state established '( sport = :${toString port} )' | grep -q {ADDR['a']}", timeout=60)
         switched = time.monotonic()
         b.succeed("/run/current-system/specialisation/withdrawn/bin/switch-to-configuration test")
-        after = {"unit": unit(b), "allow": b.succeed(f"systemctl show {UNIT} -p IPAddressAllow").strip(),
+        after: dict[str, Any] = {"unit": unit(b), "allow": b.succeed(f"systemctl show {UNIT} -p IPAddressAllow").strip(),
                  "switchSeconds": round(time.monotonic() - switched, 1)}
         b.wait_until_succeeds(f"systemctl is-active {UNIT}", timeout=60)
         b.wait_until_succeeds(f"ss -ltn | grep -q '{ADDR['b']}:${toString port}'", timeout=120)
         after["listening"] = True
         a.succeed("touch /tmp/release")
         a.wait_until_succeeds("systemctl show exchange-held -p ActiveState --value | grep -Ex 'inactive|failed'", timeout=60)
-        result = {"before": before, "after": after,
+        result: dict[str, Any] = {"before": before, "after": after,
                   "existingConnection": json.loads(a.succeed("cat /tmp/held.json")),
                   "newConnection": probe(a, "tls", "--label", "new-after-withdrawal", "--host", ADDR["b"],
                                          "--cert", f"{CRED}/cert.pem", "--key", f"{CRED}/key.pem",
@@ -356,12 +358,12 @@ in pkgs.testers.runNixOSTest {
     attempt("t8-channel-cut", lambda: finish(run("t8-channel-cut", seconds=60, linger=2)))
 
     # Assertions -------------------------------------------------------------
-    T = evidence["trials"]
-    P = evidence.get("probes", {})
+    T: dict[str, Any] = evidence["trials"]
+    P: dict[str, Any] = evidence.get("probes", {})
 
-    def get(path, default=None):
+    def get(path, default=None) -> Any:
         try:
-            value = evidence
+            value: Any = evidence
             for part in path:
                 value = value[part]
             return value
@@ -381,10 +383,24 @@ in pkgs.testers.runNixOSTest {
                     for label in ("t2-duplicate", "t3-conflict")}
     all_agreement = [ok for record in T.values() if "byteAgreement" in record
                      for direction in record["byteAgreement"].values() for ok in direction.values()]
-    endings = {label: [get(["trials", label, n, "status", "status"]) for n in ("a", "b") if n in T[label]]
+    endings: dict[str, Any] = {label: [get(["trials", label, n, "status", "status"]) for n in ("a", "b") if n in T[label]]
                for label in T}
     endings["t7-withdrawal"] = [get(["trials", "t7-withdrawal", "b", "status", "status"])]
-    assertions = {
+    distinct: dict[str, Any] = {
+        "cannot-connect": [k for k in ("c->a:contract", "c->b:contract") if P.get(k, {}).get("outcome") != "connected"],
+        "cannot-authenticate": [r.get("reason", r["result"]) for r in t1_b if r["result"] in ("tls-failed", "unauthenticated")],
+        "rejected-after-authentication": [r.get("reason") for r in t1_b if r["result"] == "rejected"],
+        "passive-interception": "not tested; no claim"}
+    distinct["passed"] = all(distinct[k] for k in ("cannot-connect", "cannot-authenticate",
+                                                   "rejected-after-authentication"))
+    withdrawn: dict[str, Any] = {
+        "observed": {k: get(["trials", "t7-withdrawal", k]) for k in ("existingConnection", "newConnection")},
+        "restartObserved": get(["trials", "t7-withdrawal", "before", "unit", "InvocationID"])
+                           != get(["trials", "t7-withdrawal", "after", "unit", "InvocationID"]),
+        "newConnectionRefusedBeforeTls": get(["trials", "t7-withdrawal", "newConnection", "outcome"]) == "connect-failed",
+        "existingConnectionCarriedData": get(["trials", "t7-withdrawal", "existingConnection", "outcome"]) == "acked"}
+    withdrawn["passed"] = withdrawn["newConnectionRefusedBeforeTls"] and withdrawn["restartObserved"]
+    assertions: dict[str, Any] = {
         "1-completion": get(["trials", "t1-baseline", "complete"]) is True,
         "2-byte-agreement": bool(all_agreement) and all(all_agreement)
             and all(get(["trials", "t1-baseline", "byteAgreement", d], {}) for d in ("a->b", "b->a")),
@@ -407,26 +423,13 @@ in pkgs.testers.runNixOSTest {
             and get(["probes", "turn-8", "ack", "reason"]) == "turn-limit"
             and any(r.get("stage") == "frame" and r.get("reason") == "frame-size" for r in t1_b)
             and P.get("b-outbox-unchanged") is True,
-        "8-distinct-claims": {
-            "cannot-connect": [k for k in ("c->a:contract", "c->b:contract") if P.get(k, {}).get("outcome") != "connected"],
-            "cannot-authenticate": [r.get("reason", r["result"]) for r in t1_b if r["result"] in ("tls-failed", "unauthenticated")],
-            "rejected-after-authentication": [r.get("reason") for r in t1_b if r["result"] == "rejected"],
-            "passive-interception": "not tested; no claim"},
-        "9-peer-withdrawal": {
-            "observed": {k: get(["trials", "t7-withdrawal", k]) for k in ("existingConnection", "newConnection")},
-            "restartObserved": get(["trials", "t7-withdrawal", "before", "unit", "InvocationID"])
-                               != get(["trials", "t7-withdrawal", "after", "unit", "InvocationID"]),
-            "newConnectionRefusedBeforeTls": get(["trials", "t7-withdrawal", "newConnection", "outcome"]) == "connect-failed",
-            "existingConnectionCarriedData": get(["trials", "t7-withdrawal", "existingConnection", "outcome"]) == "acked"},
+        "8-distinct-claims": distinct,
+        "9-peer-withdrawal": withdrawn,
         "10-channel-cut": all(get(["trials", "t8-channel-cut", n, "status", "status"]) == "failed"
                               and "digest" not in (get(["trials", "t8-channel-cut", n, "status"]) or {"digest": 1})
                               for n in ("a", "b")),
         "11-explicit-ending": all(e and all(s in ("complete", "failed") for s in e) for e in endings.values()),
     }
-    assertions["9-peer-withdrawal"]["passed"] = assertions["9-peer-withdrawal"]["newConnectionRefusedBeforeTls"] \
-        and assertions["9-peer-withdrawal"]["restartObserved"]
-    assertions["8-distinct-claims"]["passed"] = all(assertions["8-distinct-claims"][k]
-        for k in ("cannot-connect", "cannot-authenticate", "rejected-after-authentication"))
     evidence["assertions"] = assertions
     evidence["allAssertionsPassed"] = all(v if isinstance(v, bool) else v["passed"] for v in assertions.values())
     evidence["testScriptSeconds"] = round(time.monotonic() - started, 1)

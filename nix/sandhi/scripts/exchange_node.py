@@ -340,18 +340,28 @@ class Node:
         return [{"direction": d, "envelope": e}
                 for d, e in sorted(entries, key=lambda item: item[1]["turn"])]
 
+    def expired(self):
+        return utcnow() > parse_stamp(self.conversation["deadline"])
+
     def work(self):
-        if self.status() is not None:
+        """New work stays inside the persisted deadline and the message's own deadline."""
+        if self.status() is not None or self.expired():
             return
         if self.config["opener"] and not (self.state / "responses" / "open.json").exists():
             self.step(None, None)
         inbox = sorted(((json.loads(raw)["turn"], mid, raw)
                         for mid, raw in self.stored("inbox").items()))
         for _, mid, raw in inbox:
-            if self.status() is not None:
+            if self.status() is not None or self.expired():
                 return
-            if not (self.state / "responses" / f"{mid}.json").exists():
-                self.step(mid, raw)
+            if (self.state / "responses" / f"{mid}.json").exists():
+                continue
+            try:
+                protocol.validate_deadline(json.loads(raw), now=utcnow())
+            except protocol.ProtocolError as error:
+                self.finish("failed", f"deadline-exceeded:before-work:{mid}:{code(error)}")
+                return
+            self.step(mid, raw)
 
     def invoke(self, incoming_id, incoming):
         request = {"local_id": self.local_id, "peer_id": self.peer_id,
@@ -436,7 +446,7 @@ class Node:
 
     # Outbound ---------------------------------------------------------------
     def send_pending(self, client_context):
-        if utcnow() > parse_stamp(self.conversation["deadline"]):
+        if self.expired():
             return
         acks = self.stored("acks")
         outbox = sorted(self.stored("outbox").items(), key=lambda item: json.loads(item[1])["turn"])
@@ -519,7 +529,7 @@ class Node:
 
     # Lifecycle --------------------------------------------------------------
     def check_deadline(self):
-        if self.status() is not None or utcnow() <= parse_stamp(self.conversation["deadline"]):
+        if self.status() is not None or not self.expired():
             return
         acks, outbox = self.stored("acks"), self.stored("outbox")
         undelivered = sorted(set(outbox) - set(acks))
@@ -570,9 +580,9 @@ class Node:
         client_context = tls_context(self.credentials, server=False)
         threading.Thread(target=self.listen, args=(server,), daemon=True).start()
         while not self.stopping.is_set():
+            self.check_deadline()
             self.work()
             self.send_pending(client_context)
-            self.check_deadline()
             if self.done():
                 break
             self.stopping.wait(0.25)
