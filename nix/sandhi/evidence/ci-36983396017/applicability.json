@@ -1,0 +1,126 @@
+{
+  "scope": "administrator declarations across actual NixOS activations; not recovery verification",
+  "positive": {
+    "assessments": [
+      {
+        "assertedBy": "vm-fixture",
+        "epoch": "51956f15bb9346658e6ad0e9aebb201a",
+        "reference": "fixture:local-bytes",
+        "sha256": "9babcbe17b61e0df0ca96b5553ca292af86cd465eafe5939a0f19de7029e7442",
+        "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+        "subject": {
+          "kind": "output",
+          "path": "/nix/store/w0zbb4wl0pmc58v8k7jr4rxim6c67w7b-sandhi-recovery-subject"
+        },
+        "verification": "not-performed"
+      }
+    ],
+    "canonical": false,
+    "epoch": "51956f15bb9346658e6ad0e9aebb201a",
+    "historicalAssessmentCount": 1,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "declared-recoverable"
+  },
+  "disabled": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "1c4783ef9d77438f80f4fd44353cb305",
+    "historicalAssessmentCount": 1,
+    "retentionEnabled": false,
+    "snapshotSha256": "131e40fb7127e4a2788800ded751a4173416ac27f17b50c4fcd9760707db994f",
+    "status": "unassessed"
+  },
+  "disabledExportPolicy": {
+    "retentionEnabled": false,
+    "subjects": [
+      {
+        "kind": "output",
+        "path": "/nix/store/w0zbb4wl0pmc58v8k7jr4rxim6c67w7b-sandhi-recovery-subject"
+      }
+    ]
+  },
+  "reenabled": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "f1677e29ccb64f8d823621e324fcf58b",
+    "historicalAssessmentCount": 1,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "unassessed"
+  },
+  "revalidated": {
+    "assessments": [
+      {
+        "assertedBy": "vm-fixture",
+        "epoch": "f1677e29ccb64f8d823621e324fcf58b",
+        "reference": "fixture:local-bytes",
+        "sha256": "9babcbe17b61e0df0ca96b5553ca292af86cd465eafe5939a0f19de7029e7442",
+        "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+        "subject": {
+          "kind": "output",
+          "path": "/nix/store/w0zbb4wl0pmc58v8k7jr4rxim6c67w7b-sandhi-recovery-subject"
+        },
+        "verification": "not-performed"
+      }
+    ],
+    "canonical": false,
+    "epoch": "f1677e29ccb64f8d823621e324fcf58b",
+    "historicalAssessmentCount": 2,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "declared-recoverable"
+  },
+  "exportHidden": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "cc92e694a0924220967f43973cbfc7f7",
+    "historicalAssessmentCount": 2,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "unassessed"
+  },
+  "exportHiddenDeclared": {
+    "assessments": [
+      {
+        "assertedBy": "vm-fixture",
+        "epoch": "cc92e694a0924220967f43973cbfc7f7",
+        "reference": "fixture:local-bytes",
+        "sha256": "9babcbe17b61e0df0ca96b5553ca292af86cd465eafe5939a0f19de7029e7442",
+        "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+        "subject": {
+          "kind": "output",
+          "path": "/nix/store/w0zbb4wl0pmc58v8k7jr4rxim6c67w7b-sandhi-recovery-subject"
+        },
+        "verification": "not-performed"
+      }
+    ],
+    "canonical": false,
+    "epoch": "cc92e694a0924220967f43973cbfc7f7",
+    "historicalAssessmentCount": 3,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "declared-recoverable"
+  },
+  "returned": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "df7d012ef2de4f2f8509c0767f1c074f",
+    "historicalAssessmentCount": 3,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "unassessed"
+  },
+  "sameConfigurationReactivation": {
+    "assessments": [],
+    "canonical": false,
+    "epoch": "14a3b1db570a401189483f9d03585c1d",
+    "historicalAssessmentCount": 3,
+    "retentionEnabled": true,
+    "snapshotSha256": "1ab5a07dc8a723e5626005bc71df7ac4435abfe67b3555482ccb67232c7c7bdc",
+    "status": "unassessed"
+  },
+  "legacyAndV1UnchangedByRetention": true,
+  "historicalEvidencePreserved": true,
+  "staleEpochRejected": true
+}

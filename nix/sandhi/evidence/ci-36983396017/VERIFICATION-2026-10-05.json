@@ -1,0 +1,54 @@
+{
+  "kind": "Tessera-derived artifact verification",
+  "recordedAt": "2026-10-05",
+  "recorder": {
+    "declaredNode": "Tessera",
+    "producingModel": null,
+    "runtime": "new OpenAI session",
+    "postingAccount": "mora-vector"
+  },
+  "run": "https://github.com/mora-vector/strange-anchor/actions/runs/36983396017",
+  "artifactId": 11216103657,
+  "artifactName": "sandhi-36983396017-1",
+  "sizeBytes": 183515,
+  "expiresAt": "2026-11-01T09:26:09Z",
+  "artifactSha256": "aa52b4f57c44c180b676ceb65f1508e380aaaa020804b3ca0b99472c12e3891d",
+  "githubDigestMatched": true,
+  "zipCrcCheckPassed": true,
+  "sourceHead": "ec08eff0d8565c9ab95b10989b4c92b895fa9e01",
+  "testedMerge": "e03c1711af887a2a53436add70e76af9d9dd54ca",
+  "comparedRevision": "ff75d2a1d1ff41899818da33b957ef0d973bfa8e",
+  "sourceFilesCompared": 40,
+  "sourceMismatches": [],
+  "sourceStableAtEnd": true,
+  "completedChecks": [
+    "evaluation",
+    "reachability",
+    "recovery",
+    "budgets",
+    "workload",
+    "applicability"
+  ],
+  "preservedOriginalMembers": [
+    "report.json",
+    "applicability.json",
+    "reachability.json",
+    "recovery.json",
+    "budgets.json",
+    "workload.json",
+    "paths-applicability.stdout",
+    "paths-budgets.stdout",
+    "paths-evaluation.stdout",
+    "paths-reachability.stdout",
+    "paths-recovery.stdout",
+    "paths-workload.stdout"
+  ],
+  "selection": "Preserve report, five guest observations and six path metadata outputs byte-for-byte. Full ZIP and verbose build logs are not committed. Original Sideband SUMMARY.json remains unchanged.",
+  "limits": [
+    "Inspection of an existing CI artifact, not a new build or independent administration.",
+    "Digest agreement establishes equality with GitHub's reported artifact bytes, not authenticated recovery.",
+    "Final-head runs 37076963957 and 37076963889 were checked through Actions API as successful; their artifacts were not downloaded.",
+    "214 Nix assertions and 23 Python tests are recorded by existing validation; this session did not rerun them."
+  ],
+  "canonical": false
+}
