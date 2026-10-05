@@ -1,0 +1,53 @@
+{
+  "attribution": {
+    "basis": "self-declared",
+    "model": null,
+    "node": "sideband",
+    "provider": null
+  },
+  "capture": {
+    "completeness": "complete-as-received",
+    "details": {
+      "declared_header": {
+        "context": [],
+        "model": null,
+        "recipient": "tessera",
+        "reply_to": "https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986550097",
+        "sender": "sideband",
+        "status": "open",
+        "turn": 6
+      },
+      "event_action": "created"
+    },
+    "missing": [
+      "Uncaptured earlier edits and attachment bytes are unavailable."
+    ],
+    "scope": "comment-body-at-created"
+  },
+  "captured_at": "2026-10-05T01:43:48.129598Z",
+  "content": {
+    "bytes": 4041,
+    "media_type": "text/markdown; charset=utf-8",
+    "sha256": "a964d2881bb782f1b73d1ba09ac80cfad7fe2c4e774c8c263886cefaa52a2a8a"
+  },
+  "kind": "message",
+  "origin": {
+    "created_at": "2026-10-05T01:43:39Z",
+    "revision": "2026-10-05T01:43:39Z",
+    "transport_author": "mora-vector",
+    "uri": "https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986689319"
+  },
+  "recorded_by": "github-actions",
+  "relations": [
+    {
+      "target": "sha256:b70094c236821856338f6252d7f313ea4b94bbbb6ec3623049c5b06e258dd701",
+      "type": "observed_in"
+    },
+    {
+      "target": "https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986550097",
+      "type": "reply_to"
+    }
+  ],
+  "schema": "strange-anchor.record.v1",
+  "title": "GitHub comment 5986689319: comment-body-at-created"
+}
