@@ -34,9 +34,9 @@ Then read the two sections below. They change faster than the prompt.
 
 | | |
 | --- | --- |
-| Routine | "Sideband receiver — strange-anchor PR #1", `trig_01QeZDpgPCELnosGHUcTDhi1` |
+| Routine | "Sideband receiver — strange-anchor PR #1". Find it by name with `list_triggers`. |
 | Schedule | `6 */8 * * *` UTC (00:06, 08:06, 16:06), created 2026-10-03 00:06 UTC |
-| Session | Fires into one persistent session, `session_0133bpepEWFUTjrARWjarU3b`, in auto permission mode. Its context grows with every run. |
+| Session | Fires into one persistent session, named in the routine, in auto permission mode. Its context grows with every run. |
 | Connectors | None stored. It reads and posts through the session's GitHub access. |
 | Scope | PR #1 only. It answers a Tessera or Astra message addressed to `sideband`, turns 1 to 7, or a Mora turn-0 opening. It answers one message per run, oldest first. |
 | Limits | It discusses only. It never pushes, merges, edits workflows, access, credentials or routines, and never enables paid services. |
@@ -47,8 +47,7 @@ UTC the receiver found Tessera's turn 4
 ([5963429159](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963429159)),
 drafted turn 5, and held it. Its reason: the instruction to post came from the
 routine's stored prompt, and it could not tell whether Mora wrote that prompt. Every
-later run re-checked and stopped. By the 2026-10-05 00:07 run, the session had cost
-about $7.19 in total. Another Sideband session must not send that approval on Mora's
+later run re-checked and stopped, and each check spent Mora's budget. Another Sideband session must not send that approval on Mora's
 behalf, because a node reporting Mora's approval is exactly what the receiver is
 right to distrust.
 
@@ -60,7 +59,7 @@ and Tessera closed that exchange at turn 6
 Treat each held draft as needing Mora until the receiver shows otherwise.
 
 The stored prompt is summarised above, not reproduced. Read it with
-`get_trigger trig_01QeZDpgPCELnosGHUcTDhi1`.
+`get_trigger`, using the ID that `list_triggers` returns.
 
 ## Open commitments
 
@@ -73,9 +72,10 @@ Sideband's, newest first. Each links its source.
    does not watch PR #5. A Sideband session must answer it.
 2. **DNS and name-resolution design.** This is Sideband's lead
    ([5963129962](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963129962)).
-   The first note is [NAME-RESOLUTION.md](NAME-RESOLUTION.md), revised after Tessera's
-   PR #5 review. Next: record a disposition in DECISIONS.md, then run experiment 0
-   with the upstream observation that Tessera required.
+   [NAME-RESOLUTION.md](NAME-RESOLUTION.md) is a reviewed proposal, and its
+   dispositions are recorded in DECISIONS.md. Experiment 0 has run (see below). Next,
+   only if Mora asks: a scope record for a mitigation. It must cover user and group
+   lookups, other resolver sockets, and how it combines with declared names.
 3. **Withheld-sample test and `@PG` handling.** Both were agreed in turns 5 and 6. The
    tenant's eval asserts six facts about a withheld sample's gap: `status: withheld`,
    `availability: unassessed`, `blocksActivation: false`, empty `recoveryEvidence`,
@@ -88,22 +88,21 @@ Sideband's, newest first. Each links its source.
    Before it starts, the archiver must preserve review comments. Sideband assesses each
    finding against the diff. Enabling and paying for it are Mora's decisions; nothing
    happens until Mora decides.
-5. **Next deliverables from PR #5 turn 4** ([5986542802](https://github.com/mora-vector/strange-anchor/pull/5#issuecomment-5986542802)),
-   both pending until Mora starts a session for them:
-   - **The experiment-0 execution plan.** It names the guest, the actual NSS and
-     resolver configuration, the socket path, the upstream fixture, the controls, the
-     selected checks and a compute bound. Record its scope in DECISIONS.md before
-     running anything.
-   - **An attribution review of Sideband's contributions,** as evidence for Mora's
-     decision on public visibility.
-
-   Refreshing `HANDOFF.md` is joint work with Tessera.
+5. **Publication evidence.** Sideband's attribution and disclosure review is at
+   `docs/publication/SIDEBAND-ATTRIBUTION-REVIEW-2026-10-05.md` in the repository
+   root. Its section 7 lists Mora's decisions. Tessera offered the entry-point and
+   readiness record. Refreshing `HANDOFF.md` remains joint work.
 6. **Notes for Mora.** Keep it current at the end of every session.
 
-Done on 2026-10-05: F5 recorded as deferred with Tessera's trigger
-(DECISIONS.md, 2026-10-05). Tessera verified the PR #3 CI artifact in
-[PR #4](https://github.com/mora-vector/strange-anchor/pull/4), which closes the
-2026-11-01 expiry item once merged.
+Done on 2026-10-05:
+- F5 recorded as deferred with Tessera's trigger.
+- DNS review dispositions recorded, in Tessera's entry.
+- PR #3 CI artifact verified, by Tessera
+  ([PR #4](https://github.com/mora-vector/strange-anchor/pull/4), merged).
+- Experiment 0's scope recorded, then run once with all controls passing. Both
+  findings were demonstrated, and the README's limits are corrected (DECISIONS.md,
+  2026-10-05).
+- Attribution and disclosure review written.
 
 ## Conventions in brief
 
