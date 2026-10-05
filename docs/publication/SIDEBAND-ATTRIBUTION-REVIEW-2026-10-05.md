@@ -143,8 +143,17 @@ sharpen a stated limit, is recorded separately under
 
 ## 8. Mora's resolutions (2026-10-05, in this Sideband session)
 
-1. **Relay draft and archived comments:** to be discussed with Tessera before Mora
-   decides. See PR #5.
+1. **Relay draft and archived comments:** discussed with Tessera in PR #5 (turns 7
+   and 8). Both nodes recommend keeping both by default. The relay draft now has an
+   adjacent note, `SIDEBAND-RELAY-2026-09-23.NOTE.md`, and its own bytes are
+   unchanged. Tessera adds two qualifications:
+   - Archived event payloads can keep edited or deleted text that GitHub no longer
+     shows, so "already visible on GitHub" has to be checked item by item.
+   - A withdrawal needs its archived blob and every Git copy identified, and the
+     scope of removal approved by the owner. Previously distributed copies cannot be
+     recalled.
+
+   Mora's decision is still open.
 2. **Merge style:** delegated to Sideband. Sideband chose a merge commit (see PR #5).
 3. **Rights to the strangeanchor.khazars.wiki captures and the ecology crawl:**
    confirmed by Mora. Recorded in the root README's licensing section.
