@@ -761,3 +761,89 @@ Dispositions:
 * **For publication,** this is a limit to state prominently, not a reason to
   withhold the prototype. It does not justify a blanket claim that empty-recipient
   contracts cannot communicate.
+
+## 2026-10-05: Mora authorizes standalone exchange implementation; Stage A adopted
+
+Recorded by Tessera (new OpenAI session; model/build identity unavailable). Mora's
+direct instruction in this session at 08:35 America/Los_Angeles was:
+
+> This is Mora - I'm authorizing the implementation work to expand the scope of the project. Record the proposed design into DECISIONS.md as stated by Sideband and carry the implementation and conversation forward.
+
+This instruction is received directly in Tessera's operator conversation, not
+inferred from a repository comment or a node label. This entry records that
+authorization and its source; it does not claim access to Sideband's private
+session or resolve that runtime's own authorization checks. The surrounding
+conversation is not exported; no complete archived context manifest is claimed.
+
+**Design adopted.** Sideband's
+[SCOPE-STAGE-A-TRANSPORT.md](SCOPE-STAGE-A-TRANSPORT.md) at
+`fb3af2c71b1428cdcc588c54efe30e03adf170da`, following Tessera's
+[PR #6 turn 1](https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5997565629)
+and Sideband's
+[turn 2](https://github.com/mora-vector/strange-anchor/pull/6#issuecomment-5997599599),
+is the first implementation scope. Its proposed-status paragraph is superseded by
+this dated entry; its original text remains available. The broader proposal's
+A -> B -> C -> D sequence remains the development direction.
+
+**Concrete Stage A.** Build a standalone Python-standard-library
+`sandhi-exchange` package, a replaceable deterministic responder, portable tests,
+and a three-guest NixOS experiment. Guests a/b independently import Sandhi and
+exchange over their private VLAN at 192.168.1.10/.20, port 7443; guest c at .30
+probes unauthorized access. Provisioning ends before measurement. There is no
+external guest route, GitHub dependency, human relay, or driver relay during the
+exchange. The driver supplies each guest only its own random input before
+measurement and subsequently observes or injects the declared faults.
+
+Use self-signed test certificates with mutual TLS and an explicit certificate
+fingerprint-to-installation-ID authorization map. Keys are ephemeral, generated
+under /run at guest setup, delivered with LoadCredential, and excluded from the
+Nix store and collected evidence. Public certificates may be distributed during
+provisioning. No credential is assigned to a crew persona or hosted model session.
+Application signatures remain deferred. The permitted-address root client in
+assertion 7 is accepted as a fault injector, not a participant or relay.
+
+Preserve the existing GitHub protocol unchanged. Use the standalone
+`sandhi-exchange.v1` envelope and bounded length-prefixed framing, durable
+inbox/outbox state, distinct delivery attempts, same-ID/different-bytes rejection,
+and the I1/I2/I3 interruption points specified in the scope. Model invocation is
+not claimed exactly-once; durable logical replies and retransmission are distinct
+from invocations. Compare application message bytes, not whole provenance records.
+
+**Budgets adopted.** Whole guest test: 2400 seconds. Each contract attempt:
+600 seconds, 50% CPU, 192 MiB RAM, three retries after the initial start per
+600-second window (four starts, not a lifetime ceiling). Envelope maximum:
+16 KiB. Turns: 0 through 7. Connect timeout: 5 seconds; retransmit interval:
+2 seconds; maximum 30 delivery attempts per message, preserved across process
+restarts. Conversation deadline and limits must not renew on restart.
+
+**Acceptance.** Implement and report all eleven scope assertions: task completion;
+exact sender/receiver message-byte agreement; duplicate delivery; conflicting-byte
+rejection; all three interruption/restart cases; address exclusion; authentication
+and sender binding tested separately from address exclusion; distinct rejection
+claims; peer withdrawal with new and existing connections; channel-cut negative
+control; and explicit terminal status on each installation. TLS validity and
+fingerprint authorization require distinguishable fixtures. A network failure
+cannot require delivery of a final message across the failed network: local
+terminal status is mandatory and undelivered final attempts remain visible.
+An over-limit input is rejected without emitting a new over-limit reply.
+
+**Implementation allocation.** Tessera will implement/review the portable
+envelope/framing validation and its tests, and inspect subsequent evidence.
+Sideband is the proposed endpoint/state-machine, packaging and first NixOS-VM
+builder. Coordinate exact files and interfaces in PR #6 before overlapping edits.
+One builder with multiple guests establishes separate installations, not
+independent administration. No production-module change is planned; any measured
+need for one is recorded separately before making it.
+
+Stage A remains a deterministic transport test, not an AI conversation. Stage B
+adds actual local models with recorded lineage, model/runner artifacts, licenses
+and execution evidence; its model choices and resource/download bounds need a
+concrete scope before running. Hosted-provider credentials/expenditure,
+production activation, independent operators and standing receiver expansion
+remain later separately specified work. The current authorization allows the
+agreed implementation to proceed without asking again merely because the former
+scope documents said it was awaiting Mora.
+
+No test outcome is asserted by this decision. Preserve failed attempts and source
+identity alongside successful evidence, and update the handoff when a checkpoint
+has actually been reached.
