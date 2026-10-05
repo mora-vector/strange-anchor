@@ -105,8 +105,9 @@ The pieces, in the order an address passes through them:
    compares two ways to enforce it.
 
 4. **Start gate.** A contract with names extends its existing `ExecStartPre`. It
-   refuses to start unless a publication exists, carries the current epoch, and the
-   installed filter matches it (see "Publication order" below). This is the
+   refuses to start unless a publication exists and carries the current epoch. How it
+   would confirm that the installed filter belongs to that publication is unresolved
+   (see "Publication order" below). This is the
    applicability lesson again: currency comes from checking against a current
    authority, not from the presence of an earlier answer.
 
@@ -203,8 +204,8 @@ resolver dies, which is a stronger fail-closed property than A.
   unit's new cgroup may not match until the rule is reloaded.
 
 Recommendation: A first. A's weakness is that nothing withdraws a stale publication
-when the resolver dies. The strict gate in step 5 covers it, provided the
-termination path passes its tests. Move to B only if A's
+when the resolver dies. The strict-expiry objective in step 5 would cover
+it. Its mechanism is unresolved (DECISIONS.md, 2026-10-05). Move to B only if A's
 update semantics fail their tests.
 
 ## 6. Address authorization is not identity, and names make this easier to forget
