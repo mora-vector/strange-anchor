@@ -1,0 +1,152 @@
+{
+  "swapEnabled": false,
+  "panicOnOom": 0,
+  "scope": "one disposable guest",
+  "timeout": {
+    "stop": {
+      "serviceResult": "timeout",
+      "exitCode": "killed",
+      "exitStatus": "TERM",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "memory.max": "201326592\n",
+      "cpu.stat": "usage_usec 206423\nuser_usec 92468\nsystem_usec 113955\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 7\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.max": "100000 100000\n"
+    },
+    "journal": "Started Sandhi contract timeout.\nsandhi-contract-timeout.service: Service reached runtime time limit. Stopping.\nsandhi-contract-timeout.service: Failed with result 'timeout'.\nsandhi-contract-timeout.service: Scheduled restart job, restart counter is at 1.\nsandhi-contract-timeout.service: Start request repeated too quickly.\nsandhi-contract-timeout.service: Failed with result 'start-limit-hit'.\nFailed to start Sandhi contract timeout.\n"
+  },
+  "timeout-ok": {
+    "stop": {
+      "serviceResult": "success",
+      "exitCode": "exited",
+      "exitStatus": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "memory.max": "201326592\n",
+      "cpu.stat": "usage_usec 292688\nuser_usec 154730\nsystem_usec 137957\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 7\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.max": "100000 100000\n"
+    },
+    "journal": "Started Sandhi contract timeout-ok.\nsandhi-contract-timeout-ok.service: Deactivated successfully.\n"
+  },
+  "retry-zero": {
+    "attempts": 1,
+    "windowSec": 300,
+    "extraStartDenied": true,
+    "stop": {
+      "serviceResult": "exit-code",
+      "exitCode": "exited",
+      "exitStatus": "42",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "memory.max": "201326592\n",
+      "cpu.stat": "usage_usec 254842\nuser_usec 133019\nsystem_usec 121822\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 6\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.max": "100000 100000\n"
+    },
+    "journal": "Started Sandhi contract retry-zero.\nsandhi-contract-retry-zero.service: Main process exited, code=exited, status=42/n/a\nsandhi-contract-retry-zero.service: Failed with result 'exit-code'.\nsandhi-contract-retry-zero.service: Scheduled restart job, restart counter is at 1.\nsandhi-contract-retry-zero.service: Start request repeated too quickly.\nsandhi-contract-retry-zero.service: Failed with result 'start-limit-hit'.\nFailed to start Sandhi contract retry-zero.\nsandhi-contract-retry-zero.service: Start request repeated too quickly.\nsandhi-contract-retry-zero.service: Failed with result 'start-limit-hit'.\nFailed to start Sandhi contract retry-zero.\n"
+  },
+  "retry-two": {
+    "attempts": 3,
+    "windowSec": 300,
+    "extraStartDenied": true,
+    "stop": {
+      "serviceResult": "exit-code",
+      "exitCode": "exited",
+      "exitStatus": "42",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "memory.max": "201326592\n",
+      "cpu.stat": "usage_usec 205172\nuser_usec 95571\nsystem_usec 109600\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 4\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.max": "100000 100000\n"
+    },
+    "journal": "Started Sandhi contract retry-two.\nsandhi-contract-retry-two.service: Main process exited, code=exited, status=42/n/a\nsandhi-contract-retry-two.service: Failed with result 'exit-code'.\nsandhi-contract-retry-two.service: Scheduled restart job, restart counter is at 1.\nStarted Sandhi contract retry-two.\nsandhi-contract-retry-two.service: Main process exited, code=exited, status=42/n/a\nsandhi-contract-retry-two.service: Failed with result 'exit-code'.\nsandhi-contract-retry-two.service: Scheduled restart job, restart counter is at 2.\nStarted Sandhi contract retry-two.\nsandhi-contract-retry-two.service: Main process exited, code=exited, status=42/n/a\nsandhi-contract-retry-two.service: Failed with result 'exit-code'.\nsandhi-contract-retry-two.service: Scheduled restart job, restart counter is at 3.\nsandhi-contract-retry-two.service: Start request repeated too quickly.\nsandhi-contract-retry-two.service: Failed with result 'start-limit-hit'.\nFailed to start Sandhi contract retry-two.\nsandhi-contract-retry-two.service: Start request repeated too quickly.\nsandhi-contract-retry-two.service: Failed with result 'start-limit-hit'.\nFailed to start Sandhi contract retry-two.\n"
+  },
+  "memory": {
+    "allocationMiB": 96,
+    "stop": {
+      "serviceResult": "oom-kill",
+      "exitCode": "killed",
+      "exitStatus": "KILL",
+      "memory.events": "low 0\nhigh 0\nmax 21\noom 1\noom_kill 1\noom_group_kill 0\n",
+      "memory.max": "67108864\n",
+      "cpu.stat": "usage_usec 464505\nuser_usec 129950\nsystem_usec 334554\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 14\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.max": "100000 100000\n"
+    },
+    "journal": "Started Sandhi contract memory.\nsandhi-contract-memory.service: The kernel OOM killer killed some processes in this unit.\nsandhi-contract-memory.service: Main process exited, code=killed, status=9/KILL\nsandhi-contract-memory.service: Failed with result 'oom-kill'.\nsandhi-contract-memory.service: Scheduled restart job, restart counter is at 1.\nsandhi-contract-memory.service: Start request repeated too quickly.\nsandhi-contract-memory.service: Failed with result 'start-limit-hit'.\nFailed to start Sandhi contract memory.\n"
+  },
+  "memory-ok": {
+    "allocationMiB": 96,
+    "stop": {
+      "serviceResult": "success",
+      "exitCode": "exited",
+      "exitStatus": "0",
+      "memory.events": "low 0\nhigh 0\nmax 0\noom 0\noom_kill 0\noom_group_kill 0\n",
+      "memory.max": "201326592\n",
+      "cpu.stat": "usage_usec 512144\nuser_usec 194120\nsystem_usec 318024\nnice_usec 0\ncore_sched.force_idle_usec 0\nnr_periods 17\nnr_throttled 0\nthrottled_usec 0\nnr_bursts 0\nburst_usec 0\n",
+      "cpu.max": "100000 100000\n"
+    },
+    "journal": "Started Sandhi contract memory-ok.\nsandhi-contract-memory-ok.service: Deactivated successfully.\nsandhi-contract-memory-ok.service: Consumed 519ms CPU time over 1.719s wall clock time, 101.6M memory peak.\n"
+  },
+  "cpu": {
+    "before": {
+      "cpu": {
+        "quota": "10000 100000\n",
+        "stats": {
+          "usage_usec": 360276,
+          "user_usec": 89396,
+          "system_usec": 270879,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 35,
+          "nr_throttled": 34,
+          "throttled_usec": 2873904,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "cpu-control": {
+        "quota": "100000 100000\n",
+        "stats": {
+          "usage_usec": 1008905,
+          "user_usec": 93237,
+          "system_usec": 915668,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 12,
+          "nr_throttled": 0,
+          "throttled_usec": 0,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    },
+    "after": {
+      "cpu": {
+        "quota": "10000 100000\n",
+        "stats": {
+          "usage_usec": 960333,
+          "user_usec": 96194,
+          "system_usec": 864139,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 95,
+          "nr_throttled": 94,
+          "throttled_usec": 8196201,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      },
+      "cpu-control": {
+        "quota": "100000 100000\n",
+        "stats": {
+          "usage_usec": 6732115,
+          "user_usec": 300011,
+          "system_usec": 6432103,
+          "nice_usec": 0,
+          "core_sched.force_idle_usec": 0,
+          "nr_periods": 72,
+          "nr_throttled": 0,
+          "throttled_usec": 0,
+          "nr_bursts": 0,
+          "burst_usec": 0
+        }
+      }
+    },
+    "elapsedSec": 6.001042310999999
+  }
+}

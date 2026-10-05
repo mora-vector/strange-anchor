@@ -33,7 +33,8 @@
   "localVm": "applicability and workload passed under software emulation on a second builder (evidence/sideband-2026-10-02 and PR #3 description)",
   "evidence": [
     "evidence/ci-36983396017/SUMMARY.json",
-    "evidence/sideband-2026-10-02/SUMMARY.json"
+    "evidence/sideband-2026-10-02/SUMMARY.json",
+    "evidence/ci-36983396017/VERIFICATION-2026-10-05.json"
   ],
   "previousValidation": "evidence/pre-premise-separation-validation.json",
   "canonical": false,
@@ -47,12 +48,13 @@
     "workload",
     "applicability"
   ],
-  "testedMerge": null,
+  "testedMerge": "e03c1711af887a2a53436add70e76af9d9dd54ca",
   "sourceDigestsMatchTestedImplementation": true,
-  "artifactSha256": null,
+  "artifactSha256": "aa52b4f57c44c180b676ceb65f1508e380aaaa020804b3ca0b99472c12e3891d",
   "scope": "Retention and export exercised as separate premises; administrator-declared applicability across activations; not authenticated recovery verification",
   "postEvidenceChange": "Documentation and evidence only after ec08eff",
   "testedAgainstMain": "d602a4a1ae87bfca31d339232fb9f699b19da4bb",
   "artifactReportedDigest": "sha256:aa52b4f57c44c180b676ceb65f1508e380aaaa020804b3ca0b99472c12e3891d",
-  "artifactVerified": false
+  "artifactVerified": true,
+  "artifactVerificationScope": "Downloaded ZIP digest matched GitHub; ZIP CRC passed; 40 recorded source hashes matched main ff75d2a. Existing CI observations inspected, no new runtime execution."
 }
