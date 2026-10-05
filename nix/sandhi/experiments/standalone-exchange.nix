@@ -240,6 +240,7 @@ in pkgs.testers.runNixOSTest {
             prepare(name, label, {"faults": faults.get(name, []), "conversation_seconds": seconds,
                                   "linger_seconds": linger}, inputs[name])
         began = time.monotonic()
+        since = {n: M[n].succeed("date +%s").strip() for n in ("a", "b")}
         for name in order:
             M[name].succeed(f"systemctl start {UNIT}")
         for name in order:
@@ -249,7 +250,7 @@ in pkgs.testers.runNixOSTest {
                 M[name].wait_until_succeeds(
                     f"systemctl show {UNIT} -p ActiveState --value | grep -Ex 'inactive|failed'",
                     timeout=seconds + 180)
-        return {"label": label, "faults": faults, "expectedDigest": expected,
+        return {"label": label, "faults": faults, "expectedDigest": expected, "since": since,
                 "secondsToStatus": round(time.monotonic() - began, 1), "seconds": seconds}
 
     def finish(record: dict[str, Any], keep=False):
@@ -257,7 +258,11 @@ in pkgs.testers.runNixOSTest {
         for name in ("a", "b"):
             if keep:
                 M[name].succeed(f"systemctl stop {UNIT}")
-            record[name] = {"unit": unit(M[name])}
+            # Attempt 3: NRestarts read 0 once the unit was inactive, so count
+            # systemd's own restart lines for this trial instead.
+            restarts = M[name].succeed(f"journalctl -u {UNIT} --since @{record['since'][name]} -o cat"
+                                       " | grep -c 'Scheduled restart job' || true").strip()
+            record[name] = {"unit": unit(M[name]), "systemdRestarts": int(restarts or 0)}
             files[name] = collect(name, record["label"])
             record[name].update(summary(files[name], record["label"]))
         record["byteAgreement"] = {"a->b": agreement(files["a"], files["b"]),
@@ -422,7 +427,8 @@ in pkgs.testers.runNixOSTest {
                 == [("conflict", "ack-rejected", "conflicting-bytes")]
             and any(r.get("reason") == "conflicting-bytes" for r in b_attempts("t3-conflict")),
         "5-interruptions": all(get(["trials", label, "complete"]) is True and restarted[label] == 1
-                               for label in restarted),
+                               and get(["trials", label, guest, "systemdRestarts"]) == 1
+                               for label, guest in (("t4-I1", "b"), ("t5-I2", "b"), ("t6-I3", "a"))),
         "6-address-filter": all(P.get(k, {}).get("outcome") in ("timeout", "error") for k in ("c->a:contract", "c->b:contract"))
             and not from_address("t1-baseline", "a", ADDR["c"]) and not from_address("t1-baseline", "b", ADDR["c"]),
         "7-authentication": any(r.get("result") == "tls-failed" and r.get("from") == ADDR["a"] for r in t1_b)

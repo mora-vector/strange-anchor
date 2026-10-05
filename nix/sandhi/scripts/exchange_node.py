@@ -487,6 +487,10 @@ class Node:
             if mid in acks or mid in self.exhausted or time.monotonic() < self.next_try.get(mid, 0):
                 continue
             if self.remaining(json.loads(raw)) <= 0:
+                # Settled once: no further attempts, and no repeated outcome each loop.
+                self.exhausted.add(mid)
+                self.log("events.log", {"event": "undeliverable", "message_id": mid,
+                                        "reason": "expired"})
                 self.finish("failed", f"deadline-exceeded:undelivered:{mid}")
                 continue
             counter = self.state / "delivery" / mid

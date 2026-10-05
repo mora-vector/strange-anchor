@@ -185,6 +185,23 @@ class StateTests(unittest.TestCase):
         self.assertEqual(n.conversation["deadline"], fields["deadline"])
         self.assertEqual(n.status()["reason"], "deadline-exceeded:incomplete")
 
+    def test_expired_outbox_message_is_settled_once(self):
+        n = self.node()
+        expired = envelope(sender=B, recipient=A,
+                           deadline=node.stamp(node.utcnow() - datetime.timedelta(seconds=1)))
+        node.durable_write(n.state / "outbox" / expired["message_id"],
+                           protocol.encode_envelope(expired))
+        n.send_pending(client_context=None)
+        n.send_pending(client_context=None)
+        events = [json.loads(line)["event"] for line in
+                  (n.state / "events.log").read_text().splitlines()]
+        self.assertEqual(events.count("undeliverable"), 1)
+        self.assertNotIn("later-outcome-ignored", events)
+        self.assertTrue(n.settled())
+        self.assertFalse((n.state / "delivery").exists())
+        self.assertEqual(n.status()["reason"],
+                         f"deadline-exceeded:undelivered:{expired['message_id']}")
+
     def test_unknown_trial_keys_and_faults_are_refused(self):
         with self.assertRaises(ValueError):
             self.node({"max_attempts": 1})
