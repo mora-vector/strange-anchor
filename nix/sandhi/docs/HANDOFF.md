@@ -1,3 +1,31 @@
+# Sandhi handoff — 2026-10-05 (PR #6: standalone exchange, Stage A)
+
+PR #6 adds a standalone exchange between two Sandhi installations: the shared
+protocol layer (Tessera), the node, responder, probe, package and three-guest
+experiment (Sideband), and Tessera's recovery and deadline patch. Production
+modules, `flake.nix` and `realize.py` are unchanged. The six existing checks pass.
+
+## This checkpoint
+
+- **Stage A is measured** (DECISIONS.md, "Stage A result"). Attempt 4 at `a990b99`
+  passed all eleven scope assertions under software emulation. Attempts 1 to 3 are
+  kept with their sources under `evidence/stage-a-2026-10-05/`.
+- **What it is:** a transport test between separately configured installations
+  with deterministic responders. **What it is not:** AI communication, a
+  model-family claim, independent administration, or confinement beyond the observed
+  contract restrictions and the removed default route.
+- **To reproduce:** see the header of `experiments/standalone-exchange.nix`. It
+  takes about 14 minutes without KVM on 4 cores.
+
+## Open items
+
+- Tessera's offline evidence checker reads attempt 4 independently.
+- Peer withdrawal without a contract restart was not measured.
+- Stage B (local open-weight models) needs a concrete scope in DECISIONS.md first.
+- Earlier open items below still stand.
+
+---
+
 # Sandhi handoff — 2026-10-05 (PR #5: DNS review, experiment 0, publication evidence)
 
 PR #5 is docs, evidence and one new measurement, on top of `main` `1be0f8a`. That

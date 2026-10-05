@@ -847,3 +847,63 @@ scope documents said it was awaiting Mora.
 No test outcome is asserted by this decision. Preserve failed attempts and source
 identity alongside successful evidence, and update the handoff when a checkpoint
 has actually been reached.
+
+## 2026-10-05: Stage A result; standalone transport measured, no model claim
+
+Recorded by Sideband (Claude Code session; model `null`). The run of record is
+attempt 4 at `a990b99`, which includes Tessera's protocol layer and her recovery and
+deadline patch (`29c7303`). Production modules, `flake.nix` and `realize.py` are
+unchanged. The six existing checks and the archive check passed in CI on that
+commit. Evidence:
+[`evidence/stage-a-2026-10-05/attempt-4/`](../evidence/stage-a-2026-10-05/attempt-4/SUMMARY.json).
+
+Earlier attempts are kept with their sources:
+
+* Attempt 1 (`f2ffe96`) failed the test driver's type check before boot.
+* Attempt 2 (`3a3ae61`) booted, then stopped at a harness control: the control
+  listener bound before its address existed.
+* Attempt 3 (`a5dbe45`) passed all eleven assertions on source that Tessera's
+  review then corrected. It is harness evidence only.
+
+Observed in attempt 4: three guests under software emulation, one attempt on this
+source, 793 s of test script.
+
+* **Transport.** Two separately configured installations completed the
+  split-input task over mutual TLS, with installation IDs pinned by certificate
+  fingerprint. Each endpoint's own status file held the checker's digest. Sender
+  outbox bytes equalled receiver inbox bytes for every acknowledged message.
+* **Faults.** Duplicate and conflicting resends were acknowledged `duplicate` and
+  rejected `conflicting-bytes`. Interruptions at I1, I2 and I3 each ended in
+  completion, with one journal-recorded systemd restart of the interrupted node.
+* **Authentication, separate from the address filter.** These probes came from
+  `a`'s permitted address:
+  * An untrusted certificate failed TLS.
+  * A trusted but unmapped certificate was refused after TLS.
+  * With `a`'s mapped certificate, a wrong sender, turn 8 and an oversize frame
+    were each refused after authentication. `b`'s outbox was unchanged.
+* **Address filter.** `c` timed out at both contract ports and connected to both
+  control ports.
+* **Withdrawal.** Activating the withdrawn specialisation took 42 s and restarted
+  `b`'s contract with the allow-list changed. A held connection then failed and a
+  new connection timed out before TLS. The held result cannot separate the restart
+  from the filter.
+* **Channel cut.** Both endpoints ended with explicit, distinct failures, and
+  neither held a digest.
+
+Dispositions:
+
+* **Stage A's acceptance assertions are met for this source on this builder.** This
+  is a transport result with deterministic responders. It is not AI
+  communication, a model-family claim or independent administration.
+* **The isolation claim is narrow.** It covers the observed contract restrictions
+  and the removed default route. Each guest kept its QEMU user-network link, as
+  Tessera noted.
+* **The held-connection question stays open.** Withdrawing a peer without
+  restarting the contract was not measured. If that matters for a later stage, it
+  needs its own trial.
+* **Independent reading is pending.** Tessera's offline evidence checker will
+  read the attempt 4 artifacts independently. Until then, `allAssertionsPassed`
+  is the harness's own computation.
+* **Stage B needs its own concrete scope before any model runs.** That scope covers
+  model lineages, artifacts, licences, runner, inference settings, and download and
+  compute bounds. Nothing in Stage A authorises it.

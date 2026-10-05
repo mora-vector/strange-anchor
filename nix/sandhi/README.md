@@ -188,6 +188,16 @@ Keep the established `system.stateVersion` on existing hosts.
 Run `python3 scripts/realize.py --output-dir ../sandhi-run-001` to capture one host's evidence automatically. See [BUILD-PROTOCOL.md](docs/BUILD-PROTOCOL.md) for realization, repeatability,
 second-builder scope, retention, and archival instructions.
 
+## Standalone exchange (Stage A)
+
+`experiments/standalone-exchange.nix` installs Sandhi on two separately configured
+guests. They exchange messages directly over mutual TLS, with installation IDs
+pinned by certificate fingerprint, durable inboxes and outboxes, and declared
+faults. A third guest acts as the intruder. The responders are deterministic, so
+this is a transport test, not AI communication. It runs outside the six flake
+checks. Results and limits: DECISIONS.md ("Stage A result") and
+`evidence/stage-a-2026-10-05/`.
+
 ## Attribution and limits
 
 Sideband supplied the eight-adhyaya model, Sanskrit vocabulary, and the proposed

@@ -1,0 +1,39 @@
+2026-10-05T16:31:35.952271+00:00 a systemd[1]: Starting sandhi-exchange-credentials.service...
+2026-10-05T16:31:40.848711+00:00 a sandhi-exchange-credentials-start[614]: -----
+2026-10-05T16:31:42.103387+00:00 a systemd[1]: Finished sandhi-exchange-credentials.service.
+2026-10-05T16:34:23.379214+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:34:31.319372+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:35:26.305706+00:00 a systemd[1]: Stopping Sandhi contract exchange...
+2026-10-05T16:35:26.823082+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:35:26.844133+00:00 a systemd[1]: Stopped Sandhi contract exchange.
+2026-10-05T16:35:26.865555+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 13.219s CPU time over 1min 3.451s wall clock time, 38.2M memory peak, 88K written to disk, 10.4K incoming IP traffic, 9.6K outgoing IP traffic.
+2026-10-05T16:35:44.476098+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:35:47.733433+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:36:04.995923+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:36:05.041346+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 6.474s CPU time over 20.527s wall clock time, 16.8M memory peak, 100K written to disk, 10.6K incoming IP traffic, 10K outgoing IP traffic.
+2026-10-05T16:36:24.954440+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:36:27.911170+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:36:45.441740+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:36:45.467329+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 6.410s CPU time over 20.494s wall clock time, 16.8M memory peak, 100K written to disk, 10.6K incoming IP traffic, 10K outgoing IP traffic.
+2026-10-05T16:37:06.231917+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:37:09.314368+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:37:38.496329+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:37:38.525661+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 7.378s CPU time over 32.269s wall clock time, 17.1M memory peak, 128K written to disk, 14.1K incoming IP traffic, 12.5K outgoing IP traffic.
+2026-10-05T16:37:58.410638+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:38:01.458368+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:38:28.983361+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:38:29.008150+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 6.746s CPU time over 30.577s wall clock time, 17.1M memory peak, 128K written to disk, 14.2K incoming IP traffic, 12.6K outgoing IP traffic.
+2026-10-05T16:38:49.481122+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:38:52.876194+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:38:59.127635+00:00 a systemd[1]: sandhi-contract-exchange.service: Main process exited, code=exited, status=75/TEMPFAIL
+2026-10-05T16:38:59.142317+00:00 a systemd[1]: sandhi-contract-exchange.service: Failed with result 'exit-code'.
+2026-10-05T16:38:59.165642+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 4.324s CPU time over 9.668s wall clock time, 16.5M memory peak, 36K written to disk, 3.5K incoming IP traffic, 2.8K outgoing IP traffic.
+2026-10-05T16:39:01.235671+00:00 a systemd[1]: sandhi-contract-exchange.service: Scheduled restart job, restart counter is at 1.
+2026-10-05T16:39:01.362458+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:39:03.868234+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:39:15.801017+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:39:15.830310+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 4.935s CPU time over 16.632s wall clock time, 16.9M memory peak, 48K written to disk, 10.4K incoming IP traffic, 9.5K outgoing IP traffic.
+2026-10-05T16:41:00.385739+00:00 a systemd[1]: Starting Sandhi contract exchange...
+2026-10-05T16:41:03.364696+00:00 a systemd[1]: Started Sandhi contract exchange.
+2026-10-05T16:42:09.556582+00:00 a systemd[1]: sandhi-contract-exchange.service: Deactivated successfully.
+2026-10-05T16:42:09.594950+00:00 a systemd[1]: sandhi-contract-exchange.service: Consumed 5.551s CPU time over 1min 9.178s wall clock time, 16.5M memory peak, 112K written to disk, 40B incoming IP traffic, 2.4K outgoing IP traffic.
