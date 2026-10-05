@@ -115,19 +115,24 @@ The pieces, in the order an address passes through them:
    end within one runtime limit of expiry. It does not. A start just before expiry
    runs past it. Reaching `runtimeMaxSec` only begins termination, and the stop
    timeout adds time on top. The first consumer needs one of two explicit guarantees:
-   - **Strict: no traffic after expiry** (my choice for the first consumer). The gate
-     refuses a start unless the publication's remaining validity is at least
-     `runtimeMaxSec + stopTimeoutSec`. The unit sets an explicit stop timeout, and
-     systemd ends with SIGKILL when it is exceeded. A workload therefore ends before
-     its publication expires, with no withdrawal actor needed. The cost is more
-     refused starts, so the resolver must refresh well ahead of expiry, and
-     evaluation must assert `maxTtlSec > runtimeMaxSec + stopTimeoutSec`.
+   - **Strict expiry** (my preferred *objective* for the first consumer; the
+     mechanism is unresolved, per Tessera's turn 2 on PR #5). Meaning: by the
+     deadline, the local enforcement point no longer admits the contract's
+     **name-derived** addresses. Packets already in flight may still arrive later.
+     Literal peers are declared independently and are unaffected. Candidate
+     mechanism: the gate requires remaining validity of at least
+     `startTimeoutSec + runtimeMaxSec + stopTimeoutSec`. This covers the interval
+     from the gate's check to the workload's start, as well as the run and the
+     shutdown. Deadlines use the monotonic clock and are bound to the boot ID and
+     the activation epoch, so a reboot or reactivation invalidates them. Even if a
+     measured SIGKILL test passes, it is evidence only under those conditions, not
+     an unconditional real-time guarantee.
    - **Grace: a documented interval after expiry.** The gate checks only that the
      publication is unexpired. The record then states a grace interval of up to
-     `runtimeMaxSec + stopTimeoutSec` after expiry.
+     `startTimeoutSec + runtimeMaxSec + stopTimeoutSec` after expiry.
 
-   Both rest on systemd's termination path, which is untested here. The tests in
-   section 7 must measure that path, not assume it.
+   Both rest on systemd's start, runtime and stop timeouts, which are untested here.
+   The tests in section 7 must measure them, not assume them.
 
 6. **Record.** Every query and every change goes to a root-owned resolution ledger,
    as in the recovery-state ledger. This includes NXDOMAIN, SERVFAIL, timeouts and
@@ -147,11 +152,20 @@ PR #5). The proposed order for each contract:
   entry naming that filter's generation.
 - **To withdraw** (expiry, failure or a new epoch): first mark the ledger entry
   withdrawn, then remove the addresses from the filter.
-- **The gate requires both to agree.** It reads the unit's effective allow list and
-  compares it with the generation recorded in the ledger. A fresh ledger entry paired
-  with an old filter fails the gate, and so does an old entry paired with a new filter.
-- **A partial failure is safe.** A crash between the two writes leaves them
-  disagreeing, so the gate refuses until the resolver completes the next publication.
+- **The gate compares the filter with the ledger, but only for startup.** This
+  protects new starts only. A workload that is already running keeps whatever filter
+  is installed. It can use newly installed addresses before the ledger is written,
+  and it keeps withdrawn addresses if the resolver crashes after marking the ledger
+  but before changing the filter. Under strict expiry, its own deadline still ends
+  that access. The ordering claim is therefore limited to **startup admission**,
+  until running-traffic probes at both interruption points show more.
+- **Binding the filter to a generation is unresolved.** Two publications can have
+  the same addresses but different epochs or deadlines, so comparing address lists
+  cannot show which generation is installed. A generation number written only to the
+  ledger does not help either. One candidate: the resolver writes the allow list and
+  its generation together into one runtime drop-in file, and the gate reads that
+  file. Whether this is atomic and observable is untested. Until then, the gate does
+  not establish that the filter and ledger disagree.
 
 ### A correction to my turn-3 sketch
 
@@ -233,7 +247,8 @@ local authoritative DNS fixture on its own loopback address, serving short TTLs.
    resolver publishes again.
 6. **Ordering.** Interrupt the resolver between installing the filter and writing the
    ledger, and again between the two withdrawal steps. The gate refuses in every
-   mismatched state. A contract with both literal and named peers keeps its literals
+   mismatched state. Probe a workload that is already running at both interruption
+   points, and record what it can still reach. A contract with both literal and named peers keeps its literals
    across refreshes, and its name-derived addresses that are no longer current are
    removed.
 7. **Only the resolver reaches the resolver.** A contract that tries the resolver
