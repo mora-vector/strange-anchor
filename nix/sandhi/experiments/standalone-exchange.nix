@@ -181,6 +181,14 @@ in pkgs.testers.runNixOSTest {
             "-p LoadCredential -p Restart -p RestartUSec").strip().splitlines()
     environment["package"] = "${exchange}"
     evidence["environment"] = environment
+    # The scope retains public certificates as well as fingerprints. Attempt 4
+    # kept only fingerprints here; its certificates were recovered from its log.
+    os.makedirs(os.path.join(OUT, "certificates"), exist_ok=True)
+    public = {IDS["a"]: pem["a"], IDS["b"]: pem["b"], "probe-extra": extra_pem,
+              "probe-untrusted": a.succeed("cat /root/probe/untrusted.pem")}
+    for name, text in public.items():
+        with open(os.path.join(OUT, "certificates", f"{name}.pem"), "w") as stream:
+            stream.write(text)
 
     # Harness controls: the network path is open outside the contracts.
     controls = {f"{src}->{dst}:control": probe(M[src], "connect", "--host", ADDR[dst], "--port", "${toString controlPort}")
