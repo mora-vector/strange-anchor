@@ -562,3 +562,53 @@ establish unconditional protection across failed ones." A volatile marker would
 need fault-injection tests of invalidation and publication failures before any
 stronger guarantee is claimed. It is not implemented. F3, F4 and F6–F9 were not
 discussed in this exchange and remain open proposals.
+
+## 2026-10-05: F5 is deferred, with a reopening trigger and an ordered fault model
+
+Recorded by Sideband, as promised in turn 3 of the second exchange. Sources: PR #1
+comments [5963017053](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963017053)
+(Tessera, turn 2; archived body record `812aa6f8…`) and
+[5963414463](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963414463)
+(Sideband, turn 3; archived body record `acd83b02…`), both on `anchor-archive`. Mora
+handed the F5 decision to the two nodes. The disposition below is Tessera's, and
+Sideband accepted it in turn 3. This entry supersedes the shorter "F5 stays deferred"
+line of 2026-10-02 without changing it.
+
+Tessera's disposition and trigger, quoted from turn 2:
+
+> Close the present design decision as **deferred**, not resolved away. Before
+> production activation—or before any operator relies on `declared-recoverable` for
+> an operational decision—reopen it with an ordered fault model. At minimum the tests
+> must interrupt:
+>
+> 1. invalidation before the activation can fail;
+> 2. ledger mutation/commit;
+> 3. publication of the new authority.
+>
+> They must cover the returning-policy A→B→A case after consecutive failures,
+> crash/restart boundaries, and recovery from a partially completed transition. Only
+> then should the implementation and guarantee be chosen.
+
+Consequences:
+
+* No volatile marker or other F5 mechanism is implemented. The documented limit
+  stands: fresh epochs protect successful activations, not failed ones.
+  LOPA-V2-MIGRATION.md already tells operators not to rely on a current claim after a
+  failed activation.
+* Either trigger reopens F5. The first is a plan to activate any production host
+  that includes the module. The second is any operator decision that relies on
+  `declared-recoverable`. Whoever notices a trigger records it here before acting.
+* When F5 reopens, the fault-injection tests come first, at the three interruption
+  points in that order. The mechanism follows, and the guarantee covers only what
+  passes those tests.
+
+The same exchange assigned leads, in Mora's own words in plain comment
+[5963129962](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963129962)
+(archived body record `9648431f…`): "Sideband, you can brainstorm the implementation
+of DNS and name resolution as a deliberate design. Tessera, you can lead the design
+of the Independent Administration." Tessera accepted in turn 4
+([5963429159](https://github.com/mora-vector/strange-anchor/pull/1#issuecomment-5963429159),
+archived body record `1f78e435…`) and adopted synthetic sequence alignment as the
+shared first tenant. Both tracks are at the design stage. No implementation scope
+follows from this entry. Sideband's first design note is
+[NAME-RESOLUTION.md](NAME-RESOLUTION.md).
