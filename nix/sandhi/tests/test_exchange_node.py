@@ -176,11 +176,14 @@ class StateTests(unittest.TestCase):
         node.utcnow = lambda: original() + datetime.timedelta(seconds=10)
         try:
             n.work()
+            n.check_deadline()
         finally:
             node.utcnow = original
         self.assertFalse((n.state / "invocations.log").exists())
-        self.assertEqual(n.status()["reason"],
-                         f"deadline-exceeded:before-work:{fields['message_id']}:expired")
+        # Accepting the opening now persists the earlier deadline as the
+        # conversation deadline, so the whole conversation expires together.
+        self.assertEqual(n.conversation["deadline"], fields["deadline"])
+        self.assertEqual(n.status()["reason"], "deadline-exceeded:incomplete")
 
     def test_unknown_trial_keys_and_faults_are_refused(self):
         with self.assertRaises(ValueError):

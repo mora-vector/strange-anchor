@@ -54,8 +54,7 @@ def precise(moment=None):
 
 
 def parse_stamp(text):
-    return datetime.datetime.strptime(text, "%Y-%m-%dT%H:%M:%SZ").replace(
-        tzinfo=datetime.timezone.utc)
+    return datetime.datetime.fromisoformat(text.replace("Z", "+00:00"))
 
 
 def canonical(value):
@@ -73,16 +72,6 @@ def sha(data):
 
 def is_id(value):
     return isinstance(value, str) and len(value) == 32 and all(c in "0123456789abcdef" for c in value)
-
-
-def message_id_hint(raw):
-    """Best-effort ID for acknowledging a rejected frame. Never used to accept one."""
-    try:
-        value = json.loads(raw)
-    except (ValueError, UnicodeDecodeError):
-        return None
-    candidate = value.get("message_id") if isinstance(value, dict) else None
-    return candidate if is_id(candidate) else None
 
 
 def code(error):
@@ -156,6 +145,7 @@ class Node:
         self.next_try = {}
         self.exhausted = set()
         self.conversation = self._conversation()
+        self.recover()
 
     # Durable state ----------------------------------------------------------
     def _conversation(self):
@@ -172,6 +162,35 @@ class Node:
                      seconds=self.limits["conversation_seconds"]))}
         durable_write(path, canonical(value))
         return value
+
+    def bind_opening(self, message):
+        """Recoverable metadata derived from the exact, accepted opening bytes."""
+        if message["turn"] != 0:
+            return
+        current = self.conversation["conversation_id"]
+        if current is not None and current != message["conversation_id"]:
+            raise ValueError("accepted opening conflicts with persisted conversation")
+        updated = dict(self.conversation, conversation_id=message["conversation_id"])
+        # The follower may have started earlier or later. Neither its own budget
+        # nor the opener's fixed deadline may be extended by accepting a message.
+        if parse_stamp(message["deadline"]) < parse_stamp(updated["deadline"]):
+            updated["deadline"] = message["deadline"]
+        if updated != self.conversation:
+            durable_write(self.state / "conversation.json", canonical(updated))
+            self.conversation = updated
+
+    def recover(self):
+        """Replay committed facts, never the responder, before deadline handling."""
+        for raw in self.stored("inbox").values():
+            self.bind_opening(json.loads(raw))
+        for raw in self.stored("responses").values():
+            terminal = json.loads(raw).get("terminal")
+            if terminal and self.status() is None:
+                self.apply_terminal(terminal)
+
+    def apply_terminal(self, terminal):
+        extra = {k: v for k, v in terminal.items() if k not in {"status", "reason"}}
+        self.finish(terminal["status"], terminal.get("reason", ""), **extra)
 
     def log(self, name, record):
         line = canonical({"at": precise(), **record}) + b"\n"
@@ -223,7 +242,7 @@ class Node:
             message = protocol.decode_envelope(raw, local_id=self.local_id, peer_id=peer,
                                                check_deadline=False)
         except protocol.ProtocolError as error:
-            return self.reject(getattr(error, "message_id", None) or message_id_hint(raw),
+            return self.reject(error.message_id,
                                code(error), context, raw)
         mid = message["message_id"]
         with self.lock:
@@ -241,9 +260,7 @@ class Node:
             if self.fault("I1"):
                 os._exit(FAULT_EXIT)
             durable_write(path, raw)
-            if self.conversation["conversation_id"] is None:
-                self.conversation["conversation_id"] = message["conversation_id"]
-                durable_write(self.state / "conversation.json", canonical(self.conversation))
+            self.bind_opening(message)
             self.log("attempts.log", {**context, "message_id": mid, "turn": message["turn"],
                                       "result": "accepted", "sha256": sha(raw)})
         if self.fault("I2"):
@@ -259,6 +276,8 @@ class Node:
             return code(error)
         if self.status() is not None:
             return "conversation-closed"
+        if self.expired():
+            return "expired"
         inbox = {mid: json.loads(raw) for mid, raw in self.stored("inbox").items()}
         if message["parent_id"] is None:
             if self.config["opener"] or inbox:
@@ -341,16 +360,26 @@ class Node:
                 for d, e in sorted(entries, key=lambda item: item[1]["turn"])]
 
     def expired(self):
-        return utcnow() > parse_stamp(self.conversation["deadline"])
+        return self.remaining() <= 0
+
+    def remaining(self, message=None):
+        expiry = parse_stamp(self.conversation["deadline"])
+        if message is not None:
+            expiry = min(expiry, parse_stamp(message["deadline"]))
+        return (expiry - utcnow()).total_seconds()
 
     def work(self):
         """New work stays inside the persisted deadline and the message's own deadline."""
-        if self.status() is not None or self.expired():
-            return
-        if self.config["opener"] and not (self.state / "responses" / "open.json").exists():
+        # Do not observe an inbox rename before receive() finishes binding its
+        # conversation metadata. Release the lock before running the responder.
+        with self.lock:
+            if self.status() is not None or self.expired():
+                return
+            opening = self.config["opener"] and not (self.state / "responses" / "open.json").exists()
+            inbox = sorted(((json.loads(raw)["turn"], mid, raw)
+                            for mid, raw in self.stored("inbox").items()))
+        if opening:
             self.step(None, None)
-        inbox = sorted(((json.loads(raw)["turn"], mid, raw)
-                        for mid, raw in self.stored("inbox").items()))
         for _, mid, raw in inbox:
             if self.status() is not None or self.expired():
                 return
@@ -364,6 +393,9 @@ class Node:
             self.step(mid, raw)
 
     def invoke(self, incoming_id, incoming):
+        timeout = min(self.limits["responder_timeout"], self.remaining(incoming))
+        if timeout <= 0:
+            return None
         request = {"local_id": self.local_id, "peer_id": self.peer_id,
                    "private_input": self.private_input, "incoming": incoming,
                    "history": self.history(exclude=incoming_id)}
@@ -372,7 +404,7 @@ class Node:
         try:
             run = subprocess.run(self.config["responder"], input=canonical(request),
                                  capture_output=True, check=False,
-                                 timeout=self.limits["responder_timeout"])
+                                 timeout=timeout)
         except subprocess.TimeoutExpired:
             self.log("invocations.log", {"event": "timeout", "incoming": incoming_id})
             return None
@@ -395,6 +427,8 @@ class Node:
         reply, terminal = None, {"status": "failed", "reason": "responder-error"}
         if output is not None and valid_output(output):
             reply, terminal = output.get("reply"), output.get("terminal")
+        if self.remaining(incoming) <= 0:
+            reply, terminal = None, {"status": "failed", "reason": "deadline-exceeded:responder"}
         reply_id = None
         if reply:
             turn = incoming["turn"] + 1 if incoming else 0
@@ -410,8 +444,7 @@ class Node:
                       canonical({"incoming": incoming_id, "reply": reply_id,
                                  "terminal": terminal}))
         if terminal:
-            extra = {k: v for k, v in terminal.items() if k not in {"status", "reason"}}
-            self.finish(terminal["status"], terminal.get("reason", ""), **extra)
+            self.apply_terminal(terminal)
 
     def write_reply(self, key, incoming_id, turn, deadline, reply):
         # Derived from the incoming message, so re-invocation cannot add a second reply.
@@ -452,6 +485,9 @@ class Node:
         outbox = sorted(self.stored("outbox").items(), key=lambda item: json.loads(item[1])["turn"])
         for mid, raw in outbox:
             if mid in acks or mid in self.exhausted or time.monotonic() < self.next_try.get(mid, 0):
+                continue
+            if self.remaining(json.loads(raw)) <= 0:
+                self.finish("failed", f"deadline-exceeded:undelivered:{mid}")
                 continue
             counter = self.state / "delivery" / mid
             attempts = int(counter.read_text()) if counter.exists() else 0
