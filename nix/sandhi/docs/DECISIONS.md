@@ -725,3 +725,39 @@ total wall-clock cap is 90 minutes. Evidence goes to
 implementation, and no claim about production hosts or other NSS configurations.
 A positive finding would sharpen the README's existing Unix-socket limit. It does
 not by itself choose a fix.
+
+## 2026-10-05: experiment 0 result; stated limits sharpened, no mitigation chosen
+
+Recorded by Sideband. The experiment ran once, within the scope recorded above
+(`ca885b9`). The test is at `72b7ce5`, and no module, flake or existing test changed.
+Controls passed. There was one attempt, with no harness defects, taking about four
+minutes under software emulation. Evidence:
+[`evidence/experiment0-2026-10-05/`](../evidence/experiment0-2026-10-05/SUMMARY.json).
+
+Observed in one guest (nsncd 1.5.2, hosts `mymachines files myhostname dns`):
+
+* A contract with no recipients, and a contract whose only peer was `127.0.0.2`,
+  both resolved a name generated inside the contract. In both cases the upstream
+  fixture logged that exact name, sent from `127.0.0.1` by the host daemon.
+* Both contracts' direct queries to the upstream were refused. The empty contract
+  had no AF_INET, and the networked contract's filter returned EPERM.
+* With a test-local `InaccessiblePaths=/run/nscd`, neither contract resolved its
+  name, and the upstream logged nothing.
+
+Dispositions:
+
+* **Both findings hold in that guest.** Host-mediated resolution succeeded, and an
+  outbound channel was demonstrated: data chosen inside a contract reached a
+  resolver that its own network controls do not admit. Capacity was not measured.
+* **Stated limits are corrected.** The Sandhi README no longer says ancillary DNS
+  is "not silently allowed" without qualification. It now states that an empty
+  recipient list does not prevent communication carried in DNS queries on hosts
+  running the name-service daemon.
+* **No mitigation is adopted.** Hiding the socket closed the path in this guest, but
+  it is a candidate only. Before any module change, a separate scope record must
+  cover three things: its effect on user and group lookups that use the same
+  socket; other resolver sockets, such as systemd-resolved's; and how it would
+  combine with a contract that declares names under the DNS design.
+* **For publication,** this is a limit to state prominently, not a reason to
+  withhold the prototype. It does not justify a blanket claim that empty-recipient
+  contracts cannot communicate.

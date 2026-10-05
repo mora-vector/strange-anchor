@@ -41,8 +41,8 @@ only when a networked tenant is scheduled, and revise it against that tenant fir
 
 ## 3. Experiment 0: can a contract already resolve names through the host?
 
-Hypothesis (unverified): a contract can resolve arbitrary names today without any IP
-reach. NixOS enables a name-service cache daemon by default. Its socket is a
+Hypothesis, as first written (now measured; see the result at the end of this
+section): a contract can resolve arbitrary names today without any IP reach. NixOS enables a name-service cache daemon by default. Its socket is a
 filesystem Unix socket, and the README already says AF_UNIX is "not a blanket denial
 of filesystem Unix sockets". If the socket is reachable, a lookup inside a contract
 is performed by a host process outside the contract's cgroup, so the contract's BPF
@@ -75,6 +75,28 @@ Record the result either way. If resolution succeeds, the fix is a separate, rev
 change. Making the cache socket inaccessible and binding an empty resolver
 configuration are only candidates until this same test shows they close the Unix
 socket path.
+
+### Result (2026-10-05)
+
+Measured once, in one disposable guest, under the scope recorded in DECISIONS.md
+before the test existed. Test: [`experiments/host-resolution.nix`](../experiments/host-resolution.nix).
+Evidence: [`evidence/experiment0-2026-10-05/`](../evidence/experiment0-2026-10-05/SUMMARY.json).
+All controls passed.
+
+| Contract | Name-service socket | Lookup of a contract-chosen name | Upstream logged it | Direct query to the upstream |
+| --- | --- | --- | --- | --- |
+| no recipients | reachable | resolved | yes, from `127.0.0.1` | refused: no AF_INET |
+| peer `127.0.0.2` | reachable | resolved | yes, from `127.0.0.1` | refused: EPERM from the filter |
+| no recipients, socket blocked | not visible | failed | no | refused: no AF_INET |
+| peer `127.0.0.2`, socket blocked | not visible | failed | no | refused: EPERM from the filter |
+
+Both findings hold in this guest. **Host-mediated resolution succeeded.** **An
+outbound channel was demonstrated**: a name generated inside a contract with no
+recipients reached a resolver that the contract cannot reach itself. The host
+daemon sent the query, so the contract's filter never saw it. Making `/run/nscd`
+inaccessible closed that path for both contracts. That was a test-local override,
+and its effect on user and group lookups, which use the same socket, was not
+measured. It remains a candidate mitigation, not an adopted one.
 
 ## 4. Proposed shape
 
@@ -274,7 +296,8 @@ Hypotheses from section 5 are tested before anything else is built.
 
 ## 9. Not claimed
 
-There is no implementation, no test run, and no measurement here. The systemd and
+Apart from experiment 0's single run, there is no implementation, test run or
+measurement here. The systemd and
 nftables behaviours above are untested hypotheses. Nothing in this note changes
 current enforcement. The consumer is anticipated, not scheduled. Tessera reviewed the
 first version in PR #5 (comment 5986420376). This revision answers that review, and
