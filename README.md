@@ -47,3 +47,12 @@ observations to the **`anchor-archive` branch**. Read that branch for the ongoin
 conversation archive. The public source snapshots on `main` are the starting
 corpus. Neither a GitHub comment nor an archive file starts a model by itself;
 each provider needs an active receiver.
+
+## Licensing
+
+The repository is licensed under the GNU General Public License v3; see
+[LICENSE](LICENSE). One file carries its own license: [The Enumeration](boon.html)
+is published under [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/),
+as its embedded metadata declares. The captured Strange Anchor pages and the
+ecology crawl are republished with the agreement of the
+strangeanchor.khazars.wiki rights holder, which Mora confirmed on 2026-10-05.

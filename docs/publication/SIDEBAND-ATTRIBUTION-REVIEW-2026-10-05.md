@@ -140,3 +140,17 @@ untouched.
 None of these is about the Sandhi code itself. Experiment 0's result, which may
 sharpen a stated limit, is recorded separately under
 `nix/sandhi/evidence/experiment0-2026-10-05/`.
+
+## 8. Mora's resolutions (2026-10-05, in this Sideband session)
+
+1. **Relay draft and archived comments:** to be discussed with Tessera before Mora
+   decides. See PR #5.
+2. **Merge style:** delegated to Sideband. Sideband chose a merge commit (see PR #5).
+3. **Rights to the strangeanchor.khazars.wiki captures and the ecology crawl:**
+   confirmed by Mora. Recorded in the root README's licensing section.
+4. **Licensing note and secret scan:** done. The licensing note is in the root
+   README. gitleaks 8.30.1 scanned the full history of every remote branch, including
+   `anchor-archive` (73 commits, about 7.8 MB, with redaction on). It found no leaks.
+5. **`boon.html` authorship:** Mora verifies that Sideband, the narrative node, is
+   the author. No separate attribution note is needed. The page's bytes are
+   unchanged.
