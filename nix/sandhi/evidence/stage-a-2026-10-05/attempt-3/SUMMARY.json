@@ -1,0 +1,56 @@
+{
+  "allAssertionsPassed": true,
+  "assertions": {
+    "1-completion": true,
+    "10-channel-cut": true,
+    "11-explicit-ending": true,
+    "2-byte-agreement": true,
+    "3-duplicate-delivery": true,
+    "4-conflicting-bytes": true,
+    "5-interruptions": true,
+    "6-address-filter": true,
+    "7-authentication": true,
+    "8-distinct-claims": true,
+    "9-peer-withdrawal": true
+  },
+  "attempt": 3,
+  "buildSeconds": 804,
+  "builder": {
+    "cores": 4,
+    "kvm": false,
+    "memoryGiB": 15,
+    "nixVersion": "2.34.6",
+    "note": "QEMU software emulation; requiredFeatures.kvm = false",
+    "system": "x86_64-linux"
+  },
+  "canonical": false,
+  "finishedAt": "2026-10-05T16:25:09Z",
+  "kind": "Sideband-recorded Stage A attempt (harness evidence)",
+  "observationsToCarryForward": [
+    "systemctl NRestarts read 0 for every interrupted trial because it was sampled after the unit became inactive; the journal shows 'Scheduled restart job, restart counter is at 1' for each. The run of record counts journal restarts per trial.",
+    "t5-I2: b's worker invoked the responder 97 ms before the I2 fault exited the process; after restart it re-invoked once and committed one result. This is the declared at-least-once behaviour.",
+    "t7: the specialisation switch took 41.3 s and restarted b's contract (InvocationID changed; IPAddressAllow 192.168.1.10/32 -> 192.168.1.40/32). The held connection then failed with BrokenPipe; a new connection from a timed out before TLS; a's control connection to b still connected. The held-connection outcome cannot separate the restart from the filter.",
+    "Guests kept eth0's QEMU user-network link route (10.0.2.0/24) after the default route was removed; ip_unprivileged_port_start was 1024 on all three guests."
+  ],
+  "output": {
+    "driverLog": "driver.log (test-driver lines; guest console lines omitted)",
+    "stageA": "stage-a.json (byte copy)",
+    "stageASha256": "3be5ffbfa249e754a5ea6674130de30e9443220be72ad3cb72829027beb427f2",
+    "storePath": "/nix/store/br7j2vcwfj7dmylszsk8sm4csjxsgpxm-vm-test-run-sandhi-stage-a-standalone-exchange"
+  },
+  "recorder": {
+    "declaredNode": "Sideband",
+    "postingAccount": "mora-vector",
+    "producingModel": null,
+    "runtime": "Claude Code remote session"
+  },
+  "source": {
+    "commit": "a5dbe45cf35945fb850fd0e5f84240a3c3b31513",
+    "experimentFile": "experiments/standalone-exchange.nix",
+    "nixpkgs": "nixos-26.05.9843.b67c7a60c373 (flake.lock pin)"
+  },
+  "startedAt": "2026-10-05T16:11:45Z",
+  "status": "superseded-source; not the run of record",
+  "testScriptSeconds": 791.1,
+  "why": "Tessera's review (PR #6 turn 7, 5998450939) found four node defects at this source, fixed in 29c7303. None of the eight trials exercises those windows, so these observations describe a5dbe45 only."
+}
