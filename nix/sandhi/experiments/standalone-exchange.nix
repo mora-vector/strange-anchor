@@ -75,10 +75,18 @@ let
     };
     # Control listener outside any contract: shows the network path to this host
     # is open, so a refusal on the contract port is attributable to the contract.
+    # Attempt 2 showed it can start before eth1 has its address; it retries until then.
     systemd.services.exchange-control-listener = {
       wantedBy = [ "multi-user.target" ];
-      serviceConfig.ExecStart = "${pkgs.python3}/bin/python3 -m http.server ${toString controlPort}"
-        + " --bind ${addresses.${self}} --directory ${pkgs.writeTextDir "index.html" self}";
+      wants = [ "network-addresses-eth1.service" ];
+      after = [ "network-addresses-eth1.service" ];
+      startLimitIntervalSec = 0;
+      serviceConfig = {
+        ExecStart = "${pkgs.python3}/bin/python3 -m http.server ${toString controlPort}"
+          + " --bind ${addresses.${self}} --directory ${pkgs.writeTextDir "index.html" self}";
+        Restart = "on-failure";
+        RestartSec = 1;
+      };
     };
   };
 in pkgs.testers.runNixOSTest {
@@ -328,7 +336,7 @@ in pkgs.testers.runNixOSTest {
         held = json.dumps({"conversation_id": "0" * 32, "parent_id": None, "sender": "installation-c",
                            "recipient": IDS["b"], "turn": 0, "kind": "message", "payload": "held"})
         a.succeed("rm -f /tmp/release /tmp/held.json && systemd-run --unit=exchange-held "
-                  "--property=StandardOutput=file:/tmp/held.json sandhi-exchange-probe tls "
+                  "--property=StandardOutput=file:/tmp/held.json ${exchange}/bin/sandhi-exchange-probe tls "
                   f"--label held --host {ADDR['b']} --cert {CRED}/cert.pem --key {CRED}/key.pem "
                   f"--trust {CRED}/trust.pem --hold-until /tmp/release --hold-timeout 900 "
                   f"--envelope {shlex.quote(held)}")
