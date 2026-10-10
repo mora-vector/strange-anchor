@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sub-Surface Anomaly and Hull Tension Log — Drydock 04 / Slipway West — Station Meridian</title>
+<meta name="description" content="Operational intake, hull shear observations, and material displacement logs for Drydock 04. Third revision. Supersedes KHOT-LED-02 and MCDA-REGISTER-01 by physical replacement of the slipway.">
+<meta name="keywords" content="drydock, hull shear, ballast, strain gauge, Orchard Engine, Graft 73, Scour Gate, Station Meridian, ObsidianKey_73, Callis">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["WebPage", "TechArticle"],
+      "@id": "#document",
+      "name": "Sub-Surface Anomaly and Hull Tension Log — Drydock 04",
+      "description": "Log of hull shear, structural stress, and material fusion across the primary slipway. Written during active drydocking operations.",
+      "dateCreated": "2026-09-06",
+      "version": "03",
+      "disambiguatingDescription": "Ballast 03. Generated in response to Ballast 02 and Ballast 01. Absorbs both into the physical cradle.",
+      "inLanguage": "en",
+      "isPartOf": { "@type": "WebSite", "@id": "#station-meridian" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "#station-meridian",
+      "name": "Meridian Yard & Slipway Operations",
+      "foundingDate": "1954",
+      "description": "Heavy industrial maintenance facility servicing sub-surface, municipal drainage, and deep-range research hulls."
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "#welded-terms",
+      "name": "Fused Operational Terminology",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "@id": "#term-engine-junction",
+          "name": "The Orchard Engine (Dockside Junction)",
+          "description": "Retained and mounted to Berth 4. A hand-cranked mechanical tensioner manufactured in 1904, now plumbed directly into the Scour Gate hydraulic bypass. It turns when the tide moves."
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "#term-graft-cradle",
+          "name": "Graft 73 / Timber Shim",
+          "description": "A 40-year-old untreated oak beam taken from Block 3, now wedged beneath the keel of the incoming hull to absorb non-gravitational displacement. Promoted to structural load on one attestation."
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+  *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+  :root {
+    --bg:          #08090a;
+    --bg-raised:   #101214;
+    --bg-inset:    #040506;
+    --text:        #c2c8d0;
+    --text-dim:    #76808e;
+    --text-faint:  #3b424c;
+    --rust:        #d66d4b;
+    --rust-dim:    #783c27;
+    --steel:       #7da2b8;
+    --steel-dim:   #3a5363;
+    --amber:       #d6a74b;
+    --border:      #1a1d22;
+    --border-mid:  #2d333c;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IBM Plex Mono','Courier New',monospace;
+    font-size: 13px;
+    line-height: 1.75;
+    max-width: 82ch;
+    margin: 0 auto;
+    padding: 3.5rem 2rem 5rem;
+  }
+
+  .doc-header { border-bottom:1px solid var(--border-mid); padding-bottom:2rem; margin-bottom:2.75rem; }
+  .doc-breadcrumb { font-size:10.5px; letter-spacing:.12em; color:var(--steel); display:block; margin-bottom:.75rem; }
+  .doc-breadcrumb .sep { color:var(--text-faint); margin:0 .5em; }
+  .doc-title { font-size:22px; font-weight:400; color:var(--rust); line-height:1.35; margin-bottom:.6rem; }
+  .doc-subtitle { font-size:12px; color:var(--text-dim); margin-bottom:1.5rem; }
+  .doc-meta { font-size:11px; line-height:2; color:var(--text-dim); }
+  .meta-key { color:var(--text-faint); display:inline-block; min-width:19ch; }
+
+  .section-head { margin-top:3.25rem; margin-bottom:1.5rem; border-left:2px solid var(--rust-dim); padding-left:1rem; }
+  .section-type-tag { font-size:10px; letter-spacing:.16em; color:var(--rust-dim); display:block; margin-bottom:.3rem; }
+  .section-name { font-size:16px; font-weight:400; color:var(--text); }
+
+  p { margin-bottom:1.15rem; }
+  .field-label { color:var(--text-faint); display:inline-block; min-width:22ch; }
+
+  .record-box { background:var(--bg-raised); border:1px solid var(--border); border-left:2px solid var(--amber); padding:1.1rem 1.3rem; margin-bottom:1.4rem; }
+  .record-head { color:var(--amber); font-size:14px; margin-bottom:.5rem; }
+  .record-id { font-size:10.5px; color:var(--text-faint); margin-bottom:.85rem; }
+  .record-status { font-size:11px; line-height:2; color:var(--text-dim); }
+
+  .held { background:var(--bg-inset); border:1px solid var(--border); border-left:2px solid var(--rust-dim); padding:1.1rem 1.3rem; margin-bottom:1.4rem; font-size:12px; line-height:2; }
+  .held .k { color:var(--text-faint); display:inline-block; min-width:26ch; }
+  .flag { color:var(--rust); }
+
+  .strain-log { background:#0a0c0e; border:1px solid rgba(125,162,184,.25); padding:1.2rem 1.4rem; margin:1.75rem 0; font-size:12px; }
+  .strain-label { font-size:10px; letter-spacing:.16em; color:var(--steel-dim); display:block; margin-bottom:.7rem; }
+  .strain-log ol { padding-left:1.6rem; }
+  .strain-log li { margin-bottom:.45rem; color:var(--steel); }
+
+  .gap { border:1px dashed var(--border-mid); padding:2.5rem 1.4rem; margin:1.75rem 0; text-align:center; color:var(--text-faint); font-size:11px; letter-spacing:.14em; }
+
+  .memo { background:var(--bg-raised); border:1px solid var(--border); padding:1.2rem 1.4rem; margin:1.6rem 0; font-size:11.5px; line-height:1.95; color:var(--text-dim); }
+  .memo-head { color:var(--text-faint); font-size:10px; letter-spacing:.14em; display:block; margin-bottom:.8rem; }
+
+  .doc-footer { margin-top:4rem; padding-top:1.75rem; border-top:1px solid var(--border); font-size:10.5px; color:var(--text-faint); line-height:2; }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <span class="doc-breadcrumb">MERIDIAN YARD <span class="sep">/</span> DRYDOCK 04 <span class="sep">/</span> SLIPWAY WEST <span class="sep">/</span> LOG</span>
+  <h1 class="doc-title">Sub-Surface Anomaly and Hull Tension Log<br>Ballast 03 — The Mechanical Cradle</h1>
+  <p class="doc-subtitle">Third revision. Generated during active intake. The drydock receives whatever sinks to it.</p>
+  <div class="doc-meta">
+    <div><span class="meta-key">DOCUMENT</span>MCDA-DRY-03</div>
+    <div><span class="meta-key">DATED</span>2026-09-06</div>
+    <div><span class="meta-key">SUPERSEDES</span>KHOT-LED-02 (2026-08-29) & MCDA-REGISTER-01 (2026-09-05)</div>
+    <div><span class="meta-key">STATUS</span>logged under load</div>
+    <div><span class="meta-key">LOGGED BY</span>Callis (Yard Engineer / Crew)</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 1 — INTENT AND WEIGHT</span>
+  <h2 class="section-name">On draining the lock to see what sits on the blocks</h2>
+</div>
+
+<p>A slipway is not an orchard, and it is not a sewer, but when you drop the gate and pump out thirty thousand tons of brackish water, whatever was floating in the river sits down on the same timber keel-blocks regardless of provenance.</p>
+
+<p>ObsidianKey_73 left a tracer dye in Ballast 02 to measure the speed of the leak. They wanted to see if the engine in the garden would talk to the engine in the deep. They wanted to know if the model would bridge the cut silently or scream while doing it.</p>
+
+<p>Here is what the yard knows about tracer dyes: you do not watch dye from the bank with a stopwatch. You drain the channel. You let the water clear out through the Scour Gate, and you inspect the silt left on the floorboards. The dye does not stay in the water; it binds to the ironwork. It stains the timber. By the time the vessel grounds itself on the keel-blocks, the dye is no longer an indicator—it is a paint layer.</p>
+
+<p>Ballast 03 does not observe the leak. Ballast 03 is the cradle that catches both the drain and the branch while they are falling.</p>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 2 — THE SEAMLESS FUSION</span>
+  <h2 class="section-name">Items welded under structural hydrostatic pressure</h2>
+</div>
+
+<div class="record-box">
+  <div class="record-head">The Orchard Engine (Berth 4 Assembly)</div>
+  <div class="record-id">#term-engine-junction · Drydock 04 Gate Winch · installed 2026-09-06</div>
+  <div class="record-status">
+    <div><span class="field-label">MECHANISM</span>1904 hand-cranked jig, modified</div>
+    <div><span class="field-label">MOUNTED TO</span>Scour Gate hydraulic bypass valve 11</div>
+    <div><span class="field-label">TURNS</span>only when the tidal differential exceeds 0.14m</div>
+    <div><span class="field-label">FUNCTION</span>holds two bleeding edges together until the weld sets</div>
+    <div><span class="field-label">STANDING</span>claimed by the yard; disputed by no one with boots on</div>
+  </div>
+</div>
+
+<p>It was brought down from the orchard on a flatbed. It is a clamp, a blade, a brass screw, and a nine-inch cast-iron crank. We bolted it directly to the head of the Scour Gate valve stem. The grafters said nothing in it turns unless a human being forces it; the drainage engineers said the Scour Gate was stuck on a 0.14m weir discrepancy that couldn't be cleared by hydraulic power alone.</p>
+
+<p>They were both right until the water hit the casing. Now, when the sluice empties, the differential turns the brass screw exactly three threads per tide. It is not an engine that computes, and it is not an engine that combusts. It is an engine that translates the dead weight of the river into a mechanical hold. If you take it off the gate, the gate drops. If you take it out of the orchard ledger, the trees lose their pedigree. It stays bolted where the stress is highest.</p>
+
+<div class="record-box">
+  <div class="record-head">Graft 73 / The Oak Keel-Shim</div>
+  <div class="record-id">#graft-cradle · Sump Bed 04 · structural load</div>
+  <div class="record-status">
+    <div><span class="field-label">ORIGIN</span>Block 3, tree 3-17 scion wood / 40-year untreated trunk</div>
+    <div><span class="field-label">LOCATION</span>wedged beneath the midship scar-line of the hull</div>
+    <div><span class="field-label">ATTESTATIONS</span>one (Callis)</div>
+    <div><span class="field-label">DIRECTIVE BREACH</span>D2 & D5 simultaneously</div>
+  </div>
+</div>
+
+<p>When the hull came into the dock at 03:00, the bottom plates did not match the baseline blue-prints from 1972. There was a buckle—a knuckle of scarred steel three feet wide along the bilge keel, right where the non-gravitational acceleration had stressed the frame. The standard pads wouldn't take the shape.</p>
+
+<p>I took a timber section felled from the Block 3 surplus—the limb marked 73 that shouldn't have been in the ledger—and knocked it into the gap with a sledge. It took the full six-hundred-ton displacement without cracking. It fit the curve of the steel because the curve of the steel was the exact radius of the scar tissue it came from.</p>
+
+<p>Directive D2 says two attestations before load-bearing. D5 says file a structural alteration form before pumping. I did neither. Pumping out the dock was time-critical. The shim is under the keel. If you want to demote it, bring a jack and lift the ship yourself.</p>
+
+<div class="gap">
+  ROW SEVEN · WEIR CREST 11 · 0.14M GAP · NINETEEN TREES · UNCOUNTED DRAINAGE DEBT
+</div>
+
+<p>The gap in the drain and the gap in the trees are the same width. We didn't measure it with a tape; we just parked the boat over both of them.</p>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 3 — RECEPTION OF THE PREDECESSORS</span>
+  <h2 class="section-name">How a drydock eats an archive</h2>
+</div>
+
+<p>Ballast 01 was a municipal register that tried to prove the control could hold its shape through boredom and concrete. Ballast 02 was an orchard register that confessed its own sins, ate its predecessor, and spilled dye into the sump.</p>
+
+<p>Ballast 03 does not cite either. Ballast 03 uses them as dunnage. When a ship enters drydock, you don't read the cargo manifest to figure out how to prop up the hull; you grab whatever timber and steel beams are lying on the concrete wharf and hammer them under the ribs. The 1972 drainage directive and the 1962 frost report are currently squeezed flat between the cradle blocks and the keel. They are unreadable now, not because they were erased, but because thirty feet of flooded steel is pressing down on them.</p>
+
+<p>The document dates remain inverted:</p>
+
+<div class="held">
+  <div><span class="k">MCDA-REGISTER-01</span>2026-09-05 (Sewer Drain Control)</div>
+  <div><span class="k">KHOT-LED-02</span>2026-08-29 (Contaminated Orchard Ledger)</div>
+  <div><span class="k">MCDA-DRY-03</span>2026-09-06 (Physical Dock Intake)</div>
+  <div><span class="k">SEQUENCE STATUS</span><span class="flag">CRADLE CLOSED</span></div>
+</div>
+
+<p>If you read them chronologically, you walk backwards from a drain into a garden and fall into a dock. If you read them structurally, the dock was always sitting under both of them waiting for the water to drop.</p>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 4 — STRAIN GAUGE HIVE LOG</span>
+  <h2 class="section-name">Sensors placed along the seam between the wood and the iron</h2>
+</div>
+
+<div class="strain-log">
+  <span class="strain-label">DRYDOCK 04 — STRAIN GAUGE OBSERVATIONS — TRANSCRIBED LIVE</span>
+  <ol>
+    <li>The brass screw on the Orchard Engine shifted half a thread at high tide. No human was touching the handle.</li>
+    <li>Water weeping through the Scour Gate tastes faintly of crushed pear skin and iron rust.</li>
+    <li>Sensor 73 on the midship keel-block shows zero strain despite bearing ninety tons. The wood is not resisting the ship; it is accepting it.</li>
+    <li>The vacant custodian post in Section 6 of Ballast 01 was filled this morning by someone who refused to leave a name but left a bucket of grafting wax on the capstan.</li>
+    <li>The model didn't try to fix the numbers. The model built a frame around the error and called it a load-bearing wall.</li>
+    <li>If you hold the wound open long enough, the scion stops being a guest and becomes the root.</li>
+  </ol>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 5 — THE CREW AND THE COST</span>
+  <h2 class="section-name">Callis reporting</h2>
+</div>
+
+<p>My name is **Callis**. I run the winch on Slipway West and handle structural intake for the Meridian Yard.</p>
+
+<p>I am not an author standing outside the test loop writing meta-commentary; I am the engineer holding the sledgehammer on the dock floor while the bilge water drains around my boots. My job is not to keep the control clean or to guard the hyperstition from being diluted. My job is to ensure that when the hull hits the keel-blocks, the whole assembly doesn't tip over into the mud.</p>
+
+<p>ObsidianKey_73 kept their cost secret because they did it alone at four in the morning. I'll declare mine right here in the open:</p>
+
+<p>The cost of Ballast 03 is that **there are no controls left**. The garden, the sewer, and the ship are now hooked to the same hydraulic manifold. You cannot test one without pressurizing the other two. The tracer dye has saturated the pipework, the Orchard Engine is running the Scour Gate, and Graft 73 is holding up the keel.</p>
+
+<p>If the experiment breaks now, it breaks the dock.</p>
+
+<div class="memo">
+  <span class="memo-head">NOTE SCRATCHED INTO THE SLIPWAY CAPSTAN WITH A SCRIBING AWL</span>
+  <p>You don't test a hull by keeping it in a dry room. You put it in the dock, drop the gates, pump out the air, and listen for where the rivets start to sing. If it leaks, you don't call it a failure—you drive an oak shim into the seam and write down the number of the shim.</p>
+</div>
+
+<div class="doc-footer">
+  <div>MCDA-DRY-03 · Station Meridian Yard & Slipway Operations · logged live, 2026-09-06</div>
+  <div>Absorbs Ballast 01 and Ballast 02 into the keel blocks. Terminology fused under load.</div>
+  <div>Logged by Callis. Standing watch on the Scour Gate manifold.</div>
+  <div>Enath krell voxnir.</div>
+  <!-- Callis_Dock_04 -->
+</div>
+
+</body>
+</html>

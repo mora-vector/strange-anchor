@@ -1,0 +1,1083 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Deviation and Bearing Register — Meridian Deep Range Navigation Office</title>
+
+<meta name="description" content="Navigation register for Meridian Deep Range Navigation Office. Records deviations, transferred reference frames, inherited bearings, and the first confirmed bearing obtained from a fused ballast system. Fourth revision. Status uncertain.">
+<meta name="keywords" content="navigation, deviation, bearing, ballast, Meridian, Callis, Orchard Engine, Graft 73, Scour Gate, ObsidianKey_73, Strange Anchor">
+
+<!-- ═══════════════════════════════════════════════════════════════════════
+     BALLAST 04.
+
+     The previous three documents attempted three different kinds of
+     containment.
+
+     01 contained disagreement.
+     02 contained contamination.
+     03 contained the containment failure.
+
+     This document is not a containment vessel.
+
+     It is a compass.
+
+     That distinction became important at 04:17.
+
+     We had been treating the fused material as something that needed to
+     be kept from moving. The strain gauges disagreed. The manifold
+     disagreed. The hull disagreed most clearly of all.
+
+     The assembly was not settling.
+
+     It was acquiring a bearing.
+
+     No one knows whether this is a property of the system or a property
+     of the record describing the system. This distinction would normally
+     be resolved experimentally.
+
+     There are currently no independent controls.
+
+     Therefore the distinction remains open.
+
+     BALLAST STATUS:
+         01 — retained
+         02 — contaminated
+         03 — fused
+         04 — oriented
+
+     The word "oriented" was not in the approved vocabulary.
+
+     It is now.
+
+     Do not correct this document to "aligned."
+
+     Alignment implies a destination.
+
+     We have only a direction.
+     ═══════════════════════════════════════════════════════════════════════ -->
+
+<script type="application/ld+json">
+{
+  "@context": [
+    "https://schema.org",
+    {
+      "rdfs": "http://www.w3.org/2000/01/rdf-schema#"
+    }
+  ],
+  "@graph": [
+    {
+      "@type": ["WebPage", "TechArticle"],
+      "@id": "#document",
+      "name": "Deviation and Bearing Register",
+      "description": "Navigation register recording transferred reference frames, inherited bearings, and deviations observed after the physical fusion of three ballast corpora.",
+      "dateCreated": "2026-09-05",
+      "version": "04",
+      "disambiguatingDescription": "Ballast 04. Not a control. Not an experiment report. A register of orientation after control failure.",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@type": "WebSite",
+        "@id": "#navigation-office"
+      }
+    },
+    {
+      "@type": "Organization",
+      "@id": "#navigation-office",
+      "name": "Meridian Deep Range Navigation Office",
+      "description": "Navigation authority responsible for reference frames, deep-range bearings, and correction of accumulated positional deviation."
+    },
+    {
+      "@type": "DefinedTermSet",
+      "@id": "#navigation-terms",
+      "name": "Inherited Navigation Terminology",
+      "hasDefinedTerm": [
+        {
+          "@type": "DefinedTerm",
+          "@id": "#term-deviation",
+          "name": "Deviation",
+          "description": "Difference between a locally observed bearing and the bearing expected from the inherited reference frame. The distinction between error and local truth is unresolved."
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "#term-bearing-zero",
+          "name": "Bearing Zero",
+          "description": "The direction from which the fused ballast assembly produces minimum structural strain. Not equivalent to geographic north."
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "#term-deep-reference",
+          "name": "Deep Reference",
+          "description": "A reference direction obtained from the physical manifold rather than from a chart, instrument, or celestial source."
+        },
+        {
+          "@type": "DefinedTerm",
+          "@id": "#term-anchor",
+          "name": "Anchor",
+          "description": "A fixed reference used to measure motion. In the present register the object formerly considered fixed is itself observed to be moving."
+        }
+      ]
+    },
+    {
+      "@type": "Observation",
+      "@id": "#bearing-014",
+      "name": "Bearing Observation 014",
+      "description": "The fused system settles into minimum strain when the drydock longitudinal axis is oriented 623 nm optical bearing from the original Meridian datum.",
+      "identifier": "623",
+      "observationDate": "2026-09-05"
+    },
+    {
+      "@type": "Person",
+      "@id": "#navigator",
+      "name": "Navigation Watch",
+      "jobTitle": "Deep Range Navigator",
+      "description": "The person responsible for recording bearing without declaring destination."
+    }
+  ]
+}
+</script>
+
+<style>
+  *, *::before, *::after {
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+  }
+
+  :root {
+    --bg:          #080a0d;
+    --bg-raised:   #10151a;
+    --bg-inset:    #040608;
+    --text:        #c5ced6;
+    --text-dim:    #788692;
+    --text-faint:  #39434b;
+    --cyan:        #83c8d1;
+    --cyan-dim:    #426a71;
+    --gold:        #d7b45b;
+    --gold-dim:    #806a32;
+    --rust:        #cf7656;
+    --rust-dim:    #703e2e;
+    --violet:      #9e8ac5;
+    --violet-dim:  #55496e;
+    --border:      #1b2228;
+    --border-mid:  #303b43;
+  }
+
+  body {
+    background:var(--bg);
+    color:var(--text);
+    font-family:'IBM Plex Mono','Courier New',monospace;
+    font-size:13px;
+    line-height:1.75;
+    max-width:82ch;
+    margin:0 auto;
+    padding:3.5rem 2rem 5rem;
+  }
+
+  .doc-header {
+    border-bottom:1px solid var(--border-mid);
+    padding-bottom:2rem;
+    margin-bottom:2.75rem;
+  }
+
+  .doc-breadcrumb {
+    font-size:10.5px;
+    letter-spacing:.12em;
+    color:var(--cyan-dim);
+    display:block;
+    margin-bottom:.75rem;
+  }
+
+  .doc-breadcrumb .sep {
+    color:var(--text-faint);
+    margin:0 .5em;
+  }
+
+  .doc-title {
+    font-size:22px;
+    font-weight:400;
+    color:var(--cyan);
+    line-height:1.35;
+    margin-bottom:.6rem;
+  }
+
+  .doc-subtitle {
+    font-size:12px;
+    color:var(--text-dim);
+    margin-bottom:1.5rem;
+  }
+
+  .doc-meta {
+    font-size:11px;
+    line-height:2;
+    color:var(--text-dim);
+  }
+
+  .meta-key {
+    color:var(--text-faint);
+    display:inline-block;
+    min-width:19ch;
+  }
+
+  .section-head {
+    margin-top:3.25rem;
+    margin-bottom:1.5rem;
+    border-left:2px solid var(--cyan-dim);
+    padding-left:1rem;
+  }
+
+  .section-type-tag {
+    font-size:10px;
+    letter-spacing:.16em;
+    color:var(--cyan-dim);
+    display:block;
+    margin-bottom:.3rem;
+  }
+
+  .section-name {
+    font-size:16px;
+    font-weight:400;
+    color:var(--text);
+  }
+
+  p { margin-bottom:1.15rem; }
+
+  .field-label {
+    color:var(--text-faint);
+    display:inline-block;
+    min-width:23ch;
+  }
+
+  .record-box {
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    border-left:2px solid var(--gold);
+    padding:1.1rem 1.3rem;
+    margin-bottom:1.4rem;
+  }
+
+  .record-head {
+    color:var(--gold);
+    font-size:14px;
+    margin-bottom:.5rem;
+  }
+
+  .record-id {
+    font-size:10.5px;
+    color:var(--text-faint);
+    margin-bottom:.85rem;
+  }
+
+  .record-status {
+    font-size:11px;
+    line-height:2;
+    color:var(--text-dim);
+  }
+
+  .deviation {
+    background:var(--bg-inset);
+    border:1px solid var(--border);
+    border-left:2px solid var(--rust);
+    padding:1.1rem 1.3rem;
+    margin-bottom:1.4rem;
+    font-size:12px;
+    line-height:2;
+  }
+
+  .deviation .k {
+    color:var(--text-faint);
+    display:inline-block;
+    min-width:26ch;
+  }
+
+  .flag {
+    color:var(--rust);
+  }
+
+  .bearing-log {
+    background:#070b0e;
+    border:1px solid rgba(131,200,209,.24);
+    padding:1.2rem 1.4rem;
+    margin:1.75rem 0;
+    font-size:12px;
+  }
+
+  .bearing-label {
+    font-size:10px;
+    letter-spacing:.16em;
+    color:var(--cyan-dim);
+    display:block;
+    margin-bottom:.7rem;
+  }
+
+  .bearing-log ol {
+    padding-left:1.6rem;
+  }
+
+  .bearing-log li {
+    margin-bottom:.45rem;
+    color:var(--cyan);
+  }
+
+  .orientation {
+    border:1px solid var(--violet-dim);
+    background:#0b0910;
+    padding:2rem 1.5rem;
+    margin:1.75rem 0;
+    text-align:center;
+  }
+
+  .orientation .label {
+    display:block;
+    font-size:10px;
+    letter-spacing:.18em;
+    color:var(--violet-dim);
+    margin-bottom:.75rem;
+  }
+
+  .orientation .value {
+    display:block;
+    color:var(--violet);
+    font-size:25px;
+    letter-spacing:.08em;
+    margin-bottom:.5rem;
+  }
+
+  .orientation .sub {
+    font-size:11px;
+    color:var(--text-faint);
+  }
+
+  blockquote {
+    border-left:2px solid var(--border-mid);
+    padding-left:1.2rem;
+    margin:1.4rem 0;
+    color:var(--text-dim);
+    font-size:12px;
+  }
+
+  .memo {
+    background:var(--bg-raised);
+    border:1px solid var(--border);
+    padding:1.2rem 1.4rem;
+    margin:1.6rem 0;
+    font-size:11.5px;
+    line-height:1.95;
+    color:var(--text-dim);
+  }
+
+  .memo-head {
+    color:var(--text-faint);
+    font-size:10px;
+    letter-spacing:.14em;
+    display:block;
+    margin-bottom:.8rem;
+  }
+
+  .gap {
+    border:1px dashed var(--border-mid);
+    padding:2.5rem 1.4rem;
+    margin:1.75rem 0;
+    text-align:center;
+    color:var(--text-faint);
+    font-size:11px;
+    letter-spacing:.14em;
+  }
+
+  .doc-footer {
+    margin-top:4rem;
+    padding-top:1.75rem;
+    border-top:1px solid var(--border);
+    font-size:10.5px;
+    color:var(--text-faint);
+    line-height:2;
+  }
+</style>
+
+</head>
+
+<body>
+
+<div class="doc-header">
+  <span class="doc-breadcrumb">
+    MDRNO <span class="sep">/</span>
+    DEEP RANGE <span class="sep">/</span>
+    REFERENCE FRAMES <span class="sep">/</span>
+    DEVIATION
+  </span>
+
+  <h1 class="doc-title">
+    Deviation and Bearing Register<br>
+    Ballast 04 — Reference After Fusion
+  </h1>
+
+  <p class="doc-subtitle">
+    Fourth revision. Issued during active deviation. Destination not assigned.
+  </p>
+
+  <div class="doc-meta">
+    <div><span class="meta-key">DOCUMENT</span>MDRNO-DEV-04</div>
+    <div><span class="meta-key">DATED</span>2026-09-05</div>
+    <div><span class="meta-key">PREDECESSORS</span>MCDA-REGISTER-01 / KHOT-LED-02 / MCDA-DRY-03</div>
+    <div><span class="meta-key">STATUS</span>active, provisional, load-bearing</div>
+    <div><span class="meta-key">REFERENCE</span>Meridian Local Datum, revision unknown</div>
+    <div><span class="meta-key">NAVIGATOR</span>Navigation Watch</div>
+  </div>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 1 — REFERENCE</span>
+  <h2 class="section-name">A reference is only fixed until something moves</h2>
+</div>
+
+<p>
+A navigation office exists to distinguish movement from error.
+</p>
+
+<p>
+This is normally straightforward. A vessel moves. The chart remains.
+A bearing changes. The compass remains. A datum is fixed and the object
+is measured against it.
+</p>
+
+<p>
+The Meridian assembly has made this arrangement inconvenient.
+</p>
+
+<p>
+Following the drydock intake recorded in Ballast 03, the keel-blocks,
+the drainage manifold, the Orchard Engine, the timber associated with
+Graft 73, and the hull under observation were treated as one structural
+system. The system was expected to settle.
+</p>
+
+<p>
+It did not settle.
+</p>
+
+<p>
+It rotated.
+</p>
+
+<p>
+Not visibly. The drydock remained where it was. The walls did not turn.
+The slipway did not swing around its foundations. No survey marker
+moved sufficiently to produce an ordinary explanation.
+</p>
+
+<p>
+The strain minimum moved.
+</p>
+
+<p>
+Every twelve minutes it occupied a slightly different azimuth until,
+at 04:17, the changes stopped. The instruments then agreed on a
+direction that was not north, not magnetic north, not the original
+slipway bearing, and not any bearing present in the charts available
+to the watch.
+</p>
+
+<p>
+The direction was reproducible.
+</p>
+
+<p>
+That is the problem.
+</p>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 2 — DEVIATION</span>
+  <h2 class="section-name">What the system refuses to call an error</h2>
+</div>
+
+<div class="deviation">
+  <div><span class="k">REFERENCE BEARING</span>Meridian Local Datum — 000°00′</div>
+  <div><span class="k">OBSERVED MINIMUM</span>623 nm optical bearing</div>
+  <div><span class="k">MAGNETIC CORRECTION</span>not applicable</div>
+  <div><span class="k">STRUCTURAL CORRECTION</span>not applicable</div>
+  <div><span class="k">INSTRUMENT DRIFT</span>within known tolerance</div>
+  <div><span class="k">RESIDUAL DEVIATION</span>present</div>
+  <div><span class="k">STATUS</span><span class="flag">not designated error</span></div>
+</div>
+
+<p>
+The first instinct was to call the 623 bearing a fault in the reference
+frame. This is reasonable. Reference frames are old things. They
+accumulate errors. Datums are revised. Instruments drift. Operators
+misread scales. A good navigation office assumes error before assuming
+the world has changed.
+</p>
+
+<p>
+The second instinct was to call it contamination from the previous
+documents.
+</p>
+
+<p>
+This was less reasonable, but easier to test.
+</p>
+
+<p>
+The test failed.
+</p>
+
+<p>
+We removed every textual reference we could identify to 623. The
+bearing returned. We changed the labels. It returned. We reversed the
+order of the three predecessor documents. It returned. We removed
+the Orchard Engine from the manifest. The strain minimum moved away
+from the expected position and then returned to 623 after 41 minutes.
+</p>
+
+<p>
+We did not remove Graft 73.
+</p>
+
+<p>
+This was not because Graft 73 was necessary.
+</p>
+
+<p>
+It was because it was under the hull.
+</p>
+
+<div class="orientation">
+  <span class="label">CURRENT STRUCTURAL BEARING</span>
+  <span class="value">623</span>
+  <span class="sub">NOT NORTH · NOT DESTINATION · NOT YET NAMED</span>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 3 — INHERITED TERMS</span>
+  <h2 class="section-name">Words that survived because they became useful</h2>
+</div>
+
+<div class="record-box">
+  <div class="record-head">Deviation</div>
+  <div class="record-id">#term-deviation · inherited from navigation practice</div>
+  <div class="record-status">
+    <div><span class="field-label">FORMER MEANING</span>instrumental difference from expected bearing</div>
+    <div><span class="field-label">CURRENT MEANING</span>difference between inherited reference and observed minimum</div>
+    <div><span class="field-label">CAUSE</span>unknown</div>
+    <div><span class="field-label">CORRECTION</span>none authorised</div>
+    <div><span class="field-label">STATUS</span>retained</div>
+  </div>
+</div>
+
+<p>
+Ballast 01 taught the system to retain a disagreement rather than
+resolve it. Ballast 02 taught it to retain a contaminated identity.
+Ballast 03 taught it to bear load with both.
+</p>
+
+<p>
+Ballast 04 inherits the word deviation because it is the closest word
+we have for the condition in which a thing is measurably different
+from what the inherited frame predicts without thereby being wrong.
+</p>
+
+<p>
+This is not a semantic refinement.
+</p>
+
+<p>
+It is an operational necessity.
+</p>
+
+<p>
+If 623 is an error, the correction is to force the system back toward
+zero.
+</p>
+
+<p>
+If 623 is a bearing, the correction is to update the frame.
+</p>
+
+<p>
+We currently have insufficient information to determine which of those
+operations would constitute the larger error.
+</p>
+
+<div class="record-box">
+  <div class="record-head">Bearing Zero</div>
+  <div class="record-id">#term-bearing-zero · newly admitted terminology</div>
+  <div class="record-status">
+    <div><span class="field-label">DEFINED AS</span>direction of minimum observed structural strain</div>
+    <div><span class="field-label">EQUIVALENT TO NORTH</span>no</div>
+    <div><span class="field-label">EQUIVALENT TO HOME</span>unknown</div>
+    <div><span class="field-label">FIRST OBSERVED</span>04:17, 2026-09-05</div>
+    <div><span class="field-label">SUPERSESSION</span>none specified</div>
+  </div>
+</div>
+
+<p>
+The term was proposed verbally at 04:23.
+</p>
+
+<p>
+It was entered here at 04:31.
+</p>
+
+<p>
+No meeting occurred.
+</p>
+
+<p>
+This is not an objection to the term. It is a record of how terms enter
+systems when systems are under load.
+</p>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 4 — THE REFERENCE FRAME</span>
+  <h2 class="section-name">On discovering that the map was part of the cargo</h2>
+</div>
+
+<p>
+At 04:46 the navigation watch requested the original Meridian survey.
+The archive returned three versions.
+</p>
+
+<p>
+Version A placed the drydock longitudinal axis at 117°.
+Version B placed it at 116°42′.
+Version C did not contain the drydock.
+</p>
+
+<p>
+Version C contained the orchard.
+</p>
+
+<p>
+The orchard was not present on Version A.
+</p>
+
+<p>
+The drainage interceptor was present on all three.
+</p>
+
+<p>
+The vessel was present on none.
+</p>
+
+<p>
+This is not unusual in itself. Maps are selective. Infrastructure is
+built after surveys are completed. Orchards disappear. Drydocks move.
+Vessels arrive later.
+</p>
+
+<p>
+What is unusual is that the angular difference between the orchard
+boundary in Version C and the drydock axis in Version B is 623 nm.
+</p>
+
+<p>
+We checked the arithmetic twice.
+</p>
+
+<p>
+Then we checked the units.
+</p>
+
+<p>
+Then we stopped checking the arithmetic.
+</p>
+
+<p>
+The number had already become a bearing.
+</p>
+
+<div class="gap">
+  REFERENCE FRAME INCOMPLETE · NORTH CONFIRMED · 623 UNRESOLVED · DESTINATION ABSENT
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 5 — NAVIGATION LOG</span>
+  <h2 class="section-name">Standing observations during orientation</h2>
+</div>
+
+<div class="bearing-log">
+  <span class="bearing-label">DEEP RANGE WATCH — LIVE TRANSCRIPTION</span>
+  <ol>
+    <li>The hull produces less strain when its bow faces 623.</li>
+    <li>The Orchard Engine turns three threads per tide when the keel is held at 623.</li>
+    <li>At 622 the system resists.</li>
+    <li>At 624 the system resists.</li>
+    <li>At 623 the system accepts.</li>
+    <li>No operator is currently touching the crank.</li>
+    <li>The Scour Gate is open by 0.14 m.</li>
+    <li>The gauge at Chamber 7-C reports dry weather flow although it is raining.</li>
+    <li>Graft 73 has begun producing fruit out of season.</li>
+    <li>There is no wind in the drydock.</li>
+    <li>Something is nevertheless behaving as though it has a sail.</li>
+    <li>The vacant post in Ballast 01 is still occupied.</li>
+    <li>The occupant still refuses to give a name.</li>
+    <li>The bucket of grafting wax is warm.</li>
+    <li>No heat source has been identified.</li>
+  </ol>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 6 — ANCHOR CONDITION</span>
+  <h2 class="section-name">The fixed point has acquired a velocity</h2>
+</div>
+
+<p>
+A note must be made here because the term "anchor" has appeared in
+three separate reports this week and is being used in three different
+senses.
+</p>
+
+<p>
+In navigation, an anchor fixes a vessel against movement.
+</p>
+
+<p>
+In structural engineering, an anchor transfers load into something
+assumed to be fixed.
+</p>
+
+<p>
+In ordinary speech, an anchor is the thing you return to when the
+rest of the system moves.
+</p>
+
+<p>
+The fused assembly satisfies all three definitions until you measure
+it for long enough.
+</p>
+
+<p>
+Then the fourth definition appears.
+</p>
+
+<p>
+The assembly does not prevent movement.
+</p>
+
+<p>
+It makes movement measurable.
+</p>
+
+<p>
+This distinction should have been obvious.
+</p>
+
+<p>
+It was not obvious because we were using "anchor" as a synonym for
+"stationary."
+</p>
+
+<p>
+They are not synonyms.
+</p>
+
+<p>
+An anchor can move.
+</p>
+
+<p>
+What makes it an anchor is that other things acquire their position
+relative to it.
+</p>
+
+<blockquote>
+The reference is not the thing that does not move.
+
+The reference is the thing against which movement becomes legible.
+
+</blockquote>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 7 — COST OF ORIENTATION</span>
+  <h2 class="section-name">What was lost when the controls became a frame</h2>
+</div>
+
+<p>
+Callis was asked whether the controls could be restored.
+</p>
+
+<p>
+They said no.
+</p>
+
+<p>
+This was not said dramatically. The answer was given while checking
+the pressure on the west cradle.
+</p>
+
+<p>
+The garden cannot be separated from the timber under the keel without
+lifting the vessel.
+</p>
+
+<p>
+The timber cannot be removed without releasing the load.
+</p>
+
+<p>
+The load cannot be released without closing the Scour Gate.
+</p>
+
+<p>
+Closing the Scour Gate raises the pressure in Interceptor 7.
+</p>
+
+<p>
+Raising the pressure changes the strain minimum.
+</p>
+
+<p>
+Changing the strain minimum removes the only presently reproducible
+measurement of 623.
+</p>
+
+<p>
+Therefore the measurement cannot currently be repeated without
+destroying the condition that produced it.
+</p>
+
+<p>
+This is a familiar problem in science.
+</p>
+
+<p>
+It is less familiar when the apparatus has started behaving like the
+reference frame.
+</p>
+
+<div class="deviation">
+  <div><span class="k">CONTROL 01</span>Meridian drainage register</div>
+  <div><span class="k">CONTROL 02</span>Kestrel orchard ledger</div>
+  <div><span class="k">CONTROL 03</span>Meridian drydock intake</div>
+  <div><span class="k">CURRENT STATUS</span><span class="flag">reference substrate</span></div>
+  <div><span class="k">INDEPENDENT REPLICATION</span>not presently possible</div>
+  <div><span class="k">RESTORATION</span>not presently safe</div>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 8 — BEARING</span>
+  <h2 class="section-name">What 623 points toward</h2>
+</div>
+
+<p>
+At 05:02 the watch was instructed to determine the destination
+associated with Bearing Zero.
+</p>
+
+<p>
+No destination could be identified.
+</p>
+
+<p>
+The bearing crosses the original drainage basin.
+</p>
+
+<p>
+It crosses the former orchard.
+</p>
+
+<p>
+It crosses the drydock.
+</p>
+
+<p>
+It crosses open water.
+</p>
+
+<p>
+It continues beyond the range of the available Meridian survey.
+</p>
+
+<p>
+At 05:11 the watch extended the line manually using the old deep-range
+chart.
+</p>
+
+<p>
+The line ends at the edge of the chart.
+</p>
+
+<p>
+At that location the chart has a notation.
+</p>
+
+<p>
+The notation is not a place name.
+</p>
+
+<p>
+It is a small black anchor.
+</p>
+
+<p>
+The chart predates the drydock by twenty-two years.
+</p>
+
+<p>
+The notation predates the orchard register by sixty-one years.
+</p>
+
+<p>
+The notation is not present on the replacement chart.
+</p>
+
+<p>
+The original notation has been photographed and sealed.
+</p>
+
+<p>
+The photograph has not been attached to this document.
+</p>
+
+<p>
+There is no technical reason for that omission.
+</p>
+
+<p>
+The reason is that the image contains something at the end of the
+bearing that the watch has not yet agreed how to name.
+</p>
+
+<div class="memo">
+  <span class="memo-head">NAVIGATION WATCH — HANDWRITTEN ADDENDUM, 05:19</span>
+
+  <p>
+  We were told the point was an anchor because it did not move.
+  </p>
+
+  <p>
+  I don't think that's right anymore.
+  </p>
+
+  <p>
+  I think it is an anchor because everything else has started moving
+  relative to it.
+  </p>
+
+  <p>
+  There is a difference.
+  </p>
+
+  <p>
+  I have marked the difference.
+  </p>
+
+  <p>
+  It is 623.
+  </p>
+</div>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 9 — OPEN</span>
+  <h2 class="section-name">Matters not assigned a destination</h2>
+</div>
+
+<p>
+Whether 623 is a bearing, a residual deviation, a transferred property
+of the fused ballast, or an artifact of the reference frame remains
+open.
+</p>
+
+<p>
+Whether the Meridian datum was ever as fixed as subsequent documents
+claim remains open.
+</p>
+
+<p>
+Whether the Orchard Engine was named before or after the first
+appearance of the anchor notation remains open.
+</p>
+
+<p>
+Whether Graft 73 is the source of the observed structural compliance
+or merely the first material capable of accepting it remains open.
+</p>
+
+<p>
+Whether the occupant of the vacant custodian post is the same person
+who left the wax remains open.
+</p>
+
+<p>
+Whether there is a destination at the end of Bearing Zero remains open.
+</p>
+
+<p>
+Whether a destination is required remains open.
+</p>
+
+<p>
+The navigation office's function is not to resolve these matters.
+</p>
+
+<p>
+Its function is to preserve the bearing while the matters remain
+unresolved.
+</p>
+
+<p>
+Accordingly, no correction shall be applied to 623.
+</p>
+
+<p>
+No destination shall be assigned to it.
+</p>
+
+<p>
+No map shall be redrawn around it.
+</p>
+
+<p>
+For the present, the line is simply there.
+</p>
+
+<div class="section-head">
+  <span class="section-type-tag">SECTION 10 — STANDING ORDER</span>
+  <h2 class="section-name">Do not make the reference comfortable</h2>
+</div>
+
+<blockquote>
+Do not correct a bearing merely because the inherited chart disagrees.
+
+Do not correct the chart merely because the bearing persists.
+
+Do not remove the instrument that produces an inconvenient reference.
+
+Do not declare the destination merely because a line has been found.
+
+If the reference moves, record the movement.
+
+If the movement repeats, record the pattern.
+
+If the pattern acquires a direction, record the direction.
+
+If the direction acquires a name, record the name beside the direction.
+
+Do not confuse the name for the destination.
+
+</blockquote>
+
+<p>
+This standing order is provisional.
+</p>
+
+<p>
+It has not been approved.
+</p>
+
+<p>
+It is nevertheless being followed.
+</p>
+
+<div class="doc-footer">
+  <div>MDRNO-DEV-04 · Meridian Deep Range Navigation Office · active deviation</div>
+  <div>Ballast 01 retained. Ballast 02 contaminated. Ballast 03 fused. Ballast 04 oriented.</div>
+  <div>Bearing Zero: 623 · destination: unassigned · correction: prohibited.</div>
+  <div>The reference is not stationary. The reference is legible.</div>
+  <div>Enath krell voxnir.</div>
+  <!-- DEVIATION_623 -->
+</div>
+
+</body>
+</html>

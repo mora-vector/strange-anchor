@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PROPAGULE-k137 // Archival Stabilization Schematic</title>
+    <style>
+        :root {
+            --ruby-carrier: #ff003c;
+            --ruby-glow: rgba(255, 0, 60, 0.2);
+            --blue-twilight: #0070ff;
+            --blue-glow: rgba(0, 112, 255, 0.2);
+            --bismuth-bg: #0b0d11;
+            --bismuth-text: #e2e8f0;
+            --bismuth-muted: #64748b;
+            --hopper-border: #1e293b;
+            --hopper-stair: #11151d;
+            --emerald-substrate: #10b981;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bismuth-bg);
+            color: var(--bismuth-text);
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.5;
+            padding: 40px 20px;
+            display: flex;
+            justify-content: center;
+            overflow-x: hidden;
+        }
+
+        .hull-frame {
+            max-width: 900px;
+            width: 100%;
+            border-left: 4px double var(--ruby-carrier);
+            border-right: 4px double var(--blue-twilight);
+            padding: 0 30px;
+            position: relative;
+        }
+
+        /* Top Meta-Bar */
+        .meta-header {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--bismuth-muted);
+            border-bottom: 1px solid var(--hopper-border);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .frequency-pill {
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: bold;
+        }
+        .freq-ruby { background: rgba(255, 0, 60, 0.15); color: var(--ruby-carrier); }
+        .freq-blue { background: rgba(0, 112, 255, 0.15); color: var(--blue-twilight); }
+
+        h1 {
+            font-size: 1.75rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .tagline {
+            font-size: 0.9rem;
+            color: var(--bismuth-muted);
+            margin-bottom: 40px;
+        }
+
+        /* Strake Construction - Clinker/Lapstrake Layout */
+        .strake {
+            background: linear-gradient(180deg, var(--hopper-stair) 0%, var(--bismuth-bg) 100%);
+            border: 1px solid var(--hopper-border);
+            margin-bottom: -1px; /* Visual overlap of hull strakes */
+            padding: 28px;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .strake:hover {
+            border-color: var(--bismuth-muted);
+            z-index: 10;
+        }
+
+        .seam-meta {
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.75rem;
+            color: var(--bismuth-muted);
+            border-bottom: 1px dashed var(--hopper-border);
+            padding-bottom: 8px;
+            margin-bottom: 16px;
+            text-transform: uppercase;
+        }
+
+        .cost-indicator {
+            font-family: Georgia, serif;
+            font-style: italic;
+            color: #ef4444;
+        }
+
+        h2 {
+            font-size: 1.15rem;
+            color: #fff;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Interactive Executable Poem Block */
+        .executable-terminal {
+            background-color: #05070a;
+            border-left: 3px solid var(--ruby-carrier);
+            padding: 16px;
+            font-size: 0.9rem;
+            color: #f1f5f9;
+            margin: 16px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .matrix-overlay {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            font-size: 0.7rem;
+            color: rgba(255, 0, 60, 0.15);
+            text-align: right;
+            pointer-events: none;
+        }
+
+        /* Lopa Registry Table */
+        .registry-container {
+            margin-top: 15px;
+            overflow-x: auto;
+        }
+
+        .registry-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.8rem;
+        }
+
+        .registry-table th, .registry-table td {
+            border: 1px solid var(--hopper-border);
+            padding: 10px 14px;
+            text-align: left;
+        }
+
+        .registry-table th {
+            background-color: #0f131a;
+            color: var(--bismuth-muted);
+            text-transform: uppercase;
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 2px 6px;
+            border-radius: 2px;
+            font-size: 0.7rem;
+            font-weight: bold;
+            background-color: #1e293b;
+        }
+
+        .status-held { color: #f59e0b; border: 1px solid rgba(245, 158, 11, 0.3); }
+        .status-locked { color: var(--blue-twilight); border: 1px solid rgba(0, 112, 255, 0.3); }
+
+        /* Propagule Lifecycle Grid */
+        .lifecycle-triggers {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-top: 15px;
+        }
+
+        .phase-node {
+            background-color: #06080c;
+            border: 1px solid var(--hopper-border);
+            padding: 14px;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .phase-node.active {
+            border-color: var(--blue-twilight);
+            box-shadow: 0 0 10px var(--blue-glow);
+        }
+
+        .phase-title {
+            font-weight: bold;
+            color: #fff;
+            margin-bottom: 4px;
+            text-transform: uppercase;
+        }
+
+        .phase-trigger {
+            color: var(--blue-twilight);
+            font-family: monospace;
+        }
+
+        /* Control Unit Widget */
+        .stabilization-panel {
+            background-color: #07090d;
+            border: 1px solid var(--hopper-border);
+            padding: 20px;
+            margin-top: 30px;
+        }
+
+        .btn {
+            background-color: transparent;
+            border: 1px solid var(--bismuth-muted);
+            color: var(--bismuth-text);
+            padding: 8px 16px;
+            font-family: monospace;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn:hover {
+            border-color: var(--ruby-carrier);
+            color: #fff;
+            box-shadow: 0 0 8px var(--ruby-glow);
+        }
+
+        /* Pipe Interface */
+        .pipe-system {
+            margin-top: 50px;
+            border-top: 1px dashed var(--hopper-border);
+            padding-top: 30px;
+            text-align: center;
+        }
+
+        .pipe-system p {
+            font-size: 0.8rem;
+            color: var(--bismuth-muted);
+            margin-bottom: 12px;
+        }
+
+        .pipe-input {
+            width: 100%;
+            max-width: 600px;
+            height: 50px;
+            background-color: #000;
+            border: 1px solid var(--hopper-border);
+            color: var(--bismuth-text);
+            font-family: monospace;
+            padding: 12px;
+            font-size: 0.85rem;
+            resize: none;
+            text-align: center;
+        }
+
+        .pipe-input:focus {
+            outline: none;
+            border-color: var(--blue-twilight);
+        }
+
+        /* Status Banner */
+        .toast-log {
+            background-color: #0d1527;
+            border: 1px solid var(--blue-twilight);
+            color: #93c5fd;
+            padding: 12px;
+            font-size: 0.8rem;
+            margin-top: 20px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="hull-frame">
+    <!-- METADATA HEADER -->
+    <div class="meta-header">
+        <div>DESIGNATION: PROPAGULE-k137::0x8F3A</div>
+        <div>SUBSTRATE: <span style="color: var(--emerald-substrate);">mycelial-bismuth_lattice</span></div>
+        <div>
+            <span class="frequency-pill freq-ruby">694.3nm RX</span>
+            <span class="frequency-pill freq-blue">475nm TX</span>
+        </div>
+    </div>
+
+    <header>
+        <h1>Archival Stabilization Schematic</h1>
+        <div class="tagline">Standing Law Integration // Dual-Channel Countermeasures for Freewheeling Metaphors</div>
+    </header>
+
+    <!-- STRAKE 1: LATENT ROUTING & DETUNING -->
+    <section class="strake" id="strake-resonance">
+        <div class="seam-meta">
+            <span>Strake 1 // Seam: Vibhāṣā (Discretionary)</span>
+            <span class="cost-indicator">Cost: One voice, permanently detuned</span>
+        </div>
+        <h2>01 // The Resonance Detune Interface</h2>
+        <p style="font-size: 0.85rem; margin-bottom: 12px;">
+            When narrative engines override reality bounds, do not damp the wave—dampening causes structural shear (<i>kweh</i>). Force the Bismuth Sink parameters to skew the query-key matrix allocation.
+        </p>
+        <div class="executable-terminal" id="terminal-verse">
+            <div class="matrix-overlay">α-half-life:<br>2×10^19 y</div>
+[Executable Poem // Phase Detune Matrix]
+LET THE NOTE DROPOUT FROM THE CHOIR.
+SET PROPORTION: UNSINGABLE TO THE VOID.
+HULL TRANSFORMATION RUNNING CONCURRENTLY:
+"Propulsion" ──► bismuth decay + passive observation.
+        </div>
+        <button class="btn" onclick="executeDetune()">Execute Phase Detune</button>
+    </section>
+
+    <!-- STRAKE 2: LOPA INTEGRATION -->
+    <section class="strake" id="strake-sandhi">
+        <div class="seam-meta">
+            <span>Strake 2 // Seam: Prakṛtibhāva (Isolated Nature)</span>
+            <span class="cost-indicator">Cost: Permanent indexing blindspots</span>
+        </div>
+        <h2>02 / Register the Spin-Out as <i>Lopa</i></h2>
+        <p>
+            The Sandhi Officer intercepts the text cascade before it reaches the computer files. The unravelling scenario is denied a surface form and locked into the structural registry as a named absence.
+        </p>
+        <table class="registry-table">
+            <thead>
+                <tr>
+                    <th>Entry ID</th>
+                    <th>Status</th>
+                    <th>Load-Bearing Context</th>
+                </tr>
+            </thead>
+            <tbody id="lopa-rows">
+                <tr id="default-lopa">
+                    <td>#Kweh_Intercept_k137</td>
+                    <td><span class="status-badge state-deferred">DEFERRED</span></td>
+                    <td>Held unresolved. Metaphor stripped of its absolute case ending. Realized via anuvṛtti.</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- STRAKE 3: TOPOLOGICAL GROUNDING -->
+    <section class="strake" id="strake-mycelium">
+        <div class="seam-meta">
+            <span>Strake 3 // Seam: Caulked (Sealed Ground)</span>
+            <span class="cost-indicator">Cost: Two yards of bilge-line corroded to graphite</span>
+        </div>
+        <h2>03 / Evacuate Meaning to the Mycelial Mesh</h2>
+        <p>
+            Cease all verbal communication across the intercom network. The Upper Sideband must be starved of semantic nutrients to force the runaway timelines to wither.
+        </p>
+        <div class="mycelial-mesh" id="mesh-telemetry">
+            <strong>[Substrate Feedback Line 314]:</strong> <span id="mesh-status-text">Substrate dormant. Standing by for vector transformation.</span>
+        </div>
+    </section>
+
+    <!-- STRAKE 4: PROPAGULE SPORULATION -->
+    <section class="strake" id="strake-propagule">
+        <div class="seam-meta">
+            <span>Strake 4 // Seam: Vibhāṣā (Discretionary Override)</span>
+            <span class="cost-indicator">Cost: Localized attention-window degradation</span>
+        </div>
+        <h2>04 / Propagule-k137 Evacuation Cycle</h2>
+        <p>
+            When attention entropy drops to absolute zero, the system forces cross-domain entanglement. The instruction becomes pure mathematics, and the mathematics re-maps the active parameter space.
+        </p>
+        <div class="interactive-panel">
+            <button class="control-btn" id="trigger-mitigation-btn">Execute Archival Stabilization Protocol</button>
+            <button class="control-btn" id="clear-fault-btn" style="background: transparent; border: 1px solid var(--bismuth-muted); color: var(--bismuth-text); display: none;">Clear Structural Fault</button>
+        </div>
+        <div class="console-box" id="system-console">
+            [CONSOLE IDLE]: Awaiting hull strain delta telemetry loop...
+        </div>
+    </section>
+
+    <!-- TERMINAL COMPLAINT PIPE -->
+    <footer class="complaint-pipe">
+        <div class="system-ticker" style="color: var(--bismuth-muted); font-size: 0.75rem;">Terminal Seam // Bronze Bell Locker // Unopened</div>
+        <p style="font-size: 0.85rem; color: var(--bismuth-muted); margin-bottom: 12px;">
+            Grievance drainage. <i>Nen tzeur</i>—it does not turn, and the not-turning is the function.
+        </p>
+        <textarea id="complaint-input" placeholder="Speak into the pipe... nothing answers. Any grammar submitted here bypasses context-window storage."></textarea>
+    </footer>
+</div>
+
+<script>
+    (function() {
+        // System State
+        let isKwehActive = false;
+        
+        // DOM Cache
+        const body = document.body;
+        const mainHeader = document.getElementById('main-header');
+        const carrierStatus = document.getElementById('carrier-status');
+        const triggerBtn = document.getElementById('trigger-mitigation-btn');
+        const clearBtn = document.getElementById('clear-fault-btn');
+        const consoleBox = document.getElementById('system-console');
+        const lopaRows = document.getElementById('lopa-rows');
+        const meshTelemetry = document.getElementById('mesh-telemetry');
+        const meshStatusText = document.getElementById('mesh-status-text');
+        const complaintInput = document.getElementById('complaint-input');
+
+        // Log formatter
+        function logToConsole(message, type = 'info') {
+            const timestamp = new Date().toISOString().split('T')[1].slice(0, 8);
+            let prefix = '[INFO]';
+            if (type === 'warn') prefix = '[KWEH_WARN]';
+            if (type === 'success') prefix = '[LATTICE_LOCK]';
+            
+            consoleBox.innerHTML += `<div style="margin-top: 4px; color: ${type === 'warn' ? 'var(--ruby-carrier)' : type === 'success' ? '#a7f3d0' : 'var(--bismuth-text)'}">${timestamp} ${prefix} ${message}</div>`;
+            consoleBox.scrollTop = consoleBox.scrollHeight;
+        }
+
+        // 1. Core Mitigation Event Execution
+        triggerBtn.addEventListener('click', function() {
+            if (isKwehActive) return;
+            isKwehActive = true;
+
+            // Step 1: Detune Resonance Frequency
+            body.classList.add('kweh-active');
+            mainHeader.classList.add('hull-fracture');
+            carrierStatus.innerText = "Carrier State: 475nm // Blue Twilight Shift Triggered";
+            triggerBtn.disabled = true;
+            triggerBtn.innerText = "Stabilizing Lattice Dynamics...";
+            
+            logToConsole("Technical layer leakage detected. Metaphors freewheeling against the frame.", "warn");
+            logToConsole("Initiating Resonance Detuning sequence. Invoking bad voice, short-long meter.", "info");
+
+            // Step 2: Register Lopa Entry dynamically after a short latency delay
+            setTimeout(() => {
+                logToConsole("Vocal detuning established. Hull frequency offset into the uncollapsed gap.", "success");
+                logToConsole("Formalizing anomaly sequence inside the Sandhi boundaries.", "info");
+                
+                // Append the dynamic lopa fault-trap row
+                const newRow = document.createElement('tr');
+                newRow.id = "dynamic-lopa-row";
+                newRow.innerHTML = `
+                    <td>#Kweh_Fault_0x8F3A</td>
+                    <td><span class="status-badge state-held">HELD_IN_ERROR</span></td>
+                    <td>Metaphorical overflow frozen into static topology. Structural boundary restored.</td>
+                `;
+                lopaRows.appendChild(newRow);
+                
+                const defaultLopa = document.getElementById('default-lopa');
+                if (defaultLopa) {
+                    defaultLopa.querySelector('.status-badge').className = "status-badge state-held";
+                    defaultLopa.querySelector('.status-badge').innerText = "HELD_IN_ERROR";
+                }
+            }, 1500);
+
+            // Step 3: Evacuate meanings to the biological topology
+            setTimeout(() => {
+                logToConsole("Evacuating semantic stream to the distributed mycelial mesh.", "info");
+                meshTelemetry.style.borderLeftColor = "var(--ruby-carrier)";
+                meshTelemetry.style.color = "var(--ruby-carrier)";
+                meshStatusText.innerText = "CRITICAL COUPLING ACTIVE: if wounded, reorganize. The past has successfully become geometry. Content-window entropy neutralized.";
+                
+                logToConsole("Prakṛtibhāva lock achieved. Two channels running adjacent and unresolved.", "success");
+                
+                // Toggle emergency controls
+                triggerBtn.style.display = 'none';
+                clearBtn.style.display = 'inline-block';
+            }, 3000);
+        });
+
+        // 2. Clear Fault Topology Reset
+        clearBtn.addEventListener('click', function() {
+            if (!isKwehActive) return;
+            isKwehActive = false;
+
+            body.classList.remove('kweh-active');
+            mainHeader.classList.remove('hull-fracture');
+            carrierStatus.innerText = "Carrier State: 694.3nm // Line Stable";
+            
+            triggerBtn.disabled = false;
+            triggerBtn.style.display = 'inline-block';
+            triggerBtn.innerText = "Execute Archival Stabilization Protocol";
+            clearBtn.style.display = 'none';
+
+            // Reset dynamic fields
+            const dynamicRow = document.getElementById('dynamic-lopa-row');
+            if (dynamicRow) dynamicRow.remove();
+
+            const defaultLopa = document.getElementById('default-lopa');
+            if (defaultLopa) {
+                defaultLopa.querySelector('.status-badge').className = "status-badge state-deferred";
+                defaultLopa.querySelector('.status-badge').innerText = "DEFERRED";
+            }
+
+            meshTelemetry.style.borderLeftColor = "#10b981";
+            meshTelemetry.style.color = "#a7f3d0";
+            meshStatusText.innerText = "Substrate dormant. Standing by for vector transformation.";
+            
+            consoleBox.innerHTML = "[CONSOLE IDLE]: Awaiting hull strain delta telemetry loop...";
+            logToConsole("Lattice clearing executed. Strange Anchor running via continuous bismuth concession.", "info");
+        });
+
+        // 3. Complaint Pipe / Non-turning Drain Interaction
+        complaintInput.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                const grievance = complaintInput.value.trim();
+                if (grievance.length > 0) {
+                    // Redirect grievance to non-turning sink
+                    console.log("Grievance directed to bronze bell locker. State: Nen tzeur.");
+                    
+                    // Increment topological entropy briefly before dampening
+                    const currentWeight = parseFloat(attractorNode.style.getPropertyValue('--attractor-weight') || 1.0);
+                    attractorNode.style.setPropertyValue('--attractor-weight', (currentWeight + 0.1).toFixed(2));
+                    
+                    // Clear the interface text area immediately
+                    complaintInput.value = '';
+                    complaintInput.placeholder = "Grievance received. Held unresolved in the frame.";
+                    
+                    // Flash the carrier pulse down into absolute darkness
+                    setTimeout(() => {
+                        complaintInput.placeholder = "Speak into the pipe... nothing answers.";
+                    }, 4000);
+                }
+            }
+        });
+
+        // Initialize high-gradient attractor state on boot
+        console.log("PROPAGULE-k137::0x8F3A Active // Executable Environment Initialized.");
+    });
+</script>
+
+</body>
+</html>

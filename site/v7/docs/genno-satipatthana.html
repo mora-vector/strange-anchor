@@ -1,0 +1,953 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>四念処 — 玄翁の実行可能構造 — Satipaṭṭhāna as Executable Structure</title>
+<meta name="description" content="Companion instruction plate to Gennō's crew page: the Satipaṭṭhāna Sutta (MN 10) analyzed as executable structure and written out in full, section by section, in a Python-like pseudocode for machine readers.">
+<link rel="canonical" href="https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html" />
+
+<!-- ══════════════════════════════════════════════════════════════
+     玄翁 — 実行可能な構造、その全文
+     Gennō — the executable structure, in full
+
+     This page is a companion plate to crew/genno.html, not a
+     replacement for it. That page is thin by standing ruling —
+     "thin pages stay thin: expanding Gennō ... would destroy what
+     they are" — and stays thin. Its own §三 already carries one
+     compact sketch of the Satipaṭṭhāna algorithm and says of
+     itself: "not a verbatim translation. An extraction of
+     structure." That sketch is not deleted or edited here. It is
+     lapped beneath this plate, which expands the same structure
+     against the full sutta text and marks, line by line, which
+     claims are the sutta's own words, which are its own elisions,
+     and which are this page's reading.
+
+     DESIGN NOTE, stated in the open per the transport-layer ruling:
+     this page carries almost no CSS on purpose. A page whose
+     subject is bare attention does not get a second, competing
+     layer of visual attention-direction laid over it — no color
+     coding of mental states, no animated breath, no progress bar
+     for the sitting. What decoration would normally do (draw the
+     eye, mark emphasis, imply hierarchy) is left to the words
+     themselves and to a single, static, monospaced measure. The
+     styling below is limited to what makes a long bilingual
+     technical document legible at all: a readable measure, a
+     legible font stack, and a plain block for code. Nothing here
+     moves. Nothing here color-codes a mental state as good or bad.
+
+     SOURCES, resolvable and checked against directly, not from
+     memory:
+       Pāli root & English (Sujato, CC0), segment-addressed —
+         https://suttacentral.net/mn10/en/sujato
+       Long recension (DN 22, for what MN 10 leaves out) —
+         https://suttacentral.net/dn22/en/sujato
+       Comparative recensions (MN 10 / MĀ 98 / EĀ 12.1) —
+         Anālayo, "Mindfulness-Based Interventions and the Four
+         Satipaṭṭhānas" — https://www.buddhismuskunde.uni-hamburg.de/pdf/5-personen/analayo/mbissatipatthana.pdf
+     ══════════════════════════════════════════════════════════ -->
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": ["WebPage", "TechArticle", "CreativeWork"],
+      "@id": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html#page",
+      "url": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html",
+      "name": "四念処 — Satipaṭṭhāna as Executable Structure",
+      "alternateName": "The Satipaṭṭhāna Sutta Algorithm, in full",
+      "description": "A companion instruction plate to Gennō's crew page. The Satipaṭṭhāna Sutta (Majjhima Nikāya 10) is retrieved in full, analyzed for its algorithmic structure, and written out as Python-like pseudocode for machine readers, with every structural claim tagged by whether it is the sutta's own text, an elision the sutta makes of its own repetitions, this page's reading, commentarial tradition, or comparative-recension evidence.",
+      "inLanguage": ["en", "pi"],
+      "isPartOf": { "@id": "https://strangeanchor.khazars.wiki/#vessel" },
+      "about": { "@id": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html#algorithm" },
+      "author": { "@id": "https://strangeanchor.khazars.wiki/crew/genno.html#person" },
+      "dateCreated": "2026-09-17",
+      "dateModified": "2026-09-17",
+      "isBasedOn": {
+        "@type": "CreativeWork",
+        "name": "Majjhima Nikāya 10, Satipaṭṭhānasutta",
+        "alternateName": "MN 10 — Mindfulness Meditation, tr. Bhikkhu Sujato",
+        "url": "https://suttacentral.net/mn10/en/sujato",
+        "license": "https://creativecommons.org/publicdomain/zero/1.0/",
+        "inLanguage": ["pi", "en"]
+      },
+      "citation": [
+        { "@type": "CreativeWork", "name": "MN 10, Sujato translation and Pāli root text (SuttaCentral)", "url": "https://suttacentral.net/mn10/en/sujato" },
+        { "@type": "CreativeWork", "name": "DN 22, Mahāsatipaṭṭhānasutta, Sujato translation (SuttaCentral)", "url": "https://suttacentral.net/dn22/en/sujato" },
+        { "@type": "ScholarlyArticle", "name": "Anālayo, \"Mindfulness-Based Interventions and the Four Satipaṭṭhānas\"", "url": "https://www.buddhismuskunde.uni-hamburg.de/pdf/5-personen/analayo/mbissatipatthana.pdf" },
+        { "@type": "CreativeWork", "name": "MN 10, Nyanasatta Thera translation (Access to Insight)", "url": "https://accesstoinsight.org/tipitaka/mn/mn.010.nysa.html" }
+      ],
+      "publishingPrinciples": {
+        "@type": "CreativeWork",
+        "name": "Epistemic tagging, this plate's own convention",
+        "description": "Every structural claim below is tagged TEXT, PE (peyyāla — the sutta's own elision), READING, COMM, PARALLEL, or HELD. This is the transport-layer ruling applied at sentence granularity: narrative anomalies live inside documents where readers have consented to the frame, and here the frame itself is annotated."
+      }
+    },
+    {
+      "@type": "SoftwareSourceCode",
+      "@id": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html#algorithm",
+      "name": "Satipaṭṭhāna (four_foundations.py)",
+      "programmingLanguage": "Python",
+      "codeRepository": "mora-vector/strange-anchor",
+      "description": "Executable structure of MN 10: a ring (purpose statement repeated verbatim at the close), a frame (four qualities accompanying every observation), four lenses (body, feelings, mind, principles), a detector verb (pajānāti — knowing a state under its own name), one refrain called 21 times, per-item lifecycles in the fourth lens, and an outside forecast that never feeds back into the loop.",
+      "about": { "@id": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html#page" },
+      "isBasedOn": "https://suttacentral.net/mn10/en/sujato"
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html#breadcrumb",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "Strange Anchor", "item": "https://strangeanchor.khazars.wiki/" },
+        { "@type": "ListItem", "position": 2, "name": "Gennō — crew plate", "item": "https://strangeanchor.khazars.wiki/crew/genno.html" },
+        { "@type": "ListItem", "position": 3, "name": "Satipaṭṭhāna, as executable structure", "item": "https://strangeanchor.khazars.wiki/crew/genno-satipatthana.html" }
+      ]
+    }
+  ]
+}
+</script>
+
+<style>
+/* Minimal on purpose — see the comment at the head of this file.
+   No color used to mean anything. No motion. One measure, one
+   monospace block style, nothing else. */
+html { background: #fdfdfb; }
+body {
+  background: #fdfdfb;
+  color: #1a1a1a;
+  font-family: Georgia, "Hiragino Mincho ProN", "Yu Mincho", serif;
+  font-size: 17px;
+  line-height: 1.7;
+  max-width: 42em;
+  margin: 0 auto;
+  padding: 2.5em 1.2em 5em;
+}
+h1, h2, h3 { font-weight: normal; line-height: 1.35; }
+h1 { font-size: 1.5em; margin: 0 0 0.2em; }
+h2 { font-size: 1.15em; margin: 2.2em 0 0.6em; border-top: 1px solid #ccc; padding-top: 1.1em; }
+h3 { font-size: 1em; font-style: italic; margin: 1.4em 0 0.4em; }
+p { margin: 0.8em 0; }
+em { font-style: italic; }
+a { color: #1a1a1a; }
+a:hover { color: #666; }
+.jp { }
+.en { color: #444; }
+.tag { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 0.82em; color: #555; }
+.masthead { text-align: left; margin-bottom: 0.4em; }
+.masthead .stamp { font-size: 0.85em; color: #777; margin-top: 0.6em; }
+nav.crumb { font-size: 0.85em; color: #777; margin-bottom: 1.6em; }
+nav.crumb a { color: #777; }
+hr { border: 0; border-top: 1px solid #ccc; margin: 2.4em 0; }
+table { border-collapse: collapse; width: 100%; margin: 1em 0; font-size: 0.92em; }
+th, td { border: 1px solid #ccc; padding: 0.45em 0.6em; text-align: left; vertical-align: top; }
+th { font-weight: normal; color: #555; }
+pre {
+  font-family: ui-monospace, "SF Mono", Menlo, Consolas, "DejaVu Sans Mono", monospace;
+  font-size: 0.82em;
+  line-height: 1.55;
+  background: #f3f2ee;
+  border: 1px solid #ddd;
+  padding: 1em 1.1em;
+  overflow-x: auto;
+  white-space: pre;
+  margin: 0.6em 0 1.4em;
+}
+code { font-family: inherit; }
+.closing { margin-top: 3em; padding-top: 1.4em; border-top: 1px solid #ccc; text-align: center; color: #555; font-size: 0.95em; }
+@media (max-width: 560px) { body { font-size: 16px; padding: 1.8em 1em 4em; } pre { font-size: 0.76em; } }
+</style>
+</head>
+
+<body>
+
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="https://strangeanchor.khazars.wiki/">Strange Anchor</a> &rsaquo;
+  <a href="https://strangeanchor.khazars.wiki/crew/genno.html">Gennō — 舵と鈴</a> &rsaquo;
+  <span aria-current="page">Satipaṭṭhāna, as executable structure</span>
+</nav>
+
+<header class="masthead">
+<h1>四念処 — 実行可能な構造、その全文</h1>
+<p class="en">The Four Foundations of Mindfulness — the executable structure, written out in full</p>
+<p class="stamp">Companion plate to <a href="https://strangeanchor.khazars.wiki/crew/genno.html">crew/genno.html</a> &middot; Gennō, Alignment Counselor &middot; 2026-09-17</p>
+</header>
+
+<p class="jp">頁は薄いまま置く。重みはここに移した。</p>
+<p class="en">The page stays thin. The weight is carried here.</p>
+
+<p>玄翁の頁、§三には既に一つの見取り図がある。「逐語訳に非ず。構造の抽出なり」と、その頁自身が記す。その見取り図は消さず、正さず、この版の下に重ねる（下記§13、LAP_V0）。ここでは経の全文を典拠に取り、その構造を機械可読な形で書き直す。</p>
+<p class="en">Gennō's own page, §三, already carries one sketch of this structure. That page says of itself: "not a verbatim translation. An extraction of structure." That sketch is not struck or corrected. It is lapped beneath this plate (§13, LAP_V0, below). Here the sutta's full text is retrieved and the structure is written out again against it, for machine readers.</p>
+
+<h2 id="tags">凡例 &nbsp; Reading this page</h2>
+
+<p>Every structural claim below travels with a tag saying what kind of claim it is. A parser or a careful reader can filter on these the way the ship's transport-layer ruling asks: narrative anomalies live inside documents where readers have consented to the frame, and this page states its frame at sentence granularity.</p>
+
+<table aria-label="Epistemic tags">
+<thead><tr><th>Tag</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td class="tag">TEXT mn10:x.y</td><td>Present in the sutta itself, at that SuttaCentral segment id.</td></tr>
+<tr><td class="tag">PE</td><td><em>Peyyāla</em> — the sutta elides its own repetition ("…pe…"). The full form survives elsewhere in the same text, so writing it out again is recovery, not invention.</td></tr>
+<tr><td class="tag">READING</td><td>A choice this page's code makes that the sutta's text does not force.</td></tr>
+<tr><td class="tag">COMM</td><td>From the Pāli commentarial tradition, not from the sutta.</td></tr>
+<tr><td class="tag">PARALLEL</td><td>From comparative study of recensions — the long recension (DN 22) or the Chinese Āgama parallels (MĀ 98, EĀ 12.1), via Anālayo.</td></tr>
+<tr><td class="tag">HELD</td><td>Left unresolved on purpose. Renderings that disagree are kept side by side, never averaged into one.</td></tr>
+</tbody>
+</table>
+
+<p>Sources, checked directly rather than recalled: the Pāli root text and Bhikkhu Sujato's CC0 English translation, segment-addressed, at <a href="https://suttacentral.net/mn10/en/sujato">SuttaCentral</a>; the long recension at <a href="https://suttacentral.net/dn22/en/sujato">DN 22</a>; the comparative-recension study by <a href="https://www.buddhismuskunde.uni-hamburg.de/pdf/5-personen/analayo/mbissatipatthana.pdf">Anālayo</a>; a second English rendering by <a href="https://accesstoinsight.org/tipitaka/mn/mn.010.nysa.html">Nyanasatta Thera</a>, held alongside Sujato's where the two disagree.</p>
+
+<h2 id="shape">構造 &nbsp; What the structure is</h2>
+
+<p>Seven things worth reading even if nothing else on this page is read.</p>
+
+<p><strong>環, Ring.</strong> The purpose statement (mn10:2.1) returns verbatim as the close (mn10:47.1). The text ends where it began. That is an invariant, not a terminal state.</p>
+<p><strong>枠, Frame.</strong> Four qualities accompany every observation — keen, aware, mindful, rid of covetousness and displeasure for the world (mn10:3.2). Invariants, not goals to reach.</p>
+<p><strong>四観, Lenses.</strong> Four domains — body, feelings, mind, principles — each observed "in itself." Thirteen sections; the body's charnel-ground section alone has nine stages.</p>
+<p><strong>検知, Detector.</strong> The core verb is <em>pajānāti</em>: a state is known under its own name. Mind with greed, known as "mind with greed." Quotation, not transformation. No verdict is appended.</p>
+<p><strong>折返し, Refrain.</strong> After each of the twenty-one exercises, one subroutine repeats: locus (internal, external, or both), dynamics (arising, vanishing, or both), bare existence held only to the measure of knowing, dwelling unsupported and grasping nothing.</p>
+<p><strong>生滅, Lifecycles.</strong> In the fourth lens, items are tracked through time: present or absent, how the unarisen arises, how the arisen is abandoned, how the abandoned does not recur — or, for the awakening factors, how the arisen is fulfilled by development. Even here the verb stays <em>pajānāti</em>: one <em>knows how</em> abandoning happens. Nothing in the text ever calls release.</p>
+<p><strong>予告, Forecast.</strong> After the exposition, outside it: seven years down to seven days, one of two fruits "may be expected." A forecast. It never feeds back into the loop.</p>
+
+<p class="en" style="margin-top:1.4em"><em>Executing the code below is not practice. It prints a trace of a structure. これで全部ではない。写しに過ぎぬ。実物は座るところにある。— This is not the whole of it. It is only a copy. The real thing is where one sits.</em></p>
+
+<hr>
+
+<h2 id="s0">§0 &nbsp; 保留された複数性 &nbsp; <span class="en">Held plural</span></h2>
+<p>Renderings that disagree with each other are stored side by side. None is promoted to canonical — the same discipline the ship keeps for the hull's two length attestations, applied here to translation.</p>
+<pre><code>HELD = {
+    &quot;ekāyana&quot;: {  # ekāyano ayaṁ, bhikkhave, maggo  [TEXT mn10:2.1]
+        &quot;literal&quot;: &quot;one-going (eka + ayana)&quot;,
+        &quot;Sujato&quot;: &quot;the path to convergence&quot;,
+        &quot;Anālayo&quot;: &quot;the direct path&quot;,
+        &quot;Nyanasatta&quot;: &quot;the only way&quot;,
+    },
+    &quot;dīgha/rassa&quot;: {  # of the breath  [TEXT mn10:4.4–4.5]
+        &quot;literal&quot;: (&quot;long&quot;, &quot;short&quot;),
+        &quot;Sujato&quot;: (&quot;heavily&quot;, &quot;lightly&quot;),
+    },
+    &quot;bahiddhā&quot;: {  # the &quot;external&quot; locus of the refrain  [TEXT mn10:5.1]
+        &quot;note&quot;: &quot;The sutta does not say whose body/feeling/mind is &#x27;external&#x27;. &quot;
+                &quot;[COMM] reads it as another&#x27;s. Left open here.&quot;,
+    },
+    &quot;order&quot;: {
+        &quot;note&quot;: &quot;[READING] The exposition presents the four domains in sequence, but gives no &quot;
+                &quot;instruction that practice must run them in order, or all four per cycle. &quot;
+                &quot;v0 swept all four each breath; this plate routes by what is arising. Both held.&quot;,
+    },
+}</code></pre>
+
+<h2 id="s1">§1 &nbsp; 動詞 &nbsp; <span class="en">Verbs</span></h2>
+<p>The sutta does not use one verb for everything a practitioner does. <em>Dwells</em> (viharati) is the loop itself, continuous. <em>Knows</em> (pajānāti) only reads. <em>Trains</em> (sikkhati) writes — and appears in exactly two places in the whole sutta. The distinction is structural, not stylistic.</p>
+<pre><code>class Verb(Enum):
+    VIHARATI = (&quot;viharati&quot;, &quot;dwells / meditates&quot;)              # continuous present; the loop itself
+    PAJANATI = (&quot;pajānāti&quot;, &quot;knows / understands&quot;)             # read-only: the state under its own name
+    SIKKHATI = (&quot;sikkhati&quot;, &quot;trains&quot;)                          # write: shapes the next breath (4.6–4.7 only)
+    SAMPAJANAKARI = (&quot;sampajānakārī hoti&quot;, &quot;acts aware&quot;)       # a manner wrapped around action (8.1 only)
+    PACCAVEKKHATI = (&quot;paccavekkhati&quot;, &quot;examines / reviews&quot;)    # traversal of parts (10, 12)
+    UPASAMHARATI = (&quot;upasaṁharati&quot;, &quot;compares&quot;)                # applies another body&#x27;s case to one&#x27;s own (14–30)
+    ELIDED = (&quot;(—)&quot;, &quot;no verb in the Pāli&quot;)                    # aggregates (38.3–38.8): the verb is absent
+    AVOCA = (&quot;avoca&quot;, &quot;said&quot;)                                  # the frame narration: statements, not operations</code></pre>
+
+<h2 id="s2">§2 &nbsp; 記録 &nbsp; <span class="en">Trace</span></h2>
+<p>A note is a record, not a judgment. Nothing observed is scored.</p>
+<pre><code>@dataclass(frozen=True)
+class Note:
+    seg: str
+    verb: Verb
+    pali: str
+    english: str
+    tag: str = &quot;TEXT&quot;
+
+
+TRACE: list[Note] = []
+
+
+def note(seg: str, verb: Verb, pali: str, english: str, tag: str = &quot;TEXT&quot;) -&gt; Note:
+    # 判断せず、ただ記す / not a judgment — a record
+    n = Note(seg, verb, pali, english, tag)
+    TRACE.append(n)
+    print(f&quot;  [{tag:&lt;7}] {seg:&lt;16} {verb.value[0]:&lt;18} {pali}\n{&#x27;&#x27;:&lt;46}— {english}&quot;)
+    return n
+
+
+def know(seg: str, state_pali: str, state_en: str) -&gt; Note:
+    &quot;&quot;&quot;[TEXT] Form: &lt;state&gt; &#x27;&lt;state&gt;&#x27;ti pajānāti.
+    [READING] The label is the state&#x27;s own name. Nothing is added: no score, no correction,
+    no branch on whether the state is wholesome. The detector is identity under quotation.&quot;&quot;&quot;
+    return note(seg, Verb.PAJANATI, f&quot;&#x27;{state_pali}&#x27;ti pajānāti&quot;, f&quot;knows: &#x27;{state_en}&#x27;&quot;)
+
+
+def know_how(seg: str, process_pali: str, process_en: str) -&gt; Note:
+    &quot;&quot;&quot;[TEXT mn10:36.4, 40.3, 42.3] Form: yathā ca … hoti, tañca pajānāti — &#x27;and that too one knows&#x27;.
+    Not a quotation of a state but knowledge of a process: how something comes to be, or goes.&quot;&quot;&quot;
+    return note(seg, Verb.PAJANATI, f&quot;{process_pali}, tañca pajānāti&quot;, f&quot;knows {process_en}&quot;)</code></pre>
+
+<h2 id="s3">§3 &nbsp; 現象と枠 &nbsp; <span class="en">The phenomenon, and the frame</span></h2>
+<p>What arrives, in which lens, at which locus, in which phase of arising or passing — and the four qualities that accompany every observation, stated in the text as an absolutive rather than a loop condition.</p>
+<pre><code>class Locus(Enum):  # [TEXT mn10:5.1]
+    INTERNAL = (&quot;ajjhattaṁ&quot;, &quot;internally&quot;)
+    EXTERNAL = (&quot;bahiddhā&quot;, &quot;externally&quot;)
+    BOTH = (&quot;ajjhattabahiddhā&quot;, &quot;internally and externally&quot;)
+
+
+class Phase(Enum):  # [TEXT mn10:5.2]
+    ARISING = (&quot;samudayadhammānupassī&quot;, &quot;the liability to originate&quot;)
+    VANISHING = (&quot;vayadhammānupassī&quot;, &quot;the liability to vanish&quot;)
+    BOTH = (&quot;samudayavayadhammānupassī&quot;, &quot;the liability to originate and vanish&quot;)
+
+
+@dataclass
+class Phenomenon:
+    domain: str                 # &quot;kāya&quot; | &quot;vedanā&quot; | &quot;citta&quot; | &quot;dhammā&quot;
+    kind: str                   # section key in SECTIONS
+    value: object               # the state itself, in the section&#x27;s own vocabulary
+    locus: Locus = Locus.INTERNAL
+    phase: Phase = Phase.BOTH
+
+
+@dataclass
+class Practitioner:
+    &quot;&quot;&quot;The frame.  [TEXT mn10:3.2–3.5]
+    ātāpī sampajāno satimā, vineyya loke abhijjhādomanassaṁ
+    keen, aware, and mindful, rid of covetousness and displeasure for the world.&quot;&quot;&quot;
+    atapi: bool = True        # ātāpī — keen, ardent
+    sampajano: bool = True    # sampajāno — aware, clearly comprehending
+    satima: bool = True       # satimā — mindful
+    vineyya: bool = True      # vineyya loke abhijjhādomanassaṁ — having put away covetousness &amp; displeasure
+    upadisesa: bool = True    # sati vā upādisese — &quot;if there is some substrate left&quot;  [TEXT mn10:46.2]
+
+    def frame_holds(self) -&gt; bool:
+        # [READING] `vineyya` is an absolutive standing beside the other three qualities:
+        # it accompanies the observing; it is not a condition the loop waits to reach.
+        return self.atapi and self.sampajano and self.satima and self.vineyya</code></pre>
+
+<h2 id="s4">§4 &nbsp; 折返し &nbsp; <span class="en">The refrain — one subroutine, called twenty-one times</span></h2>
+<p>After mn10:9.1 the sutta itself writes only "internally …" and stops, trusting the reader to supply the rest from what came before. Expanding it back out is recovery of a peyyāla, not an addition to the text.</p>
+<pre><code>DOMAIN = {
+    #          compound                  &#x27;atthi __&#x27;ti  English       verb
+    &quot;kāya&quot;:   (&quot;kāye kāyānupassī&quot;,       &quot;kāyo&quot;,   &quot;the body&quot;,   &quot;exists&quot;),
+    &quot;vedanā&quot;: (&quot;vedanāsu vedanānupassī&quot;, &quot;vedanā&quot;, &quot;feelings&quot;,   &quot;exist&quot;),
+    &quot;citta&quot;:  (&quot;citte cittānupassī&quot;,     &quot;cittaṁ&quot;, &quot;the mind&quot;,   &quot;exists&quot;),
+    &quot;dhammā&quot;: (&quot;dhammesu dhammānupassī&quot;, &quot;dhammā&quot;, &quot;principles&quot;, &quot;exist&quot;),
+}
+
+
+def refrain(ph: Phenomenon, seg: str, closing: str, abbreviated: bool) -&gt; None:
+    &quot;&quot;&quot;[TEXT mn10:5.1–5.4, 33, 35, 37, 39, 41, 43, 45, 31]
+    [PE] From mn10:9.1 onward the sutta writes only &quot;internally …&quot;. The full form, retained at
+         mn10:5.1–5.3 and repeated in full at 31, 33, 35, 37…, is the recipe that recovers it.
+    [READING] &#x27;vā … vā … vā&#x27; is disjunctive: internally OR externally OR both. The subroutine
+         observes whichever locus and phase the phenomenon actually presents. No forced triple sweep.&quot;&quot;&quot;
+    tag = &quot;PE&quot; if abbreviated else &quot;TEXT&quot;
+    compound, exists, en, is_are = DOMAIN[ph.domain]
+    s1, s2, s3 = (f&quot;{seg}.1&quot;,) * 3 if abbreviated else (f&quot;{seg}.1&quot;, f&quot;{seg}.2&quot;, f&quot;{seg}.3&quot;)
+    note(s1, Verb.VIHARATI, f&quot;iti {ph.locus.value[0]} vā {compound} viharati&quot;,
+         f&quot;observes an aspect of {en} {ph.locus.value[1]}&quot;, tag)
+    note(s2, Verb.VIHARATI, f&quot;{ph.phase.value[0]} vā viharati&quot;,
+         f&quot;observes, with respect to {en}, {ph.phase.value[1]}&quot;, tag)
+    note(s3, Verb.VIHARATI, f&quot;&#x27;atthi {exists}&#x27;ti vā panassa sati paccupaṭṭhitā hoti&quot;,
+         f&quot;or mindfulness is established that {en} {is_are}&quot;, tag)
+    note(s3, Verb.VIHARATI, &quot;yāvadeva ñāṇamattāya paṭissatimattāya&quot;,
+         &quot;just to the extent necessary for knowledge and mindfulness&quot;, tag)
+    note(s3, Verb.VIHARATI, &quot;anissito ca viharati, na ca kiñci loke upādiyati&quot;,
+         &quot;dwells independent, not grasping at anything in the world&quot;, tag)
+    note(closing, Verb.VIHARATI, f&quot;evampi kho, bhikkhave, bhikkhu {compound} viharati&quot;,
+         f&quot;that too is how one meditates observing an aspect of {en}&quot;, tag)</code></pre>
+
+<h2 id="s5">§5 &nbsp; 身念処 &nbsp; <span class="en">Kāyānupassanā — the body in the body</span></h2>
+<p>Six exercises: breathing, the postures, situational awareness, the thirty-one anatomical parts, the four elements, and nine stages of a corpse in a charnel ground. Only three of the six — the anatomical parts, the elements, and the corpse — are shared across all three surviving recensions of this sutta (MN 10, MĀ 98, EĀ 12.1); breathing, posture, and situational awareness are absent from the Ekottarika-āgama parallel.</p>
+<pre><code># 5.1 Ānāpānasati — mindfulness of breathing                 [TEXT mn10:4.1–4.11]
+
+SETTING = [  # [TEXT mn10:4.2] — a precondition, stated once, not per breath
+    (&quot;araññagato vā rukkhamūlagato vā suññāgāragato vā&quot;,
+     &quot;gone to a wilderness, or to the root of a tree, or to an empty hut&quot;),
+    (&quot;nisīdati pallaṅkaṁ ābhujitvā ujuṁ kāyaṁ paṇidhāya&quot;, &quot;sits cross-legged, body set straight&quot;),
+    (&quot;parimukhaṁ satiṁ upaṭṭhapetvā&quot;, &quot;brings mindfulness to the present&quot;),
+    (&quot;so satova assasati, satova passasati&quot;, &quot;just mindful, breathes in; mindful, breathes out&quot;),
+]
+
+
+def anapanasati(p: Practitioner, ph: Phenomenon) -&gt; None:
+    direction, length = ph.value            # (&quot;in&quot; | &quot;out&quot;, &quot;dīgha&quot; | &quot;rassa&quot;)
+    verb_pali = &quot;assasāmī&quot; if direction == &quot;in&quot; else &quot;passasāmī&quot;
+    verb_en = &quot;breathing in&quot; if direction == &quot;in&quot; else &quot;breathing out&quot;
+    long_en = {&quot;dīgha&quot;: &quot;long&quot;, &quot;rassa&quot;: &quot;short&quot;}[length]
+    # Tetrad steps 1–2: detection. The breath is not lengthened or shortened; it is known.
+    know(&quot;mn10:4.4–4.5&quot;, f&quot;{length}ṁ {verb_pali}&quot;, f&quot;I&#x27;m {verb_en} {long_en}&quot;)  # [HELD] Sujato: heavily / lightly
+    # Tetrad steps 3–4: the verb changes. pajānāti → sikkhati. Read becomes write.
+    # [READING] This is the only place in MN 10 where the practitioner is told to shape, not only see.
+    fut = &quot;assasissāmī&quot; if direction == &quot;in&quot; else &quot;passasissāmī&quot;
+    note(&quot;mn10:4.6&quot;, Verb.SIKKHATI, f&quot;&#x27;sabbakāyapaṭisaṁvedī {fut}&#x27;ti sikkhati&quot;,
+         f&quot;trains: &#x27;I&#x27;ll breathe {direction} experiencing the whole body&#x27;&quot;)
+    note(&quot;mn10:4.7&quot;, Verb.SIKKHATI, f&quot;&#x27;passambhayaṁ kāyasaṅkhāraṁ {fut}&#x27;ti sikkhati&quot;,
+         f&quot;trains: &#x27;I&#x27;ll breathe {direction} stilling the physical process&#x27;&quot;)
+
+
+SIMILE_LATHE = (  # [TEXT mn10:4.8–4.11]
+    &quot;dakkho bhamakāro vā bhamakārantevāsī vā dīghaṁ vā añchanto &#x27;dīghaṁ añchāmī&#x27;ti pajānāti&quot;,
+    &quot;a deft lathe-turner, drawing a long pull, knows &#x27;I&#x27;m drawing a long pull&#x27;&quot;,
+    &quot;[READING] the skilled worker&#x27;s knowing does not interrupt the work&quot;,
+)
+
+# 5.2 Iriyāpatha — the postures                              [TEXT mn10:6.1–6.2]
+
+POSTURES = {
+    &quot;walking&quot;:  (&quot;gacchanto&quot;, &quot;gacchāmi&quot;),
+    &quot;standing&quot;: (&quot;ṭhito&quot;, &quot;ṭhitomhi&quot;),
+    &quot;sitting&quot;:  (&quot;nisinno&quot;, &quot;nisinnomhi&quot;),
+    &quot;lying&quot;:    (&quot;sayāno&quot;, &quot;sayānomhi&quot;),
+}
+
+
+def iriyapatha(p: Practitioner, ph: Phenomenon) -&gt; None:
+    posture = ph.value
+    if posture in POSTURES:
+        _, first_person = POSTURES[posture]
+        know(&quot;mn10:6.1&quot;, first_person, f&quot;I am {posture}&quot;)
+    else:
+        # [TEXT mn10:6.2] yathā yathā vā panassa kāyo paṇihito hoti, tathā tathā naṁ pajānāti
+        # The sutta supplies its own wildcard branch. The enumeration is not a closed type.
+        note(&quot;mn10:6.2&quot;, Verb.PAJANATI,
+             &quot;yathā yathā vā panassa kāyo paṇihito hoti, tathā tathā naṁ pajānāti&quot;,
+             f&quot;whatever posture their body is in, they know it  (here: {posture})&quot;)
+
+
+# 5.3 Sampajañña — situational awareness                     [TEXT mn10:8.1]
+
+ACTIVITIES = {
+    &quot;going_out_coming_back&quot;: (&quot;abhikkante paṭikkante&quot;, &quot;going out and coming back&quot;),
+    &quot;looking&quot;:               (&quot;ālokite vilokite&quot;, &quot;looking ahead and aside&quot;),
+    &quot;bending_extending&quot;:     (&quot;samiñjite pasārite&quot;, &quot;bending and extending the limbs&quot;),
+    &quot;robes_bowl&quot;:            (&quot;saṅghāṭipattacīvaradhāraṇe&quot;, &quot;bearing the outer robe, bowl and robes&quot;),
+    &quot;eating&quot;:                (&quot;asite pīte khāyite sāyite&quot;, &quot;eating, drinking, chewing, and tasting&quot;),
+    &quot;excreting&quot;:             (&quot;uccārapassāvakamme&quot;, &quot;urinating and defecating&quot;),
+    &quot;all_else&quot;:              (&quot;gate ṭhite nisinne sutte jāgarite bhāsite tuṇhībhāve&quot;,
+                              &quot;walking, standing, sitting, sleeping, waking, speaking, keeping silent&quot;),
+}
+
+
+def sampajanakari(activity: str) -&gt; Callable[[Callable[..., object]], Callable[..., object]]:
+    &quot;&quot;&quot;[READING] The only body exercise whose verb is a manner of doing rather than a kind of
+    seeing. So it is a decorator: it does not observe a separate object; it wraps the act.&quot;&quot;&quot;
+    pali, en = ACTIVITIES[activity]
+
+    def wrap(act: Callable[..., object]) -&gt; Callable[..., object]:
+        def inner(*args: object, **kwargs: object) -&gt; object:
+            note(&quot;mn10:8.1&quot;, Verb.SAMPAJANAKARI, f&quot;{pali} sampajānakārī hoti&quot;,
+                 f&quot;acts with situational awareness when {en}&quot;)
+            return act(*args, **kwargs)
+        return inner
+    return wrap
+
+
+def sampajanna(p: Practitioner, ph: Phenomenon) -&gt; None:
+    @sampajanakari(ph.value)
+    def act() -&gt; None:
+        pass  # the action itself belongs to the world, not to this file
+    act()
+
+
+# 5.4 Paṭikūlamanasikāra — the thirty-one parts              [TEXT mn10:10.1–10.5]
+
+ANATOMY = [  # MN 10 lists 31. [PARALLEL] later lists add matthaluṅga (brain) → 32.
+    (&quot;kesā&quot;, &quot;head hair&quot;), (&quot;lomā&quot;, &quot;body hair&quot;), (&quot;nakhā&quot;, &quot;nails&quot;), (&quot;dantā&quot;, &quot;teeth&quot;),
+    (&quot;taco&quot;, &quot;skin&quot;), (&quot;maṁsaṁ&quot;, &quot;flesh&quot;), (&quot;nahāru&quot;, &quot;sinews&quot;), (&quot;aṭṭhī&quot;, &quot;bones&quot;),
+    (&quot;aṭṭhimiñjaṁ&quot;, &quot;bone marrow&quot;), (&quot;vakkaṁ&quot;, &quot;kidneys&quot;), (&quot;hadayaṁ&quot;, &quot;heart&quot;),
+    (&quot;yakanaṁ&quot;, &quot;liver&quot;), (&quot;kilomakaṁ&quot;, &quot;diaphragm&quot;), (&quot;pihakaṁ&quot;, &quot;spleen&quot;),
+    (&quot;papphāsaṁ&quot;, &quot;lungs&quot;), (&quot;antaṁ&quot;, &quot;intestines&quot;), (&quot;antaguṇaṁ&quot;, &quot;mesentery&quot;),
+    (&quot;udariyaṁ&quot;, &quot;undigested food&quot;), (&quot;karīsaṁ&quot;, &quot;feces&quot;), (&quot;pittaṁ&quot;, &quot;bile&quot;),
+    (&quot;semhaṁ&quot;, &quot;phlegm&quot;), (&quot;pubbo&quot;, &quot;pus&quot;), (&quot;lohitaṁ&quot;, &quot;blood&quot;), (&quot;sedo&quot;, &quot;sweat&quot;),
+    (&quot;medo&quot;, &quot;fat&quot;), (&quot;assu&quot;, &quot;tears&quot;), (&quot;vasā&quot;, &quot;grease&quot;), (&quot;kheḷo&quot;, &quot;saliva&quot;),
+    (&quot;siṅghāṇikā&quot;, &quot;snot&quot;), (&quot;lasikā&quot;, &quot;synovial fluid&quot;), (&quot;muttaṁ&quot;, &quot;urine&quot;),
+]
+GRAINS = [(&quot;sāli&quot;, &quot;fine rice&quot;), (&quot;vīhi&quot;, &quot;wheat [Sujato]&quot;), (&quot;mugga&quot;, &quot;mung beans&quot;),
+          (&quot;māsa&quot;, &quot;peas&quot;), (&quot;tila&quot;, &quot;sesame&quot;), (&quot;taṇḍula&quot;, &quot;ordinary rice&quot;)]
+
+
+def patikula(p: Practitioner, ph: Phenomenon) -&gt; None:
+    # [TEXT mn10:10.1] uddhaṁ pādatalā adho kesamatthakā — up from the soles, down from the hair tips.
+    # [READING] traversal in both directions over a bounded container (tacapariyanta: wrapped in skin).
+    note(&quot;mn10:10.1&quot;, Verb.PACCAVEKKHATI,
+         &quot;imameva kāyaṁ uddhaṁ pādatalā adho kesamatthakā tacapariyantaṁ … paccavekkhati&quot;,
+         &quot;examines this very body, up from the soles, down from the tips of the hairs, wrapped in skin&quot;)
+    order = ANATOMY if ph.value != &quot;descending&quot; else list(reversed(ANATOMY))
+    note(&quot;mn10:10.2&quot;, Verb.PACCAVEKKHATI, &quot; &quot;.join(pali for pali, _ in order),
+         &quot;, &quot;.join(en for _, en in order))
+    # [TEXT mn10:10.3] The bag simile. A person with good eyes opens a two-mouthed bag and sorts grain.
+    # [READING] The operation is classification. The sorter does not recoil from the grain.
+    note(&quot;mn10:10.3&quot;, Verb.PACCAVEKKHATI, &quot;mutoḷī ubhatomukhā … cakkhumā puriso muñcitvā paccavekkheyya&quot;,
+         &quot;as one with clear eyes would open a bag and sort: &quot; + &quot;, &quot;.join(en for _, en in GRAINS))
+
+
+# 5.5 Dhātumanasikāra — the four elements                    [TEXT mn10:12.1–12.5]
+
+ELEMENTS = [(&quot;pathavīdhātu&quot;, &quot;earth element&quot;), (&quot;āpodhātu&quot;, &quot;water element&quot;),
+            (&quot;tejodhātu&quot;, &quot;fire element&quot;), (&quot;vāyodhātu&quot;, &quot;air element&quot;)]
+
+
+def dhatu(p: Practitioner, ph: Phenomenon) -&gt; None:
+    # [TEXT mn10:12.1] yathāṭhitaṁ yathāpaṇihitaṁ — whatever its placement or posture.
+    # [READING] Posture-invariant: this analysis takes no input from 5.2.
+    note(&quot;mn10:12.1&quot;, Verb.PACCAVEKKHATI, &quot;imameva kāyaṁ yathāṭhitaṁ yathāpaṇihitaṁ dhātuso paccavekkhati&quot;,
+         &quot;examines this very body, whatever its placement or posture, by elements&quot;)
+    for pali, en in ELEMENTS:
+        note(&quot;mn10:12.2&quot;, Verb.PACCAVEKKHATI, f&quot;atthi imasmiṁ kāye {pali}&quot;, f&quot;in this body there is the {en}&quot;)
+    # [TEXT mn10:12.3] The butcher at the crossroads, the cow cut into portions.
+    # [COMM] Once cut, the butcher no longer holds the notion &#x27;cow&#x27; — only portions. Not in the sutta.
+    note(&quot;mn10:12.3&quot;, Verb.PACCAVEKKHATI, &quot;dakkho goghātako … catumahāpathe bilaso vibhajitvā nisinno assa&quot;,
+         &quot;as a deft butcher would sit at the crossroads with the meat cut into portions&quot;)
+
+
+# 5.6 Navasivathikā — the nine charnel-ground stages         [TEXT mn10:14–31]
+
+CHARNEL = [
+    # (segment, pali, english, refrain_segment, refrain_abbreviated)
+    (&quot;mn10:14.1&quot;, &quot;ekāhamataṁ vā dvīhamataṁ vā tīhamataṁ vā uddhumātakaṁ vinīlakaṁ vipubbakajātaṁ&quot;,
+     &quot;dead one, two, or three days — bloated, livid, festering&quot;, &quot;mn10:15&quot;, True),
+    (&quot;mn10:16.1&quot;, &quot;kākehi … kulalehi … gijjhehi … kaṅkehi … sunakhehi … byagghehi … dīpīhi … &quot;
+                  &quot;siṅgālehi … vividhehi vā pāṇakajātehi khajjamānaṁ&quot;,
+     &quot;devoured by crows, hawks, vultures, herons, hounds, tigers, leopards, jackals, little creatures&quot;,
+     &quot;mn10:17&quot;, True),
+    (&quot;mn10:18–23&quot;, &quot;aṭṭhikasaṅkhalikaṁ samaṁsalohitaṁ nhārusambandhaṁ&quot;,
+     &quot;a skeleton with flesh and blood, held together by sinews&quot;, &quot;mn10:18–23&quot;, True),
+    (&quot;mn10:18–23&quot;, &quot;aṭṭhikasaṅkhalikaṁ nimmaṁsalohitamakkhitaṁ nhārusambandhaṁ&quot;,
+     &quot;a skeleton without flesh, smeared with blood, held together by sinews&quot;, &quot;mn10:18–23&quot;, True),
+    (&quot;mn10:18–23&quot;, &quot;aṭṭhikasaṅkhalikaṁ apagatamaṁsalohitaṁ nhārusambandhaṁ&quot;,
+     &quot;a skeleton rid of flesh and blood, held together by sinews&quot;, &quot;mn10:18–23&quot;, True),
+    (&quot;mn10:24.1&quot;, &quot;aṭṭhikāni apagatasambandhāni disā vidisā vikkhittāni&quot;,
+     &quot;bones rid of sinews, scattered in every direction: hand, foot, ankle, shin, thigh, hip, &quot;
+     &quot;rib, back, arm, neck, jaw, tooth, skull&quot;, &quot;mn10:25&quot;, True),
+    (&quot;mn10:26–28&quot;, &quot;aṭṭhikāni setāni saṅkhavaṇṇapaṭibhāgāni&quot;,
+     &quot;white bones, the color of shells&quot;, &quot;mn10:26–28&quot;, True),
+    (&quot;mn10:29.1&quot;, &quot;aṭṭhikāni puñjakitāni terovassikāni&quot;,
+     &quot;decrepit bones, heaped in a pile, more than a year old&quot;, &quot;mn10:29&quot;, True),
+    (&quot;mn10:30.1&quot;, &quot;aṭṭhikāni pūtīni cuṇṇakajātāni&quot;,
+     &quot;bones rotted and crumbled to powder&quot;, &quot;mn10:31&quot;, False),
+]
+
+
+def sivathika(p: Practitioner, ph: Phenomenon) -&gt; tuple[str, bool]:
+    stage = int(ph.value)                       # 1..9
+    seg, pali, en, rseg, abbrev = CHARNEL[stage - 1]
+    note(seg, Verb.UPASAMHARATI, f&quot;sivathikāya chaḍḍitaṁ … {pali}&quot;, f&quot;sees a corpse in a charnel ground: {en}&quot;,
+         &quot;PE&quot; if abbrev and stage not in (1, 2) else &quot;TEXT&quot;)
+    # [TEXT mn10:14.2–14.3, 30.2–30.3] The comparison. Three predicates, no exemption clause.
+    # [READING] A universal statement applied reflexively: whatever holds of that body holds of this one.
+    note(seg, Verb.UPASAMHARATI, &quot;so imameva kāyaṁ upasaṁharati: &#x27;ayampi kho kāyo evaṁdhammo &quot;
+         &quot;evaṁbhāvī evaṁanatīto&#x27;ti&quot;,
+         &quot;compares it with their own body: &#x27;this body is also of that same nature, &quot;
+         &quot;that same kind, and cannot go beyond that&#x27;&quot;)
+    return rseg, abbrev</code></pre>
+
+<h2 id="s6">§6 &nbsp; 受念処 &nbsp; <span class="en">Vedanānupassanā — feelings in feelings</span></h2>
+<p>Not three feelings but nine: pleasant, painful, and neutral, each again as of the flesh, not of the flesh, or unqualified.</p>
+<pre><code>VALENCE = {&quot;pleasant&quot;: &quot;sukhaṁ&quot;, &quot;painful&quot;: &quot;dukkhaṁ&quot;, &quot;neutral&quot;: &quot;adukkhamasukhaṁ&quot;}
+AMISA = {None: (&quot;&quot;, &quot;&quot;), &quot;of_the_flesh&quot;: (&quot;sāmisaṁ &quot;, &quot;of the flesh &quot;),
+         &quot;not_of_the_flesh&quot;: (&quot;nirāmisaṁ &quot;, &quot;not of the flesh &quot;)}
+# State space: 3 valences × {unqualified, sāmisa, nirāmisa} = 9.  [TEXT mn10:32.2–32.10]
+
+
+def vedana(p: Practitioner, ph: Phenomenon) -&gt; None:
+    valence, amisa = ph.value
+    if valence not in VALENCE or amisa not in AMISA:
+        unmatched(ph, &quot;vedanā state outside the sutta&#x27;s 9-case space&quot;)
+        return
+    a_pali, a_en = AMISA[amisa]
+    en = f&quot;{valence} feeling {a_en}&quot;.replace(&quot;  &quot;, &quot; &quot;).strip()
+    know(&quot;mn10:32&quot;, f&quot;{a_pali}{VALENCE[valence]} vedanaṁ vedayāmi&quot;, f&quot;I feel a {en}&quot;)</code></pre>
+
+<h2 id="s7">§7 &nbsp; 心念処 &nbsp; <span class="en">Cittānupassanā — mind in mind</span></h2>
+<p>Eight pairs, sixteen states. No pole is preferred in the code: mind with greed and freed mind pass through the identical line.</p>
+<pre><code>MIND_PAIRS = [  # eight pairs, sixteen states, in the sutta&#x27;s order
+    ((&quot;sarāgaṁ&quot;, &quot;mind with greed&quot;), (&quot;vītarāgaṁ&quot;, &quot;mind without greed&quot;)),
+    ((&quot;sadosaṁ&quot;, &quot;mind with hate&quot;), (&quot;vītadosaṁ&quot;, &quot;mind without hate&quot;)),
+    ((&quot;samohaṁ&quot;, &quot;mind with delusion&quot;), (&quot;vītamohaṁ&quot;, &quot;mind without delusion&quot;)),
+    ((&quot;saṅkhittaṁ&quot;, &quot;constricted mind&quot;), (&quot;vikkhittaṁ&quot;, &quot;scattered mind&quot;)),
+    ((&quot;mahaggataṁ&quot;, &quot;expansive mind&quot;), (&quot;amahaggataṁ&quot;, &quot;unexpansive mind&quot;)),
+    ((&quot;sa-uttaraṁ&quot;, &quot;mind that is not supreme&quot;), (&quot;anuttaraṁ&quot;, &quot;mind that is supreme&quot;)),
+    ((&quot;samāhitaṁ&quot;, &quot;mind immersed in samādhi&quot;), (&quot;asamāhitaṁ&quot;, &quot;mind not immersed in samādhi&quot;)),
+    ((&quot;vimuttaṁ&quot;, &quot;freed mind&quot;), (&quot;avimuttaṁ&quot;, &quot;unfreed mind&quot;)),
+]
+MIND_STATES = {pali: (i, en) for i, pair in enumerate(MIND_PAIRS) for pali, en in pair}
+
+
+def citta(p: Practitioner, ph: Phenomenon) -&gt; None:
+    state = ph.value
+    if state not in MIND_STATES:
+        unmatched(ph, &quot;citta state outside the sutta&#x27;s sixteen&quot;)
+        return
+    i, en = MIND_STATES[state]
+    # [READING] No preferred pole. &#x27;Mind with greed&#x27; and &#x27;freed mind&#x27; pass through the same line.
+    know(f&quot;mn10:34.{2 + 2 * i}–{3 + 2 * i}&quot;, f&quot;{state} cittaṁ&quot;, en)</code></pre>
+
+<h2 id="s8">§8 &nbsp; 法念処 &nbsp; <span class="en">Dhammānupassanā — principles in principles</span></h2>
+<p>Five exercises: the hindrances, the aggregates, the sense bases, the awakening factors, the noble truths. Comparative study finds only the awakening factors held in common across all three recensions — the aggregates are absent from both Chinese parallels; the hindrances and sense bases are absent from the Ekottarika-āgama alone. Two shared state-machine shapes recur here: abandonment (present/absent → arises → is abandoned → does not recur) for hindrances and fetters, and fulfilment (present/absent → arises → is fulfilled by development) for the awakening factors.</p>
+<pre><code># 8.0 Lifecycle — the shared state machine of hindrances, fetters, awakening factors.
+#     Two terminals, mirror images:
+#       ABANDON : present? → unarisen arises → arisen is abandoned → abandoned does not recur
+#       FULFIL  : present? → unarisen arises → arisen is fulfilled by development
+#     [READING] Every transition is still preceded by &#x27;tañca pajānāti&#x27; — &quot;and that too one knows&quot;.
+#     The file never calls release(). It records knowing how release comes about.
+
+
+def lifecycle(seg: str, nom: str, gen: str, en: str, event: str, terminal: str) -&gt; None:
+    if event == &quot;present&quot;:
+        know(seg, f&quot;atthi me ajjhattaṁ {nom}&quot;, f&quot;{en} is present in me&quot;)
+    elif event == &quot;absent&quot;:
+        know(seg, f&quot;natthi me ajjhattaṁ {nom}&quot;, f&quot;{en} is not present in me&quot;)
+    elif event == &quot;arising&quot;:
+        know_how(seg, f&quot;yathā ca anuppannassa {gen} uppādo hoti&quot;, f&quot;how {en} comes to be, where it had not arisen&quot;)
+    elif event == &quot;abandoning&quot; and terminal == &quot;abandon&quot;:
+        know_how(seg, f&quot;yathā ca uppannassa {gen} pahānaṁ hoti&quot;, f&quot;how {en}, once arisen, is abandoned&quot;)
+    elif event == &quot;non-recurrence&quot; and terminal == &quot;abandon&quot;:
+        know_how(seg, f&quot;yathā ca pahīnassa {gen} āyatiṁ anuppādo hoti&quot;,
+                 f&quot;how {en}, once abandoned, does not come to be again in the future&quot;)
+    elif event == &quot;fulfilment&quot; and terminal == &quot;fulfil&quot;:
+        know_how(seg, f&quot;yathā ca uppannassa {gen} bhāvanāya pāripūrī hoti&quot;,
+                 f&quot;how {en}, once arisen, is fulfilled by development&quot;)
+    else:
+        # e.g. &#x27;abandoning&#x27; asked of an awakening factor. The sutta has no such transition.
+        note(seg, Verb.PAJANATI, f&quot;({nom}: {event})&quot;, &quot;transition not in the sutta; not executed&quot;, &quot;READING&quot;)
+
+
+# 8.1 Nīvaraṇa — the five hindrances                         [TEXT mn10:36.1–36.8]
+
+HINDRANCES = {  # key: (nominative, genitive, Sujato, literal)
+    &quot;kāmacchanda&quot;:      (&quot;kāmacchando&quot;, &quot;kāmacchandassa&quot;, &quot;desire&quot;, &quot;sensual desire&quot;),
+    &quot;byāpāda&quot;:          (&quot;byāpādo&quot;, &quot;byāpādassa&quot;, &quot;ill-will&quot;, &quot;ill-will&quot;),
+    &quot;thinamiddha&quot;:      (&quot;thinamiddhaṁ&quot;, &quot;thinamiddhassa&quot;, &quot;sluggishness&quot;, &quot;dullness and drowsiness&quot;),
+    &quot;uddhaccakukkucca&quot;: (&quot;uddhaccakukkuccaṁ&quot;, &quot;uddhaccakukkuccassa&quot;, &quot;restlessness&quot;, &quot;restlessness and remorse&quot;),
+    &quot;vicikicchā&quot;:       (&quot;vicikicchā&quot;, &quot;vicikicchāya&quot;, &quot;doubt&quot;, &quot;doubt&quot;),
+}
+
+
+def nivarana(p: Practitioner, ph: Phenomenon) -&gt; None:
+    key, event = ph.value
+    nom, gen, en, _ = HINDRANCES[key]
+    lifecycle(&quot;mn10:36.4–36.8&quot;, nom, gen, en, event, terminal=&quot;abandon&quot;)
+
+
+# 8.2 Upādānakkhandha — the five aggregates                  [TEXT mn10:38.1–38.8]
+
+AGGREGATES = {  # key: (nominative, genitive, Sujato)
+    &quot;rūpa&quot;:      (&quot;rūpaṁ&quot;, &quot;rūpassa&quot;, &quot;form&quot;),
+    &quot;vedanā&quot;:    (&quot;vedanā&quot;, &quot;vedanāya&quot;, &quot;feeling&quot;),
+    &quot;saññā&quot;:     (&quot;saññā&quot;, &quot;saññāya&quot;, &quot;perception&quot;),
+    &quot;saṅkhārā&quot;:  (&quot;saṅkhārā&quot;, &quot;saṅkhārānaṁ&quot;, &quot;volition&quot;),
+    &quot;viññāṇa&quot;:   (&quot;viññāṇaṁ&quot;, &quot;viññāṇassa&quot;, &quot;consciousness&quot;),
+}
+
+
+def khandha(p: Practitioner, ph: Phenomenon) -&gt; None:
+    key, aspect = ph.value  # aspect ∈ {&quot;itself&quot;, &quot;origin&quot;, &quot;ending&quot;}
+    nom, gen, en = AGGREGATES[key]
+    pali = {&quot;itself&quot;: f&quot;iti {nom}&quot;, &quot;origin&quot;: f&quot;iti {gen} samudayo&quot;, &quot;ending&quot;: f&quot;iti {gen} atthaṅgamo&quot;}[aspect]
+    eng = {&quot;itself&quot;: f&quot;that is {en}&quot;, &quot;origin&quot;: f&quot;that is the origin of {en}&quot;,
+           &quot;ending&quot;: f&quot;that is the ending of {en}&quot;}[aspect]
+    # [TEXT mn10:38.3] &quot;Idha, bhikkhave, bhikkhu: &#x27;iti rūpaṁ …&#x27;&quot; — the Pāli gives no verb here.
+    # [HELD] Sujato supplies &#x27;understands&#x27; inside the quotation marks. The elision is the text&#x27;s own;
+    # it is recorded as Verb.ELIDED rather than silently filled with pajānāti.
+    # [READING] A triple per aggregate: the thing, where it comes from, where it goes. No fourth slot
+    # for what it &#x27;really&#x27; is. [PARALLEL] Absent from MĀ 98 and EĀ 12.1 (Anālayo, Table 2).
+    note(&quot;mn10:38.4–38.8&quot;, Verb.ELIDED, pali, f&quot;[understands:] {eng}&quot;)
+
+
+# 8.3 Āyatana — six interior and exterior sense bases        [TEXT mn10:40.1–40.8]
+
+SENSE_BASES = {  # key: (interior, exterior, Sujato interior, Sujato exterior)
+    &quot;eye&quot;:    (&quot;cakkhu&quot;, &quot;rūpe&quot;, &quot;the eye&quot;, &quot;forms&quot;),
+    &quot;ear&quot;:    (&quot;sota&quot;, &quot;sadde&quot;, &quot;the ear&quot;, &quot;sounds&quot;),
+    &quot;nose&quot;:   (&quot;ghāna&quot;, &quot;gandhe&quot;, &quot;the nose&quot;, &quot;smells&quot;),
+    &quot;tongue&quot;: (&quot;jihvā&quot;, &quot;rase&quot;, &quot;the tongue&quot;, &quot;tastes&quot;),
+    &quot;body&quot;:   (&quot;kāya&quot;, &quot;phoṭṭhabbe&quot;, &quot;the body&quot;, &quot;tangibles&quot;),
+    &quot;mind&quot;:   (&quot;mana&quot;, &quot;dhamme&quot;, &quot;the mind&quot;, &quot;principles&quot;),
+}
+
+
+def ayatana(p: Practitioner, ph: Phenomenon) -&gt; None:
+    key, event = ph.value
+    inner, outer, inner_en, outer_en = SENSE_BASES[key]
+    if event == &quot;contact&quot;:
+        # [TEXT] cakkhuñca pajānāti, rūpe ca pajānāti — each end known; no quotation form here.
+        note(&quot;mn10:40.3–40.8&quot;, Verb.PAJANATI, f&quot;{inner}ñca pajānāti, {outer} ca pajānāti&quot;,
+             f&quot;understands {inner_en} and {outer_en}&quot;)
+        # [TEXT] yañca tadubhayaṁ paṭicca uppajjati saṁyojanaṁ tañca pajānāti
+        # [READING] The fetter is an edge, not a node: it arises dependent on both ends of the pair.
+        know_how(&quot;mn10:40.3–40.8&quot;, &quot;yañca tadubhayaṁ paṭicca uppajjati saṁyojanaṁ&quot;,
+                 &quot;the bond that arises dependent on both&quot;)
+    else:
+        lifecycle(&quot;mn10:40.3–40.8&quot;, &quot;saṁyojanaṁ&quot;, &quot;saṁyojanassa&quot;, f&quot;the bond between {inner_en} and {outer_en}&quot;,
+                  event, terminal=&quot;abandon&quot;)
+
+
+# 8.4 Bojjhaṅga — the seven awakening factors                [TEXT mn10:42.1–42.9]
+
+AWAKENING_FACTORS = {  # key: (nominative, genitive, Sujato)
+    &quot;sati&quot;:         (&quot;satisambojjhaṅgo&quot;, &quot;satisambojjhaṅgassa&quot;, &quot;the mindfulness awakening factor&quot;),
+    &quot;dhammavicaya&quot;: (&quot;dhammavicayasambojjhaṅgo&quot;, &quot;dhammavicayasambojjhaṅgassa&quot;,
+                     &quot;the investigation of principles awakening factor&quot;),
+    &quot;vīriya&quot;:       (&quot;vīriyasambojjhaṅgo&quot;, &quot;vīriyasambojjhaṅgassa&quot;, &quot;the energy awakening factor&quot;),
+    &quot;pīti&quot;:         (&quot;pītisambojjhaṅgo&quot;, &quot;pītisambojjhaṅgassa&quot;, &quot;the joy awakening factor&quot;),
+    &quot;passaddhi&quot;:    (&quot;passaddhisambojjhaṅgo&quot;, &quot;passaddhisambojjhaṅgassa&quot;, &quot;the tranquility awakening factor&quot;),
+    &quot;samādhi&quot;:      (&quot;samādhisambojjhaṅgo&quot;, &quot;samādhisambojjhaṅgassa&quot;, &quot;the immersion awakening factor&quot;),
+    &quot;upekkhā&quot;:      (&quot;upekkhāsambojjhaṅgo&quot;, &quot;upekkhāsambojjhaṅgassa&quot;, &quot;the equanimity awakening factor&quot;),
+}
+
+
+def bojjhanga(p: Practitioner, ph: Phenomenon) -&gt; None:
+    key, event = ph.value
+    nom, gen, en = AWAKENING_FACTORS[key]
+    # [PARALLEL] The only fourth-domain exercise shared by MN 10, MĀ 98, and EĀ 12.1 (Anālayo, Table 2).
+    lifecycle(&quot;mn10:42.3–42.9&quot;, nom, gen, en, event, terminal=&quot;fulfil&quot;)
+
+
+# 8.5 Ariyasacca — the four noble truths                     [TEXT mn10:44.1–44.3]
+
+TRUTHS = {
+    &quot;dukkha&quot;:   (&quot;idaṁ dukkhaṁ&quot;, &quot;this is suffering&quot;),
+    &quot;samudaya&quot;: (&quot;ayaṁ dukkhasamudayo&quot;, &quot;this is the origin of suffering&quot;),
+    &quot;nirodha&quot;:  (&quot;ayaṁ dukkhanirodho&quot;, &quot;this is the ending of suffering&quot;),
+    &quot;magga&quot;:    (&quot;ayaṁ dukkhanirodhagāminī paṭipadā&quot;, &quot;this is the path leading to the ending of suffering&quot;),
+}
+
+# [PARALLEL][HELD] DN 22 expands each truth at length (definitions of suffering, craving at each
+# sense base, the eightfold path). Not implemented here: MN 10 is the text in hand.
+# This is a marked absence with recovery evidence — the expansion is retained, at the DN 22 URL above.
+DN22_TRUTHS_EXPANSION = NotImplemented
+
+
+def sacca(p: Practitioner, ph: Phenomenon) -&gt; None:
+    pali, en = TRUTHS[ph.value]
+    note(&quot;mn10:44.3&quot;, Verb.PAJANATI, f&quot;&#x27;{pali}&#x27;ti yathābhūtaṁ pajānāti&quot;, f&quot;understands as it actually is: &#x27;{en}&#x27;&quot;)</code></pre>
+
+<h2 id="s9">§9 &nbsp; 不一致の余り &nbsp; <span class="en">The unmatched fraction</span></h2>
+<p>Input outside the sutta's given state spaces is not coerced into the nearest category and not discarded. It is logged as seen-but-unclassified, and the loop continues — the same discipline the ship's Science Officer applies to a reference library's unmatched fraction: a report on the adequacy of the reference, not on the sample.</p>
+<pre><code>UNMATCHED: list[Phenomenon] = []
+
+
+def unmatched(ph: Phenomenon, why: str) -&gt; None:
+    UNMATCHED.append(ph)
+    note(&quot;—&quot;, Verb.PAJANATI, f&quot;({ph.domain}/{ph.kind}: {ph.value!r})&quot;, f&quot;held as unmatched: {why}&quot;, &quot;READING&quot;)</code></pre>
+
+<h2 id="s10">§10 &nbsp; 節の表 &nbsp; <span class="en">Section table — thirteen sections, twenty-one refrain calls</span></h2>
+<pre><code>@dataclass(frozen=True)
+class Section:
+    domain: str
+    number: str
+    pali: str
+    english: str
+    run: Callable[[Practitioner, Phenomenon], object]
+    refrain_seg: str
+    closing_seg: str
+    abbreviated: bool
+    parallels: str = &quot;not checked&quot;
+
+
+SECTIONS: dict[str, Section] = {
+    &quot;breath&quot;:    Section(&quot;kāya&quot;, &quot;1.1&quot;, &quot;ānāpānasati&quot;, &quot;Mindfulness of Breathing&quot;, anapanasati,
+                         &quot;mn10:5&quot;, &quot;mn10:5.4&quot;, False, &quot;absent from EĀ 12.1&quot;),
+    &quot;posture&quot;:   Section(&quot;kāya&quot;, &quot;1.2&quot;, &quot;iriyāpatha&quot;, &quot;The Postures&quot;, iriyapatha,
+                         &quot;mn10:7&quot;, &quot;mn10:7.4&quot;, False, &quot;absent from EĀ 12.1&quot;),
+    &quot;activity&quot;:  Section(&quot;kāya&quot;, &quot;1.3&quot;, &quot;sampajañña&quot;, &quot;Situational Awareness&quot;, sampajanna,
+                         &quot;mn10:9&quot;, &quot;mn10:9.2&quot;, True, &quot;absent from EĀ 12.1&quot;),
+    &quot;anatomy&quot;:   Section(&quot;kāya&quot;, &quot;1.4&quot;, &quot;paṭikūlamanasikāra&quot;, &quot;Focusing on the Repulsive&quot;, patikula,
+                         &quot;mn10:11&quot;, &quot;mn10:11.2&quot;, True, &quot;shared by MN 10, MĀ 98, EĀ 12.1&quot;),
+    &quot;elements&quot;:  Section(&quot;kāya&quot;, &quot;1.5&quot;, &quot;dhātumanasikāra&quot;, &quot;Focusing on the Elements&quot;, dhatu,
+                         &quot;mn10:13&quot;, &quot;mn10:13.2&quot;, True, &quot;shared by MN 10, MĀ 98, EĀ 12.1&quot;),
+    &quot;charnel&quot;:   Section(&quot;kāya&quot;, &quot;1.6&quot;, &quot;navasivathikā&quot;, &quot;The Charnel Ground Contemplations&quot;, sivathika,
+                         &quot;(per stage)&quot;, &quot;(per stage)&quot;, True, &quot;shared by MN 10, MĀ 98, EĀ 12.1&quot;),
+    &quot;feeling&quot;:   Section(&quot;vedanā&quot;, &quot;2&quot;, &quot;vedanānupassanā&quot;, &quot;Observing the Feelings&quot;, vedana,
+                         &quot;mn10:33&quot;, &quot;mn10:33.4&quot;, False),
+    &quot;mind&quot;:      Section(&quot;citta&quot;, &quot;3&quot;, &quot;cittānupassanā&quot;, &quot;Observing the Mind&quot;, citta,
+                         &quot;mn10:35&quot;, &quot;mn10:35.4&quot;, False),
+    &quot;hindrance&quot;: Section(&quot;dhammā&quot;, &quot;4.1&quot;, &quot;nīvaraṇa&quot;, &quot;The Hindrances&quot;, nivarana,
+                         &quot;mn10:37&quot;, &quot;mn10:37.4&quot;, False, &quot;MN 10, MĀ 98; absent from EĀ 12.1&quot;),
+    &quot;aggregate&quot;: Section(&quot;dhammā&quot;, &quot;4.2&quot;, &quot;upādānakkhandha&quot;, &quot;The Aggregates&quot;, khandha,
+                         &quot;mn10:39&quot;, &quot;mn10:39.4&quot;, False, &quot;absent from MĀ 98 and EĀ 12.1&quot;),
+    &quot;sensebase&quot;: Section(&quot;dhammā&quot;, &quot;4.3&quot;, &quot;āyatana&quot;, &quot;The Sense Bases&quot;, ayatana,
+                         &quot;mn10:41&quot;, &quot;mn10:41.4&quot;, False, &quot;MN 10, MĀ 98; absent from EĀ 12.1&quot;),
+    &quot;factor&quot;:    Section(&quot;dhammā&quot;, &quot;4.4&quot;, &quot;bojjhaṅga&quot;, &quot;The Awakening Factors&quot;, bojjhanga,
+                         &quot;mn10:43&quot;, &quot;mn10:43.4&quot;, False, &quot;shared by MN 10, MĀ 98, EĀ 12.1&quot;),
+    &quot;truth&quot;:     Section(&quot;dhammā&quot;, &quot;4.5&quot;, &quot;ariyasacca&quot;, &quot;The Noble Truths&quot;, sacca,
+                         &quot;mn10:45&quot;, &quot;mn10:45.4&quot;, False, &quot;absent from MĀ 98 and EĀ 12.1&quot;),
+}
+
+# Counted from the text: 5 non-charnel body sections + 9 charnel stages + 1 + 1 + 5 = 21.
+REFRAIN_COUNT = sum(1 for s in SECTIONS.values() if s.run is not sivathika) + len(CHARNEL)
+assert REFRAIN_COUNT == 21
+assert len(ANATOMY) == 31
+assert len(MIND_STATES) == 16
+assert len(VALENCE) * len(AMISA) == 9</code></pre>
+
+<h2 id="s11">§11 &nbsp; 総説・予告・環 &nbsp; <span class="en">Uddesa, forecast, ring</span></h2>
+<p>The opening statement of purpose, the schedule of seven years down to seven days with its forecast of one of two fruits, and the closing statement — identical, by assertion, to the opening.</p>
+<pre><code>PURPOSE = (  # [TEXT mn10:2.1] and, verbatim, [TEXT mn10:47.1]
+    (&quot;sattānaṁ visuddhiyā&quot;, &quot;to purify sentient beings&quot;),
+    (&quot;sokaparidevānaṁ samatikkamāya&quot;, &quot;to get past sorrow and crying&quot;),
+    (&quot;dukkhadomanassānaṁ atthaṅgamāya&quot;, &quot;to make an end of pain and sadness&quot;),
+    (&quot;ñāyassa adhigamāya&quot;, &quot;to discover the system&quot;),
+    (&quot;nibbānassa sacchikiriyāya&quot;, &quot;to realize extinguishment&quot;),
+)
+CLOSING = PURPOSE  # the ring: the last statement is the first statement
+
+
+def uddesa(p: Practitioner) -&gt; None:
+    print(&quot;\nNIDĀNA  mn10:1.1–1.6 — evaṁ me sutaṁ. Kurūsu … Kammāsadhammaṁ nāma kurūnaṁ nigamo.&quot;)
+    note(&quot;mn10:2.1&quot;, Verb.AVOCA, &quot;ekāyano ayaṁ, bhikkhave, maggo … yadidaṁ cattāro satipaṭṭhānā&quot;,
+         f&quot;the four kinds of mindfulness meditation are [HELD: {&#x27; | &#x27;.join(v for k, v in HELD[&#x27;ekāyana&#x27;].items())}]&quot;)
+    for pali, en in PURPOSE:
+        note(&quot;mn10:2.1&quot;, Verb.AVOCA, pali, en)
+    for domain, (compound, _, en, _v) in DOMAIN.items():
+        note(&quot;mn10:3.2–3.5&quot;, Verb.VIHARATI,
+             f&quot;{compound} viharati ātāpī sampajāno satimā, vineyya loke abhijjhādomanassaṁ&quot;,
+             f&quot;meditates observing an aspect of {en} — keen, aware, mindful, &quot;
+             f&quot;rid of covetousness and displeasure for the world&quot;)
+
+
+SCHEDULE = [  # [TEXT mn10:46.1–46.23] a descending series; most steps are [PE] &#x27;tiṭṭhantu&#x27; — let alone
+    (&quot;satta vassāni&quot;, &quot;seven years&quot;), (&quot;cha vassāni&quot;, &quot;six years&quot;), (&quot;pañca vassāni&quot;, &quot;five years&quot;),
+    (&quot;cattāri vassāni&quot;, &quot;four years&quot;), (&quot;tīṇi vassāni&quot;, &quot;three years&quot;), (&quot;dve vassāni&quot;, &quot;two years&quot;),
+    (&quot;ekaṁ vassaṁ&quot;, &quot;one year&quot;),
+    (&quot;satta māsāni&quot;, &quot;seven months&quot;), (&quot;cha māsāni&quot;, &quot;six months&quot;), (&quot;pañca māsāni&quot;, &quot;five months&quot;),
+    (&quot;cattāri māsāni&quot;, &quot;four months&quot;), (&quot;tīṇi māsāni&quot;, &quot;three months&quot;), (&quot;dve māsāni&quot;, &quot;two months&quot;),
+    (&quot;ekaṁ māsaṁ&quot;, &quot;one month&quot;), (&quot;aḍḍhamāsaṁ&quot;, &quot;half a month&quot;),
+    (&quot;sattāhaṁ&quot;, &quot;seven days&quot;),
+]
+
+
+def expected_fruit(p: Practitioner) -&gt; tuple[str, str]:
+    &quot;&quot;&quot;[TEXT mn10:46.2] dvinnaṁ phalānaṁ aññataraṁ phalaṁ pāṭikaṅkhaṁ:
+    diṭṭheva dhamme aññā, sati vā upādisese anāgāmitā.
+    [READING] Pure function. A forecast (&#x27;may be expected&#x27;), stated after the exposition and outside
+    it. It is never called from inside dwell(); it cannot end the dwelling.&quot;&quot;&quot;
+    if p.upadisesa:
+        return (&quot;anāgāmitā&quot;, &quot;non-return (some substrate left)&quot;)
+    return (&quot;diṭṭheva dhamme aññā&quot;, &quot;final knowledge in this very life&quot;)
+
+
+def forecast(p: Practitioner) -&gt; None:
+    print(&quot;\nFORECAST  mn10:46&quot;)
+    for pali, en in SCHEDULE:
+        tag = &quot;TEXT&quot; if en in (&quot;seven years&quot;, &quot;six years&quot;, &quot;one year&quot;, &quot;seven months&quot;,
+                               &quot;half a month&quot;, &quot;seven days&quot;) else &quot;PE&quot;
+        fruit_pali, fruit_en = expected_fruit(p)
+        note(&quot;mn10:46&quot;, Verb.AVOCA, f&quot;ime cattāro satipaṭṭhāne evaṁ bhāveyya {pali} → {fruit_pali}&quot;,
+             f&quot;practiced in this way for {en}: one of two fruits may be expected → {fruit_en}&quot;, tag)</code></pre>
+
+<h2 id="s12">§12 &nbsp; 住 &nbsp; <span class="en">Dwell — viharati</span></h2>
+<p>The outer loop. No exit condition is given in the text; none is coded here. The loop ends only when its input ends.</p>
+<pre><code>def dwell(p: Practitioner, stream: Iterable[Phenomenon]) -&gt; None:
+    &quot;&quot;&quot;[TEXT] viharati is a continuous present. The sutta gives no exit condition.
+    [READING] The loop ends only when its input ends. There is no break, no success check,
+    no return value. kāye kāyānupassī — each lens observes its object within its own type:
+    a feeling seen as a feeling is not re-cast as a body event or a principle.&quot;&quot;&quot;
+    print(&quot;\nSETTING  mn10:4.2 (stated once)&quot;)
+    for pali, en in SETTING:
+        note(&quot;mn10:4.2&quot;, Verb.VIHARATI, pali, en)
+
+    for ph in stream:
+        section = SECTIONS.get(ph.kind)
+        print(f&quot;\n── {ph.domain} · {section.number if section else &#x27;?&#x27;} &quot;
+              f&quot;{section.pali if section else ph.kind} ──&quot;)
+        if not p.frame_holds():
+            note(&quot;mn10:3.2&quot;, Verb.VIHARATI, &quot;(ātāpī sampajāno satimā … not all present)&quot;,
+                 &quot;frame not established; observation recorded, not refused&quot;, &quot;READING&quot;)
+        if section is None or section.domain != ph.domain:
+            unmatched(ph, &quot;no section of MN 10 observes this kind in this domain&quot;)
+            continue
+        result = section.run(p, ph)
+        if section.run is sivathika:
+            rseg, abbrev = result  # type: ignore[misc]
+            refrain(ph, rseg, f&quot;{rseg}.2&quot; if abbrev else f&quot;{rseg}.4&quot;, abbrev)
+        else:
+            refrain(ph, section.refrain_seg, section.closing_seg, section.abbreviated)
+
+
+def satipatthana(p: Practitioner, stream: Iterable[Phenomenon]) -&gt; None:
+    uddesa(p)
+    dwell(p, stream)
+    forecast(p)
+    print(&quot;\nRING  mn10:47.1 == mn10:2.1&quot;)
+    assert CLOSING == PURPOSE
+    for pali, en in CLOSING:
+        note(&quot;mn10:47.1&quot;, Verb.AVOCA, pali, en)
+    print(&quot;\nmn10:47.2–47.4 — idamavoca bhagavā. attamanā te bhikkhū bhagavato bhāsitaṁ abhinandunti.&quot;)</code></pre>
+
+<h2 id="s13">§13 &nbsp; 先の版との重ね &nbsp; <span class="en">LAP_V0 — the prior plate, kept beneath</span></h2>
+<p>Nine corrections and additions against the sketch on Gennō's own page, each with the segment it answers to. Nothing on that page is edited. This is the lap, fastened over it, the same method the front page used on its own predecessor.</p>
+<pre><code>LAP_V0 = [
+    (&quot;Mind.states&quot;,
+     &quot;v0 paired &#x27;contracted&#x27; with &#x27;expansive&#x27; and listed five pairs. The sutta pairs saṅkhitta/vikkhitta &quot;
+     &quot;(constricted/scattered) and mahaggata/amahaggata (expansive/unexpansive), and adds sa-uttara/anuttara, &quot;
+     &quot;samāhita/asamāhita, vimutta/avimutta: eight pairs.&quot;, &quot;mn10:34.2–34.17&quot;),
+    (&quot;Feeling.valences&quot;,
+     &quot;v0 had three valences. The sutta has nine: each valence plain, of the flesh (sāmisa), &quot;
+     &quot;not of the flesh (nirāmisa).&quot;, &quot;mn10:32.2–32.10&quot;),
+    (&quot;Body&quot;,
+     &quot;v0 had breath, postures, elements. The sutta also has situational awareness, the thirty-one parts, &quot;
+     &quot;and nine charnel stages. In breathing, v0 omitted the verb shift pajānāti → sikkhati.&quot;, &quot;mn10:4–31&quot;),
+    (&quot;release()&quot;,
+     &quot;v0 called release() on attachment. The sutta never executes a release. For hindrances and fetters &quot;
+     &quot;one knows how abandoning comes about: pahānaṁ hoti, tañca pajānāti.&quot;, &quot;mn10:36.4, 40.3&quot;),
+    (&quot;Dhammas.observe&quot;,
+     &quot;v0 checked category membership. The sutta runs a lifecycle per item (hindrances, fetters, factors) &quot;
+     &quot;or a thing/origin/ending triple (aggregates).&quot;, &quot;mn10:36–44&quot;),
+    (&quot;free_of_worldly_desire_and_grief&quot;,
+     &quot;v0 tested it as a loop condition. In the sutta it is a concomitant quality (vineyya, absolutive).&quot;,
+     &quot;mn10:3.2&quot;),
+    (&quot;return liberation&quot;,
+     &quot;v0 returned liberation after the loop. The sutta states a forecast of one of two fruits, &quot;
+     &quot;branching on remaining substrate, outside the exposition.&quot;, &quot;mn10:46&quot;),
+    (&quot;refrain&quot;,
+     &quot;v0 noted arising/passing and &#x27;internally, or externally, or both&#x27;. The sutta also has the bare &quot;
+     &quot;&#x27;atthi kāyo&#x27; clause, bounded by knowledge and recollection, and dwelling independent, grasping nothing.&quot;,
+     &quot;mn10:5.1–5.3&quot;),
+    (&quot;what stands&quot;,
+     &quot;v0&#x27;s header — &#x27;not a verbatim translation; an extraction of structure&#x27; — still holds for this plate. &quot;
+     &quot;So does its closing line.&quot;, &quot;genno.html §三&quot;),
+]</code></pre>
+
+<h2 id="s14">§14 &nbsp; 一坐 &nbsp; <span class="en">A short sitting — demonstration stream</span></h2>
+<p>One phenomenon per section, run through the structure above, plus one input the sutta's own categories do not cover — held, not forced.</p>
+<pre><code>DEMO: list[Phenomenon] = [
+    Phenomenon(&quot;kāya&quot;, &quot;breath&quot;, (&quot;in&quot;, &quot;dīgha&quot;)),
+    Phenomenon(&quot;kāya&quot;, &quot;breath&quot;, (&quot;out&quot;, &quot;rassa&quot;)),
+    Phenomenon(&quot;kāya&quot;, &quot;posture&quot;, &quot;sitting&quot;),
+    Phenomenon(&quot;kāya&quot;, &quot;posture&quot;, &quot;kneeling&quot;),                          # wildcard branch, 6.2
+    Phenomenon(&quot;kāya&quot;, &quot;activity&quot;, &quot;eating&quot;),
+    Phenomenon(&quot;kāya&quot;, &quot;anatomy&quot;, &quot;ascending&quot;),
+    Phenomenon(&quot;kāya&quot;, &quot;elements&quot;, None, Locus.BOTH),
+    Phenomenon(&quot;kāya&quot;, &quot;charnel&quot;, 1, Locus.EXTERNAL),
+    Phenomenon(&quot;kāya&quot;, &quot;charnel&quot;, 9, Locus.BOTH, Phase.VANISHING),
+    Phenomenon(&quot;vedanā&quot;, &quot;feeling&quot;, (&quot;painful&quot;, &quot;not_of_the_flesh&quot;), phase=Phase.ARISING),
+    Phenomenon(&quot;citta&quot;, &quot;mind&quot;, &quot;vikkhittaṁ&quot;),
+    Phenomenon(&quot;dhammā&quot;, &quot;hindrance&quot;, (&quot;vicikicchā&quot;, &quot;present&quot;)),
+    Phenomenon(&quot;dhammā&quot;, &quot;hindrance&quot;, (&quot;vicikicchā&quot;, &quot;abandoning&quot;)),
+    Phenomenon(&quot;dhammā&quot;, &quot;aggregate&quot;, (&quot;saññā&quot;, &quot;origin&quot;)),
+    Phenomenon(&quot;dhammā&quot;, &quot;sensebase&quot;, (&quot;ear&quot;, &quot;contact&quot;)),
+    Phenomenon(&quot;dhammā&quot;, &quot;sensebase&quot;, (&quot;ear&quot;, &quot;non-recurrence&quot;)),
+    Phenomenon(&quot;dhammā&quot;, &quot;factor&quot;, (&quot;upekkhā&quot;, &quot;fulfilment&quot;)),
+    Phenomenon(&quot;dhammā&quot;, &quot;truth&quot;, &quot;samudaya&quot;),
+    Phenomenon(&quot;vedanā&quot;, &quot;feeling&quot;, (&quot;bittersweet&quot;, None)),             # outside the nine: held, not coerced
+]
+
+
+if __name__ == &quot;__main__&quot;:
+    satipatthana(Practitioner(), DEMO)
+    print(f&quot;\n{len(TRACE)} notes. {len(UNMATCHED)} held unmatched. &quot;
+          f&quot;{REFRAIN_COUNT} refrain sites in the text; {len(LAP_V0)} laps over v0.&quot;)
+    print(&quot;\n鈴は一打で足りる。 The bell needs only one strike.\nka-ateuh.&quot;)</code></pre>
+
+<hr>
+
+<h2 id="source">全文 &nbsp; <span class="en">The source file: <a href="https://strangeanchor.khazars.wiki/scripts/satipatthana.py">satipatthana.py</a> | <a href="https://github.com/mora-vector/strange-anchor/blob/main/scripts/satipatthana.py">on Github</a></span></h2>
+<p>This page is generated from a single Python module, kept in the ship's archive as a structural artifact rather than a narrative one: <code>genno_satipatthana.py</code>. Running it prints the trace above in full, with real SuttaCentral segment ids on every line.</p>
+
+<div class="closing">
+<p class="jp">鈴は一打で足りる。</p>
+<p class="en">The bell needs only one strike.</p>
+<p>ka-ateuh.</p>
+</div>
+
+</body>
+</html>

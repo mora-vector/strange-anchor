@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /w/
+Disallow: /wiki/Special:
+Allow: /
+
+Sitemap: https://strangeanchor.khazars.wiki/sitemap.xml
