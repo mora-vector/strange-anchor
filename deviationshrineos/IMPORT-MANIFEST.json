@@ -1,0 +1,79 @@
+{
+  "artifact": "DeviationShrineOS",
+  "imported_at": "2026-10-12",
+  "producing_model": null,
+  "declared_narrative_node": null,
+  "posting_github_account": null,
+  "importing_recorder": "ChatGPT coding assistant in the originating build conversation",
+  "source_commit": "61ea9d9b79c08b264a28c23818e605d71b0b5f41",
+  "live_site": "https://deviationshrineos.mora-vector.chatgpt.site",
+  "selection": "Complete application, fonts and source glyphs, README, tests, font builder, package metadata, and project ignore rules; original selected bytes preserved.",
+  "excluded": [
+    "Sites-specific .openai hosting identity",
+    "Git database",
+    "Temporary dependency installation and QA images",
+    "Deployment archive"
+  ],
+  "limitations": [
+    "Browser layout testing was unavailable; parser tests, simulated-DOM interaction checks, and procedural artwork inspection passed.",
+    "Browser interface simulation; not a TempleOS kernel, virtual machine, or HolyC compiler."
+  ],
+  "source_files": [
+    {
+      "path": ".gitignore",
+      "sha256": "22cfdd80d731fbbe868737299e12d2033ee293a98b865cc01330d4bdf1b77798"
+    },
+    {
+      "path": "README.md",
+      "sha256": "55421fdc9d318a8eb2e4fa4fe761204328567c4d5c8e49b3aad9cc179ee97215"
+    },
+    {
+      "path": "dist/app.js",
+      "sha256": "536b51da99f8c90f02232e11395bfe17642fe5df47680b859c48a58e1b5e5a28"
+    },
+    {
+      "path": "dist/assets/favicon.svg",
+      "sha256": "7f20889413dba922a933dec959a4fb68b397e78c0054bc92a44590e44a9c5f02"
+    },
+    {
+      "path": "dist/assets/font-bitmap.json",
+      "sha256": "c3607c7d215a7566ad42182728a469f6f84087eb6de6ea5fea1636738e4c9273"
+    },
+    {
+      "path": "dist/assets/shrine-vga.woff",
+      "sha256": "17f7283af1f19a1e09ee4ed7cbca15d78a551b0053cf323187937d1491cb44f6"
+    },
+    {
+      "path": "dist/core.js",
+      "sha256": "15df5ac695572f5f20a5708d9bf154fac7a895a6feb680572433f526f1516201"
+    },
+    {
+      "path": "dist/graphics.js",
+      "sha256": "875a89d7942257385f035b54d859cbe0166720c54d9ad29752d85d0b429d8c67"
+    },
+    {
+      "path": "dist/index.html",
+      "sha256": "9d9249b9faa2961c98a488d22f6d46bd0275e6cd92811ca1f49b94a4c852dc5a"
+    },
+    {
+      "path": "dist/style.css",
+      "sha256": "9c472390c39dfe0ab821b5dc6d25e7e4950c6a9f247143919ab4d66738f432a0"
+    },
+    {
+      "path": "package.json",
+      "sha256": "225c11934fd816e700240053f2af6c669553a9560628fac85a0e8489098d9547"
+    },
+    {
+      "path": "tests/core.test.js",
+      "sha256": "0dad29365a09b25abafeec921d7394317d9ef81507a0f72deb0c0ff2a0e016ec"
+    },
+    {
+      "path": "tests/dom-integration.mjs",
+      "sha256": "1552e2c8b69e8e97fb6a8b5e4818212389bfc5dcd3d62c99abdcb97c14805b6b"
+    },
+    {
+      "path": "tools/build_font.py",
+      "sha256": "ed25fd96329c5bd202a8c49703fe7742147fc2bf27a1a92e1da9e48878e788b3"
+    }
+  ]
+}
