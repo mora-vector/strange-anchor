@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0000aa">
+  <meta name="description" content="A small operating system for strange waters. Enter a TempleOS-inspired desktop aboard the Strange Anchor: consult the drift, explore the vessel, make pixel offerings, and keep a log.">
+  <title>DeviationShrineOS — A small operating system for strange waters</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preload" href="assets/shrine-vga.woff" as="font" type="font/woff" crossorigin>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="installation">
+    <header class="outside-header">
+      <span><i class="signal-lamp"></i> STRANGE ANCHOR <span class="dim">/ AUXILIARY SYSTEMS</span></span>
+      <span class="dim">TERMINAL 0137</span>
+    </header>
+    <div class="viewport" id="viewport">
+      <div class="screen-frame" id="screen-frame">
+        <section id="screen" aria-label="DeviationShrineOS desktop">
+          <header class="os-title"><span class="brand-mark">*</span><strong>DeviationShrineOS</strong><span class="version">v0.137</span><span class="title-right">STRANGE ANCHOR <span id="clock">00:00:00</span></span></header>
+          <nav class="menu-bar" aria-label="Operating system menu">
+            <button data-action="menu" id="temple-menu-button" aria-expanded="false">[ Shrine ]</button>
+            <button data-open="atlas">Vessel</button><button data-open="crew">Crew</button><button data-open="workshop">Develop</button><button data-open="help">Help</button>
+            <span class="menu-location">C:/Home/Deviation</span>
+          </nav>
+          <div id="workspace" class="workspace" aria-label="Program windows">
+            <div class="desktop-watermark" aria-hidden="true">NO ANOMALY LEFT BEHIND.</div>
+            <div id="window-layer"></div>
+          </div>
+          <div id="start-menu" class="start-menu" hidden>
+            <div class="menu-heading">DEVIATION SHRINE</div>
+            <button data-open="home">Welcome.DD</button>
+            <button data-open="oracle">Consult the drift <span>F2</span></button>
+            <button data-open="atlas">Vessel atlas <span>F3</span></button>
+            <button data-open="crew">Crew manifest <span>F4</span></button>
+            <button data-open="workshop">DriftC workshop <span>F5</span></button>
+            <button data-open="logbook">Ship's logbook <span>F6</span></button>
+            <button data-open="shell">Command shell <span>F7</span></button>
+            <hr><button data-open="help">Help.DD <span>F1</span></button><button data-open="about">About this vessel</button>
+            <button data-action="reboot">Reboot display</button>
+          </div>
+          <footer class="task-bar"><button data-action="menu" class="start-button">* SHRINE</button><div id="tasks"></div><button class="sound-indicator" data-action="sound" aria-label="Turn sound on">SND:OFF</button><span class="status-led">* LOCAL</span></footer>
+          <div id="toast" role="status" aria-live="polite" hidden></div>
+          <div id="boot" class="boot" hidden><div class="boot-logo">DeviationShrineOS</div><p>STRANGE ANCHOR / BOOTSTRAP 0137</p><p>Memory........................... retained<br>Geometry......................... 640 x 480<br>Palette.......................... 16 colors<br>Contradictions................... preserved<br>Open hatches..................... yes</p><p class="blink">Precipitating desktop_</p></div>
+        </section>
+      </div>
+    </div>
+    <footer class="outside-footer">
+      <span class="display-label">640 x 480 <span class="dim">/</span> 16 COLORS <span class="dim">/</span> <span id="outside-state">HATCH OPEN</span></span>
+      <div class="display-controls"><button data-action="scale" id="scale-button" title="Cycle display scale">FIT</button><button data-action="motion" id="motion-button" title="Pause instrument animation" aria-pressed="false">MOTION ON</button><button data-action="fullscreen" title="Enter full screen">FULLSCREEN</button></div>
+    </footer>
+    <p class="colophon">A small operating system for strange waters. <button data-open="about">Read the ship's papers ↗</button></p>
+    <p class="mobile-hint">Rotate for a larger display. Select 1X to read at native scale and pan.</p>
+  </main>
+  <noscript><p class="noscript">DeviationShrineOS needs JavaScript to open its desktop.</p></noscript>
+  <script type="module" src="app.js"></script>
+</body>
+</html>
